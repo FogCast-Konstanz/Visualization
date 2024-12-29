@@ -16,7 +16,7 @@ export default function Navigation() {
           <ListItem><Link href="#">Station</Link></ListItem>
           <ListItem><Link href="#">Daten</Link></ListItem>
           <ListItem><Link href="/lexikon">Lexikon</Link></ListItem>
-          <ListItem><Link href="#">Phänomene</Link></ListItem>
+          <ListItem><Link href="/phenomena">Phänomene</Link></ListItem>
         </UnorderedList>
       </Box>
     </>
