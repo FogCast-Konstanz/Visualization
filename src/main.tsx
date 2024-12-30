@@ -5,6 +5,8 @@ import App from "./App";
 // import theme from "./theme"; // Optional custom theme
 import "./index.css"; // Optional global styles
 
+import "./i18n/i18n";
+
 const theme = extendTheme({
   colors: {
     custom: {

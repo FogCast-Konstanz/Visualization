@@ -1,6 +1,6 @@
 import './App.scss'
 
-import Navigation from './components/navigation/Navigation';
+import Navigation from './components/Navigation';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StartingPage from './pages/startingPage/StartingPage';
 import { Box } from '@chakra-ui/react';
