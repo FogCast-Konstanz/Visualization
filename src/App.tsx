@@ -1,9 +1,7 @@
-import './App.scss'
-
 import Navigation from './components/Navigation';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StartingPage from './pages/startingPage/StartingPage';
-import { Box, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
 import Lexikon from './pages/lexikon/Lexikon';
 import Phenomena from './pages/phenomena/Phenomena';
 
@@ -11,7 +9,14 @@ function App() {
   // const color = 'custom_light'
 
   return (
-    <Box bg={useColorModeValue('custom_light.surface', 'custom_dark.surface')} className='main'>
+    <Flex
+      bg={useColorModeValue('custom_light.surface', 'custom_dark.surface')} 
+      minHeight='100vh'
+      width='100%'
+      margin='0'
+      gap={'10px'}
+      direction={{base: 'column', lg: 'row'}}
+    >
       <Router>
         <Navigation></Navigation>
         <Routes>
@@ -20,7 +25,7 @@ function App() {
           <Route path='/phenomena' element={<Phenomena />} />
         </Routes>
       </Router>
-    </Box>
+    </Flex>
   )
 }
 

@@ -9,7 +9,7 @@ export default function PhenomenonCard({ text, header, img }: Input) {
         <Card 
             bg={useColorModeValue('custom_light.background', 'custom_dark.background')} 
             color={useColorModeValue('custom_light.text', 'custom_dark.text')} 
-            width={'calc(50% - 10px)'}
+            width={{lg: 'calc(50% - 10px)', base: '100%'}}
         >
             <CardHeader>
                 <Heading size='md'>{header}</Heading>
