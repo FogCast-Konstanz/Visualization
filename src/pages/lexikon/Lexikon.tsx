@@ -10,9 +10,10 @@ export default function Lexikon() {
         }, 
             { header: 'wuff', text: 'wuff', tags: ['dog', '']}]
 
+
     return (
         <>
-            <VStack width={'100%'} padding={'10px'}>
+            <VStack width={'100%'} padding={'10px'} overflow="auto" maxHeight={'100dvh'}>
                 {lexikonEntries.map((entry, index) => (
                     <LexikonEntry {...entry} key={index} />
                 ))}

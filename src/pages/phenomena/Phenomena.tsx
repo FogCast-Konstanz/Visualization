@@ -15,7 +15,7 @@ export default function Phenomena() {
         { header: 'wuff', text: 'wuff', img: '' }]
 
     return (
-        <Flex margin={'20px'} direction={'column'} gap={'20px'}>
+        <Flex padding={'20px'} direction={'column'} gap={'20px'} overflow="auto" maxHeight={'100dvh'}>
                 <Card 
                     bg={useColorModeValue('custom_light.background', 'custom_dark.background')} 
                     color={useColorModeValue('custom_light.text', 'custom_dark.text')}
