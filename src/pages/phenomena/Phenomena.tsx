@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Flex, Grid, GridItem, Heading, Text, VStack } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, Flex, Grid, GridItem, Heading, Text, useColorModeValue, VStack } from '@chakra-ui/react'
 import PhenomenonCard from './PhenomenonCard'
 import { useTranslation } from 'react-i18next';
 
@@ -16,7 +16,10 @@ export default function Phenomena() {
 
     return (
         <Flex margin={'20px'} direction={'column'} gap={'20px'}>
-                <Card bg={'custom.background'} color={'custom.text'} width={'100%'}>
+                <Card 
+                    bg={useColorModeValue('custom_light.background', 'custom_dark.background')} 
+                    color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+                     width={'100%'}>
                     <CardHeader>
                         <Heading size='lg'>{t('phenomena.title')}</Heading>
                     </CardHeader>

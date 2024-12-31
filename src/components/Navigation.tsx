@@ -1,4 +1,4 @@
-import { Flex, Heading, Link, ListItem, UnorderedList } from '@chakra-ui/react'
+import { Flex, Heading, Link, ListItem, UnorderedList, useColorMode, useColorModeValue } from '@chakra-ui/react'
 import Menu from './Menu'
 import { useTranslation } from 'react-i18next';
 
@@ -7,7 +7,7 @@ export default function Navigation() {
 
   return (
     <>
-      <Flex height={'100dvh'} padding={'20px'} bg={'custom.background'} color={'custom.text'} direction='column' justify={'space-between'}>
+      <Flex height={'100dvh'} padding={'20px'} direction='column' justify={'space-between'} bg={useColorModeValue('custom_light.background', 'custom_dark.background')}>
         <div>
           <Heading size="2xl">{t('title')}</Heading>
           <Heading size="lg">{t('subtitle')}</Heading>
