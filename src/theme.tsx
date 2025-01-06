@@ -28,12 +28,21 @@ const theme = extendTheme({
             surface: "#DDEDED",
             background: "#C7DFDF",
             text: "#2F4F4F",
-            secondarytext: "#5A7676",  
+            secondarytext: "#5A7676",
             primary: "#69B9F0",         // Soft sky blue for accents
             secondary: "#7EDBB7",       // Mint green for secondary actions
             ternary: "#F28C8C"          // Warm coral for contrast or alerts
         }
-    }
+    },
+    // components: {
+    //     Card: {
+    //         defaultProps: {
+    //             size: 'lg', // default is md
+    //             variant: 'sm', // default is solid
+    //             colorScheme: ...
+    //         },
+    //     },
+    // },
 })
 
 export default theme

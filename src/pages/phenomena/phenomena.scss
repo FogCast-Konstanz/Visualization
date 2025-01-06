@@ -1,0 +1,39 @@
+h1, h2, h3 {
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+:root {
+    --text_size: clamp(0.625rem, 0.4265rem + 0.7059vw, 1rem);
+}
+
+h1 {
+    font-size: clamp(1rem, 0.7353rem + 0.9412vw, 1.5rem);
+}
+
+h2 {
+    font-size: clamp(0.875rem, 0.6765rem + 0.7059vw, 1.25rem);
+}
+
+h3 {
+    font-size: clamp(0.75rem, 0.6176rem + 0.4706vw, 1rem);
+}
+
+p,
+a,
+span,
+button,
+input,
+select,
+label,
+table,
+li,
+textarea {
+    font-size: var(--text_size);
+    font-weight: 500;
+}
+
+
+ul, ol {
+    margin-left: 25px;
+}
