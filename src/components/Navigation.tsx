@@ -8,6 +8,15 @@ import Settings from './Menu';
 export default function Navigation() {
   const { t } = useTranslation();
 
+  const navigation = [
+    { name: t('navigation.models'), href: '#' },
+    { name: t('navigation.station'), href: '#' },
+    { name: t('navigation.data'), href: '#' },
+    { name: t('navigation.lexikon'), href: "/lexikon" },
+    { name: t('navigation.phenomena'), href: "/phenomena" },
+  ]
+
+
   return (
     <>
       <Flex
@@ -23,16 +32,13 @@ export default function Navigation() {
           <Heading size="lg">{t('subtitle')}</Heading>
         </div>
 
-
         <div>
           <UnorderedList fontSize="xl" margin={'0'} listStyleType={'none'}>
-            <ListItem marginBottom={'10px'}><Link href='#'>{t('navigation.models')}</Link></ListItem>
-            <ListItem marginBottom={'10px'}><Link href="#">{t('navigation.station')}</Link></ListItem>
-            <ListItem marginBottom={'10px'}><Link href="#">{t('navigation.data')}</Link></ListItem>
-            <ListItem marginBottom={'10px'}><Link href="/lexikon">{t('navigation.lexikon')}</Link></ListItem>
-            <ListItem marginBottom={'10px'}><Link href="/phenomena">{t('navigation.phenomena')}</Link></ListItem>
+            {navigation.map((entry, index) => (
+              <ListItem marginBottom={'10px'} key={index}><Link href={entry.href}>{entry.name}</Link></ListItem>
+            ))}
           </UnorderedList>
-        
+
           <Settings></Settings>
         </div>
 
@@ -42,7 +48,7 @@ export default function Navigation() {
         display={{ lg: 'none', base: 'flex' }}
         direction='row'
         justify={'space-between'}
-        width={'100vw'} 
+        width={'100vw'}
         position={'sticky'}
         top={'0'}
         zIndex={'1'}
@@ -57,11 +63,9 @@ export default function Navigation() {
             margin='10px'
           />
           <MenuList>
-            <MenuItem><Link href='#'>{t('navigation.models')}</Link></MenuItem>
-            <MenuItem><Link href="#">{t('navigation.station')}</Link></MenuItem>
-            <MenuItem><Link href="#">{t('navigation.data')}</Link></MenuItem>
-            <MenuItem><Link href="/lexikon">{t('navigation.lexikon')}</Link></MenuItem>
-            <MenuItem><Link href="/phenomena">{t('navigation.phenomena')}</Link></MenuItem>
+            {navigation.map((entry, index) => (
+              <MenuItem marginBottom={'10px'} key={index}><Link href={entry.href}>{entry.name}</Link></MenuItem>
+            ))}
           </MenuList>
         </Menu>
 
