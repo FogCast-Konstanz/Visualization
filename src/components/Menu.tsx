@@ -17,7 +17,7 @@ export default function Settings() {
         <>
             <Flex
                 width={'fit-content'}
-                margin={'10px'}
+                margin={{ lg: '0', base: '10px' }}
                 gap={'10px'}
                 >
                 <Select 

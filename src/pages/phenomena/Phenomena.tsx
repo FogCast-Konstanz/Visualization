@@ -8,11 +8,12 @@ export default function Phenomena() {
     const phenomena = [
         {
             header: 'Lorem ipsum dolor sit amed Lorem ipsum dolor sit amed',
+            id: 'miau',
             text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
             img: ''
         },
-        { header: 'wuff', text: 'wuff', img: '' },
-        { header: 'wuff', text: 'wuff', img: '' }]
+        { header: 'wuff', id: 'wuff', text: 'wuff', img: '' },
+        { header: 'wuff', id: 'wuff2', text: 'wuff', img: '' }]
 
     return (
         <Flex padding={'20px'} direction={'column'} gap={'20px'} overflow="auto" maxHeight={'100dvh'}>

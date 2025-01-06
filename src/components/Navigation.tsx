@@ -23,15 +23,19 @@ export default function Navigation() {
           <Heading size="lg">{t('subtitle')}</Heading>
         </div>
 
-        <Settings></Settings>
 
-        <UnorderedList fontSize="xl" margin={'0'} listStyleType={'none'}>
-          <ListItem marginBottom={'10px'}><Link href='#'>{t('navigation.models')}</Link></ListItem>
-          <ListItem marginBottom={'10px'}><Link href="#">{t('navigation.station')}</Link></ListItem>
-          <ListItem marginBottom={'10px'}><Link href="#">{t('navigation.data')}</Link></ListItem>
-          <ListItem marginBottom={'10px'}><Link href="/lexikon">{t('navigation.lexikon')}</Link></ListItem>
-          <ListItem marginBottom={'10px'}><Link href="/phenomena">{t('navigation.phenomena')}</Link></ListItem>
-        </UnorderedList>
+        <div>
+          <UnorderedList fontSize="xl" margin={'0'} listStyleType={'none'}>
+            <ListItem marginBottom={'10px'}><Link href='#'>{t('navigation.models')}</Link></ListItem>
+            <ListItem marginBottom={'10px'}><Link href="#">{t('navigation.station')}</Link></ListItem>
+            <ListItem marginBottom={'10px'}><Link href="#">{t('navigation.data')}</Link></ListItem>
+            <ListItem marginBottom={'10px'}><Link href="/lexikon">{t('navigation.lexikon')}</Link></ListItem>
+            <ListItem marginBottom={'10px'}><Link href="/phenomena">{t('navigation.phenomena')}</Link></ListItem>
+          </UnorderedList>
+        
+          <Settings></Settings>
+        </div>
+
       </Flex>
 
       <Flex
