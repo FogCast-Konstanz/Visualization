@@ -6,7 +6,10 @@ id: 'fog',
 title: 'Nebel',
 description: 'Nebel entsteht, wenn Wassertröpfchen oder Eiskristalle in den unteren atmosphärischen Schichten die Sichtweite auf unter 1 Kilometer reduzieren. Je nach Sichtweite unterscheidet man zwischen leichtem (500-1000 m), mäßigem (200-500 m) und starkem Nebel (< 200 m (Vgl. Bott 2023, S. 450)',
 explanation: `
+![Picture](/assets/fog.jpg)
+
 ## Physikalische Entstehungsprozesse
+
 Die Grundvoraussetzung für die Nebelbildung ist das Erreichen des Sättigungszustands der Luft. Dies kann geschehen durch:
 * Abkühlung auf den Taupunkt: Häufig in den Nächten, wenn die Erdoberfläche durch Infrarotstrahlung auskühlt.
 * Zufuhr von Feuchtigkeit: Zum Beispiel durch Verdunstung von Wasser aus dem Bodensee.
@@ -20,7 +23,6 @@ Die Grundvoraussetzung für die Nebelbildung ist das Erreichen des Sättigungszu
 5. **Mischungsnebel**: Bildet sich durch die Mischung zweier untersättigter Luftmassen, die zusammen gesättigt werden. (Vgl. Bott 2023, S. 450 - 451)
 `,
 referenceBodensee: `
-## Besonderheiten der Bodenseeregion
 Der Bodensee fördert die Nebelbildung durch:
 * Große Wasserfläche: Der See sorgt für eine konstante Feuchtigkeitszufuhr in die Luft, was besonders im Herbst und Winter die Nebelbildung begünstigt.
 * Geografische Lage: Die umliegenden Berge schaffen ideale Bedingungen für Strahlungs- und Mischungsnebel, da sie kalte Luftmassen einschließen können.
