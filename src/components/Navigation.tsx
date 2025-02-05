@@ -14,6 +14,7 @@ export default function Navigation() {
     { name: t('navigation.data'), href: '#' },
     { name: t('navigation.lexikon'), href: "/lexikon" },
     { name: t('navigation.phenomena'), href: "/phenomena" },
+    { name: t('impressum.title'), href: "/impressum" }
   ]
 
 
@@ -28,7 +29,7 @@ export default function Navigation() {
         bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
       >
         <div>
-          <Heading size="2xl">{t('title')}</Heading>
+          <Link href='/'><Heading size="2xl">{t('title')}</Heading></Link>
           <Heading size="lg">{t('subtitle')}</Heading>
         </div>
 

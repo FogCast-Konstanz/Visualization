@@ -19,6 +19,10 @@ const de = {
         referenceBodensee: "Bezug auf den Bodensee",
         dataAnalysis: "Datenanalyse",
         sources: "Quellen"
+    },
+
+    impressum: {
+        title: "Impressum"
     }
 }
 

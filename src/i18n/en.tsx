@@ -18,6 +18,10 @@ const en = {
         referenceBodensee: "Reference to Bodensee",
         dataAnalysis: "Data Analysis",
         sources: "Sources"
+    },
+
+    impressum: {
+        title: "Impressum"
     }
 }
 
