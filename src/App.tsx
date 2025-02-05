@@ -6,7 +6,7 @@ import Lexikon from './pages/lexikon/Lexikon';
 import Phenomena from './pages/phenomena/Phenomena';
 import PhenomenaSite from './pages/phenomena/PhenomenaDetails';
 import { phenomena } from './pages/phenomena/data';
-import Impressum from './pages/impressum/impressum';
+import Impressum from './pages/impressum/Impressum';
 
 function App() {
   // const color = 'custom_light'
