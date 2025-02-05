@@ -1,20 +1,20 @@
-import { Flex, Heading, HStack, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, UnorderedList, useColorMode, useColorModeValue, VStack } from '@chakra-ui/react'
+import { Flex, Heading, HStack, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, UnorderedList, useColorMode, useColorModeValue, VStack } from '@chakra-ui/react'
 import { HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon } from '@chakra-ui/icons'
 import { useTranslation } from 'react-i18next';
 import Settings from './Menu';
-
-
+import { FaDatabase } from "react-icons/fa";
+import { FaBook, FaCircleInfo, FaBolt, FaChartSimple, FaSatellite   } from "react-icons/fa6";
 
 export default function Navigation() {
   const { t } = useTranslation();
 
   const navigation = [
-    { name: t('navigation.models'), href: '#' },
-    { name: t('navigation.station'), href: '#' },
-    { name: t('navigation.data'), href: '#' },
-    { name: t('navigation.lexikon'), href: "/lexikon" },
-    { name: t('navigation.phenomena'), href: "/phenomena" },
-    { name: t('impressum.title'), href: "/impressum" }
+    { name: t('navigation.models'), href: '#', icon: FaChartSimple },
+    { name: t('navigation.station'), href: '#', icon: FaSatellite },
+    { name: t('navigation.data'), href: '#', icon: FaDatabase },
+    { name: t('navigation.lexikon'), href: "/lexikon", icon: FaBook },
+    { name: t('navigation.phenomena'), href: "/phenomena", icon: FaBolt },
+    { name: t('impressum.title'), href: "/impressum", icon: FaCircleInfo  }
   ]
 
 
@@ -34,9 +34,27 @@ export default function Navigation() {
         </div>
 
         <div>
-          <UnorderedList fontSize="xl" margin={'0'} listStyleType={'none'}>
+          <UnorderedList fontSize="xl" margin={0} listStyleType="none">
             {navigation.map((entry, index) => (
-              <ListItem marginBottom={'10px'} key={index}><Link href={entry.href}>{entry.name}</Link></ListItem>
+              <ListItem
+                key={index}
+                marginBottom="10px"
+                display="flex"
+                alignItems="center"
+                _hover={{ bg: useColorModeValue('custom_light.surface', 'custom_dark.surface'), borderRadius: "md", padding: "0px" }}
+              >
+                <Icon as={entry.icon} boxSize={5} />
+                <Link
+                  href={entry.href}
+                  display="block"
+                  padding="8px 12px"
+                  borderRadius="md"
+                  textDecoration='none'
+                  _hover={{ textDecoration: "none" }}
+                >
+                  {entry.name}
+                </Link>
+              </ListItem>
             ))}
           </UnorderedList>
 
@@ -65,7 +83,7 @@ export default function Navigation() {
           />
           <MenuList>
             {navigation.map((entry, index) => (
-              <MenuItem marginBottom={'10px'} key={index}><Link href={entry.href}>{entry.name}</Link></MenuItem>
+              <MenuItem icon={<Icon as={entry.icon} boxSize={4} />} marginBottom={'10px'} key={index}><Link href={entry.href}>{entry.name}</Link></MenuItem>
             ))}
           </MenuList>
         </Menu>
