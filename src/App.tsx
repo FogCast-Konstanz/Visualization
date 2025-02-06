@@ -7,6 +7,9 @@ import Phenomena from './pages/phenomena/Phenomena';
 import PhenomenaSite from './pages/phenomena/PhenomenaDetails';
 import { phenomena } from './pages/phenomena/data';
 import Impressum from './pages/impressum/Impressum';
+import DataPage from './pages/data/DataPage';
+import ModelsPage from './pages/models/ModelsPage';
+import WeatherStationPage from './pages/station/WeatherStationPage';
 
 function App() {
   // const color = 'custom_light'
@@ -27,6 +30,9 @@ function App() {
           <Route path='/lexikon' element={<Lexikon />} />
           <Route path='/phenomena' element={<Phenomena />} />
           <Route path='/impressum' element={<Impressum />} />
+          <Route path='/data' element={<DataPage />} />
+          <Route path='/station' element={<WeatherStationPage />} />
+          <Route path='/models' element={<ModelsPage />} />
           {phenomena.map((entry, index) => (
               <Route path={'/phenomena/'+entry.id} element={<PhenomenaSite {...entry} />} key={index} />
           ))}

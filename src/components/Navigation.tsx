@@ -9,9 +9,9 @@ export default function Navigation() {
   const { t } = useTranslation();
 
   const navigation = [
-    { name: t('navigation.models'), href: '#', icon: FaChartSimple },
-    { name: t('navigation.station'), href: '#', icon: FaSatellite },
-    { name: t('navigation.data'), href: '#', icon: FaDatabase },
+    { name: t('navigation.models'), href: '/models', icon: FaChartSimple },
+    { name: t('navigation.station'), href: '/station', icon: FaSatellite },
+    { name: t('navigation.data'), href: '/data', icon: FaDatabase },
     { name: t('navigation.lexikon'), href: "/lexikon", icon: FaBook },
     { name: t('navigation.phenomena'), href: "/phenomena", icon: FaBolt },
     { name: t('impressum.title'), href: "/impressum", icon: FaCircleInfo  }
