@@ -12,7 +12,8 @@ export default function BarGraph({ values, title }: GraphProps) {
     const theme = useTheme();
 
     const [data, setData] = useState<any[]>([])
-    const colors = useColorModeValue(["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"], ["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"]);
+    const colors = useColorModeValue(["#F7C777CA", "#E99B9BCA", "#7FB3D5CA", "#C39BD3C3", "#A9DFBFC3"]
+        , ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"]);
 
     const plotBgColor = useColorModeValue(theme.colors.custom_light.surface, theme.colors.custom_dark.surface);
     const paperBgColor = useColorModeValue(theme.colors.custom_light.background, theme.colors.custom_dark.background);

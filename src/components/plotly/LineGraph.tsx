@@ -1,4 +1,4 @@
-import { grid, Heading, useColorModeValue, useTheme } from "@chakra-ui/react";
+import { calc, grid, Heading, useColorModeValue, useTheme } from "@chakra-ui/react";
 import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
 import { useEffect, useState } from "react";
 
@@ -45,7 +45,7 @@ export default function LineGraph({ values, title }: LineGraphProps) {
         },
         modebar: {
             orientation: orientationModebar,
-        },
+        }
     }
 
     useEffect(() => {
@@ -65,10 +65,8 @@ export default function LineGraph({ values, title }: LineGraphProps) {
     }, [])
 
     return (
-        <>
-            <div style={{ borderRadius: "15px", overflow: "hidden" }}>
-                <PlotlyChart data={data} layout={{ ...layout, title: title }} />
-            </div>
-        </>
+        <div style={{ borderRadius: "15px", overflow: "hidden"}}>
+            <PlotlyChart data={data} layout={{ ...layout, title: title }} />
+        </div>
     );
 }

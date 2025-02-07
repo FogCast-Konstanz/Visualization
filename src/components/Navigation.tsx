@@ -3,7 +3,7 @@ import { HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon } from '
 import { useTranslation } from 'react-i18next';
 import Settings from './Menu';
 import { FaDatabase } from "react-icons/fa";
-import { FaBook, FaCircleInfo, FaBolt, FaChartSimple, FaSatellite   } from "react-icons/fa6";
+import { FaBook, FaCircleInfo, FaBolt, FaChartSimple, FaSatellite } from "react-icons/fa6";
 
 export default function Navigation() {
   const { t } = useTranslation();

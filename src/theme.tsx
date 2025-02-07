@@ -21,6 +21,7 @@ const theme = extendTheme({
             text: "#DCDCDC",
             secondarytext: "#000000",
             primary: "#AFDBF5",
+            primary_variant: "#AFDBF5BA",
             secondary: "#A1E5AB",
             ternary: "#AE5656",
         },
@@ -29,7 +30,8 @@ const theme = extendTheme({
             background: "#C7DFDF",
             text: "#2F4F4F",
             secondarytext: "#5A7676",
-            primary: "#69B9F0",         // Soft sky blue for accents
+            primary: "#DDEDED",         // Soft sky blue for accents
+            primary_variant: "#DDEDEDBA", // 70% transparent
             secondary: "#7EDBB7",       // Mint green for secondary actions
             ternary: "#F28C8C"          // Warm coral for contrast or alerts
         }
