@@ -2,10 +2,10 @@ import { calc, grid, Heading, useColorModeValue, useTheme } from "@chakra-ui/rea
 import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
 import { useEffect, useState } from "react";
 
-type Input = { x: string[], y: number[], name: string }[]
+export interface LineGraphData { x: string[], y: number[], name: string }
 
 interface LineGraphProps {
-    values: Input;
+    values: LineGraphData[];
     title: string
 }
 export default function LineGraph({ values, title }: LineGraphProps) {

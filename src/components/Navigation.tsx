@@ -23,6 +23,7 @@ export default function Navigation() {
       <Flex
         display={{ lg: 'flex', base: 'none' }}
         height={'100dvh'}
+        width={'250px'}
         padding={'20px'}
         direction='column'
         justify={'space-between'}
