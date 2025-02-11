@@ -14,7 +14,7 @@ export default function Navigation() {
     { name: t('navigation.data'), href: '/data', icon: FaDatabase },
     { name: t('navigation.lexikon'), href: "/lexikon", icon: FaBook },
     { name: t('navigation.phenomena'), href: "/phenomena", icon: FaBolt },
-    { name: t('impressum.title'), href: "/impressum", icon: FaCircleInfo  }
+    { name: t('impressum.title'), href: "/impressum", icon: FaCircleInfo }
   ]
 
 
@@ -30,7 +30,7 @@ export default function Navigation() {
         bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
       >
         <div>
-          <Link href='/'><Heading size="2xl">{t('title')}</Heading></Link>
+          <Link href='/' _hover={{ textDecoration: "none" }}><Heading size="2xl">{t('title')}</Heading></Link>
           <Heading size="lg">{t('subtitle')}</Heading>
         </div>
 
@@ -61,9 +61,9 @@ export default function Navigation() {
 
           <Settings></Settings>
         </div>
-
       </Flex>
 
+      {/* Mobile Mode Navigation */}
       <Flex
         display={{ lg: 'none', base: 'flex' }}
         direction='row'
@@ -84,12 +84,19 @@ export default function Navigation() {
           />
           <MenuList>
             {navigation.map((entry, index) => (
-              <MenuItem icon={<Icon as={entry.icon} boxSize={4} />} marginBottom={'10px'} key={index}><Link href={entry.href}>{entry.name}</Link></MenuItem>
+              <MenuItem
+                icon={<Icon as={entry.icon} boxSize={4} />}
+                marginBottom="10px"
+                key={index}
+                onClick={() => window.location.href = entry.href}
+              >
+                <Link href={entry.href}>{entry.name}</Link>
+              </MenuItem>
             ))}
           </MenuList>
         </Menu>
 
-        <Heading size="2xl">{t('title')}</Heading>
+        <Link href='/'><Heading size="2xl">{t('title')}</Heading></Link>
 
         <Settings></Settings>
       </Flex>

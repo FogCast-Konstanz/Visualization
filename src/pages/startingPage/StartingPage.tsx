@@ -18,14 +18,13 @@ import DWDForcast from '../../components/requests/dwdForcast'
 import { OrbitProgress } from 'react-loading-indicators'
 
 import { LineGraphData } from '../.././components/plotly/LineGraph'
+import { useTranslation } from 'react-i18next'
 
 export default function StartingPage() {
+  const { t } = useTranslation();
 
   const [forecast, setForecast] = useState<LineGraphData[] | null>(null);
   const [forecastIcons, setForecastIcons] = useState<ForcastCardProps[] | null>(null);
-  const [error, setError] = useState(null);
-
-  const [temperature, setTemperature] = useState<LineGraphData[] | null>(null);
 
   useEffect(() => {
     fetchData();
@@ -38,48 +37,15 @@ export default function StartingPage() {
     setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
   };
 
-  const dataValues = [
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [10, 15, 13, 17, 10, 15, 13, 17, 10, 15, 13, 17, 10, 23],
-      name: 'Model 1'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [11, 14, 12, 16, 11, 14, 12, 16, 11, 14, 12, 16, 11, 24],
-      name: 'Model 2'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [12, 13, 11, 15, 12, 13, 11, 15, 12, 13, 11, 15, 12, 25],
-      name: 'Model 3'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [13, 12, 10, 14, 13, 12, 10, 14, 13, 12, 10, 14, 13, 26],
-      name: 'Real'
-    },
-  ];
-
-  const forcast2: ForcastCardProps[] = [
-    { 'time': '12:00', 'temperature': '10', 'weather': 'cloudy', 'humidity': '70%' },
-    { 'time': '12:00', 'temperature': '10', 'weather': 'sunny', 'humidity': '70%' },
-    { 'time': '12:00', 'temperature': '10', 'weather': 'snowy', 'humidity': '70%' },
-    { 'time': '12:00', 'temperature': '10', 'weather': 'thunder', 'humidity': '70%' },
-    { 'time': '12:00', 'temperature': '10', 'weather': 'partlySunny', 'humidity': '70%' },
-    { 'time': '12:00', 'temperature': '10', 'weather': 'rainy', 'humidity': '70%' },
-    { 'time': '12:00', 'temperature': '10', 'weather': 'cloudy', 'humidity': '70%' }
-  ]
-
   return (
-    <Flex direction='column' width="calc(100vw - 250px)" gap='10px' margin={'10px'} ml='0' maxWidth={'100%'}>
-      <Heading>Wetter in Konstanz</Heading>
+    <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={{lg: '10px 10px 10px 0', base: '10px 10px 10px 10px'}} maxWidth={'100%'}>
+      <Heading>{t('startingPage.title')}</Heading>
 
-      <Flex gap='10px'>
-        <MeasurementCard measurement='Temperature' value='10' unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
-        <MeasurementCard measurement='Humiditiy' value='40' unit='%' icon={WiHumidity}></MeasurementCard>
-        <MeasurementCard measurement='Watertemp' value='4' unit='°C' icon={FaWater}></MeasurementCard>
-        <MeasurementCard measurement='Windspeed' value='10' unit='km/h' icon={RiWindyFill}></MeasurementCard>
+      <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
+        <MeasurementCard measurement={t('startingPage.temperature')} value='10' unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.humidity')} value='40' unit='%' icon={WiHumidity}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.waterTemp')} value='4' unit='°C' icon={FaWater}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.windspeed')} value='10' unit='km/h' icon={RiWindyFill}></MeasurementCard>
       </Flex>
 
       <Card bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
@@ -114,7 +80,6 @@ export default function StartingPage() {
         {forecast ? 
           <LineGraph values={forecast} title={'Modelle VS Real'} /> : 
           <OrbitProgress color={useColorModeValue('custom_light.background', 'custom_dark.background')} size="medium" />}
-        <BarGraph values={dataValues} title={'Bar Graph'} />
       </Flex>
 
     </Flex>

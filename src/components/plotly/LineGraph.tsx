@@ -66,7 +66,7 @@ export default function LineGraph({ values, title }: LineGraphProps) {
 
     return (
         <div style={{ borderRadius: "15px", overflow: "hidden"}}>
-            <PlotlyChart data={data} layout={{ ...layout, title: title }} />
+            <PlotlyChart data={data} layout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }}/>
         </div>
     );
 }

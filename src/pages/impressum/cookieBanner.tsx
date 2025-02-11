@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Icon, Slide, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, HStack, Icon, Slide, Text, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCookieBite  } from "react-icons/fa";
@@ -21,17 +21,17 @@ export default function CookieBanner() {
     };
 
     return (
-        <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }}>
+        <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }} >
             <Box p={4}
                 bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
                 color={useColorModeValue('custom_light.text', 'custom_dark.text')}
                 textAlign="center"
-                marginInline={'20%'}
+                marginInline={{lg: '20%', base: '10%'}}
                 borderRadius={'5px'}
                 mb={'10px'}
                 >
 
-                <HStack justify="space-between" align="center">
+                <Flex justify="space-between" align="center" direction={{lg: 'row', base: 'column'}} gap={'10px'}>
                     <Icon as={FaCookieBite } boxSize={12} />
                     <Text>{t('cookies.text')}</Text>
                     <Button
@@ -41,7 +41,7 @@ export default function CookieBanner() {
                         onClick={acceptCookies}
                         flexShrink={0}
                         >{t('cookies.accept')}</Button>
-                </HStack>
+                </Flex>
             </Box>
         </Slide>
     );

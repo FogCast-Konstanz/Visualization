@@ -34,7 +34,7 @@ export default function ModelsPage() {
   return (
     <Flex direction='column' width='100%' gap='10px'>
 
-      <Flex gap='10px'>
+      <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
         <LineGraph values={dataValues} title={'Modelle VS Real'} />
         <BarGraph values={dataValues} title={'Bar Graph'} />
       </Flex>
