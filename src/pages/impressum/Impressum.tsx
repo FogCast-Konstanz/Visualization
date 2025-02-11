@@ -73,11 +73,15 @@ export default function Impressum() {
                             <Box mb={4}>
                                 <Text><Link href='https://www.htwg-konstanz.de/info/impressum'>{t('impressum.htwg')}</Link></Text>
                                 <Text><Link href='https://www.htwg-konstanz.de/datenschutzerklaerung'>{t('impressum.dataProtection')}</Link></Text>
+                                <Text><Link href='https://github.com/FogCast-Konstanz'>{t('impressum.gitHub')}</Link></Text>
                             </Box>
                         </Box>
                     </Flex>
 
                 </CardBody>
+            </Card>
+            <Card>
+                Verwendete Datenquellen: OpenMeteo, DWD, ...
             </Card>
         </VStack >
     );

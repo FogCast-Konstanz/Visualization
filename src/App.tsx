@@ -10,6 +10,7 @@ import Impressum from './pages/impressum/Impressum';
 import DataPage from './pages/data/DataPage';
 import ModelsPage from './pages/models/ModelsPage';
 import WeatherStationPage from './pages/station/WeatherStationPage';
+import CookieBanner from './pages/impressum/cookieBanner';
 
 function App() {
   // const color = 'custom_light'
@@ -38,6 +39,7 @@ function App() {
           ))}
         </Routes>
       </Router>
+      <CookieBanner></CookieBanner>
     </Flex>
   )
 }

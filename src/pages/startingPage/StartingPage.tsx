@@ -93,11 +93,11 @@ export default function StartingPage() {
               height: "8px",
             },
             "&::-webkit-scrollbar-track": {
-              background: useColorModeValue('custom_light.text', 'custom_dark.text'),
+              background: useColorModeValue('custom_light.surface', 'custom_dark.surface'),
               borderRadius: "8px",
             },
             "&::-webkit-scrollbar-thumb": {
-              background: useColorModeValue('custom_light.surface', 'custom_dark.surface'),
+              background: useColorModeValue('custom_light.text', 'custom_dark.text'),
               borderRadius: "8px",
             },
             "&::-webkit-scrollbar-thumb:hover": {
@@ -107,11 +107,13 @@ export default function StartingPage() {
         >
           {forecastIcons ? forecastIcons.map((forcastElem, index) => (
             <ForcastCard {...forcastElem} key={index}></ForcastCard>
-          )) : <OrbitProgress color="#32cd32" size="medium" text="" textColor="" />}
+          )) : <OrbitProgress color={useColorModeValue('custom_light.primary', 'custom_dark.primary')} size="medium" />}
         </Flex>
       </Card>
       <Flex gap='10px'>
-        {forecast ? <LineGraph values={forecast} title={'Modelle VS Real'} /> : <OrbitProgress color="#32cd32" size="medium" text="" textColor="" />}
+        {forecast ? 
+          <LineGraph values={forecast} title={'Modelle VS Real'} /> : 
+          <OrbitProgress color={useColorModeValue('custom_light.background', 'custom_dark.background')} size="medium" />}
         <BarGraph values={dataValues} title={'Bar Graph'} />
       </Flex>
 

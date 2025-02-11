@@ -32,7 +32,13 @@ const en = {
         email: "e-mail",
         legalInfo: "Legal information",
         htwg: "Imprint HTWG",
-        dataProtection: "Privacy policy HTWG"
+        dataProtection: "Privacy policy HTWG",
+        gitHub: "Code on GitHub"
+    },
+
+    cookies: {
+        text: "This website uses cookies to improve your experience. It is necessary for the functionality of the page, improves the user experience, and helps store configurations like language and color mode.",
+        accept: "Accept"
     }
 }
 

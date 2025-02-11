@@ -33,7 +33,13 @@ const de = {
         email: "E-Mail",
         legalInfo: "Rechtliche Hinweise",
         htwg: "Impressum HTWG",
-        dataProtection: "Datenschutzerklärung HTWG"
+        dataProtection: "Datenschutzerklärung HTWG",
+        gitHub: "Code auf GitHub"
+    },
+
+    cookies: {
+        text: "Diese Website verwendet Cookies. Sie sind für die Funktionalität der Seite notwendig, verbessern die Benutzerfreundlichkeit und helfen beim Speichern von Konfigurationen wie Sprache und Farbmodus.",
+        accept: "Akzeptieren"
     }
 }
 
