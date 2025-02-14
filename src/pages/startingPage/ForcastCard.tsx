@@ -26,7 +26,7 @@ export default function ForcastCard({ time, temperature, weather, humidity }: Fo
         'snowy': {'icon': IoSnow, 'color': 'white'},
         'foggy': {'icon': SVGRepoFog, 'color': 'white'},
         'thunder': {'icon': SVGRepoThunder, 'color': 'blue'},
-        'unkown': {'icon': IoCloudOfflineOutline, 'color': 'black'}
+        'unknown': {'icon': IoCloudOfflineOutline, 'color': 'black'}
     }
     
     return (

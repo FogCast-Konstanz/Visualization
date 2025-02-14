@@ -8,7 +8,9 @@ const en = {
         station: "Station",
         data: "Data",
         lexikon: "Lexikon",
-        phenomena: "Phenomena"
+        phenomena: "Phenomena",
+        home: "Home",
+        analysis: "Analysis"
     },
 
     startingPage: {
@@ -16,7 +18,8 @@ const en = {
         temperature: "Temperature",
         humidity: "Humidity",
         waterTemp: "Water Temperature",
-        windspeed: "Windspeed"
+        windspeed: "Windspeed",
+        forcastGraph: "Forcasting"
     },
 
     phenomena : {

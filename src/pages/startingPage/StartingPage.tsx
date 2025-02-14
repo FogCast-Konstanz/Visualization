@@ -19,6 +19,7 @@ import { OrbitProgress } from 'react-loading-indicators'
 
 import { LineGraphData } from '../.././components/plotly/LineGraph'
 import { useTranslation } from 'react-i18next'
+import dwdForcast from '../../components/requests/dwdForcast'
 
 export default function StartingPage() {
   const { t } = useTranslation();
@@ -35,10 +36,12 @@ export default function StartingPage() {
 
     setForecast(DWDForcast.getHourlyValues())
     setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
+
+    console.log(dwdForcast.getHourlyForcastValuesIcon())
   };
 
   return (
-    <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={{lg: '10px 10px 10px 0', base: '10px 10px 10px 10px'}} maxWidth={'100%'}>
+    <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={'10px'} maxWidth={'100%'}>
       <Heading>{t('startingPage.title')}</Heading>
 
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
@@ -78,7 +81,7 @@ export default function StartingPage() {
       </Card>
       <Flex gap='10px'>
         {forecast ? 
-          <LineGraph values={forecast} title={'Modelle VS Real'} /> : 
+          <LineGraph values={forecast} title={t('startingPage.forcastGraph')} /> : 
           <OrbitProgress color={useColorModeValue('custom_light.background', 'custom_dark.background')} size="medium" />}
       </Flex>
 

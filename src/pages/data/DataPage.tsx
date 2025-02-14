@@ -31,7 +31,7 @@ export default function DataPage() {
   ];
 
   return (
-    <Flex direction='column' width='100%' gap='10px'>
+    <Flex direction='column' width='100%' gap='10px' margin={'10px'}>
 
       <Flex gap='10px'>
         <LineGraph values={dataValues} title={'Modelle VS Real'} />

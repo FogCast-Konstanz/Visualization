@@ -18,23 +18,21 @@ export default function Lexikon() {
     useEffect(() => {
         const handleUrlChange = () => {
             setHash(window.location.hash.substring(1));
-          };
-          
-          window.addEventListener('hashchange', handleUrlChange);
-          
-          return () => {
+        };
+
+        window.addEventListener('hashchange', handleUrlChange);
+
+        return () => {
             window.removeEventListener('hashchange', handleUrlChange);
-          };
+        };
     }, [])
 
     return (
-        <>
-            <VStack width={'100%'} padding={'10px'} overflow="auto" maxHeight={'100dvh'}>
-                {lexikonEntries.map((entry, index) => (
-                    <LexikonEntry {...entry} defaultShown={entry.id == hash} key={index} />
-                ))}
+        <VStack width={'100%'} padding={'10px'} overflow="auto" maxHeight={'100dvh'} margin={'10px'}>
+            {lexikonEntries.map((entry, index) => (
+                <LexikonEntry {...entry} defaultShown={entry.id == hash} key={index} />
+            ))}
 
-            </VStack>
-        </>
+        </VStack>
     )
 }

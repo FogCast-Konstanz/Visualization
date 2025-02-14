@@ -2,8 +2,8 @@ import Navigation from './components/Navigation';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import StartingPage from './pages/startingPage/StartingPage';
 import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
-import Lexikon from './pages/lexikon/Lexikon';
-import Phenomena from './pages/phenomena/Phenomena';
+import Lexikon from './pages/lexikon/LexikonPage';
+import Phenomena from './pages/phenomena/PhenomenaPage';
 import PhenomenaSite from './pages/phenomena/PhenomenaDetails';
 import { phenomena } from './pages/phenomena/data';
 import Impressum from './pages/impressum/Impressum';
@@ -11,6 +11,7 @@ import DataPage from './pages/data/DataPage';
 import ModelsPage from './pages/models/ModelsPage';
 import WeatherStationPage from './pages/station/WeatherStationPage';
 import CookieBanner from './pages/impressum/cookieBanner';
+import AnalysisPage from './pages/analysis/AnalysisPage';
 
 function App() {
   // const color = 'custom_light'
@@ -21,7 +22,6 @@ function App() {
       minHeight='100vh'
       width='100%'
       margin='0'
-      gap={'10px'}
       direction={{base: 'column', lg: 'row'}}
     >
       <Router>
@@ -34,6 +34,7 @@ function App() {
           <Route path='/data' element={<DataPage />} />
           <Route path='/station' element={<WeatherStationPage />} />
           <Route path='/models' element={<ModelsPage />} />
+          <Route path='/analysis' element={<AnalysisPage />} />
           {phenomena.map((entry, index) => (
               <Route path={'/phenomena/'+entry.id} element={<PhenomenaSite {...entry} />} key={index} />
           ))}

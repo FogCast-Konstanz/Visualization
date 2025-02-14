@@ -5,11 +5,13 @@ const de = {
     insert: "Mein Name ist {{name}}",
 
     navigation: {
-        models: "Modelle",
+        models: "Vorhersagen",
         station: "Station",
         data: "Daten",
         lexikon: "Lexikon",
-        phenomena: "Phänomene"
+        phenomena: "Phänomene",
+        home: "Startseite",
+        analysis: "Analyse"
     },
 
     startingPage: {
@@ -17,7 +19,8 @@ const de = {
         temperature: "Temperatur",
         humidity: "Luftfeuchtigkeit",
         waterTemp: "Wassertemperatur",
-        windspeed: "Windgeschwindigkeit"
+        windspeed: "Windgeschwindigkeit",
+        forcastGraph: "Vorhersagen"
     },
 
     phenomena : {

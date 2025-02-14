@@ -7,7 +7,7 @@ export default function Phenomena() {
     const { t } = useTranslation();
 
     return (
-        <Flex padding={'20px'} direction={'column'} gap={'20px'} overflow="auto" maxHeight={'100dvh'}>
+        <Flex padding={'10px'} direction={'column'} gap={'10px'} overflow="auto" maxHeight={'100dvh'}>
             <Card
                 bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
                 color={useColorModeValue('custom_light.text', 'custom_dark.text')}

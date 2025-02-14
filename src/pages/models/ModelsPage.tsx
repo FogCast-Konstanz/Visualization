@@ -5,7 +5,6 @@ import { Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
 import LineGraph from "../.././components/plotly/LineGraph";
 import BarGraph from "../../components/plotly/BarGraph";
-import Leaderboard from './Leaderboard';
 
 export default function ModelsPage() {
   const dataValues = [
@@ -32,14 +31,14 @@ export default function ModelsPage() {
   ];
 
   return (
-    <Flex direction='column' width='100%' gap='10px'>
+    <Flex direction='column' width='100%' gap='10px' margin={'10px'}>
+
+      <Heading>Forcasting</Heading>
 
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
         <LineGraph values={dataValues} title={'Modelle VS Real'} />
         <BarGraph values={dataValues} title={'Bar Graph'} />
       </Flex>
-
-      <Leaderboard></Leaderboard>
 
     </Flex>
   )
