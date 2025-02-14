@@ -23,6 +23,10 @@ export default function LineGraph({ values, title }: LineGraphProps) {
     const orientationModebar: "h" | "v" | undefined = "v"
     const traceorder: "normal" | "grouped" | "reversed" | "reversed+grouped" | undefined = "normal"
 
+    useEffect(() => {
+        console.log("New data")
+    }, [values])
+
 
     const layout = {
         plot_bgcolor: plotBgColor, // Background of the plot area
@@ -61,8 +65,10 @@ export default function LineGraph({ values, title }: LineGraphProps) {
             name: element.name,
         }));
 
+        console.log(formattedData)
+
         setData(formattedData);
-    }, [])
+    }, [values])
 
     return (
         <div style={{ borderRadius: "15px", overflow: "hidden"}}>

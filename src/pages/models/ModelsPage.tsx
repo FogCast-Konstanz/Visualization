@@ -1,43 +1,55 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
 import LineGraph from "../.././components/plotly/LineGraph";
 import BarGraph from "../../components/plotly/BarGraph";
+import { extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
+import { PlotlyChartDataFormat } from '@/components/plotly/DataFormat';
+import { OrbitProgress } from 'react-loading-indicators';
+import ConfigurationForRequest from './ConfigurationForRequest';
 
 export default function ModelsPage() {
-  const dataValues = [
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [10, 15, 13, 17, 10, 15, 13, 17, 10, 15, 13, 17, 10, 23],
-      name: 'Model 1'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [11, 14, 12, 16, 11, 14, 12, 16, 11, 14, 12, 16, 11, 24],
-      name: 'Model 2'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [12, 13, 11, 15, 12, 13, 11, 15, 12, 13, 11, 15, 12, 25],
-      name: 'Model 3'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [13, 12, 10, 14, 13, 12, 10, 14, 13, 12, 10, 14, 13, 26],
-      name: 'Real'
-    },
-  ];
+
+  const [forecastData, setForecastData] = useState<PlotlyChartDataFormat[]>([])
+
+  const [selectedModels, setSelectedModels] = useState<string[]>([])
+  const [selectedDatetime, setSelectedDatetime] = useState<string>('')
+
+  // useEffect(() => {
+  //   fetchData()
+  // }, [])
+
+  useEffect(() => {
+    console.log(selectedModels)
+
+    if (selectedModels.length > 0 && selectedDatetime != '') {
+      selectedModels.forEach((model) => {
+        fetchData(model, selectedDatetime)
+        console.log(forecastData)
+      })
+      setForecastData(prevData => prevData.filter(item => selectedModels.includes(item.name)));
+    }
+  }, [selectedModels, selectedDatetime])
+
+  async function fetchData(model: string, datetime: string) {
+    console.log(model, datetime)
+    const forcastResponse = await fetchForecast('2025-01-10T10:00:00Z', model);
+    setForecastData([...forecastData, extractTemperatureAndModelOutOfForcast(forcastResponse)])
+  };
 
   return (
     <Flex direction='column' width='100%' gap='10px' margin={'10px'}>
 
       <Heading>Forcasting</Heading>
+      <ConfigurationForRequest selectedDateTime={selectedDatetime} selectedModels={selectedModels} onDateTimeChange={setSelectedDatetime} onModelChange={setSelectedModels}></ConfigurationForRequest>
 
+      {
+      }
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
-        <LineGraph values={dataValues} title={'Modelle VS Real'} />
-        <BarGraph values={dataValues} title={'Bar Graph'} />
+        {forecastData.length > 0 ? <LineGraph values={forecastData} title={'Modelle VS Real'} /> : <OrbitProgress color={useColorModeValue('custom_light.primary', 'custom_dark.primary')} size="medium" />}
+        {forecastData.length > 0 ? <BarGraph values={forecastData} title={'Modelle VS Real'} /> : <OrbitProgress color={useColorModeValue('custom_light.primary', 'custom_dark.primary')} size="medium" />}
       </Flex>
 
     </Flex>
