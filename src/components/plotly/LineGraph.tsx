@@ -6,9 +6,14 @@ export interface LineGraphData { x: string[], y: number[], name: string }
 
 interface LineGraphProps {
     values: LineGraphData[];
-    title: string
+    title: string;
+    legend?: "right" | "bottom",
+    type?: "bar" | "scatter"
 }
-export default function LineGraph({ values, title }: LineGraphProps) {
+
+type orientation = "h" | "v" | undefined
+
+export default function LineGraph({ values, title, legend = "bottom", type = "scatter" }: LineGraphProps) {
     const theme = useTheme();
 
     const [data, setData] = useState<any[]>([])
@@ -19,13 +24,29 @@ export default function LineGraph({ values, title }: LineGraphProps) {
     const textColor = useColorModeValue(theme.colors.custom_light.text, theme.colors.custom_dark.text);
     const gridColor = useColorModeValue(theme.colors.custom_light.secondarytext, theme.colors.custom_dark.secondarytext);
 
-    const orientationLegend: "h" | "v" | undefined = "h"
-    const orientationModebar: "h" | "v" | undefined = "v"
+    const orientationLegendBottom: orientation = "h"
+    const orientationLegendRight: orientation = "v"
+    const orientationModebar: orientation = "v"
     const traceorder: "normal" | "grouped" | "reversed" | "reversed+grouped" | undefined = "normal"
 
     useEffect(() => {
         console.log("New data")
     }, [values])
+
+    const legendLayout = legend == "bottom" ? {
+        x: 0,
+        y: -0.2,
+        traceorder: traceorder,
+        orientation: orientationLegendBottom,
+    } : {
+        x: 1,
+        y: 1,
+        traceorder: traceorder,
+        orientation: orientationLegendRight,
+    }
+
+    const mode = (type == "scatter" ? "lines+markers" : "")
+    const line = (type == "scatter" ? { shape: "spline" } : "")
 
 
     const layout = {
@@ -35,44 +56,39 @@ export default function LineGraph({ values, title }: LineGraphProps) {
         xaxis: {
             gridcolor: gridColor, // Light gridlines
             zerolinecolor: "#888",
+            tickangle: -45, // Rotate labels
+            automargin: true, // Prevent cutoff
+            tickmode: "auto", // Automatically adjust ticks
+            nticks: 10, // Reduce number of ticks
         },
         yaxis: {
             gridcolor: gridColor,
             zerolinecolor: "#888",
         },
-        margin: { l: 50, r: 30, t: 50, b: 50 }, // Adjust margins
-        legend: {
-            x: 0, 
-            y: -0.2, 
-            traceorder: traceorder,
-            orientation: orientationLegend, 
-        },
+        margin: { l: 30, r: 30, t: 50, b: 0 }, // Adjust margins
+        legend: legendLayout,
         modebar: {
             orientation: orientationModebar,
         }
     }
 
     useEffect(() => {
-        console.log(values)
-
         const formattedData = values.map((element, index) => ({
             x: element.x,
             y: element.y,
-            type: "scatter",
-            mode: "lines+markers",
-            line: { shape: "spline" },
+            type: type,
+            mode: mode,
+            line: line,
             marker: { color: colors[index % colors.length] },
-            name: element.name,
+            name: element.name
         }));
-
-        console.log(formattedData)
 
         setData(formattedData);
     }, [values])
 
     return (
-        <div style={{ borderRadius: "15px", overflow: "hidden"}}>
-            <PlotlyChart data={data} layout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }}/>
+        <div style={{ borderRadius: "15px", overflow: "hidden" }}>
+            <PlotlyChart data={data} layout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
         </div>
     );
 }

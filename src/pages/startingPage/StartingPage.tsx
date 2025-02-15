@@ -20,6 +20,7 @@ import { OrbitProgress } from 'react-loading-indicators'
 import { LineGraphData } from '../.././components/plotly/LineGraph'
 import { useTranslation } from 'react-i18next'
 import dwdForcast from '../../components/requests/dwdForcast'
+import { fetchActualWeather } from '../../components/requests/actualBackend'
 
 export default function StartingPage() {
   const { t } = useTranslation();
@@ -27,11 +28,21 @@ export default function StartingPage() {
   const [forecast, setForecast] = useState<LineGraphData[] | null>(null);
   const [forecastIcons, setForecastIcons] = useState<ForcastCardProps[] | null>(null);
 
+  const [currentWeather, setCurrentWeather] = useState<Record<string, string>>({})
+
   useEffect(() => {
     fetchData();
   }, []);
 
   async function fetchData() {
+    const weather = await fetchActualWeather();
+
+    const reformattedWeather = weather.reduce((acc, entry) => {
+      acc[entry.name] = entry.value;
+      return acc;
+    }, {} as Record<string, string>);
+    setCurrentWeather(reformattedWeather);
+
     await DWDForcast.fetchData("10929");
 
     setForecast(DWDForcast.getHourlyValues())
@@ -45,10 +56,10 @@ export default function StartingPage() {
       <Heading>{t('startingPage.title')}</Heading>
 
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
-        <MeasurementCard measurement={t('startingPage.temperature')} value='10' unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.humidity')} value='40' unit='%' icon={WiHumidity}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.waterTemp')} value='4' unit='°C' icon={FaWater}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.windspeed')} value='10' unit='km/h' icon={RiWindyFill}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.humidity')} value={String(parseFloat(currentWeather['humidity']) * 100)} unit='%' icon={WiHumidity}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.waterTemp')} value={currentWeather['']} unit='°C' icon={FaWater}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
       </Flex>
 
       <Card bg={useColorModeValue('custom_light.background', 'custom_dark.background')}

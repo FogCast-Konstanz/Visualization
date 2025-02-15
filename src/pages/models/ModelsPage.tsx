@@ -1,57 +1,61 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
-import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
+import { Flex, Heading, Text } from '@chakra-ui/react'
 import LineGraph from "../.././components/plotly/LineGraph";
-import BarGraph from "../../components/plotly/BarGraph";
 import { extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
 import { PlotlyChartDataFormat } from '@/components/plotly/DataFormat';
-import { OrbitProgress } from 'react-loading-indicators';
 import ConfigurationForRequest from './ConfigurationForRequest';
+import { useSearchParams } from 'react-router-dom';
 
 export default function ModelsPage() {
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [forecastData, setForecastData] = useState<PlotlyChartDataFormat[]>([])
 
-  const [selectedModels, setSelectedModels] = useState<string[]>([])
-  const [selectedDatetime, setSelectedDatetime] = useState<string>('')
+  const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '[]') ?? [])
+  // const [selectedModels, setSelectedModels] = useState<string[]>([])
+  const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? '')
 
-  // useEffect(() => {
-  //   fetchData()
-  // }, [])
 
-  useEffect(() => {
+  useEffect(() => { setModels() }, [selectedModels])
+  useEffect(() => { setModels() }, [selectedDatetime])
+
+  async function setModels() {
     console.log(selectedModels)
+    setSearchParams({ models: JSON.stringify(selectedModels), time: selectedDatetime });
 
+    let copyModel: any = []
     if (selectedModels.length > 0 && selectedDatetime != '') {
-      selectedModels.forEach((model) => {
-        fetchData(model, selectedDatetime)
-        console.log(forecastData)
-      })
-      setForecastData(prevData => prevData.filter(item => selectedModels.includes(item.name)));
+      setForecastData([]);
+      for (const model of selectedModels) {
+        let newValue = await fetchData(model)
+        copyModel = [...copyModel, newValue]
+      }
     }
-  }, [selectedModels, selectedDatetime])
 
-  async function fetchData(model: string, datetime: string) {
-    console.log(model, datetime)
-    const forcastResponse = await fetchForecast('2025-01-10T10:00:00Z', model);
-    setForecastData([...forecastData, extractTemperatureAndModelOutOfForcast(forcastResponse)])
+    setTimeout(() => setForecastData(copyModel), 0)
+  }
+
+  async function fetchData(model: string) {
+    let time = new Date(selectedDatetime);
+    time.setMinutes(0, 0, 0); // Round to last full hour
+    const timeIsoString = time.toISOString().split('.')[0] + "Z"
+
+    const forcastResponse = await fetchForecast(timeIsoString, model);
+
+    return extractTemperatureAndModelOutOfForcast(forcastResponse)
   };
 
   return (
-    <Flex direction='column' width='100%' gap='10px' margin={'10px'}>
-
-      <Heading>Forcasting</Heading>
-      <ConfigurationForRequest selectedDateTime={selectedDatetime} selectedModels={selectedModels} onDateTimeChange={setSelectedDatetime} onModelChange={setSelectedModels}></ConfigurationForRequest>
-
-      {
-      }
-      <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
-        {forecastData.length > 0 ? <LineGraph values={forecastData} title={'Modelle VS Real'} /> : <OrbitProgress color={useColorModeValue('custom_light.primary', 'custom_dark.primary')} size="medium" />}
-        {forecastData.length > 0 ? <BarGraph values={forecastData} title={'Modelle VS Real'} /> : <OrbitProgress color={useColorModeValue('custom_light.primary', 'custom_dark.primary')} size="medium" />}
+    <Flex direction='column' gap='10px' margin={'10px'} width={{lg: '100%'}}>
+      <Flex alignItems='center' justifyContent='space-between'>
+        <Heading>Forcasting</Heading>
+        <ConfigurationForRequest selectedDateTime={selectedDatetime} selectedModels={selectedModels} onDateTimeChange={setSelectedDatetime} onModelChange={setSelectedModels}></ConfigurationForRequest>
       </Flex>
 
+      <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
+        {forecastData.length > 0 ? <LineGraph values={forecastData} title={'Modelle für ' + selectedDatetime} /> : <Text>Select Values</Text>}
+      </Flex>
     </Flex>
   )
 }

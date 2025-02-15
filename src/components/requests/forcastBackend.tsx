@@ -2,8 +2,7 @@
 import ForcastCard from "@/pages/startingPage/ForcastCard";
 import axios from "axios";
 import { PlotlyChartDataFormat } from "../plotly/DataFormat";
-
-const API_BASE_URL = "http://141.37.122.39:8080";
+import { API_BASE_URL, formatGermanDate } from "./helpers";
 
 type ForecastData = {
     _time: string;
@@ -17,13 +16,13 @@ export async function fetchForecast(datetime: string, modelId: string,): Promise
             params: { datetime: datetime, model_id: modelId },
             headers: { Accept: "application/json" },
         });
-        
-        // console.log(typeof(response.data), response.data)
+
         let data = response.data
-        if(typeof(data) == 'string') {
+        if (typeof (data) == 'string') {
             data = data.replace(/NaN/g, "null");
             data = JSON.parse(data)
         }
+
         return data
     } catch (error) {
         console.error("Error fetching forecast:", error);
@@ -32,10 +31,10 @@ export async function fetchForecast(datetime: string, modelId: string,): Promise
 };
 
 export function extractTemperatureAndModelOutOfForcast(forcastData: ForecastData[]): PlotlyChartDataFormat {
-    console.log(typeof(forcastData), forcastData)
-    
+    console.log(typeof (forcastData), forcastData)
+
     return {
-        x: forcastData.map(entry => entry._time),
+        x: forcastData.map(entry => formatGermanDate(entry._time)),
         y: forcastData.map(entry => entry.apparent_temperature),
         name: forcastData[0].model
     };

@@ -1,16 +1,10 @@
 
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Box, Button, Card, Checkbox, Flex, Heading, Input, Menu, MenuButton, MenuItem, MenuList, useColorModeValue, VStack } from '@chakra-ui/react'
-import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
-import LineGraph from "../.././components/plotly/LineGraph";
-import BarGraph from "../../components/plotly/BarGraph";
-import { extractTemperatureAndModelOutOfForcast, fetchForecast, fetchModels } from '../../components/requests/forcastBackend';
-import { PlotlyChartDataFormat } from '@/components/plotly/DataFormat';
-import { OrbitProgress } from 'react-loading-indicators';
-import { TriangleDownIcon } from '@chakra-ui/icons';
+import { Button, Icon, IconButton, Input, Menu, MenuButton, MenuList, useColorModeValue, VStack } from '@chakra-ui/react'
+import { fetchModels } from '../../components/requests/forcastBackend';
+
 import Select from 'react-select';
+import { GrConfigure } from "react-icons/gr";
 
 type ModelSelectionProps = {
   selectedModels: string[];
@@ -19,97 +13,78 @@ type ModelSelectionProps = {
   onDateTimeChange: (dateTime: string) => void;
 };
 
-
 export default function ConfigurationForRequest({ selectedModels, selectedDateTime, onModelChange, onDateTimeChange }: ModelSelectionProps) {
 
-  const [models, setModels] = useState<string[] | null>(null)
   const [modelOptions, setModelOptions] = useState<ModelOption[]>([]);
+  const [selectModels, setSelectModels] = useState(selectedModels);
+  const [selectDatetime, setSelectedDatetime] = useState(selectedDateTime);
 
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useEffect(() => { fetchData() }, [])
 
   async function fetchData() {
     const forcastResponse = await fetchModels();
-    setModels(forcastResponse)
 
     setModelOptions(forcastResponse.map((model) => ({ label: model, value: model })))
   };
 
-  // const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-  //   const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-  //   onModelChange(selectedOptions);
-  // };
 
   function handleModelChange(selectedOptions: any) {
-    onModelChange(selectedOptions ? selectedOptions.map((option: any) => option.value) : []);
+    setSelectModels(selectedOptions ? selectedOptions.map((option: any) => option.value) : []);
+    console.log("Selected Option", selectedOptions)
   };
 
-  function handleDatetimeChange(datetime: any) {
-    const isoDateTime = new Date(datetime).toISOString();
-    onDateTimeChange(isoDateTime);
-  }
-
-
-  const bgColor = useColorModeValue('custom_light.primary', 'custom_dark.primary');
-  const textColor = useColorModeValue("black", "white");
+  const bgColor = useColorModeValue('#C7DFDF', '#293F3F');
+  const focusColor = useColorModeValue('#DDEDED', '#2F4F4F');
+  const textColor = useColorModeValue("#2F4F4F", "#DCDCDC");
 
   const customStyles = {
     control: (provided: any) => ({
       ...provided,
       backgroundColor: bgColor,
+      boxShadow: "none",
       color: textColor,
-      borderColor: useColorModeValue("gray.300", "gray.600"),
-      width: "100%"
+      borderColor: textColor,
+      width: "100%",
+      maxWidth: "500px"
     }),
     menu: (provided: any) => ({
       ...provided,
-      backgroundColor: useColorModeValue('pink', 'custom_dark.primary'),
+      backgroundColor: bgColor,
       width: "100%"
     }),
     option: (provided: any, { isFocused }: any) => ({
       ...provided,
-      backgroundColor: isFocused ? useColorModeValue("gray.100", "gray.600") : bgColor,
+      backgroundColor: isFocused ? focusColor : bgColor,
       color: textColor,
     }),
   };
 
+  function setValues() {
+    onModelChange(selectModels);
+    onDateTimeChange(selectDatetime);
+  }
+
   return (
-    <VStack spacing={4} p={5} width='100%'>
-      {/* <Select placeholder="Select model" value={selectedModels} onChange={(e: any) => handleModelChange(e)} >
-        {models && models.map(model => (
-          <option key={model} value={model}>{model}</option>
-        ))}
-      </Select> */}
-
-      <Select
-        options={modelOptions}
-        isMulti
-        value={modelOptions.filter((option) => selectedModels.includes(option.value))}
-        onChange={handleModelChange}
-        placeholder="Select models..."
-        styles={customStyles}
-      />
-
-      {/* <Menu closeOnSelect={false}>
-        <MenuButton as={Button} rightIcon={<TriangleDownIcon></TriangleDownIcon>}>
-          {selectedModels.length > 0 ? selectedModels.join(", ") : "Select Models"}
-        </MenuButton>
-        <MenuList>
-          {models && models.map((model) => (
-            <MenuItem key={model} onClick={() => toggleModel(model)}>
-              <Checkbox isChecked={selectedModels.includes(model)} mr={2} />
-              {model}
-            </MenuItem>
-          ))}
-        </MenuList>
-      </Menu> */}
-
-
-      <Input type="datetime-local" value={selectedDateTime} onChange={(e) => handleDatetimeChange(e.target.value)} />
-
-      <Button colorScheme="blue" onClick={fetchData}>Fetch Data</Button>
-    </VStack>
+    <Menu>
+      <MenuButton as={IconButton} icon={<Icon as={GrConfigure} />} aria-label="Open Config" width={'20px'} />
+      <MenuList p={3} maxWidth={{lg: '600px', base: '400px'}} 
+        background={useColorModeValue('custom_light.background', 'custom_dark.background')}
+        textColor={useColorModeValue('custom_light.text', 'custom_dark.text')}>
+        <VStack spacing={4} p={5} width='100%'>
+          <Select
+            options={modelOptions}
+            isMulti
+            value={modelOptions.filter((option) => selectModels.includes(option.value))}
+            onChange={(e) => handleModelChange(e)}
+            placeholder="Select models..."
+            menuPlacement='auto'
+            styles={customStyles}
+          />
+          <Input type="datetime-local" value={selectDatetime} onChange={(e) => setSelectedDatetime(e.target.value)} />
+          <Button onClick={() => setValues()}>Send</Button>
+        </VStack>
+      </MenuList>
+    </Menu >
   )
 }
 

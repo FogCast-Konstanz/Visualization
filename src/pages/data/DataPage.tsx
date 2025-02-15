@@ -1,41 +1,55 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
-import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
+import { useEffect, useState } from 'react'
+import { Flex } from '@chakra-ui/react'
 import LineGraph from "../.././components/plotly/LineGraph";
-import BarGraph from "../../components/plotly/BarGraph";
+import { convertToPlotlyGraph, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD } from '../../components/requests/actualBackend';
+import { PlotlyChartDataFormat } from '../../components/plotly/DataFormat';
+import { formatActualDatetime } from '../../components/requests/helpers';
 
 export default function DataPage() {
-  const dataValues = [
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [10, 15, 13, 17, 10, 15, 13, 17, 10, 15, 13, 17, 10, 23],
-      name: 'Model 1'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [11, 14, 12, 16, 11, 14, 12, 16, 11, 14, 12, 16, 11, 24],
-      name: 'Model 2'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [12, 13, 11, 15, 12, 13, 11, 15, 12, 13, 11, 15, 12, 25],
-      name: 'Model 3'
-    },
-    {
-      x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-      y: [13, 12, 10, 14, 13, 12, 10, 14, 13, 12, 10, 14, 13, 26],
-      name: 'Real'
-    },
-  ];
+  const [temperatureHistory, setTemperatureHistory] = useState<PlotlyChartDataFormat[]>([])
+  const [temperatureLastWeek, setTemperatureLastWeek] = useState<PlotlyChartDataFormat[]>([])
+  const [fogHistory, setFogHistory] = useState<PlotlyChartDataFormat[]>([])
+  const [fogLastYear, setFogLastYear] = useState<PlotlyChartDataFormat[]>([])
+
+  useEffect(() => {
+    requestBackend()
+  }, [])
+
+
+  async function requestBackend() {
+    /* Get date of last week */
+    const dateLastWeek = new Date();
+    dateLastWeek.setDate(dateLastWeek.getDate() - 7)
+
+    const tempLastWeek = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "hourly")
+    const tempLastWeekDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "daily")
+    setTemperatureLastWeek([convertToPlotlyGraph(tempLastWeek, 'Hourly Temp'), convertToPlotlyGraph(tempLastWeekDaily, 'Daily Temp')])
+
+    /* Get date of last year */
+    const dateLastYear = new Date();
+    dateLastYear.setFullYear(dateLastYear.getFullYear() - 1); // Subtract 1 year
+
+    const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
+    setTemperatureHistory([convertToPlotlyGraph(tempLastYearDaily, 'Daily Temp')])
+
+    /* Get Fog of last year */
+    const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "monthly")
+    setFogLastYear([convertToPlotlyGraph(fogLastYear)])
+
+    /* Get Fog in alltime history */
+    const fogHist = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", formatActualDatetime(), "monthly")
+    setFogHistory([convertToPlotlyGraph(fogHist)])
+  }
 
   return (
-    <Flex direction='column' width='100%' gap='10px' margin={'10px'}>
+    <Flex direction='column' width='100%' gap='10px' margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
 
-      <Flex gap='10px'>
-        <LineGraph values={dataValues} title={'Modelle VS Real'} />
-        <BarGraph values={dataValues} title={'Bar Graph'} />
+      <Flex gap='10px' maxWidth='90%' wrap='wrap'>
+        <LineGraph values={temperatureHistory} title={'Temperature of last year'} />
+        <LineGraph values={temperatureLastWeek} title={'Temperature in the last week'} />
+        {/* <LineGraph values={fogHistory} title={'Historical Fog'} /> */}
+        <LineGraph values={fogHistory} title={'Historical Fog'} type='bar' />
+        <LineGraph values={fogLastYear} title={'Historical Fog'} type='bar' />
       </Flex>
 
     </Flex>
