@@ -1,8 +1,6 @@
 
 // 1. import `extendTheme` function
-import { extendTheme, useColorModeValue, type ThemeConfig } from '@chakra-ui/react'
-import { mode } from '@chakra-ui/theme-tools'
-import type { StyleFunctionProps } from '@chakra-ui/styled-system'
+import { extendTheme, type ThemeConfig } from '@chakra-ui/react'
 
 // 2. Add your color mode config
 const config: ThemeConfig = {

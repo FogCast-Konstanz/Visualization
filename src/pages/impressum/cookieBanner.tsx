@@ -1,7 +1,7 @@
-import { Box, Button, Flex, HStack, Icon, Slide, Text, useColorModeValue } from "@chakra-ui/react";
+import { Box, Button, Flex, Icon, Slide, Text, useColorModeValue } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { FaCookieBite  } from "react-icons/fa";
+import { FaCookieBite } from "react-icons/fa";
 
 export default function CookieBanner() {
     const { t } = useTranslation();

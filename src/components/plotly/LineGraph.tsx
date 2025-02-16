@@ -1,6 +1,6 @@
-import { calc, grid, Heading, useColorModeValue, useTheme } from "@chakra-ui/react";
-import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
+import { useColorModeValue, useTheme } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
 
 export interface LineGraphData { x: string[], y: number[], name: string }
 

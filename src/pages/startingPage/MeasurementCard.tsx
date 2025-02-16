@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Flex, Heading, Icon, useColorModeValue } from "@chakra-ui/react"
+import { Card, CardBody, Flex, Heading, Icon, useColorModeValue } from "@chakra-ui/react"
 import { IconType } from "react-icons/lib"
 
 type Input = { measurement: string, value: string, unit: string, icon?: IconType }

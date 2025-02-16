@@ -1,10 +1,10 @@
 
-import { useEffect, useState } from 'react'
-import { Button, Icon, IconButton, Input, Menu, MenuButton, MenuList, useColorModeValue, VStack } from '@chakra-ui/react'
+import { Button, Icon, IconButton, Input, Menu, MenuButton, MenuList, useColorModeValue, VStack } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import { fetchModels } from '../../components/requests/forcastBackend';
 
-import Select from 'react-select';
 import { GrConfigure } from "react-icons/gr";
+import Select from 'react-select';
 
 type ModelSelectionProps = {
   selectedModels: string[];

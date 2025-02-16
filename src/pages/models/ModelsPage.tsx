@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react'
-import { Flex, Heading, Text } from '@chakra-ui/react'
+import { PlotlyChartDataFormat } from '@/components/plotly/DataFormat';
+import { Flex, Heading, Text } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import LineGraph from "../.././components/plotly/LineGraph";
 import { extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
-import { PlotlyChartDataFormat } from '@/components/plotly/DataFormat';
 import ConfigurationForRequest from './ConfigurationForRequest';
-import { useSearchParams } from 'react-router-dom';
 
 export default function ModelsPage() {
 
@@ -28,7 +28,7 @@ export default function ModelsPage() {
     if (selectedModels.length > 0 && selectedDatetime != '') {
       setForecastData([]);
       for (const model of selectedModels) {
-        let newValue = await fetchData(model)
+        const newValue = await fetchData(model)
         copyModel = [...copyModel, newValue]
       }
     }
@@ -37,7 +37,7 @@ export default function ModelsPage() {
   }
 
   async function fetchData(model: string) {
-    let time = new Date(selectedDatetime);
+    const time = new Date(selectedDatetime);
     time.setMinutes(0, 0, 0); // Round to last full hour
     const timeIsoString = time.toISOString().split('.')[0] + "Z"
 

@@ -2,8 +2,8 @@ import axios from "axios";
 
 const API_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 
-import { LineGraphData } from "../plotly/LineGraph";
 import { ForcastCardProps } from "@/pages/startingPage/ForcastCard";
+import { LineGraphData } from "../plotly/LineGraph";
 
 const weatherIcons: { [key: number]: "cloudy" | "rainy" | "sunny" | "partlySunny" | "mostlySunny" | "foggy" | "thunder" | "snowy" | "unkown" } = {
   1: "sunny",
@@ -82,7 +82,7 @@ class DWDForcast {
     const forecast = data[stationId].forecast1;
     const { temperature, humidity, icon, start, timeStep } = forecast;
 
-    let formattedData: ForcastCardProps[] = [];
+    const formattedData: ForcastCardProps[] = [];
     const currentTime = Date.now();
 
     for (let i = 0; i < temperature.length; i++) {

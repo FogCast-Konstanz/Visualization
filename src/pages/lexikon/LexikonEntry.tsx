@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react'
-import { Card, CardBody, CardHeader, Flex, Heading, Tag, Text, useColorModeValue } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, Flex, Heading, Tag, Text, useColorModeValue } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 
 type Input = { text: string, header: string, tags?: string[], id: string, defaultShown: boolean }
 export default function LexikonEntry({ text, header, tags, id, defaultShown = false }: Input) {

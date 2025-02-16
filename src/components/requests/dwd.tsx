@@ -1,5 +1,4 @@
 
-import ForcastCard from "@/pages/startingPage/ForcastCard";
 import axios from "axios";
 
 const API_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
@@ -47,7 +46,7 @@ function transformForecastData(data: ForecastData): {x: string[], y: number[], n
         return date.toISOString(); // Formats as DD.MM.YYYY
     });
 
-    const y = forecast.temperature.map((temp, index) => {
+    const y = forecast.temperature.map((temp) => {
         const temperatureNew = temp / 10
         return temperatureNew;
     });

@@ -1,26 +1,22 @@
-import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import { Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
-import MeasurementCard from './MeasurementCard'
+import { useEffect, useState } from 'react'
+import LineGraph from "../.././components/plotly/LineGraph"
 import ForcastCard, { ForcastCardProps } from './ForcastCard'
-import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
-import LineGraph from "../.././components/plotly/LineGraph";
-import BarGraph from "../../components/plotly/BarGraph";
+import MeasurementCard from './MeasurementCard'
 
-import { FaTemperatureHalf, FaWater } from "react-icons/fa6";
-import { WiHumidity } from "react-icons/wi";
-import { RiWindyFill } from "react-icons/ri";
+import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
+import { RiWindyFill } from "react-icons/ri"
+import { WiHumidity } from "react-icons/wi"
 // import { fetchForecast } from '../../components/requests/dwd'
 
 import DWDForcast from '../../components/requests/dwdForcast'
 
 import { OrbitProgress } from 'react-loading-indicators'
 
-import { LineGraphData } from '../.././components/plotly/LineGraph'
 import { useTranslation } from 'react-i18next'
-import dwdForcast from '../../components/requests/dwdForcast'
+import { LineGraphData } from '../.././components/plotly/LineGraph'
 import { fetchActualWeather } from '../../components/requests/actualBackend'
+import dwdForcast from '../../components/requests/dwdForcast'
 
 export default function StartingPage() {
   const { t } = useTranslation();

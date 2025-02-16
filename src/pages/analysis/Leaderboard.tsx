@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Box, Table, Thead, Tbody, Tr, Th, Td, Avatar, Text } from "@chakra-ui/react";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
+import { Avatar, Box, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { useState } from "react";
 
 interface Player {
   id: number;

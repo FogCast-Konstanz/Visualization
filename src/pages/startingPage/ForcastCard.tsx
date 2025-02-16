@@ -1,12 +1,12 @@
-import { background, Card, CardBody, CardHeader, createIcon, Flex, Heading, Icon, Text, useColorModeValue } from "@chakra-ui/react"
+import { Card, CardBody, createIcon, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 
-import { IoSunny, IoPartlySunny, IoCloudy, IoRainy, IoSnow, IoThunderstorm, IoCloudOfflineOutline  } from "react-icons/io5";
 import { GiWaterDrop } from "react-icons/gi";
+import { IoCloudOfflineOutline, IoCloudy, IoSnow, IoSunny } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
-import RainySVG from '/public/assets/weather/rainy.svg'
-import ParltySunnySVG from '/public/assets/weather/partlySunny.svg'
-import ThunderSVG from '/public/assets/weather/thunder.svg'
-import FogSVG from '/public/assets/weather/fog.svg'
+import FogSVG from '/public/assets/weather/fog.svg';
+import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
+import RainySVG from '/public/assets/weather/rainy.svg';
+import ThunderSVG from '/public/assets/weather/thunder.svg';
 
 const SVGRepoRainy = createIcon({displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" />});
 const SVGRepoPartlySunny = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" />});

@@ -1,17 +1,17 @@
+import { Flex, useColorModeValue } from '@chakra-ui/react';
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navigation from './components/Navigation';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import StartingPage from './pages/startingPage/StartingPage';
-import { Box, Flex, useColorModeValue } from '@chakra-ui/react';
-import Lexikon from './pages/lexikon/LexikonPage';
-import Phenomena from './pages/phenomena/PhenomenaPage';
-import PhenomenaSite from './pages/phenomena/PhenomenaDetails';
-import { phenomena } from './pages/phenomena/data';
-import Impressum from './pages/impressum/Impressum';
-import DataPage from './pages/data/DataPage';
-import ModelsPage from './pages/models/ModelsPage';
-import WeatherStationPage from './pages/station/WeatherStationPage';
-import CookieBanner from './pages/impressum/cookieBanner';
 import AnalysisPage from './pages/analysis/AnalysisPage';
+import DataPage from './pages/data/DataPage';
+import Impressum from './pages/impressum/Impressum';
+import CookieBanner from './pages/impressum/cookieBanner';
+import Lexikon from './pages/lexikon/LexikonPage';
+import ModelsPage from './pages/models/ModelsPage';
+import PhenomenaSite from './pages/phenomena/PhenomenaDetails';
+import Phenomena from './pages/phenomena/PhenomenaPage';
+import { phenomena } from './pages/phenomena/data';
+import StartingPage from './pages/startingPage/StartingPage';
+import WeatherStationPage from './pages/station/WeatherStationPage';
 
 function App() {
   // const color = 'custom_light'

@@ -1,7 +1,6 @@
+import { saveAs } from 'file-saver';
 import React from 'react';
 import Plot from 'react-plotly.js';
-import { saveAs } from 'file-saver';
-import { ChatIcon, IconButton } from '@chakra-ui/icons';
 
 interface PlotlyChartProps {
     data: any[];
@@ -25,7 +24,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, useResizeHandle
                         icon: csv_icon,
                         click: (gd: any) => {
                             let max_len = 0;
-                            let data = [
+                            const data = [
                                 gd.data.map((trace: any) => {
                                     if (trace.x.length > max_len) max_len = trace.x.length;
                                     return ['timestamp', trace.name];
@@ -34,7 +33,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, useResizeHandle
                             console.log(max_len);
 
                             for (let count = 0; count < max_len; count++) {
-                                let row: any = [];
+                                const row: any = [];
                                 gd.data.forEach((trace: any) => {
                                     if (trace.x[count] && trace.y[count]) {
                                         row.push(trace.x[count], trace.y[count]);
@@ -45,7 +44,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, useResizeHandle
                                 });
                                 data.push(row);
                             }
-                            let blob = new Blob([data.join('\r\n')], { type: 'text/csv' });
+                            const blob = new Blob([data.join('\r\n')], { type: 'text/csv' });
 
                             console.log(blob)
                             saveAs(

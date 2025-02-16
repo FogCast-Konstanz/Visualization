@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 
-import { VStack, Card, CardHeader, CardBody, Heading, Text, Link, Image, Box, HStack, CardFooter, Flex } from "@chakra-ui/react";
-import { useColorModeValue } from "@chakra-ui/react";
+import { Box, Card, CardBody, CardHeader, Flex, Heading, HStack, Image, Link, Text, useColorModeValue, VStack } from "@chakra-ui/react";
 
 
 export default function Impressum() {

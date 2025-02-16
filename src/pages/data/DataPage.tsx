@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Flex } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import LineGraph from "../.././components/plotly/LineGraph";
-import { convertToPlotlyGraph, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD } from '../../components/requests/actualBackend';
 import { PlotlyChartDataFormat } from '../../components/plotly/DataFormat';
+import { convertToPlotlyGraph, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';
 
 export default function DataPage() {
@@ -33,12 +33,15 @@ export default function DataPage() {
     setTemperatureHistory([convertToPlotlyGraph(tempLastYearDaily, 'Daily Temp')])
 
     /* Get Fog of last year */
-    const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "monthly")
-    setFogLastYear([convertToPlotlyGraph(fogLastYear)])
+    // const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(dateLastWeek), "monthly")
+    // setFogLastYear([convertToPlotlyGraph(fogLastYear)])
 
     /* Get Fog in alltime history */
-    const fogHist = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", formatActualDatetime(), "monthly")
+    const fogHist = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "monthly")
     setFogHistory([convertToPlotlyGraph(fogHist)])
+    
+    const fogHistyearly = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "yearly")
+    setFogLastYear([convertToPlotlyGraph(fogHistyearly)])
   }
 
   return (
@@ -48,8 +51,8 @@ export default function DataPage() {
         <LineGraph values={temperatureHistory} title={'Temperature of last year'} />
         <LineGraph values={temperatureLastWeek} title={'Temperature in the last week'} />
         {/* <LineGraph values={fogHistory} title={'Historical Fog'} /> */}
-        <LineGraph values={fogHistory} title={'Historical Fog'} type='bar' />
-        <LineGraph values={fogLastYear} title={'Historical Fog'} type='bar' />
+        <LineGraph values={fogHistory} title={'Historical Fog (monthly)'} type='bar' />
+        <LineGraph values={fogLastYear} title={'Historical Fog (yearly)'} type='bar' />
       </Flex>
 
     </Flex>

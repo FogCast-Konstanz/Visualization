@@ -1,4 +1,3 @@
-import { Card, CardHeader, List, ListItem, Text } from "@chakra-ui/react";
 
 export type penonemaPage = {title: string, description: string, explanation: string, referenceBodensee: string, dataAnalysis: string, sources: string, id: string}
 export const fog: penonemaPage = {

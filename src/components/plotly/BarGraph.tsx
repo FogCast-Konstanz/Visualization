@@ -1,6 +1,6 @@
-import { grid, Heading, useColorModeValue, useTheme } from "@chakra-ui/react";
-import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
+import { useColorModeValue, useTheme } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import PlotlyChart from "../.././components/ui/plotly/DefaultChart";
 
 type Input = { x: string[], y: number[], name: string }[]
 

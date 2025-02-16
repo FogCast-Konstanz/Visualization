@@ -1,11 +1,9 @@
-import { calc, Image, useColorModeValue, VStack } from '@chakra-ui/react'
-import { useState } from 'react'
-import { Card, CardBody, CardHeader, Flex, Heading, Text } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, Heading, Text, useColorModeValue } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { penonemaPage } from './data'
 
 type Input = penonemaPage
-export default function PhenomenonCard({title, description, explanation, referenceBodensee, dataAnalysis, sources, id }: Input) {
+export default function PhenomenonCard({title, description, id }: Input) {
     return (
         <Card 
             bg={useColorModeValue('custom_light.background', 'custom_dark.background')} 

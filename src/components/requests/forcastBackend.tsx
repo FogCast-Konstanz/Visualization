@@ -1,5 +1,4 @@
 
-import ForcastCard from "@/pages/startingPage/ForcastCard";
 import axios from "axios";
 import { PlotlyChartDataFormat } from "../plotly/DataFormat";
 import { API_BASE_URL, formatGermanDate } from "./helpers";

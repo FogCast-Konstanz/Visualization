@@ -1,11 +1,11 @@
-import { Button, Flex, Heading, HStack, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, UnorderedList, useColorMode, useColorModeValue, VStack } from '@chakra-ui/react'
-import { HamburgerIcon, AddIcon, ExternalLinkIcon, RepeatIcon, EditIcon, ChevronDownIcon } from '@chakra-ui/icons'
+import { HamburgerIcon } from '@chakra-ui/icons';
+import { Flex, Heading, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, UnorderedList, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import Settings from './Menu';
-import { GoHomeFill } from "react-icons/go";
 import { FaDatabase } from "react-icons/fa";
-import { FaBook, FaCircleInfo, FaBolt, FaChartSimple, FaSatellite, FaRankingStar } from "react-icons/fa6";
+import { FaBolt, FaBook, FaChartSimple, FaCircleInfo, FaRankingStar, FaSatellite } from "react-icons/fa6";
+import { GoHomeFill } from "react-icons/go";
 import { useLocation } from 'react-router-dom';
+import Settings from './Menu';
 
 export default function Navigation() {
   const { t } = useTranslation();

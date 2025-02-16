@@ -1,6 +1,6 @@
 import { VStack } from '@chakra-ui/react'
-import LexikonEntry from './LexikonEntry'
 import { useEffect, useState } from 'react'
+import LexikonEntry from './LexikonEntry'
 
 export default function Lexikon() {
     const lexikonEntries = [

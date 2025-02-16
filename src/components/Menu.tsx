@@ -1,11 +1,10 @@
-import { useState } from 'react'
-import { Box, Button, Flex, Heading, Link, List, ListItem, Select, Text, UnorderedList, useColorMode, useColorModeValue } from '@chakra-ui/react'
-import { LANGUAGES } from './constants'
-import { useTranslation } from 'react-i18next'
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { Button, Flex, Select, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { useTranslation } from 'react-i18next';
+import { LANGUAGES } from './constants';
 
 export default function Settings() {
-    const { i18n, t } = useTranslation();
+    const { i18n } = useTranslation();
     const { colorMode, toggleColorMode } = useColorMode()
 
     const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
