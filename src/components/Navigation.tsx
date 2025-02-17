@@ -90,13 +90,19 @@ export default function Navigation() {
             variant='outline'
             margin='10px'
           />
-          <MenuList>
+          <MenuList
+            background={useColorModeValue('custom_light.background', 'custom_dark.background')}
+            textColor={useColorModeValue('custom_light.text', 'custom_dark.text')}
+            borderColor={useColorModeValue('custom_light.surface', 'custom_dark.surface')}
+          >
             {navigation.map((entry, index) => (
               <MenuItem
                 icon={<Icon as={entry.icon} boxSize={4} />}
                 marginBottom="10px"
                 key={index}
                 onClick={() => window.location.href = entry.href}
+                background={useColorModeValue('custom_light.background', 'custom_dark.background')}
+                _hover={{background: useColorModeValue('custom_light.background', 'custom_dark.background')}}
               >
                 <Link href={entry.href}>{entry.name}</Link>
               </MenuItem>

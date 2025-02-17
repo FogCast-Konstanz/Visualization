@@ -5,7 +5,7 @@ id: 'fog',
 title: 'Nebel',
 description: 'Nebel entsteht, wenn Wassertröpfchen oder Eiskristalle in den unteren atmosphärischen Schichten die Sichtweite auf unter 1 Kilometer reduzieren. Je nach Sichtweite unterscheidet man zwischen leichtem (500-1000 m), mäßigem (200-500 m) und starkem Nebel (< 200 m (Vgl. Bott 2023, S. 450)',
 explanation: `
-![Picture](/assets/fog.jpg)
+![Picture](/assets/phenomena/fog.jpg)
 
 ## Physikalische Entstehungsprozesse
 
@@ -50,28 +50,28 @@ sources: `
 export const schwäbisches_meer_effekt: penonemaPage = {
     id: 'schwäbisches-meer',
     title: 'Schwäbisches Meer Effekt',
-    description: '',
-    explanation: ``,
-    referenceBodensee: ``,
-    dataAnalysis: ``,
-    sources: ``
+    description: 'Der Schwäbische Meereffekt beschreibt den klimatischen Einfluss des Bodensees, der durch seine Wärmespeicherung, Feuchtigkeitsregulierung und Windmuster ein mildes und ausgeglichenes Klima in der Region schafft. Besonders im Winter verhindert der See starke Temperaturabfälle und begünstigt ein stabileres Wetter.',
+    explanation: `t.b.d.`,
+    referenceBodensee: `t.b.d.`,
+    dataAnalysis: `t.b.d.`,
+    sources: `t.b.d.`
 };
 
 export const windsysteme: penonemaPage = {
     id: 'windsysteme',
     title: 'Windsysteme',
-    description: '',
-    explanation: ``,
-    referenceBodensee: ``,
-    dataAnalysis: ``,
-    sources: ``
+    description: 'Die Windsysteme am Bodensee umfassen verschiedene Strömungen, die das Wetter beeinflussen. Während Föhn und Bise extreme Temperaturen bringen, sorgen thermische Winde für den täglichen Wechsel zwischen See- und Landwind, und gelegentliche Stürme können starke Böen verursachen.',
+    explanation: `t.b.d.`,
+    referenceBodensee: `t.b.d.`,
+    dataAnalysis: `t.b.d.`,
+    sources: `t.b.d.`
 };
 
 export const hochwasser: penonemaPage = {
     id: 'hochwasser',
     title: 'Wasserstand und Hochwasser',
-    description: '',
-    explanation: ``,
+    description: 'Der Wasserstand des Bodensees schwankt saisonal und wird von Niederschlägen, Schneeschmelze und Zuflüssen beeinflusst. Starkregen oder anhaltende Schneeschmelze können Hochwasser verursachen, das Uferbereiche überflutet und Schäden anrichten.',
+    explanation: `t.b.d.`,
     referenceBodensee: ``,
     dataAnalysis: ``,
     sources: ``
@@ -80,8 +80,8 @@ export const hochwasser: penonemaPage = {
 export const bergsicht: penonemaPage = {
     id: 'bergsicht',
     title: 'Bergsicht',
-    description: '',
-    explanation: ``,
+    description: 'Der Föhn verbessert die Sicht am Bodensee, indem er trockene Luftmassen heranführt und Wolken auflöst, was eine außergewöhnliche Fernsicht ermöglicht. Gleichzeitig sorgt er für steigende Temperaturen und hohen Luftdruck, wodurch die Berge in klarer Pracht erscheinen.',
+    explanation: `t.b.d`,
     referenceBodensee: ``,
     dataAnalysis: ``,
     sources: ``
