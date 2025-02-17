@@ -45,7 +45,12 @@ const de = {
         legalInfo: "Rechtliche Hinweise",
         htwg: "Impressum HTWG",
         dataProtection: "Datenschutzerklärung HTWG",
-        gitHub: "Code auf GitHub"
+        gitHub: "Code auf GitHub",
+        sourcesLicences: "Quellen und Lizenzen",
+        licence: "Lizenz",
+        furtherLicences: "Weitere Informationen zur Lizenz",
+        dwdData: "Die Echtzeitdaten und aktuellen Vorhersagen basieren auf Daten des DWD. Auch für die Anaylsen stellten die Daten des DWD die Grundlage dar.",
+        openMeteoData: "Die auf der Webseite dargestellten Daten basiseren größtenteils auf Openmeteo."
     },
 
     cookies: {

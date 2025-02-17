@@ -1,13 +1,13 @@
 import { useTranslation } from 'react-i18next';
 
-import { Box, Card, CardBody, CardHeader, Flex, Heading, HStack, Image, Link, Text, useColorModeValue, VStack } from "@chakra-ui/react";
+import { Box, Card, CardBody, CardHeader, Flex, Heading, Image, Link, Text, useColorModeValue, VStack } from "@chakra-ui/react";
 
 
 export default function Impressum() {
     const { t } = useTranslation();
 
     return (
-        <VStack width={'100%'} padding={'15px'} overflow="auto" maxHeight={'100dvh'}>
+        <VStack width={'100%'} padding={'15px'} overflow="auto" maxHeight={'100dvh'} gap='15px'>
             <Heading size='lg'>{t('impressum.title')}</Heading>
             <Card
                 bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
@@ -19,7 +19,7 @@ export default function Impressum() {
                 <CardBody>
                     {/* Project Information */}
 
-                    <HStack spacing={4} align="center">
+                    <Flex align="center" flexDirection={{lg: 'row', base: "column"}}>
                         <Box>
                             <Text>{t('impressum.description')}</Text>
                             <br />
@@ -34,7 +34,7 @@ export default function Impressum() {
                             width="400px"
                             borderRadius="5px"
                         />
-                    </HStack>
+                    </Flex>
                 </CardBody>
             </Card>
             <Card
@@ -47,11 +47,12 @@ export default function Impressum() {
 
                 </CardHeader>
                 <CardBody>
-                    <Flex direction='row' gap='20px' justifyContent='space-between'>
+                    <Flex direction={{lg: 'row', base: 'column'}} gap='20px' justifyContent='space-between'>
                         <Box flex="1">
                             <Text fontWeight="bold" mb={3}>{t('impressum.contact')}</Text>
                             <Text>{t('impressum.website')}: <Link href='https://www.htwg-konstanz.de'>www.htwg-konstanz.de</Link></Text>
                             <Text>{t('impressum.email')}: <Link href='mailto:oliver.duerr@htwg-konstanz.de'>oliver.duerr@htwg-konstanz.de</Link></Text>
+                            <Text><Link href='https://github.com/FogCast-Konstanz'>{t('impressum.gitHub')}</Link></Text>
                         </Box>
 
                         <Box flex="1">
@@ -72,15 +73,38 @@ export default function Impressum() {
                             <Box mb={4}>
                                 <Text><Link href='https://www.htwg-konstanz.de/info/impressum'>{t('impressum.htwg')}</Link></Text>
                                 <Text><Link href='https://www.htwg-konstanz.de/datenschutzerklaerung'>{t('impressum.dataProtection')}</Link></Text>
-                                <Text><Link href='https://github.com/FogCast-Konstanz'>{t('impressum.gitHub')}</Link></Text>
                             </Box>
                         </Box>
                     </Flex>
 
                 </CardBody>
             </Card>
-            <Card>
-                Verwendete Datenquellen: OpenMeteo, DWD, ...
+
+            <Card
+                bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
+                color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+                width={'100%'}>
+                {/* Sources and Licences */}
+                <CardHeader pb={0}>
+                    <Heading size="md">{t('impressum.sourcesLicences')}</Heading>
+                </CardHeader>
+
+                <CardBody>
+                    <Flex direction={{lg: 'row', base: 'column'}} gap='20px' justifyContent='space-between'>
+                        <Box flex="1">
+                            <Link href='https://www.dwd.de/DE/Home/home_node.html'><Text fontWeight="bold" mb={3}>Deutscher Wetterdienst</Text></Link>
+                            <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
+                            <Text>Datenbasis: <Link href='https://www.dwd.de/DE/Home/home_node.html'>Deutscher Wetterdienst</Link> - {t('impressum.dwdData')}</Text>
+                        </Box>
+
+                        <Box flex="1">
+                            <Link href='https://open-meteo.com'><Text fontWeight="bold" mb={3}>OpenMeteo</Text></Link>
+                            <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
+                            <Text>{t('impressum.furtherLicences')}: <Link href='https://open-meteo.com/en/license'>Open Meteo Licences</Link></Text>
+                            <Text>Datenbasis: <Link href='https://open-meteo.com/'>Open Meteo</Link> - {t('impressum.openMeteoData')}</Text>
+                        </Box>
+                    </Flex>
+                </CardBody>
             </Card>
         </VStack >
     );

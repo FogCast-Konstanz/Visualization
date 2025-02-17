@@ -47,6 +47,8 @@ export default function StartingPage() {
     console.log(dwdForcast.getHourlyForcastValuesIcon())
   };
 
+  const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
+
   return (
     <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={'10px'} maxWidth={'100%'}>
       <Heading>{t('startingPage.title')}</Heading>
@@ -83,13 +85,13 @@ export default function StartingPage() {
         >
           {forecastIcons ? forecastIcons.map((forcastElem, index) => (
             <ForcastCard {...forcastElem} key={index}></ForcastCard>
-          )) : <OrbitProgress color={useColorModeValue('custom_light.primary', 'custom_dark.primary')} size="medium" />}
+          )) : <OrbitProgress color={loadingColor} size="medium" />}
         </Flex>
       </Card>
       <Flex gap='10px'>
         {forecast ? 
           <LineGraph values={forecast} title={t('startingPage.forcastGraph')} /> : 
-          <OrbitProgress color={useColorModeValue('custom_light.background', 'custom_dark.background')} size="medium" />}
+          <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
     </Flex>
