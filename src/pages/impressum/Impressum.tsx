@@ -91,13 +91,13 @@ export default function Impressum() {
 
                 <CardBody>
                     <Flex direction={{lg: 'row', base: 'column'}} gap='20px' justifyContent='space-between'>
-                        <Box flex="1">
+                        <Box flex="1" id='dwdSource'>
                             <Link href='https://www.dwd.de/DE/Home/home_node.html'><Text fontWeight="bold" mb={3}>Deutscher Wetterdienst</Text></Link>
                             <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
                             <Text>Datenbasis: <Link href='https://www.dwd.de/DE/Home/home_node.html'>Deutscher Wetterdienst</Link> - {t('impressum.dwdData')}</Text>
                         </Box>
 
-                        <Box flex="1">
+                        <Box flex="1" id='openMeteoSource'>
                             <Link href='https://open-meteo.com'><Text fontWeight="bold" mb={3}>OpenMeteo</Text></Link>
                             <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
                             <Text>{t('impressum.furtherLicences')}: <Link href='https://open-meteo.com/en/license'>Open Meteo Licences</Link></Text>

@@ -15,6 +15,7 @@ import { OrbitProgress } from 'react-loading-indicators'
 
 import { useTranslation } from 'react-i18next'
 import { LineGraphData } from '../.././components/plotly/LineGraph'
+import DataSource from '../../components/DataSource'
 import { fetchActualWeather } from '../../components/requests/actualBackend'
 import dwdForcast from '../../components/requests/dwdForcast'
 
@@ -90,10 +91,11 @@ export default function StartingPage() {
       </Card>
       <Flex gap='10px'>
         {forecast ? 
-          <LineGraph values={forecast} title={t('startingPage.forcastGraph')} /> : 
+          <LineGraph values={forecast} title={t('startingPage.forcastGraph') + '**'} /> : 
           <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
+      <DataSource></DataSource>
     </Flex>
   )
 }

@@ -1,5 +1,7 @@
-import { VStack } from '@chakra-ui/react'
+import { Flex, Heading, VStack } from '@chakra-ui/react'
+import { t } from 'i18next'
 import { useEffect, useState } from 'react'
+import UnderConstruction from '../../components/UnderConstruction'
 import LexikonEntry from './LexikonEntry'
 
 export default function Lexikon() {
@@ -28,11 +30,15 @@ export default function Lexikon() {
     }, [])
 
     return (
-        <VStack width={'100%'} padding={'10px'} overflow="auto" maxHeight={'100dvh'} margin={'10px'}>
-            {lexikonEntries.map((entry, index) => (
-                <LexikonEntry {...entry} defaultShown={entry.id == hash} key={index} />
-            ))}
+        <Flex direction='column' overflow="auto" maxHeight={'100dvh'} margin={'10px'} gap='10px' width={{lg: '100%'}}>
+            <Heading>{t('lexicon.title')}</Heading>
+            <UnderConstruction></UnderConstruction>
+            <VStack width={'100%'} padding={'0px'} margin={'0'}>
+                {lexikonEntries.map((entry, index) => (
+                    <LexikonEntry {...entry} defaultShown={entry.id == hash} key={index} />
+                ))}
+            </VStack>
+        </Flex>
 
-        </VStack>
     )
 }

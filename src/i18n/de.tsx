@@ -32,6 +32,10 @@ const de = {
         sources: "Quellen"
     },
 
+    lexicon: {
+        title: "Lexikon"
+    },
+
     impressum: {
         title: "Impressum",
         aboutTitle: "Über das Projekt",

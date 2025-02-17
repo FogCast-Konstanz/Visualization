@@ -1,8 +1,9 @@
-import { PlotlyChartDataFormat } from '@/components/plotly/DataFormat';
 import { Flex, Heading, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import LineGraph from "../.././components/plotly/LineGraph";
+import DataSource from '../../components/DataSource';
+import { PlotlyChartDataFormat } from '../../components/plotly/DataFormat';
 import { extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';
 
@@ -56,6 +57,8 @@ export default function ModelsPage() {
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
         {forecastData.length > 0 ? <LineGraph values={forecastData} title={'Modelle für ' + selectedDatetime} /> : <Text>Select Values</Text>}
       </Flex>
+
+      <DataSource></DataSource>
     </Flex>
   )
 }

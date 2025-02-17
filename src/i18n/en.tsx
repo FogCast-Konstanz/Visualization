@@ -31,6 +31,10 @@ const en = {
         sources: "Sources"
     },
 
+    lexicon: {
+        title: "Lexicon"
+    },
+
     impressum: {
         title: "Impressum",
         aboutTitle: "About the project",

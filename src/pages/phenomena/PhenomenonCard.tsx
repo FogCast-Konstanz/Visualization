@@ -29,7 +29,7 @@ export default function PhenomenonCard({title, description, id }: Input) {
                 position="absolute" 
                 bottom={3} 
                 right={3} 
-                color={useColorModeValue('gray.600', 'gray.400')} 
+                color={useColorModeValue('custom_light.text', 'custom_dark.text')} 
             />
         </Card>
     )

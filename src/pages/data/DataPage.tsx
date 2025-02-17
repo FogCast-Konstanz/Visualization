@@ -1,6 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import LineGraph from "../.././components/plotly/LineGraph";
+import DataSource from '../../components/DataSource';
 import { PlotlyChartDataFormat } from '../../components/plotly/DataFormat';
 import { convertToPlotlyGraph, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';
@@ -48,13 +49,14 @@ export default function DataPage() {
     <Flex direction='column' width='100%' gap='10px' margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
 
       <Flex gap='10px' maxWidth='90%' wrap='wrap'>
-        <LineGraph values={temperatureHistory} title={'Temperature of last year'} />
-        <LineGraph values={temperatureLastWeek} title={'Temperature in the last week'} />
+        <LineGraph values={temperatureHistory} title={'Temperature of last year**'} />
+        <LineGraph values={temperatureLastWeek} title={'Temperature in the last week**'} />
         {/* <LineGraph values={fogHistory} title={'Historical Fog'} /> */}
-        <LineGraph values={fogHistory} title={'Historical Fog (monthly)'} type='bar' />
-        <LineGraph values={fogLastYear} title={'Historical Fog (yearly)'} type='bar' />
+        <LineGraph values={fogHistory} title={'Historical Fog (monthly)**'} type='bar' />
+        <LineGraph values={fogLastYear} title={'Historical Fog (yearly)**'} type='bar' />
       </Flex>
 
+      <DataSource></DataSource>
     </Flex>
   )
 }

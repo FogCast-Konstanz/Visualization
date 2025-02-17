@@ -1,4 +1,5 @@
 import { Flex, Heading } from '@chakra-ui/react';
+import DataSource from '../../components/DataSource';
 import Leaderboard from './Leaderboard';
 
 export default function AnalysisPage() {
@@ -10,6 +11,7 @@ export default function AnalysisPage() {
 
       <Leaderboard></Leaderboard>
 
+      <DataSource></DataSource>
     </Flex>
   )
 }
