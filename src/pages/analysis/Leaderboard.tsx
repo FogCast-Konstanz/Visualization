@@ -1,74 +1,74 @@
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
+import { Box, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import { useState } from "react";
 
-interface Player {
+interface LeaderboardEntry {
   id: number;
   name: string;
   score: number;
-  avatar: string;
 }
 
-const initialPlayers: Player[] = [
-  { id: 1, name: "Alice", score: 1200, avatar: "https://i.pravatar.cc/50?u=alice" },
-  { id: 2, name: "Bob", score: 1100, avatar: "https://i.pravatar.cc/50?u=bob" },
-  { id: 3, name: "Charlie", score: 1000, avatar: "https://i.pravatar.cc/50?u=charlie" },
-];
+interface Entries {
+  entries: LeaderboardEntry[],
+  name: string
+}
 
-export default function Leaderboard(){
-  const [players, setPlayers] = useState<Player[]>(initialPlayers);
-  const [sortConfig, setSortConfig] = useState<{ key: keyof Player; direction: "asc" | "desc" } | null>(null);
+export default function Leaderboard({entries, name}: Entries){
+  const [models, setModels] = useState<LeaderboardEntry[]>(entries);
+  const [sortConfig, setSortConfig] = useState<{ key: keyof LeaderboardEntry; direction: "asc" | "desc" } | null>(null);
 
-  const handleSort = (key: keyof Player) => {
+  const handleSort = (key: keyof LeaderboardEntry) => {
     let direction: "asc" | "desc" = "asc";
 
     if (sortConfig?.key === key && sortConfig.direction === "asc") {
       direction = "desc";
     }
-    const sortedPlayers = [...players].sort((a, b) => {
+    const sortedModels = [...models].sort((a, b) => {
       if (a[key] < b[key]) return direction === "asc" ? -1 : 1;
       if (a[key] > b[key]) return direction === "asc" ? 1 : -1;
       return 0;
     });
     setSortConfig({ key, direction });
-    setPlayers(sortedPlayers);
+    setModels(sortedModels);
   };
 
-  function getSortIcon(key: keyof Player) {
+  function getSortIcon(key: keyof LeaderboardEntry) {
     if (sortConfig?.key !== key) return null;
     return sortConfig.direction === "asc" ? <TriangleUpIcon ml={1} /> : <TriangleDownIcon ml={1} />;
   };
 
   return (
-    <Box maxW="md" mx="auto" mt={5} p={4} borderWidth="1px" borderRadius="lg" boxShadow="md">
-      <Table variant="simple">
-        <Thead>
-          <Tr>
-            <Th onClick={() => handleSort("id")} cursor="pointer">
-              # {getSortIcon("id")}
-            </Th>
-            <Th onClick={() => handleSort("name")} cursor="pointer">
-              Player {getSortIcon("name")}
-            </Th>
-            <Th onClick={() => handleSort("score")} cursor="pointer" isNumeric>
-              Score {getSortIcon("score")}
-            </Th>
-          </Tr>
-        </Thead>
-        <Tbody>
-          {players.map((player) => (
-            <Tr key={player.id}>
-              <Td>{player.id}</Td>
-              <Td>
-                <Avatar size="sm" src={player.avatar} mr={2} />
-                <Text as="span" fontWeight="bold">{player.name}</Text>
-              </Td>
-              <Td isNumeric>{player.score}</Td>
+    <Flex direction='column' alignItems={'right'} mt='10px'>
+      <Text p='0' fontWeight={'bold'} >{name}</Text>
+      <Box maxW="md" p={4} borderWidth="1px" borderRadius="lg" boxShadow="md">
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th onClick={() => handleSort("id")} cursor="pointer">
+                # {getSortIcon("id")}
+              </Th>
+              <Th onClick={() => handleSort("name")} cursor="pointer">
+                Model {getSortIcon("name")}
+              </Th>
+              <Th onClick={() => handleSort("score")} cursor="pointer" isNumeric>
+                Score {getSortIcon("score")}
+              </Th>
             </Tr>
-          ))}
-        </Tbody>
-      </Table>
-    </Box>
+          </Thead>
+          <Tbody>
+            {models.map((model) => (
+              <Tr key={model.id}>
+                <Td>{model.id}</Td>
+                <Td>
+                  <Text as="span" fontWeight="bold">{model.name}</Text>
+                </Td>
+                <Td isNumeric>{model.score}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      </Box>
+    </Flex>
   );
 };
 

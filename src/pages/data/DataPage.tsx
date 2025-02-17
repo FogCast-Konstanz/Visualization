@@ -52,8 +52,8 @@ export default function DataPage() {
         <LineGraph values={temperatureHistory} title={'Temperature of last year**'} />
         <LineGraph values={temperatureLastWeek} title={'Temperature in the last week**'} />
         {/* <LineGraph values={fogHistory} title={'Historical Fog'} /> */}
-        <LineGraph values={fogHistory} title={'Historical Fog (monthly)**'} type='bar' />
-        <LineGraph values={fogLastYear} title={'Historical Fog (yearly)**'} type='bar' />
+        <LineGraph values={fogHistory} title={'Historical Fog (days per month)**'} type='bar' />
+        <LineGraph values={fogLastYear} title={'Historical Fog (days per year)**'} type='bar' />
       </Flex>
 
       <DataSource></DataSource>

@@ -36,6 +36,11 @@ const de = {
         title: "Lexikon"
     },
 
+    models: {
+        title: "Vorhersagen",
+        selectValues: "Wähle ein Modell und das Datum aus (oben rechts)."
+    },
+
     impressum: {
         title: "Impressum",
         aboutTitle: "Über das Projekt",
@@ -54,12 +59,18 @@ const de = {
         licence: "Lizenz",
         furtherLicences: "Weitere Informationen zur Lizenz",
         dwdData: "Die Echtzeitdaten und aktuellen Vorhersagen basieren auf Daten des DWD. Auch für die Anaylsen stellten die Daten des DWD die Grundlage dar.",
-        openMeteoData: "Die auf der Webseite dargestellten Daten basiseren größtenteils auf Openmeteo."
+        openMeteoData: "Die auf der Webseite dargestellten Daten basiseren größtenteils auf Openmeteo.",
+        dataFrom: "Daten von",
+        and: "und"
     },
 
     cookies: {
         text: "Diese Website verwendet Cookies. Sie sind für die Funktionalität der Seite notwendig, verbessern die Benutzerfreundlichkeit und helfen beim Speichern von Konfigurationen wie Sprache und Farbmodus.",
         accept: "Akzeptieren"
+    },
+
+    other: {
+        underConstruction: "Diese Seite befindet sich im Aufbau...",
     }
 }
 

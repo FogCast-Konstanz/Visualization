@@ -35,6 +35,11 @@ const en = {
         title: "Lexicon"
     },
 
+    models: {
+        title: "Forecasting",
+        selectValues: "Select date and model. (top right)"
+    },
+
     impressum: {
         title: "Impressum",
         aboutTitle: "About the project",
@@ -53,12 +58,18 @@ const en = {
         licence: "Licence",
         furtherLicences: "Further Informations about the Licences",
         dwdData: "The real-time data and current forecasts are based on DWD data. The DWD data also formed the basis for the analyses.",
-        openMeteoData: "The data presented on the website is largely based on Openmeteo."
+        openMeteoData: "The data presented on the website is largely based on Openmeteo.",
+        dataFrom: "Date from",
+        and: "and"
     },
 
     cookies: {
         text: "This website uses cookies to improve your experience. It is necessary for the functionality of the page, improves the user experience, and helps store configurations like language and color mode.",
         accept: "Accept"
+    },
+
+    other: {
+        underConstruction: "This page is under construction...",
     }
 }
 
