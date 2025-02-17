@@ -1,6 +1,7 @@
 import axios from "axios";
+import { API_BASE_URL } from "./helpers";
 
-const API_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
+const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 
 import { ForcastCardProps } from "@/pages/startingPage/ForcastCard";
 import { LineGraphData } from "../plotly/LineGraph";
@@ -34,8 +35,11 @@ class DWDForcast {
 
   async fetchData(stationId: string) {
     try {
-      const response = await axios.get(`${API_BASE_URL}/stationOverviewExtended`, {
-        params: { stationIds: stationId },
+      const response = await axios.get(`${API_BASE_URL}/dwd-proxy`, {
+        params: { 
+            url: `${DWD_BASE_URL}/stationOverviewExtended`,
+            stationIds: stationId
+         },
         headers: { Accept: "application/json" },
       });
 
