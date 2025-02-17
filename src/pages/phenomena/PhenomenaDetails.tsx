@@ -29,11 +29,11 @@ export default function PhenomenaSite({ title, description, explanation, referen
                 color={useColorModeValue('custom_light.text', 'custom_dark.text')}
             />
 
-            <CardIndividual header={title} body={description} />
-            <CardIndividual header={t('phenomena.explanation')} body={explanation} />
-            <CardIndividual header={t('phenomena.referenceBodensee')} body={referenceBodensee} />
-            <CardIndividual header={t('phenomena.dataAnalysis')} body={dataAnalysis} />
-            <CardIndividual header={t('phenomena.sources')} body={sources} />
+            {description && <CardIndividual header={title} body={description} />}
+            {explanation && <CardIndividual header={t('phenomena.explanation')} body={explanation} />}
+            {referenceBodensee && <CardIndividual header={t('phenomena.referenceBodensee')} body={referenceBodensee} />}
+            {dataAnalysis && <CardIndividual header={t('phenomena.dataAnalysis')} body={dataAnalysis} />}
+            {sources && <CardIndividual header={t('phenomena.sources')} body={sources} />}
         </Flex>
     )
 }

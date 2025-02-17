@@ -16,7 +16,18 @@ export default function CardIndividual({ header, body }: Input) {
             </CardHeader>
             <CardBody>
                 {/* <Text>{t('phenomena.introduction')}</Text> */}
-                <ReactMarkdown children={body} remarkPlugins={[remarkGfm]} />
+                <ReactMarkdown 
+                    children={body} 
+                    remarkPlugins={[remarkGfm]} 
+                    components={{
+                        img: ({ node, ...props }) => (
+                          <figure>
+                            <img {...props} alt={props.alt} />
+                            {props.title && <figcaption>{props.title}</figcaption>}
+                          </figure>
+                        ),
+                      }}
+                />
             </CardBody>
         </Card>
     )

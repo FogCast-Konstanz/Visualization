@@ -24,7 +24,7 @@ const en = {
 
     phenomena : {
         title: "Weather phenomena",
-        introduction: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua",
+        introduction: "Lake Constance is a unique climate regulator that, due to its size and location, causes various weather phenomena. The Swabian Sea Effect influences the local climate by balancing temperature differences and promoting weather changes. Especially in autumn and winter, dense fog is common, formed by the lake's moisture and often significantly reducing visibility. Additionally, the lake's water level can fluctuate considerably due to flooding caused by heavy rainfall or snowmelt. The following sections will provide a closer look at these and other weather phenomena.",
         explanation: "Explanation",
         referenceBodensee: "Reference to Bodensee",
         dataAnalysis: "Data Analysis",

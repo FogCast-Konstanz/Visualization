@@ -1,12 +1,11 @@
 
-export type penonemaPage = {title: string, description: string, explanation: string, referenceBodensee: string, dataAnalysis: string, sources: string, id: string}
+export type penonemaPage = {title: string, description?: string, explanation?: string, referenceBodensee?: string, dataAnalysis?: string, sources?: string, id: string}
 export const fog: penonemaPage = {
 id: 'fog',
 title: 'Nebel',
 description: 'Nebel entsteht, wenn Wassertröpfchen oder Eiskristalle in den unteren atmosphärischen Schichten die Sichtweite auf unter 1 Kilometer reduzieren. Je nach Sichtweite unterscheidet man zwischen leichtem (500-1000 m), mäßigem (200-500 m) und starkem Nebel (< 200 m (Vgl. Bott 2023, S. 450)',
 explanation: `
-![Picture](/assets/phenomena/fog.jpg)
-
+![Picture](/assets/phenomena/2025-02-17_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")
 ## Physikalische Entstehungsprozesse
 
 Die Grundvoraussetzung für die Nebelbildung ist das Erreichen des Sättigungszustands der Luft. Dies kann geschehen durch:
@@ -22,6 +21,8 @@ Die Grundvoraussetzung für die Nebelbildung ist das Erreichen des Sättigungszu
 5. **Mischungsnebel**: Bildet sich durch die Mischung zweier untersättigter Luftmassen, die zusammen gesättigt werden. (Vgl. Bott 2023, S. 450 - 451)
 `,
 referenceBodensee: `
+![Picture](/assets/phenomena/me_SAMANTHA_ISTED_1-2.jpg "Foto von Samantha Isted")
+
 Der Bodensee fördert die Nebelbildung durch:
 * Große Wasserfläche: Der See sorgt für eine konstante Feuchtigkeitszufuhr in die Luft, was besonders im Herbst und Winter die Nebelbildung begünstigt.
 * Geografische Lage: Die umliegenden Berge schaffen ideale Bedingungen für Strahlungs- und Mischungsnebel, da sie kalte Luftmassen einschließen können.
@@ -60,31 +61,92 @@ export const schwäbisches_meer_effekt: penonemaPage = {
 export const windsysteme: penonemaPage = {
     id: 'windsysteme',
     title: 'Windsysteme',
-    description: 'Die Windsysteme am Bodensee umfassen verschiedene Strömungen, die das Wetter beeinflussen. Während Föhn und Bise extreme Temperaturen bringen, sorgen thermische Winde für den täglichen Wechsel zwischen See- und Landwind, und gelegentliche Stürme können starke Böen verursachen.',
-    explanation: `t.b.d.`,
-    referenceBodensee: `t.b.d.`,
-    dataAnalysis: `t.b.d.`,
-    sources: `t.b.d.`
+    description: 'Die wichtigsten Windsysteme am Bodensee sind der Föhn, die Bise, der Talwind, der Bergwind und die Land-Seewind-Zirkulation. Der Föhn ist ein warmer, trockener Fallwind über den Alpen, der für plötzliche Temperaturanstiege und klare Sicht sorgt, während die Bise ein kalter Nordostwind ist, der vor allem im Winter mit hohen Windgeschwindigkeiten auf den Bodensee einwirkt. Tal- und Bergwinde entstehen durch die tageszeitlichen Temperaturunterschiede zwischen Gebirge und Flachland, und die Land-Seewind-Zirkulation wechselt tagsüber zwischen Seebrise und Landbrise.',
+    explanation: ``,
+    referenceBodensee: `
+![Picture](/assets/phenomena/2021-07-18_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")
+
+
+## Föhn
+
+Der Föhn ist ein warmer, trockener Fallwind, der vom Süden über die Alpen kommt. Er kann plötzlich auftreten und führt oft zu klarem Himmel und hohen Temperaturen.
+
+Föhn entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luft steigt an den Bergen auf (Luvseite) und kühlt sich ab, es bilden sich dichte Wolken und Niederschlag. Sobald die Luft über den Alpenhauptkamm strömt und in das Absinkgebiet gelangt (Leeseite), löst sich die Wolkendecke rasch auf. Die absinkende Luft ist nach dem Wasserverlust an der Luvseite meist sehr trocken und kann einen sprunghaften Temperaturanstieg von 10 K oder mehr bewirken, was zu einem tiefblauen Himmel und einer ungewöhnlichen Fernsicht führt (Vgl. Deutscher Wetterdienst, k.D. a).
+
+\n
+
+## Bise
+
+Die Bise ist ein kalter, trockener Wind aus dem Nordosten. Sie tritt besonders im Winter auf und bringt oft kalte, klare Wetterbedingungen.
+
+Für die Entstehung von Bise ist eine spezielle Druckkonstellation erforderlich: Ein Hochdruckgebiet über Nordeuropa verbindet sich mit einem Tiefdruckgebiet über dem Mittelmeer. Diese Konstellation bewirkt, dass die Luft aus nordöstlicher Richtung über die Schweiz strömt. Vor allem im Genferseegebiet, wo der Abstand zwischen Alpen und Jura immer kleiner wird, wird diese Luft durch den Engpass geleitet, was in den unteren Schichten zu extrem hohen Windgeschwindigkeiten von teilweise über 50 Knoten führt. 
+
+![Picture](/assets/phenomena/2021-05-22_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")
+Auch der Bodensee wird von der Bise beeinflusst.  Während die kontinentale Luft im Sommer relativ trocken ist und für schönes Wetter sorgt, weist sie in der kalten Jahreszeit einen deutlich höheren Feuchtigkeitsgehalt auf. Häufig bildet sich dann eine horizontale Schicht, in der warme, trockene Luft über kühlerer, feuchter Luft liegt, was zur Bildung von Nebel führt, aus dem gelegentlich leichter Regen oder Schnee fällt. Diese Schicht behindert auch den vertikalen Luftaustausch, so dass sich Schadstoffe in Bodennähe anreichern (Vgl. Meteo Schweiz, 2015).
+
+## Talwind und Bergwind
+
+Talwind entsteht, wenn sich die Luft im Gebirge bei Sonneneinstrahlung stärker erwärmt als im Flachland, dadurch aufsteigt und der Luftdruck sinkt. Zum Ausgleich strömt kühlere Luft durch die Täler in die Berge. Dieses Phänomen beginnt etwa 2-3 Stunden nach Sonnenaufgang und endet kurz nach Sonnenuntergang (Vgl. Deutscher Wetterdienst, k.D. d). 
+
+Abends hingegen entsteht der Bergwind, wenn die Bergluft stärker abkühlt als im Flachland. Die schwere Kaltluft strömt dann von den Hängen ins Tal. Der Bergwind beginnt etwa 2-3 Stunden nach Sonnenuntergang und dauert bis kurz nach Sonnenaufgang (Vgl. Deutscher Wetterdienst, k.D. b).
+
+
+
+## Land-Seewind-Zirkulation
+
+Die Land-Seewind-Zirkulation ist ein täglich wiederkehrendes Windsystem, das vor allem an den Küsten, aber auch an großen Binnenseen wie dem Bodensee auftritt. Tagsüber erwärmt sich das Land stärker als das Wasser, sodass kühlere, feuchte Luft vom Meer zum Land strömt (Seewind). Am späten Nachmittag kehrt sich das Gefälle um, da das Land schneller abkühlt und die Luft vom Land zum Wasser strömt (Landwind) (Vgl. Deutscher Wetterdienst, k.D. c).`,
+    dataAnalysis: ``,
+    sources: `
+*   Deutscher Wetterdienst. (kein Datum a). _Alpen-Süd-Föhn_. Abgerufen am 17. Februar 2025 von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180)
+    
+*   Deutscher Wetterdienst. (kein Datum b). Bergwind. Von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=100310&lv3=100420](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=100310&lv3=100420)
+    
+*   Deutscher Wetterdienst. (kein Datum c). Land-Seewind-Zirkulation. Von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=101518&lv3=101564](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=101518&lv3=101564)
+    
+*   Deutscher Wetterdienst. (kein Datum d). Talwind. Von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102672&lv3=102730](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102672&lv3=102730)
+    
+*   Meteo Schweiz. (2015). Typische Wetterlagen im Alpenraum. Von [https://www.meteoschweiz.admin.ch/service-und-publikationen/publikationen/verschiedenes/2015/typische-wetterlagen-im-alpenraum.html](https://www.meteoschweiz.admin.ch/service-und-publikationen/publikationen/verschiedenes/2015/typische-wetterlagen-im-alpenraum.html)`
 };
 
 export const hochwasser: penonemaPage = {
     id: 'hochwasser',
     title: 'Wasserstand und Hochwasser',
-    description: 'Der Wasserstand des Bodensees schwankt saisonal und wird von Niederschlägen, Schneeschmelze und Zuflüssen beeinflusst. Starkregen oder anhaltende Schneeschmelze können Hochwasser verursachen, das Uferbereiche überflutet und Schäden anrichten.',
-    explanation: `t.b.d.`,
-    referenceBodensee: ``,
+    description: 'Der Wasserstand in Konstanz variiert saisonal durchschnittlich zwischen ca. 285 und 410 cm – im Winter sinkt er unter 240 cm, im Frühjahr und Sommer steigt er durch Schneeschmelze an. Hochwasser liegt ab 4,80 m, wobei 1 cm Zuwachs etwa 5,36 Mio m³ Wasser entspricht; Pfingsten 1999 wurde mit 5,65 m ein Tagesrekord erreicht, der nur 1817 mit 6,23 m übertroffen wurde.',
+    explanation: ``,
+    referenceBodensee: `
+    
+![Picture](/assets/phenomena/Pegel_Konstanz_1817-1935.png "Vgl. Bodenseee.net, 2025")
+![Picture](/assets/phenomena/Wasserstand_Konstanz.png "Vgl. Landesanstalt für Umwelt Baden-Württemberg, 2025")
+    
+## Jährliche Schwankungen
+
+Der mittlere Wasserstand das Jahr über schwankte über die Jahre 1981-2024 zwischen ca. 285 bis 410 cm. Im Winter ist der Wasserstand des Bodensees in der Regel niedriger, da weniger Niederschlag und Schneeschmelze vorhanden sind. Dabei kann der Wasserpegel unter 240 cm sinken. Im Frühjahr und Sommer steigt der Wasserstand aufgrund der Schneeschmelze aus den Alpen und vermehrten Regenfällen. Ab Juli bis zum nächsten Februar ist der Wasserpegel rückläufig.
+
+## Hochwasserstände
+
+Wenn am Pegel Konstanz ein Wasserstand von mehr als 4,80 m erreicht wird, spricht man am Bodensee von Hochwasser. Die Oberfläche des Sees beträgt 536 km². So entspricht 1 cm Zuwachs des Wasserpegels einem Zuwachs von 5,36 Millionen Kubikmeter Wasser. An Pfingsten 1999 erreichte der Pegel in Konstanz innerhalb eines Tages einen Anstieg von 47 cm und erreichte 5,65 m – ein Rekord, der nur 1817 mit 6,36 m übertroffen wurde (Vgl. Anger, 2016).
+
+
+`,
     dataAnalysis: ``,
-    sources: ``
+    sources: `
+*   Anger, J. (2016). _Hochwasser am Bodensee_. Von [https://www.dwd.de/DE/wetter/thema\_des\_tages/2016/6/24.html](https://www.dwd.de/DE/wetter/thema_des_tages/2016/6/24.html)
+    
+*   Bodenseee.net. (2025). _Pegel Konstanz Entwicklung_. Von Wasserstand Bodensee Historie: [https://www.bodenseee.net/pegel/](https://www.bodenseee.net/pegel/)
+    
+*   Landesanstalt für Umwelt Baden-Württemberg. (2025). Pegel Konstanz/Bodensee. Von [https://www.hvz.baden-wuerttemberg.de/pegel.html?id=00007&m=W](https://www.hvz.baden-wuerttemberg.de/pegel.html?id=00007&m=W)`
 };
 
 export const bergsicht: penonemaPage = {
     id: 'bergsicht',
     title: 'Bergsicht',
-    description: 'Der Föhn verbessert die Sicht am Bodensee, indem er trockene Luftmassen heranführt und Wolken auflöst, was eine außergewöhnliche Fernsicht ermöglicht. Gleichzeitig sorgt er für steigende Temperaturen und hohen Luftdruck, wodurch die Berge in klarer Pracht erscheinen.',
-    explanation: `t.b.d`,
-    referenceBodensee: ``,
-    dataAnalysis: ``,
-    sources: ``
+    description: 'Eine Sichtweite von mehr als 50 km wird als außergewöhnliche Fernsicht bezeichnet. Sie ist eine häufige Begleiterscheinung des Föhns, eines warmen, trockenen Fallwinds, der von Süden nach Norden über die Alpen weht. Wenn Föhn auftritt, bringt er oft eine deutliche Wetterbesserung und klare Sichtverhältnisse mit sich, sodass die Alpen vom Bodensee aus sichtbar werden.',
+    referenceBodensee: `![Picture](/assets/phenomena/2021-03-30_SAMANTHA_ISTED_1.jpg)    
+Ungewöhnliche Fernsicht ist eine sehr klare Sicht, die häufig nach Kaltfronten oder bei Föhn auftritt, wenn die trockene, absinkende Luft die sonst sichtbehindernden Schwebeteilchen reduziert. Ungewöhnliche Fernsicht wird ab einer Sichtweite von mehr als 50 km vermerkt, an hoch gelegenen Stationen erst ab 150 km bzw. 200 km (Vgl. Deutscher Wetterdienst, k.D.b).
+Föhn entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luft steigt an den Bergen auf (Luvseite) und kühlt sich ab, es bilden sich dichte Wolken und Niederschlag. Sobald die Luft über den Alpenhauptkamm strömt und in das Absinkgebiet gelangt (Leeseite), löst sich die Wolkendecke rasch auf. Die absinkende Luft ist nach dem Wasserverlust an der Luvseite meist sehr trocken und kann einen sprunghaften Temperaturanstieg von 10 K oder mehr bewirken, was zu einem tiefblauen Himmel und einer ungewöhnlichen Fernsicht führt (Vgl. Deutscher Wetterdienst, k.D.a).`,
+    sources: `*   Deutscher Wetterdienst. (kein Datum a). _Alpen-Süd-Föhn_. Abgerufen am 17. Februar 2025 von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180) 
+    
+*   Deutscher Wetterdienst. (kein Datum b). _Ungewöhnliche Fernsicht_. Abgerufen am 17. Februar 2025 von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102828&lv3=102854](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102828&lv3=102854)`
 };
 
 export const phenomena = [
