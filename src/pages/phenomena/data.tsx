@@ -52,10 +52,10 @@ export const schwäbisches_meer_effekt: penonemaPage = {
     id: 'schwäbisches-meer',
     title: 'Schwäbisches Meer Effekt',
     description: 'Der Schwäbische Meereffekt beschreibt den klimatischen Einfluss des Bodensees, der durch seine Wärmespeicherung, Feuchtigkeitsregulierung und Windmuster ein mildes und ausgeglichenes Klima in der Region schafft. Besonders im Winter verhindert der See starke Temperaturabfälle und begünstigt ein stabileres Wetter.',
-    explanation: `t.b.d.`,
-    referenceBodensee: `t.b.d.`,
-    dataAnalysis: `t.b.d.`,
-    sources: `t.b.d.`
+    explanation: ``,
+    referenceBodensee: ``,
+    dataAnalysis: ``,
+    sources: ``
 };
 
 export const windsysteme: penonemaPage = {
@@ -141,7 +141,7 @@ export const bergsicht: penonemaPage = {
     id: 'bergsicht',
     title: 'Bergsicht',
     description: 'Eine Sichtweite von mehr als 50 km wird als außergewöhnliche Fernsicht bezeichnet. Sie ist eine häufige Begleiterscheinung des Föhns, eines warmen, trockenen Fallwinds, der von Süden nach Norden über die Alpen weht. Wenn Föhn auftritt, bringt er oft eine deutliche Wetterbesserung und klare Sichtverhältnisse mit sich, sodass die Alpen vom Bodensee aus sichtbar werden.',
-    referenceBodensee: `![Picture](/assets/phenomena/2021-03-30_SAMANTHA_ISTED_1.jpg)    
+    referenceBodensee: `![Picture](/assets/phenomena/2021-03-30_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")    
 Ungewöhnliche Fernsicht ist eine sehr klare Sicht, die häufig nach Kaltfronten oder bei Föhn auftritt, wenn die trockene, absinkende Luft die sonst sichtbehindernden Schwebeteilchen reduziert. Ungewöhnliche Fernsicht wird ab einer Sichtweite von mehr als 50 km vermerkt, an hoch gelegenen Stationen erst ab 150 km bzw. 200 km (Vgl. Deutscher Wetterdienst, k.D.b).
 Föhn entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luft steigt an den Bergen auf (Luvseite) und kühlt sich ab, es bilden sich dichte Wolken und Niederschlag. Sobald die Luft über den Alpenhauptkamm strömt und in das Absinkgebiet gelangt (Leeseite), löst sich die Wolkendecke rasch auf. Die absinkende Luft ist nach dem Wasserverlust an der Luvseite meist sehr trocken und kann einen sprunghaften Temperaturanstieg von 10 K oder mehr bewirken, was zu einem tiefblauen Himmel und einer ungewöhnlichen Fernsicht führt (Vgl. Deutscher Wetterdienst, k.D.a).`,
     sources: `*   Deutscher Wetterdienst. (kein Datum a). _Alpen-Süd-Föhn_. Abgerufen am 17. Februar 2025 von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180) 

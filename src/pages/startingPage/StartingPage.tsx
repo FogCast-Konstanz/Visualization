@@ -56,7 +56,7 @@ export default function StartingPage() {
 
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
         <MeasurementCard measurement={t('startingPage.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.humidity')} value={String(parseFloat(currentWeather['humidity']) * 100)} unit='%' icon={WiHumidity}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
         <MeasurementCard measurement={t('startingPage.waterTemp')} value={currentWeather['']} unit='°C' icon={FaWater}></MeasurementCard>
         <MeasurementCard measurement={t('startingPage.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
       </Flex>
