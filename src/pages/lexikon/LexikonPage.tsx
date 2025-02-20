@@ -1,21 +1,18 @@
 import { Flex, Heading, VStack } from '@chakra-ui/react'
-import { t } from 'i18next'
 import { useEffect, useState } from 'react'
-import UnderConstruction from '../../components/UnderConstruction'
+import { useTranslation } from 'react-i18next'
 import LexikonEntry from './LexikonEntry'
 
 export default function Lexikon() {
-    const lexikonEntries = [
-        {
-            header: 'Lorem ipsum dolor sit amed Lorem ipsum dolor sit amed',
-            text: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
-            tags: ['cat', 'miau'],
-            id: 'lorem'
-        },
-        { header: 'wuff', text: 'wuff', tags: ['dog', ''], id: 'wuff' },
-        { header: 'miau', text: 'miau', tags: ['cat'], id: 'miau' },
-    ]
     const [hash, setHash] = useState('')
+
+    const { t } = useTranslation()
+
+    const lexikonEntries = [
+        { header: t('lexicon.predictedTime.title'), text: t('lexicon.predictedTime.text'), tags: ['prediction'], id: 'predictedTime' },
+        { header: t('lexicon.timeOfPrediction.title'), text: t('lexicon.timeOfPrediction.text'), tags: ['prediction'], id: 'timeOfPrediction' },
+        { header: t('lexicon.benchmarkingIdea.title'), text: t('lexicon.benchmarkingIdea.text'), tags: ['prediction', 'benchmarking'], id: 'benchmarkingIdea' },
+    ]
 
     useEffect(() => {
         const handleUrlChange = () => {
@@ -30,9 +27,8 @@ export default function Lexikon() {
     }, [])
 
     return (
-        <Flex direction='column' overflow="auto" maxHeight={'100dvh'} margin={'10px'} gap='10px' width={{lg: '100%'}}>
+        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={'10px'} gap='10px' width={{ lg: '100%' }}>
             <Heading>{t('lexicon.title')}</Heading>
-            <UnderConstruction></UnderConstruction>
             <VStack width={'100%'} padding={'0px'} margin={'0'}>
                 {lexikonEntries.map((entry, index) => (
                     <LexikonEntry {...entry} defaultShown={entry.id == hash} key={index} />

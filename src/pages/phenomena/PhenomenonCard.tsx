@@ -1,9 +1,9 @@
-import { ArrowRightIcon } from '@chakra-ui/icons'
-import { Card, CardBody, CardHeader, Heading, Icon, Text, useColorModeValue } from '@chakra-ui/react'
-import { useNavigate } from 'react-router-dom'
-import { penonemaPage } from './data'
+import { ArrowRightIcon } from '@chakra-ui/icons';
+import { Card, CardBody, CardHeader, Heading, Icon, Text, useColorModeValue } from '@chakra-ui/react';
+import { useNavigate } from 'react-router-dom';
+import { phenomenaType } from '../../i18n/dePhenomena';
 
-type Input = penonemaPage
+type Input = phenomenaType
 export default function PhenomenonCard({title, description, id }: Input) {
     const navigate = useNavigate();
 

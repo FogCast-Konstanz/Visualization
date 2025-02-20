@@ -7,7 +7,7 @@ export default function Settings() {
     const { i18n } = useTranslation();
     const { colorMode, toggleColorMode } = useColorMode()
 
-    const onChangeLang = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    function onChangeLang(e: React.ChangeEvent<HTMLSelectElement>){
         const lang_code = e.target.value;
         i18n.changeLanguage(lang_code);
     };

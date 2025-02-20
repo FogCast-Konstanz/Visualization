@@ -1,4 +1,4 @@
-import { Flex, Heading, Text } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
@@ -9,7 +9,7 @@ import { extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../com
 import ConfigurationForRequest from './ConfigurationForRequest';
 
 export default function ModelsPage() {
-  const {t} = useTranslation()
+  const { t } = useTranslation()
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -50,11 +50,23 @@ export default function ModelsPage() {
   };
 
   return (
-    <Flex direction='column' gap='10px' margin={'10px'} width={{lg: '100%'}}>
+    <Flex direction='column' gap='10px' margin={'10px'} width={{ lg: '100%' }}>
       <Flex alignItems='center' justifyContent='space-between'>
         <Heading>{t('models.title')}</Heading>
         <ConfigurationForRequest selectedDateTime={selectedDatetime} selectedModels={selectedModels} onDateTimeChange={setSelectedDatetime} onModelChange={setSelectedModels}></ConfigurationForRequest>
       </Flex>
+
+      <Card
+        bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
+        color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+        width={'100%'}>
+        <CardHeader>
+          <Heading size='lg'>{t('models.title')}</Heading>
+        </CardHeader>
+        <CardBody>
+          <Text>{t('phenomena.introduction')}</Text>
+        </CardBody>
+      </Card>
 
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
         {forecastData.length > 0 ? <LineGraph values={forecastData} title={'Modelle für ' + selectedDatetime} /> : <Text>{t('models.selectValues')}</Text>}

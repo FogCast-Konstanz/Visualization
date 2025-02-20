@@ -3,7 +3,9 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import de from "./de";
+import { dePhenomena } from "./dePhenomena";
 import en from "./en";
+import { enPhenomena } from "./enPhenomena";
 
 i18n.use(initReactI18next).init({
     lng: "de",
@@ -11,9 +13,17 @@ i18n.use(initReactI18next).init({
     interpolation: {
         escapeValue: false,
     },
+    ns: ["translation", "phenomena"], // Load multiple namespaces
+    defaultNS: "translation",
     resources: {
-        en: { translation: en },
-        de: { translation: de }
+        en: { 
+            translation: en,
+            phenomena: enPhenomena
+        },
+        de: { 
+            translation: de,
+            phenomena: dePhenomena
+        }
     },
 });
 

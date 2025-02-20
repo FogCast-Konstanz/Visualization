@@ -32,7 +32,8 @@ const en = {
     },
 
     lexicon: {
-        title: "Lexicon"
+        title: "Lexicon",
+        miau: "meow"
     },
 
     models: {
@@ -70,7 +71,9 @@ const en = {
 
     other: {
         underConstruction: "This page is under construction...",
-    }
+    },
+
+    
 }
 
 export default en

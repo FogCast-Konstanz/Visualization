@@ -20,6 +20,7 @@ export default function CardIndividual({ header, body }: Input) {
                     children={body} 
                     remarkPlugins={[remarkGfm]} 
                     components={{
+                        p: ({ node, children }) => <div>{children}</div>, // Ensures paragraphs work properly
                         img: ({ node, ...props }) => (
                           <figure>
                             <img {...props} alt={props.alt} />

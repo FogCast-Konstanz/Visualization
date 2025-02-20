@@ -1,10 +1,17 @@
 import { Card, CardBody, CardHeader, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { phenomena } from './data';
+import { phenomenaType } from '../../i18n/dePhenomena';
 import PhenomenonCard from './PhenomenonCard';
 
 export default function Phenomena() {
     const { t } = useTranslation();
+
+    useEffect(() => {
+        console.log( t('phenomena', { returnObjects: true, ns: 'phenomena' }))
+    }, [])
+
+    const phenomena2: phenomenaType[] = t('phenomena', { returnObjects: true, ns: 'phenomena' }) as phenomenaType[] 
 
     return (
         <Flex padding={'10px'} direction={'column'} gap={'20px'} overflow="auto" maxHeight={'100dvh'} ml='10px'>
@@ -19,8 +26,14 @@ export default function Phenomena() {
                     <Text>{t('phenomena.introduction')}</Text>
                 </CardBody>
             </Card>
-            <Flex gap={'20px'} wrap={'wrap'}>
+            {/* <Flex gap={'20px'} wrap={'wrap'}>
                 {phenomena.map((entry, index) => (
+                    <PhenomenonCard {...entry} key={index} />
+                ))}
+            </Flex> */}
+
+            <Flex gap={'20px'} wrap={'wrap'}>
+                {phenomena2.map((entry, index) => (
                     <PhenomenonCard {...entry} key={index} />
                 ))}
             </Flex>

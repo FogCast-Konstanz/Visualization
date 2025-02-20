@@ -1,9 +1,11 @@
-import { Card, CardBody, CardHeader, Flex, Heading, Tag, Text, useColorModeValue } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Flex, Heading, Tag, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
+
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 type Input = { text: string, header: string, tags?: string[], id: string, defaultShown: boolean }
 export default function LexikonEntry({ text, header, tags, id, defaultShown = false }: Input) {
-
     const [shown, setShown] = useState(defaultShown);
 
     function toggleCard() {
@@ -45,8 +47,8 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
                     </div>
                 </Flex>
             </CardHeader>
-            <CardBody style={{ display: shown ? 'block' : 'none' }}>
-                <Text>{text}</Text>
+            <CardBody style={{ display: shown ? 'block' : 'none' }} pt={'0px'}>
+                <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} />
             </CardBody>
         </Card>
     )

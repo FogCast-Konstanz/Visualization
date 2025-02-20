@@ -4,11 +4,11 @@ import CardIndividual from './CardIndividual';
 
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
-import { penonemaPage } from './data';
+import { phenomenaType } from '../../i18n/dePhenomena';
 import './phenomena.scss';
 
-type Input = penonemaPage
-export default function PhenomenaSite({ title, description, explanation, referenceBodensee, dataAnalysis, sources, id }: Input) {
+type Input = phenomenaType
+export default function PhenomenaSite({ title, description, content, sources, id }: Input) {
     const { t } = useTranslation();
     const navigate = useNavigate();
 
@@ -28,11 +28,11 @@ export default function PhenomenaSite({ title, description, explanation, referen
                 width='25px'
                 color={useColorModeValue('custom_light.text', 'custom_dark.text')}
             />
-
-            {description && <CardIndividual header={title} body={description} />}
-            {explanation && <CardIndividual header={t('phenomena.explanation')} body={explanation} />}
-            {referenceBodensee && <CardIndividual header={t('phenomena.referenceBodensee')} body={referenceBodensee} />}
-            {dataAnalysis && <CardIndividual header={t('phenomena.dataAnalysis')} body={dataAnalysis} />}
+            
+            <CardIndividual header={title} body={description} />
+            { content.map((c, index) => {
+                return <CardIndividual header={c.title} body={c.text} key={index} />
+            }) }
             {sources && <CardIndividual header={t('phenomena.sources')} body={sources} />}
         </Flex>
     )
