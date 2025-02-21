@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-type Input = { text: string, header: string, tags?: string[], id: string, defaultShown: boolean }
-export default function LexikonEntry({ text, header, tags, id, defaultShown = false }: Input) {
+type Input = { text: string, header: string, tags?: string[], id: string, defaultShown: boolean, searchQuery?: string }
+export default function LexikonEntry({ text, header, tags, id, defaultShown = false, searchQuery = '' }: Input) {
     const [shown, setShown] = useState(defaultShown);
 
     function toggleCard() {
@@ -20,6 +20,19 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
         }
     }, [defaultShown])
 
+    const color = useColorModeValue('custom_light.warning', 'custom_dark.warning')
+
+    function highlightText(text: string, query: string) {
+        if (!query) return <Heading as='span' size={'md'}>{text}</Heading>;
+        const parts = text.split(new RegExp(`(${query})`, "gi"));
+
+        return parts.map((part, index) => {
+            return part.toLowerCase() === query.toLowerCase() ? (
+                <Heading as="span" size={'md'} color={color} fontWeight="bold" key={index}>{part}</Heading>
+            ) : <Heading as="span" size={'md'} key={index}>{part}</Heading>
+        })
+    };
+
     return (
         <Card
             bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
@@ -31,7 +44,7 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
         >
             <CardHeader onClick={() => toggleCard()}>
                 <Flex justify={'space-between'}>
-                    <Heading size='md'>{header}</Heading>
+                    <Heading lineHeight={0}>{highlightText(header, searchQuery)}</Heading>
                     <div className='tags'>
                         {
                             tags?.map((tag, index) => (

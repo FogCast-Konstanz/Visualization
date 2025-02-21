@@ -22,6 +22,7 @@ const theme = extendTheme({
             primary_variant: "#AFDBF5BA",
             secondary: "#A1E5AB",
             ternary: "#AE5656",
+            warning: "#FFAA33 "
         },
         custom_light: {
             surface: "#DDEDED",
@@ -31,7 +32,8 @@ const theme = extendTheme({
             primary: "#4C8C8C",
             primary_variant: "#4C8C8CBA", // 70% transparent
             secondary: "#7EDBB7",       // Mint green for secondary actions
-            ternary: "#F28C8C"          // Warm coral for contrast or alerts
+            ternary: "#F28C8C",         // Warm coral for contrast or alerts
+            warning: "#FFA500"
         }
     },
     // components: {

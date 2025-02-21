@@ -1,3 +1,5 @@
+import { enLexicon } from "./enLexicon"
+
 const en = {
     title: "FogCast",
     subtitle: "in Constance",
@@ -31,10 +33,7 @@ const en = {
         sources: "Sources"
     },
 
-    lexicon: {
-        title: "Lexicon",
-        miau: "meow"
-    },
+    lexicon: enLexicon,
 
     models: {
         title: "Forecasting",
@@ -73,7 +72,7 @@ const en = {
         underConstruction: "This page is under construction...",
     },
 
-    
+
 }
 
 export default en
