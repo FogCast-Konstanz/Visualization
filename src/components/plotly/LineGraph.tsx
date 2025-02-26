@@ -8,12 +8,15 @@ interface LineGraphProps {
     values: LineGraphData[];
     title: string;
     legend?: "right" | "bottom",
-    type?: "bar" | "scatter"
+    type?: "bar" | "scatter",
+    showNow? : boolean,
+    xAxis?: string,
+    yAxis?: string
 }
 
 type orientation = "h" | "v" | undefined
 
-export default function LineGraph({ values, title, legend = "bottom", type = "scatter" }: LineGraphProps) {
+export default function LineGraph({ values, title, legend = "bottom", type = "scatter", showNow = true, xAxis = '', yAxis = '' }: LineGraphProps) {
     const theme = useTheme();
 
     const [data, setData] = useState<any[]>([])
@@ -33,22 +36,6 @@ export default function LineGraph({ values, title, legend = "bottom", type = "sc
         console.log("New data")
     }, [values])
 
-    const legendLayout = legend == "bottom" ? {
-        x: 0,
-        y: -0.2,
-        traceorder: traceorder,
-        orientation: orientationLegendBottom,
-    } : {
-        x: 1,
-        y: 1,
-        traceorder: traceorder,
-        orientation: orientationLegendRight,
-    }
-
-    const mode = (type == "scatter" ? "lines+markers" : "")
-    const line = (type == "scatter" ? { shape: "spline" } : "")
-
-
     const layout = {
         plot_bgcolor: plotBgColor, // Background of the plot area
         paper_bgcolor: paperBgColor, // Background of the whole chart
@@ -60,16 +47,44 @@ export default function LineGraph({ values, title, legend = "bottom", type = "sc
             automargin: true, // Prevent cutoff
             tickmode: "auto", // Automatically adjust ticks
             nticks: 10, // Reduce number of ticks
+            title: xAxis
         },
         yaxis: {
             gridcolor: gridColor,
+            title: yAxis,
             zerolinecolor: "#888",
         },
         margin: { l: 30, r: 30, t: 50, b: 0 }, // Adjust margins
-        legend: legendLayout,
+        legend: legend == "bottom" ? {
+            x: 0,
+            y: -0.2,
+            traceorder: traceorder,
+            orientation: orientationLegendBottom,
+        } : {
+            x: 1,
+            y: 1,
+            traceorder: traceorder,
+            orientation: orientationLegendRight,
+        },
         modebar: {
             orientation: orientationModebar,
-        }
+        },
+        shapes: showNow ? [
+            {
+                type: "line",
+                x0: (new Date()).toISOString().split('.')[0] + "Z",
+                x1: (new Date()).toISOString().split('.')[0] + "Z",
+                y0: 0,
+                y1: 1,
+                xref: "x",
+                yref: "paper", // Extends line across y-axis
+                line: {
+                    color: "red",
+                    width: 2,
+                    dash: "dash",
+                },
+            },
+        ] : []
     }
 
     useEffect(() => {
@@ -77,8 +92,8 @@ export default function LineGraph({ values, title, legend = "bottom", type = "sc
             x: element.x,
             y: element.y,
             type: type,
-            mode: mode,
-            line: line,
+            mode: (type == "scatter" ? "lines+markers" : ""),
+            line: (type == "scatter" ? { shape: "spline" } : ""),
             marker: { color: colors[index % colors.length] },
             name: element.name
         }));
@@ -87,7 +102,7 @@ export default function LineGraph({ values, title, legend = "bottom", type = "sc
     }, [values])
 
     return (
-        <div style={{ borderRadius: "15px", overflow: "hidden" }}>
+        <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%"}}>
             <PlotlyChart data={data} layout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
         </div>
     );

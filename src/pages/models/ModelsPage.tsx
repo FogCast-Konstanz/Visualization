@@ -5,11 +5,12 @@ import { useSearchParams } from 'react-router-dom';
 import LineGraph from "../.././components/plotly/LineGraph";
 import DataSource from '../../components/DataSource';
 import { PlotlyChartDataFormat } from '../../components/plotly/DataFormat';
-import { extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
+import { extractHumidityAndModelOutOfForecast, extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import MultipleAxisGraph from '../../components/plotly/MultipleAxis';
 
 export default function ModelsPage() {
   const { t } = useTranslation()
@@ -17,11 +18,11 @@ export default function ModelsPage() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [forecastData, setForecastData] = useState<PlotlyChartDataFormat[]>([])
+  const [forecastTemperatureData, setForecastTemperatureData] = useState<PlotlyChartDataFormat[]>([])
+  const [forecastHumidityData, setForecastHumidityData] = useState<PlotlyChartDataFormat[]>([])
 
-  const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '[]') ?? [])
-  // const [selectedModels, setSelectedModels] = useState<string[]>([])
-  const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? '')
-
+  const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
+  const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? (new Date()).toISOString().split('.')[0] + "Z")
 
   useEffect(() => { setModels() }, [selectedModels])
   useEffect(() => { setModels() }, [selectedDatetime])
@@ -30,16 +31,19 @@ export default function ModelsPage() {
     console.log(selectedModels)
     setSearchParams({ models: JSON.stringify(selectedModels), time: selectedDatetime });
 
-    let copyModel: any = []
+    let copyTemp: any = []
+    let copyHumidity: any = []
     if (selectedModels.length > 0 && selectedDatetime != '') {
       setForecastData([]);
       for (const model of selectedModels) {
-        const newValue = await fetchData(model)
-        copyModel = [...copyModel, newValue]
+        const newValues = await fetchData(model)
+        copyTemp = [...copyTemp, newValues[0]]
+        copyHumidity = [...copyHumidity, newValues[1]]
       }
     }
 
-    setTimeout(() => setForecastData(copyModel), 0)
+    setTimeout(() => setForecastTemperatureData(copyTemp), 0)
+    setTimeout(() => setForecastHumidityData(copyHumidity), 0)
   }
 
   async function fetchData(model: string) {
@@ -49,11 +53,11 @@ export default function ModelsPage() {
 
     const forcastResponse = await fetchForecast(timeIsoString, model);
 
-    return extractTemperatureAndModelOutOfForcast(forcastResponse)
+    return [extractTemperatureAndModelOutOfForcast(forcastResponse), extractHumidityAndModelOutOfForecast(forcastResponse)]
   };
 
   return (
-    <Flex direction='column' gap='10px' margin={'10px'} width={{ lg: '100%' }}>
+    <Flex direction='column' gap='10px' margin={'10px'} width={{ lg: '100%' }} maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
       <Card
         bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
         color={useColorModeValue('custom_light.text', 'custom_dark.text')}
@@ -69,8 +73,10 @@ export default function ModelsPage() {
         </CardBody>
       </Card>
 
-      <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
-        {forecastData.length > 0 ? <LineGraph values={forecastData} title={'Modelle für ' + selectedDatetime} /> : <Text>{t('models.selectValues')}</Text>}
+      <Flex direction={'column'} gap='10px' flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
+        {forecastTemperatureData.length > 0 ? <LineGraph values={forecastTemperatureData} showNow={false} title={'Temperaturvorhersage für ' + selectedDatetime} xAxis='Time' yAxis='Temperature °C' /> : <Text>{t('models.selectValues')}</Text>}
+        {forecastHumidityData.length > 0 ? <LineGraph values={forecastHumidityData} showNow={false} title={'Luftfeuchtigkeit für ' + selectedDatetime} xAxis='Time' yAxis='Humidity %'/> : <Text>{t('models.selectValues')}</Text>}
+        {/* {forecastHumidityData.length > 0 ? <MultipleAxisGraph y1={forecastHumidityData} y2={forecastTemperatureData} title={'Modelle für ' + selectedDatetime} /> : <Text>{t('models.selectValues')}</Text>} */}
       </Flex>
 
       <DataSource></DataSource>

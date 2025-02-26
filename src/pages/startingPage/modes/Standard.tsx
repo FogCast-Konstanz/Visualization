@@ -82,7 +82,7 @@ export default function StandardMode() {
       </Card>
       <Flex gap='10px'>
         {forecast ? 
-          <LineGraph values={forecast} title={t('startingPage.forcastGraph') + '**'} /> : 
+          <LineGraph values={forecast} title={t('startingPage.forcastGraph') + '**'} xAxis='Time' yAxis='Temperature °C'/> : 
           <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 

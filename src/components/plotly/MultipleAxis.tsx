@@ -9,12 +9,16 @@ interface MultipleAxisGraphProps {
     y2: MultipleAxisData[];
     title: string;
     legend?: "right" | "bottom",
-    type?: "bar" | "scatter"
+    type?: "bar" | "scatter",
+    showNow?: boolean,
+    xAxis?: string,
+    y1Axis?: string
+    y2Axis?: string
 }
 
 type orientation = "h" | "v" | undefined
 
-export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", legend = "bottom" }: MultipleAxisGraphProps) {
+export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", legend = "bottom", showNow = true, xAxis = '', y1Axis = '', y2Axis = ''  }: MultipleAxisGraphProps) {
     const theme = useTheme();
 
     const [data, setData] = useState<any[]>([])
@@ -44,10 +48,6 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
         orientation: orientationLegendRight,
     }
 
-    const mode = (type == "scatter" ? "lines+markers" : "")
-    const line = (type == "scatter" ? { shape: "spline" } : "")
-
-
     const layout = {
         plot_bgcolor: plotBgColor, // Background of the plot area
         paper_bgcolor: paperBgColor, // Background of the whole chart
@@ -59,31 +59,41 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
             automargin: true, // Prevent cutoff
             tickmode: "auto", // Automatically adjust ticks
             nticks: 10, // Reduce number of ticks
-            title: "Time"
+            title: xAxis
         },
         yaxis: {
             gridcolor: gridColor,
             zerolinecolor: "#888",
-            title: "Temperature (°C)", 
+            title: y1Axis, 
             side: "left", 
             showgrid: false
         },
         margin: { l: 30, r: 30, t: 50, b: 0 }, // Adjust margins
-        legend: legendLayout,
+        legend: legend == "bottom" ? {
+            x: 0,
+            y: -0.2,
+            traceorder: traceorder,
+            orientation: orientationLegendBottom,
+        } : {
+            x: 1,
+            y: 1,
+            traceorder: traceorder,
+            orientation: orientationLegendRight,
+        },
         modebar: {
             orientation: orientationModebar,
         },
         title: "Temperature and Humidity Over Time",
         yaxis2: {
-            title: "Humidity (%)",
+            title: y2Axis,
             overlaying: "y",
             side: "right",
         },
-        shapes: [
+        shapes: showNow ? [
             {
                 type: "line",
-                x0: new Date().toISOString().slice(0, 16),
-                x1: new Date().toISOString().slice(0, 16),
+                x0: new Date().toISOString(),
+                x1: new Date().toISOString(),
                 y0: 0,
                 y1: 1,
                 xref: "x",
@@ -94,7 +104,7 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
                     dash: "dash",
                 },
             },
-        ],
+        ] : [],
     }
 
     useEffect(() => {
@@ -105,7 +115,7 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
             y: element.y,
             type: element.type,
             mode: element.type == "scatter" ? "lines+markers" : "",
-            line: line,
+            line: (type == "scatter" ? { shape: "spline" } : ""),
             marker: { color: colors[index % colors.length] },
             name: element.name,
             yaxis: "y1"
@@ -116,7 +126,7 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
             y: element.y,
             type: element.type,
             mode: element.type == "scatter" ? "lines+markers" : "",
-            line: line,
+            line: (type == "scatter" ? { shape: "spline" } : ""),
             marker: { color: colors[(index + 1) % colors.length] },
             name: element.name,
             yaxis: "y2"
@@ -128,6 +138,8 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
     }, [y1])
 
     return (
-        <PlotlyChart data={data} layout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
+        <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%", height: "100%"}}>
+            <PlotlyChart data={data} layout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
+        </div>
     );
 }

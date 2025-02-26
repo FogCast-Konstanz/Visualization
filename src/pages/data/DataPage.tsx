@@ -49,11 +49,10 @@ export default function DataPage() {
     <Flex direction='column' width='100%' gap='10px' margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
 
       <Flex gap='10px' maxWidth='90%' wrap='wrap'>
-        <LineGraph values={temperatureHistory} title={'Temperature of last year**'} />
-        <LineGraph values={temperatureLastWeek} title={'Temperature in the last week**'} />
-        {/* <LineGraph values={fogHistory} title={'Historical Fog'} /> */}
-        <LineGraph values={fogHistory} title={'Historical Fog (days per month)**'} type='bar' />
-        <LineGraph values={fogLastYear} title={'Historical Fog (days per year)**'} type='bar' />
+        <LineGraph values={temperatureHistory} showNow={false} title={'Temperature of last year**'} xAxis='Time' yAxis='Temperature °C' />
+        <LineGraph values={temperatureLastWeek} showNow={false} title={'Temperature in the last week**'} xAxis='Time' yAxis='Temperature °C' />
+        <LineGraph values={fogHistory} showNow={false} title={'Historical Fog (days per month)**'} type='bar' xAxis='Time' yAxis='Fog days per month' />
+        <LineGraph values={fogLastYear} showNow={false} title={'Historical Fog (days per year)**'} type='bar' xAxis='Time' yAxis='Fog days per year' />
       </Flex>
 
       <DataSource></DataSource>

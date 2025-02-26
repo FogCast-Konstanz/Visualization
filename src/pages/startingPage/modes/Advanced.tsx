@@ -74,7 +74,7 @@ export default function AdvancedMode() {
                 <option value="gfs">GFS</option>
                 <option value="ecmwf">ECMWF</option>
             </select>
-            {temp && humidity ? <MultipleAxisGraph y1={temp} y2={humidity} title={t('startingPage.forcastGraph') + '**'} /> : <></>}
+            {temp && humidity ? <MultipleAxisGraph y1={temp} y2={humidity} title={t('startingPage.forcastGraph') + '**'} xAxis='Time' y1Axis='Temperature °C' y2Axis='Humidity %' /> : <></>}
             
             <div style={{ display: "flex", overflowX: "auto" }}>
                 {weatherIcons.map((entry) => (
