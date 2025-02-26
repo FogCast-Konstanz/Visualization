@@ -8,6 +8,9 @@ import { PlotlyChartDataFormat } from '../../components/plotly/DataFormat';
 import { extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';
 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
 export default function ModelsPage() {
   const { t } = useTranslation()
 
@@ -51,20 +54,18 @@ export default function ModelsPage() {
 
   return (
     <Flex direction='column' gap='10px' margin={'10px'} width={{ lg: '100%' }}>
-      <Flex alignItems='center' justifyContent='space-between'>
-        <Heading>{t('models.title')}</Heading>
-        <ConfigurationForRequest selectedDateTime={selectedDatetime} selectedModels={selectedModels} onDateTimeChange={setSelectedDatetime} onModelChange={setSelectedModels}></ConfigurationForRequest>
-      </Flex>
-
       <Card
         bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
         color={useColorModeValue('custom_light.text', 'custom_dark.text')}
         width={'100%'}>
-        <CardHeader>
-          <Heading size='lg'>{t('models.title')}</Heading>
+        <CardHeader pb={'0px'}>
+          <Flex alignItems='center' justifyContent='space-between'>
+            <Heading>{t('models.title')}</Heading>
+            <ConfigurationForRequest selectedDateTime={selectedDatetime} selectedModels={selectedModels} onDateTimeChange={setSelectedDatetime} onModelChange={setSelectedModels}></ConfigurationForRequest>
+          </Flex>
         </CardHeader>
         <CardBody>
-          <Text>{t('phenomena.introduction')}</Text>
+          <ReactMarkdown children={t('models.introduction')} remarkPlugins={[remarkGfm]} />
         </CardBody>
       </Card>
 

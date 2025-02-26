@@ -1,4 +1,5 @@
-import { Flex, Heading, Input, Select, useColorModeValue, VStack } from '@chakra-ui/react'
+import { CloseIcon } from '@chakra-ui/icons'
+import { Flex, Heading, IconButton, Input, InputGroup, InputRightElement, Select, useColorModeValue, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LexikonEntry from './LexikonEntry'
@@ -46,14 +47,11 @@ export default function Lexikon() {
 
     return (
         <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={'10px'} gap='10px' width={{ lg: '100%' }}>
-            <Flex direction={{lg: 'row', base: 'column'}} alignItems={{lg: 'center', base: 'flex-start'}} justifyContent='space-between'>
+            <Flex direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent='space-between'>
                 <Heading flex={2}>{t('lexicon.title')}</Heading>
-                <Flex flex={1} direction={{lg: 'row', base: 'column'}} alignItems={{lg: 'center', base: 'flex-start'}} justifyContent={'space-between'} gap={{lg: '20px', base: '10px'}} width={'100%'}>
-                    <Input
-                        placeholder="Search title..."
-                        value={searchQuery}
-                        onChange={(e) => setSearchQuery(e.target.value)}
-                        flex={{lg: 1, base: 'none'}}
+                <Flex flex={1} direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent={'space-between'} gap={{ lg: '20px', base: '10px' }} width={'100%'}>
+                    <InputGroup
+                        flex={{ lg: 1, base: 'none' }}
 
                         bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
                         color={useColorModeValue('custom_light.text', 'custom_dark.text')}
@@ -65,9 +63,27 @@ export default function Lexikon() {
                                 _hover: { background: useColorModeValue('custom_light.background', 'custom_dark.background') }
                             },
                         }}
-                    />
+                    >
+                        <Input
+                            placeholder="Search title..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                        {searchQuery && (
+                            <InputRightElement>
+                                <IconButton
+                                    aria-label="Clear search"
+                                    icon={<CloseIcon />}
+                                    size="xs"
+                                    border={'none'}
+                                    background={'none'}
+                                    onClick={() => setSearchQuery("")}
+                                />
+                            </InputRightElement>
+                        )}
+                    </InputGroup>
                     <Select
-                        width={{lg: 'fit-content', base: '100%'}}
+                        width={{ lg: 'fit-content', base: '100%' }}
                         placeholder="Filter by tag"
                         flex={1}
 

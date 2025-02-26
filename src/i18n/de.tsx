@@ -39,7 +39,7 @@ const de = {
     models: {
         title: "Vorhersagen",
         selectValues: "Wähle ein Modell und das Datum aus (oben rechts).",
-        introduction: "Auf dieser Seite können historische Vorhersagen eingesehen werden. Dabei kann der vorhergesagte Zeitpunkt ausgewählt werden und im Graphen werden dabei, für verschiedene Modelle, die Vorhersagen zu verschiedenen historischen Zeitpunkten angezeigt."
+        introduction: "Analysiere und vergleiche die Vorhersagen von verschiedenen Modellen! \nHier können verschiedene Modelle ausgewählt werden und der [vorhergesagte Zeitpunkt](/lexikon#predictedTime). Infolgedessen werden die [historischen Vorhersagen](/lexikon#timeOfPrediction) für alle ausgewählten Modelle über die Zeit angezeigt."
     },
 
     impressum: {

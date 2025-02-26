@@ -1,6 +1,7 @@
 import { Card, CardBody, CardHeader, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+
 import { phenomenaType } from '../../i18n/dePhenomena';
 import PhenomenonCard from './PhenomenonCard';
 
@@ -19,7 +20,7 @@ export default function Phenomena() {
                 bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
                 color={useColorModeValue('custom_light.text', 'custom_dark.text')}
                 width={'100%'}>
-                <CardHeader>
+                <CardHeader pb={'0px'}>
                     <Heading size='lg'>{t('phenomena.title')}</Heading>
                 </CardHeader>
                 <CardBody>
