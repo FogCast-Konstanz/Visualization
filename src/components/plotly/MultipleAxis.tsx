@@ -23,7 +23,6 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
 
     const [data, setData] = useState<any[]>([])
 
-
     const colors = useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],);
 
     const plotBgColor = useColorModeValue(theme.colors.custom_light.surface, theme.colors.custom_dark.surface);
@@ -35,18 +34,6 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
     const orientationLegendRight: orientation = "v"
     const orientationModebar: orientation = "v"
     const traceorder: "normal" | "grouped" | "reversed" | "reversed+grouped" | undefined = "normal"
-
-    const legendLayout = legend == "bottom" ? {
-        x: 0,
-        y: -0.2,
-        traceorder: traceorder,
-        orientation: orientationLegendBottom,
-    } : {
-        x: 1,
-        y: 1,
-        traceorder: traceorder,
-        orientation: orientationLegendRight,
-    }
 
     const layout = {
         plot_bgcolor: plotBgColor, // Background of the plot area
@@ -108,8 +95,6 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
     }
 
     useEffect(() => {
-        setData([])
-
         const formattedY1 = y1.map((element, index) => ({
             x: element.x,
             y: element.y,

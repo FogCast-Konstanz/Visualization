@@ -10,15 +10,19 @@ import AdvancedMode from './modes/Advanced';
 
 const userModes = [
   { label: "Standard", code: "1" },
-  { label: "Advances", code: "2" },
+  { label: "Advanced", code: "2" },
   { label: "Segler", code: "3" },
 ];
 
 export default function StartingPage() {
   const { t } = useTranslation();
 
-  const [userMode, setUserMode] = useState<number>(1)
+  const [userMode, setUserMode] = useState<number>(Number(localStorage.getItem('userMode') ?? 1) ?? 1)
 
+  function changeUserMode(mode: number) {
+    setUserMode(mode);
+    localStorage.setItem('userMode', mode.toString())
+  }
 
   return (
     <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={'10px'} maxWidth={'100%'}>
@@ -27,7 +31,7 @@ export default function StartingPage() {
 
         <Select
           defaultValue={userMode}
-          onChange={(e) => setUserMode(Number(e.target.value))}
+          onChange={(e) => changeUserMode(Number(e.target.value))}
           width={'fit-content'}
           bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
           color={useColorModeValue('custom_light.text', 'custom_dark.text')}
