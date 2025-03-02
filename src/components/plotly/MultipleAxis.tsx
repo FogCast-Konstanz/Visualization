@@ -51,11 +51,22 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
         yaxis: {
             gridcolor: gridColor,
             zerolinecolor: "#888",
-            title: y1Axis, 
+            title: {
+                text: y1Axis, 
+                standoff: 0
+            },
             side: "left", 
             showgrid: false
         },
-        margin: { l: 30, r: 30, t: 50, b: 0 }, // Adjust margins
+        yaxis2: {
+            title: {
+                text: y2Axis,
+                standoff: 10
+            },
+            overlaying: "y",
+            side: "right",
+        },
+        margin: { l: 50, r: 50, t: 50, b: 0 }, // Adjust margins
         legend: legend == "bottom" ? {
             x: 0,
             y: -0.2,
@@ -71,11 +82,6 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
             orientation: orientationModebar,
         },
         title: "Temperature and Humidity Over Time",
-        yaxis2: {
-            title: y2Axis,
-            overlaying: "y",
-            side: "right",
-        },
         shapes: showNow ? [
             {
                 type: "line",
@@ -91,7 +97,7 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
                     dash: "dash",
                 },
             },
-        ] : [],
+        ] : []
     }
 
     useEffect(() => {
