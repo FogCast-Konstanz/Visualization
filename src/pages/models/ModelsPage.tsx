@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
 import LineGraph from "../.././components/plotly/LineGraph";
 import DataSource from '../../components/DataSource';
-import { PlotlyChartDataFormat } from '../../components/plotly/DataFormat';
+import { PlotlyChartBasicFormat } from '../../components/plotly/PlotlyChartFormat';
 import { extractHumidityAndModelOutOfForecast, extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';
 
@@ -17,9 +17,9 @@ export default function ModelsPage() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const [forecastData, setForecastData] = useState<PlotlyChartDataFormat[]>([])
-  const [forecastTemperatureData, setForecastTemperatureData] = useState<PlotlyChartDataFormat[]>([])
-  const [forecastHumidityData, setForecastHumidityData] = useState<PlotlyChartDataFormat[]>([])
+  const [forecastData, setForecastData] = useState<PlotlyChartBasicFormat[]>([])
+  const [forecastTemperatureData, setForecastTemperatureData] = useState<PlotlyChartBasicFormat[]>([])
+  const [forecastHumidityData, setForecastHumidityData] = useState<PlotlyChartBasicFormat[]>([])
 
   const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
   const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? (new Date()).toISOString().split('.')[0] + "Z")

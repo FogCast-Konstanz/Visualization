@@ -5,6 +5,7 @@ const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 
 import { ForcastCardProps } from "@/pages/startingPage/ForcastCard";
 import { LineGraphData } from "../plotly/LineGraph";
+import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 
 const weatherIcons: { [key: number]: "cloudy" | "rainy" | "sunny" | "partlySunny" | "mostlySunny" | "foggy" | "thunder" | "snowy" | "unkown" } = {
   1: "sunny",
@@ -154,17 +155,26 @@ class DWDForcast {
     return this.weatherSymbolsHourly;
   }
 
-  getWeatherSymbolsHourlyNextXDays(days: number) : LineGraphData | null {
-    if (this.weatherSymbolsHourly) {
+  getWeatherSymbolsHourlyNextXDays(days: number): PlotlyChartBasicFormat | null {
+    if (this.weatherSymbolsHourly && this.temperatureHourly) {
       const icons24 = this.filterNextXDays(this.weatherSymbolsHourly.x, this.weatherSymbolsHourly.y, days)
-      
-      return {x: icons24.times, y: icons24.values, name: this.weatherSymbolsHourly.name}
+
+      const max = Math.max(...this.temperatureHourly.y) + 5
+      const staticValue = icons24.times.map(code => max)
+
+      return {
+        x: icons24.times,
+        y: staticValue,
+        name: this.weatherSymbolsHourly.name,
+        text: icons24.values
+      }
+      // formattedData.push({ x: weatherIconValues.x, y: staticValue, mode: 'text', text: weatherIconValues.y, textfont: { size: 20 }, name: 'Weather', yaxis: "y1" })
     }
     return null
   }
 
 
-  filterNextXDays(times: string[], values: number[], days: number): {times: string[], values: number[]} {
+  filterNextXDays(times: string[], values: any[], days: number): { times: string[], values: any[] } {
     const now = new Date();
     const twentyFourHoursAgo = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
 
@@ -172,9 +182,9 @@ class DWDForcast {
     let lastIndex = times.findIndex(time => new Date(time) > twentyFourHoursAgo);
 
     if (lastIndex === -1) {
-      return {times: times, values: values}
+      return { times: times, values: values }
     } else {
-      return {times: times.slice(firstIndex, lastIndex), values: values.slice(firstIndex, lastIndex)}
+      return { times: times.slice(firstIndex, lastIndex), values: values.slice(firstIndex, lastIndex) }
     }
   }
 
@@ -182,10 +192,10 @@ class DWDForcast {
     if (this.humidityHourly && this.temperatureHourly && this.weatherSymbolsHourly) {
       const humidity24 = this.filterNextXDays(this.humidityHourly.x, this.humidityHourly.y, days)
       const temperature24 = this.filterNextXDays(this.temperatureHourly.x, this.temperatureHourly.y, days)
-      
-      return [{x: temperature24.times, y: temperature24.values, name: this.temperatureHourly.name}, {x: humidity24.times, y: humidity24.values, name: this.humidityHourly.name}]
+
+      return [{ x: temperature24.times, y: temperature24.values, name: this.temperatureHourly.name }, { x: humidity24.times, y: humidity24.values, name: this.humidityHourly.name }]
     }
-    
+
     return []
   }
 

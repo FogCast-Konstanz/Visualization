@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react'
+import { Button, Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
@@ -6,8 +6,8 @@ import { RiWindyFill } from "react-icons/ri"
 import { WiHumidity } from "react-icons/wi"
 import { OrbitProgress } from 'react-loading-indicators'
 import DataSource from '../../../components/DataSource'
-import IconsInGraph from '../../../components/plotly/IconsInGraph'
 import { LineGraphData } from "../../../components/plotly/LineGraph"
+import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
 import { fetchActualWeather } from '../../../components/requests/actualBackend'
 import { default as DWDForcast, default as dwdForcast } from '../../../components/requests/dwdForcast'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
@@ -19,7 +19,7 @@ export default function StandardMode() {
 
   const [requestDuration, setRequestDuration] = useState<number>(1);
 
-  const [forecast, setForecast] = useState<LineGraphData[] | null>(null);
+  const [forecast, setForecast] = useState<PlotlyChartDataFormat[] | null>(null);
   const [forecastSymbols, setForecastSymbols] = useState<LineGraphData | null>(null);
   const [forecastIcons, setForecastIcons] = useState<ForcastCardProps[] | null>(null);
 
@@ -45,8 +45,11 @@ export default function StandardMode() {
     await DWDForcast.fetchData("10929");
 
     // setForecast(DWDForcast.getHourlyValues())
-    setForecast(DWDForcast.getNextXDaysValues(requestDuration))
-    setForecastSymbols(DWDForcast.getWeatherSymbolsHourlyNextXDays(requestDuration))
+    setForecast(convertMultipleToPlotlyChartFormat(DWDForcast.getNextXDaysValues(requestDuration), 'scatter'))
+    const weatherSymbolsTemp = DWDForcast.getWeatherSymbolsHourlyNextXDays(requestDuration)
+    if (weatherSymbolsTemp) {
+      setForecastSymbols(convertToPlotlyChartFormat(weatherSymbolsTemp, 'text'))
+    }
     setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
 
     console.log(dwdForcast.getHourlyForcastValuesIcon())
@@ -60,13 +63,14 @@ export default function StandardMode() {
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
         <MeasurementCard measurement={t('startingPage.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
         <MeasurementCard measurement={t('startingPage.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.waterTemp')} value={currentWeather['']} unit='°C' icon={FaWater}></MeasurementCard>
+        <MeasurementCard measurement={t('startingPage.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater}></MeasurementCard>
         <MeasurementCard measurement={t('startingPage.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
       </Flex>
 
       <Heading size="md" pt={'10px'}>Vorhersagen</Heading>
       <Flex gap={'10px'}>
         <Button onClick={() => setRequestDuration(1)}>Aktuelles Wetter</Button>
+        <Button onClick={() => setRequestDuration(2)}>Next 2 Days</Button>
         <Button onClick={() => setRequestDuration(14)}>Next 14 Days</Button>
       </Flex>
 
@@ -100,15 +104,10 @@ export default function StandardMode() {
         </Flex>
       </Card>
 
-      <Flex gap='10px'>
-        <p>{requestDuration}</p>
+      <Flex gap='10px' height={'50%'}>
         {forecast && forecastSymbols ?
-          <IconsInGraph values={forecast} weatherIconValues={forecastSymbols} title={t('startingPage.forcastGraph') + '**'} xAxis='Time' yAxis='Temperature °C' /> :
-          <OrbitProgress color={loadingColor} size="medium" />}
-
-        {forecast && forecastSymbols ?
-          <PlotlyChart data={forecast} customLayout={{}} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
-          : <p>miau</p>}
+          <PlotlyChart data={[...forecast, forecastSymbols]} customLayout={{}} useResizeHandler={true} />
+          : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
       <DataSource></DataSource>

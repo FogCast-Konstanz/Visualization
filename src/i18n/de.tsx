@@ -21,6 +21,7 @@ const de = {
         temperature: "Temperatur",
         humidity: "Luftfeuchtigkeit",
         waterTemp: "Wassertemperatur",
+        waterLevel: "Wasserstand",
         windspeed: "Windgeschwindigkeit",
         forcastGraph: "Vorhersagen"
     },

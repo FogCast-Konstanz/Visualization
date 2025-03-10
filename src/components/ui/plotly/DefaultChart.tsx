@@ -1,13 +1,14 @@
 import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
-import { useColorModeValue, useTheme } from "@chakra-ui/react";
+import { Flex, useColorModeValue, useTheme } from "@chakra-ui/react";
 
 interface PlotlyChartProps {
     data: any[];
     customLayout: any;
     useResizeHandler: boolean | undefined;
-    style: React.CSSProperties | undefined;
+    customStyle?: React.CSSProperties | undefined;
+
     xAxis?: string;
     yAxis?: string;
     showNow?: boolean;
@@ -16,10 +17,12 @@ interface PlotlyChartProps {
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResizeHandler, style, xAxis = '', yAxis = '', showNow = false  }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResizeHandler, customStyle, xAxis = '', yAxis = '', showNow = false  }) => {
     const theme = useTheme();
 
     const [layout, setLayout] = useState<any>();
+    const [style, setStyle] = useState<any>();
+
     const colors = useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],);
 
     const plotBgColor = useColorModeValue(theme.colors.custom_light.surface, theme.colors.custom_dark.surface);
@@ -79,13 +82,17 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResize
         ] : []
     }
 
+    const defaultStyle = { width: "100%", height: "100%" }
+
     useEffect(() => {
         setLayout(() => ({...defaultLayout, ...customLayout}))
+        setStyle(() => ({...defaultStyle, ...customStyle}))
     }, [])
 
 
     return (
-        <Plot
+        <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%"}}>
+            <Plot
             data={data}
             layout={layout}
             useResizeHandler={useResizeHandler}
@@ -129,6 +136,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResize
                     },]
             }}
         />
+        </div>
     );
 };
 

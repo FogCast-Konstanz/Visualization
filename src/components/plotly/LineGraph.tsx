@@ -99,18 +99,18 @@ export default function LineGraph({ values, title, legend = "bottom", type = "sc
             name: element.name
         }));
 
-        const max = Math.max(...values[0].y) + 5
-        const staticValue = values[0].y.map(code => max)
-        const weatherIcons = values[0].y.map(code => '😉')
+        // const max = Math.max(...values[0].y) + 5
+        // const staticValue = values[0].y.map(code => max)
+        // const weatherIcons = values[0].y.map(code => '😉')
 
-        formattedData.push({ x: values[0].x, y: staticValue, mode: 'text', text: weatherIcons, textfont: { size: 18 }, name: 'Weather', yaxis: "y1" })
+        // formattedData.push({ x: values[0].x, y: staticValue, mode: 'text', text: weatherIcons, textfont: { size: 18 }, name: 'Weather', yaxis: "y1" })
 
         setData(formattedData);
     }, [values])
 
     return (
         <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%"}}>
-            <PlotlyChart data={data} customLayout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
+            <PlotlyChart data={data} customLayout={{ title: title }} useResizeHandler={true} height="100%" />
         </div>
     );
 }

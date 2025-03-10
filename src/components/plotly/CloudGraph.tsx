@@ -144,9 +144,9 @@ export default function CloudGraph({ cloudData }: CloudGraphInterface) {
                         line: { color: "orange", dash: "dash", width: 2 },
                     },
                 ]}
-                    layout={layout}
+                    customLayout={layout}
                     useResizeHandler={true}
-                    style={{ width: "100%", height: "100%" }}
+                    height="100%"
                 />
             ) : (
                 <p>Loading weather data...</p>

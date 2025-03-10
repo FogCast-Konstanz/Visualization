@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { PlotlyChartDataFormat } from "../plotly/DataFormat";
+import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { API_BASE_URL, formatGermanDate } from "./helpers";
 
 type ForecastData = {
@@ -30,7 +30,7 @@ export async function fetchForecast(datetime: string, modelId: string,): Promise
     }
 };
 
-export function extractTemperatureAndModelOutOfForcast(forcastData: ForecastData[]): PlotlyChartDataFormat {
+export function extractTemperatureAndModelOutOfForcast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
     console.log(typeof (forcastData), forcastData)
 
     return {
@@ -40,7 +40,7 @@ export function extractTemperatureAndModelOutOfForcast(forcastData: ForecastData
     };
 }
 
-export function extractHumidityAndModelOutOfForecast(forcastData: ForecastData[]): PlotlyChartDataFormat {
+export function extractHumidityAndModelOutOfForecast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
     console.log(typeof (forcastData), forcastData)
 
     return {

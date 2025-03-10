@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PlotlyChartDataFormat } from "../plotly/DataFormat";
+import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { API_BASE_URL, formatGermanDate } from "./helpers";
 
 type ActualResponseFormat = {
@@ -50,6 +50,26 @@ export async function fetchFogDaysHistoryDWD(start: string, stop: string, freque
     }
 };
 
+
+export async function fetchWaterLevelHistory(): Promise<ActualResponseFormat[]> {
+    try {
+        const response = await axios.get(`${API_BASE_URL}/actual/water-level-history`, {
+            headers: { Accept: "application/json" },
+        });
+
+        let data = response.data
+        if (typeof (data) == 'string') {
+            data = data.replace(/NaN/g, "null");
+            data = JSON.parse(data)
+        }
+
+        return data
+    } catch (error) {
+        console.error("Error fetching actual data:", error);
+        throw error;
+    }
+};
+
 export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
     try {
         const response = await axios.get(`${API_BASE_URL}/actual/live-data`, {
@@ -66,7 +86,7 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
 };
 
 
-export function convertToPlotlyGraph(response: ActualResponseFormat[], name?: string): PlotlyChartDataFormat {
+export function convertToPlotlyGraph(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {
     console.log(typeof (response), response)
 
     return {
