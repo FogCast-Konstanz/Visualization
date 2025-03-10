@@ -145,8 +145,6 @@ export default function CloudGraph({ cloudData }: CloudGraphInterface) {
                     },
                 ]}
                     customLayout={layout}
-                    useResizeHandler={true}
-                    height="100%"
                 />
             ) : (
                 <p>Loading weather data...</p>

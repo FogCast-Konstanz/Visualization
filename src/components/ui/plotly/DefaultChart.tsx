@@ -5,19 +5,20 @@ import { Flex, useColorModeValue, useTheme } from "@chakra-ui/react";
 
 interface PlotlyChartProps {
     data: any[];
-    customLayout: any;
-    useResizeHandler: boolean | undefined;
+    customLayout?: any;
     customStyle?: React.CSSProperties | undefined;
 
     xAxis?: string;
     yAxis?: string;
+    y2Axis?: string;
+    title?: string;
     showNow?: boolean;
 }
 
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResizeHandler, customStyle, xAxis = '', yAxis = '', showNow = false  }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false  }) => {
     const theme = useTheme();
 
     const [layout, setLayout] = useState<any>();
@@ -39,6 +40,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResize
         plot_bgcolor: plotBgColor, // Background of the plot area
         paper_bgcolor: paperBgColor, // Background of the whole chart
         font: { family: "Arial, sans-serif", color: textColor }, // Font styles
+        title: title,
         xaxis: {
             gridcolor: gridColor, // Light gridlines
             zerolinecolor: "#888",
@@ -54,6 +56,14 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResize
             zerolinecolor: "#888",
             showgrid: true
         },
+        yaxis2: y2Axis ? {
+            title: {
+                text: y2Axis,
+                standoff: 10
+            },
+            overlaying: "y",
+            side: "right",
+        } : {},
         margin: { l: 30, r: 30, t: 50, b: 0 }, // Adjust margins
         legend: {
             x: 0,
@@ -95,7 +105,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResize
             <Plot
             data={data}
             layout={layout}
-            useResizeHandler={useResizeHandler}
+            useResizeHandler={true}
             style={style}
             config={{
                 modeBarButtonsToAdd: [

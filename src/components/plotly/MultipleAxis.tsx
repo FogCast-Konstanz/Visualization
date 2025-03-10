@@ -130,7 +130,7 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
 
     return (
         <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%", height: "100%"}}>
-            <PlotlyChart data={data} customLayout={{ ...layout, title: title }} useResizeHandler={true} height="100%" />
+            <PlotlyChart data={data} customLayout={{ ...layout, title: title }} useResizeHandler={true} />
         </div>
     );
 }

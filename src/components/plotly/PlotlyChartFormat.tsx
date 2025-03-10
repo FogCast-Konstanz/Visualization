@@ -18,7 +18,13 @@ export interface PlotlyChartDataFormat {
 }
 
 
-export function convertToPlotlyChartFormat(basicFormat: PlotlyChartBasicFormat, mode: 'scatter' | 'basic' | 'bar' | 'text'): PlotlyChartDataFormat {
+export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'basic' | 'bar' | 'text', yAxis?: string | null): PlotlyChartDataFormat {
+    
+    const basicFormat = {
+        ...basicFormatInput,
+        yaxis: yAxis ? yAxis : 'y'
+    }
+    
     switch(mode) {
         case "scatter":
             return {

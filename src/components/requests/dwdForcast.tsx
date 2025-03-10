@@ -14,7 +14,7 @@ const weatherIcons: { [key: number]: "cloudy" | "rainy" | "sunny" | "partlySunny
   4: "cloudy",
   5: "rainy",
   6: "thunder",
-  7: "snowy",
+  7: "rainy",
   8: "foggy",
 };
 
@@ -26,7 +26,7 @@ const weatherSymbols: { [key: number]: string } = {
   4: "☁️", // Cloudy
   5: "🌧️", // Rainy
   6: "⛈️", // Thunderstorm
-  7: "❄️", // Snowy
+  7: "🌧️", // Snowy
   8: "🌫️", // Foggy
 };
 class DWDForcast {
@@ -106,9 +106,9 @@ class DWDForcast {
     const x = forecast.humidity.map((_: any, index: any) =>
       new Date(startDate.getTime() + index * timeStep).toISOString()
     );
-    const y = forecast.humidity.map((hum: number) => hum / 100)
+    const y = forecast.humidity.map((hum: number) => hum / 10)
 
-    return { x, y, name: "Humidity / 10" };
+    return { x, y, name: "Humidity" };
   }
 
   private extractHourlyForcast(data: any): ForcastCardProps[] {
@@ -176,16 +176,11 @@ class DWDForcast {
 
   filterNextXDays(times: string[], values: any[], days: number): { times: string[], values: any[] } {
     const now = new Date();
-    const twentyFourHoursAgo = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+    const inXDays = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
 
-    let firstIndex = times.findIndex(time => new Date(time) > now)
-    let lastIndex = times.findIndex(time => new Date(time) > twentyFourHoursAgo);
-
-    if (lastIndex === -1) {
-      return { times: times, values: values }
-    } else {
-      return { times: times.slice(firstIndex, lastIndex), values: values.slice(firstIndex, lastIndex) }
-    }
+    let firstIndex = times.findIndex(time =>  new Date(time) > now)
+    let lastIndex = times.findIndex(time => new Date(time) > inXDays);
+    return { times: times.slice(firstIndex, lastIndex), values: values.slice(firstIndex, lastIndex) }
   }
 
   getNextXDaysValues(days: number): LineGraphData[] {
@@ -199,7 +194,25 @@ class DWDForcast {
     return []
   }
 
+  getNextXDaysTemperature(days: number): LineGraphData | null {
+    if (this.temperatureHourly) {
+      const temperature24 = this.filterNextXDays(this.temperatureHourly.x, this.temperatureHourly.y, days)
 
+      return { x: temperature24.times, y: temperature24.values, name: this.temperatureHourly.name }
+    }
+
+    return null
+  }
+
+  getNextXDaysHumidity(days: number): PlotlyChartBasicFormat | null {
+    if (this.humidityHourly) {
+      const humidity24 = this.filterNextXDays(this.humidityHourly.x, this.humidityHourly.y, days)
+
+      return { x: humidity24.times, y: humidity24.values, name: this.humidityHourly.name }
+    }
+
+    return null
+  }
 
   getHourlyForcastValuesIcon(): ForcastCardProps[] {
     if (this.hourlyForcastWithIcons) {

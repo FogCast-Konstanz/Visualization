@@ -44,15 +44,17 @@ export default function StandardMode() {
 
     await DWDForcast.fetchData("10929");
 
-    // setForecast(DWDForcast.getHourlyValues())
-    setForecast(convertMultipleToPlotlyChartFormat(DWDForcast.getNextXDaysValues(requestDuration), 'scatter'))
+    /* Convert to Plotly format */
+    const humidity = DWDForcast.getNextXDaysHumidity(requestDuration)
+    const temperature = DWDForcast.getNextXDaysTemperature(requestDuration)
+    
     const weatherSymbolsTemp = DWDForcast.getWeatherSymbolsHourlyNextXDays(requestDuration)
-    if (weatherSymbolsTemp) {
+    if (weatherSymbolsTemp && humidity && temperature) {
+      setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
       setForecastSymbols(convertToPlotlyChartFormat(weatherSymbolsTemp, 'text'))
     }
-    setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
 
-    console.log(dwdForcast.getHourlyForcastValuesIcon())
+    setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
   };
 
   const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
@@ -106,7 +108,7 @@ export default function StandardMode() {
 
       <Flex gap='10px' height={'50%'}>
         {forecast && forecastSymbols ?
-          <PlotlyChart data={[...forecast, forecastSymbols]} customLayout={{}} useResizeHandler={true} />
+          <PlotlyChart data={[...forecast, forecastSymbols]} title={'Vorhersage'} yAxis='Temperature °C' xAxis='Time' y2Axis='Humidity %' showNow={true}/>
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
