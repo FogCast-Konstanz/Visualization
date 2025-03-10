@@ -17,10 +17,22 @@ const weatherIcons: { [key: number]: "cloudy" | "rainy" | "sunny" | "partlySunny
   8: "foggy",
 };
 
+
+const weatherSymbols: { [key: number]: string } = {
+  1: "🌞", // Clear sky
+  2: "🌤️", // Few clouds
+  3: "⛅️", // Scattered clouds
+  4: "☁️", // Cloudy
+  5: "🌧️", // Rainy
+  6: "⛈️", // Thunderstorm
+  7: "❄️", // Snowy
+  8: "🌫️", // Foggy
+};
 class DWDForcast {
   private static instance: DWDForcast;
   private temperatureHourly: LineGraphData | null = null;
   private humidityHourly: LineGraphData | null = null;
+  private weatherSymbolsHourly: LineGraphData | null = null;
 
   private hourlyForcastWithIcons: ForcastCardProps[] | null = null
 
@@ -36,15 +48,16 @@ class DWDForcast {
   async fetchData(stationId: string) {
     try {
       const response = await axios.get(`${API_BASE_URL}/dwd-proxy`, {
-        params: { 
-            url: `${DWD_BASE_URL}/stationOverviewExtended`,
-            stationIds: stationId
-         },
+        params: {
+          url: `${DWD_BASE_URL}/stationOverviewExtended`,
+          stationIds: stationId
+        },
         headers: { Accept: "application/json" },
       });
 
       this.temperatureHourly = this.extractTermperatureHourly(response.data);
-      this.humidityHourly = this.extractHumidityHourly(response.data)
+      this.humidityHourly = this.extractHumidityHourly(response.data);
+      this.weatherSymbolsHourly = this.extractWeatherSymbolsHourly(response.data);
       this.hourlyForcastWithIcons = this.extractHourlyForcast(response.data)
       console.log(this.temperatureHourly)
     } catch (error) {
@@ -65,6 +78,22 @@ class DWDForcast {
     const y = forecast.temperature.map((temp: number) => temp / 10);
 
     return { x, y, name: "Temperature" };
+  }
+
+
+  private extractWeatherSymbolsHourly(data: any): LineGraphData {
+    const stationId = Object.keys(data)[0];
+    const forecast = data[stationId].forecast1;
+    const startDate = new Date(forecast.start);
+    const timeStep = forecast.timeStep;
+
+    const x = forecast.temperature.map((_: any, index: any) =>
+      new Date(startDate.getTime() + index * timeStep).toISOString()
+    );
+    const y = forecast.icon.map((value: any, index: any) =>
+      weatherSymbols[value] || "❔",
+    );
+    return { x, y, name: "miau" };
   }
 
   private extractHumidityHourly(data: any): LineGraphData {
@@ -120,6 +149,47 @@ class DWDForcast {
     }
     return []
   }
+
+  getWeatherSymbolsHourly(): LineGraphData | null {
+    return this.weatherSymbolsHourly;
+  }
+
+  getWeatherSymbolsHourlyNextXDays(days: number) : LineGraphData | null {
+    if (this.weatherSymbolsHourly) {
+      const icons24 = this.filterNextXDays(this.weatherSymbolsHourly.x, this.weatherSymbolsHourly.y, days)
+      
+      return {x: icons24.times, y: icons24.values, name: this.weatherSymbolsHourly.name}
+    }
+    return null
+  }
+
+
+  filterNextXDays(times: string[], values: number[], days: number): {times: string[], values: number[]} {
+    const now = new Date();
+    const twentyFourHoursAgo = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
+    let firstIndex = times.findIndex(time => new Date(time) > now)
+    let lastIndex = times.findIndex(time => new Date(time) > twentyFourHoursAgo);
+
+    if (lastIndex === -1) {
+      return {times: times, values: values}
+    } else {
+      return {times: times.slice(firstIndex, lastIndex), values: values.slice(firstIndex, lastIndex)}
+    }
+  }
+
+  getNextXDaysValues(days: number): LineGraphData[] {
+    if (this.humidityHourly && this.temperatureHourly && this.weatherSymbolsHourly) {
+      const humidity24 = this.filterNextXDays(this.humidityHourly.x, this.humidityHourly.y, days)
+      const temperature24 = this.filterNextXDays(this.temperatureHourly.x, this.temperatureHourly.y, days)
+      
+      return [{x: temperature24.times, y: temperature24.values, name: this.temperatureHourly.name}, {x: humidity24.times, y: humidity24.values, name: this.humidityHourly.name}]
+    }
+    
+    return []
+  }
+
+
 
   getHourlyForcastValuesIcon(): ForcastCardProps[] {
     if (this.hourlyForcastWithIcons) {

@@ -16,10 +16,13 @@ const theme = extendTheme({
         custom_dark: {
             surface: "#2F4F4F",
             background: "#293F3F",
+
+            // surface: "#2f6969",
+            // background: "#2F4F4F",
             text: "#DCDCDC",
             secondarytext: "#000000",
-            primary: "#AFDBF5",
-            primary_variant: "#AFDBF5BA",
+            primary:"rgb(195, 245, 175)",
+            primary_variant:"hsl(180, 27.30%, 42.70%)",
             secondary: "#A1E5AB",
             ternary: "#AE5656",
             warning: "#FFAA33 "

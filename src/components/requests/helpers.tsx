@@ -21,3 +21,4 @@ export function formatActualDatetime(dateTime?: Date, dateStr?: string) {
 };
 
 export const API_BASE_URL = "http://141.37.122.39:8080";
+export const API_SERVER_BASE_URL = "http://141.37.122.39:8000";

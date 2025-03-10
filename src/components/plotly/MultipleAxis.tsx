@@ -44,9 +44,9 @@ export default function MultipleAxisGraph({ y1, y2, title, type = "scatter", leg
             zerolinecolor: "#888",
             tickangle: -45, // Rotate labels
             automargin: true, // Prevent cutoff
-            tickmode: "auto", // Automatically adjust ticks
             nticks: 10, // Reduce number of ticks
-            title: xAxis
+            title: xAxis,
+            // range: [y1[0].x, y1[y1.length - 1].x]
         },
         yaxis: {
             gridcolor: gridColor,

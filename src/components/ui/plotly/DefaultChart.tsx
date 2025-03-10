@@ -1,15 +1,89 @@
 import { saveAs } from 'file-saver';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
+import { useColorModeValue, useTheme } from "@chakra-ui/react";
 
 interface PlotlyChartProps {
     data: any[];
-    layout: Partial<Plotly.Layout>;
+    customLayout: any;
     useResizeHandler: boolean | undefined;
-    style: React.CSSProperties | undefined
+    style: React.CSSProperties | undefined;
+    xAxis?: string;
+    yAxis?: string;
+    showNow?: boolean;
 }
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, layout, useResizeHandler, style }) => {
+type orientation = "h" | "v" | undefined
+
+
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, useResizeHandler, style, xAxis = '', yAxis = '', showNow = false  }) => {
+    const theme = useTheme();
+
+    const [layout, setLayout] = useState<any>();
+    const colors = useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],);
+
+    const plotBgColor = useColorModeValue(theme.colors.custom_light.surface, theme.colors.custom_dark.surface);
+    const paperBgColor = useColorModeValue(theme.colors.custom_light.background, theme.colors.custom_dark.background);
+    const textColor = useColorModeValue(theme.colors.custom_light.text, theme.colors.custom_dark.text);
+    const gridColor = useColorModeValue(theme.colors.custom_light.secondarytext, theme.colors.custom_dark.secondarytext);
+
+    const orientationLegendBottom: orientation = "h"
+    const orientationLegendRight: orientation = "v"
+    const orientationModebar: orientation = "v"
+    const traceorder: "normal" | "grouped" | "reversed" | "reversed+grouped" | undefined = "normal"
+
+    const defaultLayout = {
+        plot_bgcolor: plotBgColor, // Background of the plot area
+        paper_bgcolor: paperBgColor, // Background of the whole chart
+        font: { family: "Arial, sans-serif", color: textColor }, // Font styles
+        xaxis: {
+            gridcolor: gridColor, // Light gridlines
+            zerolinecolor: "#888",
+            tickangle: -45, // Rotate labels
+            automargin: true, // Prevent cutoff
+            tickmode: "auto", // Automatically adjust ticks
+            nticks: 10, // Reduce number of ticks
+            title: xAxis
+        },
+        yaxis: {
+            gridcolor: gridColor,
+            title: yAxis,
+            zerolinecolor: "#888",
+            showgrid: true
+        },
+        margin: { l: 30, r: 30, t: 50, b: 0 }, // Adjust margins
+        legend: {
+            x: 0,
+            y: -0.2,
+            traceorder: traceorder,
+            orientation: orientationLegendBottom,
+        },
+        modebar: {
+            orientation: orientationModebar,
+        },
+        shapes: showNow ? [
+            {
+                type: "line",
+                x0: (new Date()).toISOString().split('.')[0] + "Z",
+                x1: (new Date()).toISOString().split('.')[0] + "Z",
+                y0: 0,
+                y1: 1,
+                xref: "x",
+                yref: "paper", // Extends line across y-axis
+                line: {
+                    color: "red",
+                    width: 2,
+                    dash: "dash",
+                },
+            },
+        ] : []
+    }
+
+    useEffect(() => {
+        setLayout(() => ({...defaultLayout, ...customLayout}))
+    }, [])
+
+
     return (
         <Plot
             data={data}

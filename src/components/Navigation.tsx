@@ -6,6 +6,7 @@ import { FaBolt, FaBook, FaChartSimple, FaCircleInfo, FaRankingStar, FaSatellite
 import { GoHomeFill } from "react-icons/go";
 import { useLocation } from 'react-router-dom';
 import Settings from './Menu';
+import StatusBadge from './StatusBadge';
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -38,7 +39,9 @@ export default function Navigation() {
         <div>
           <Link href='/' _hover={{ textDecoration: "none" }}><Heading size="2xl">{t('title')}</Heading></Link>
           <Heading size="lg">{t('subtitle')}</Heading>
+          <StatusBadge></StatusBadge>
         </div>
+
 
         <div>
           <UnorderedList fontSize="xl" margin={0} listStyleType="none">

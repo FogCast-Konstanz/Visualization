@@ -1,6 +1,5 @@
 import { useColorModeValue, useTheme } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
-import Plot from "react-plotly.js";
 import PlotlyChart from "../ui/plotly/DefaultChart";
 
 export type CloudDataType = { time: string[]; low: number[]; mid: number[]; high: number[]; visibility: number[] }

@@ -6,17 +6,19 @@ export interface LineGraphData { x: string[], y: number[], name: string  }
 
 interface LineGraphProps {
     values: LineGraphData[];
+    weatherIconValues: LineGraphData;
     title: string;
     legend?: "right" | "bottom",
     type?: "bar" | "scatter",
     showNow? : boolean,
     xAxis?: string,
     yAxis?: string,
+    
 }
 
 type orientation = "h" | "v" | undefined
 
-export default function LineGraph({ values, title, legend = "bottom", type = "scatter", showNow = true, xAxis = '', yAxis = '' }: LineGraphProps) {
+export default function IconsInGraph({ values, weatherIconValues, title, legend = "bottom", type = "scatter", showNow = true, xAxis = '', yAxis = '', weatherIcons }: LineGraphProps) {
     const theme = useTheme();
 
     const [data, setData] = useState<any[]>([])
@@ -100,17 +102,16 @@ export default function LineGraph({ values, title, legend = "bottom", type = "sc
         }));
 
         const max = Math.max(...values[0].y) + 5
-        const staticValue = values[0].y.map(code => max)
-        const weatherIcons = values[0].y.map(code => '😉')
+        const staticValue = weatherIconValues.x.map(code => max)
 
-        formattedData.push({ x: values[0].x, y: staticValue, mode: 'text', text: weatherIcons, textfont: { size: 18 }, name: 'Weather', yaxis: "y1" })
+        formattedData.push({ x: weatherIconValues.x, y: staticValue, mode: 'text', text: weatherIconValues.y, textfont: { size: 20 }, name: 'Weather', yaxis: "y1" })
 
         setData(formattedData);
     }, [values])
 
     return (
         <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%"}}>
-            <PlotlyChart data={data} customLayout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
+            <PlotlyChart data={data} layout={{ ...layout, title: title }} useResizeHandler={true} style={{ width: "100%", height: "100%" }} />
         </div>
     );
 }
