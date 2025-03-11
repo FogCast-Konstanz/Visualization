@@ -106,7 +106,7 @@ export default function StandardMode() {
         </Flex>
       </Card>
 
-      <Flex gap='10px' height={'50%'}>
+      <Flex gap='10px'>
         {forecast && forecastSymbols ?
           <PlotlyChart data={[...forecast, forecastSymbols]} title={'Vorhersage'} yAxis='Temperature °C' xAxis='Time' y2Axis='Humidity %' showNow={true}/>
           : <OrbitProgress color={loadingColor} size="medium" />}
