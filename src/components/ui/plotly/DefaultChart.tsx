@@ -21,6 +21,11 @@ type orientation = "h" | "v" | undefined
 const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false  }) => {
     const theme = useTheme();
 
+    useEffect(() => {
+        setLayout(() => ({...defaultLayout, ...customLayout}))
+        setStyle(() => ({...defaultStyle, ...customStyle}))
+    }, [customLayout])
+
     const [layout, setLayout] = useState<any>();
     const [style, setStyle] = useState<any>();
 
@@ -52,19 +57,23 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
         },
         yaxis: {
             gridcolor: gridColor,
-            title: yAxis,
+            title: {
+                text: yAxis,
+                standoff: 5
+            },
             zerolinecolor: "#888",
-            showgrid: true
+            showgrid: true,
+            
         },
         yaxis2: y2Axis ? {
             title: {
                 text: y2Axis,
-                standoff: 10
+                standoff: 5
             },
             overlaying: "y",
             side: "right",
         } : {},
-        margin: { l: 30, r: 30, t: 50, b: 0 }, // Adjust margins
+        margin: { l: 50, r: 40, t: 50, b: 0 }, // Adjust margins
         legend: {
             x: 0,
             y: -0.2,

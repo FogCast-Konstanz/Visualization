@@ -20,10 +20,15 @@ const de = {
         title: "Wetter in Konstanz",
         temperature: "Temperatur",
         humidity: "Luftfeuchtigkeit",
+        forecast: "Vorhersage",
+        time: "Zeit",
         waterTemp: "Wassertemperatur",
         waterLevel: "Wasserstand",
         windspeed: "Windgeschwindigkeit",
-        forcastGraph: "Vorhersagen"
+        forcastGraph: "Vorhersagen",
+        currentWeather: "Aktuelles Wetter",
+        next2Days: "Nächste 2 Tage",
+        next14Days: "Nächste 14 Tage"
     },
 
     phenomena : {

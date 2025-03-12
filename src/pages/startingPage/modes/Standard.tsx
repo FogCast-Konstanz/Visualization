@@ -24,6 +24,7 @@ export default function StandardMode() {
   const [forecastIcons, setForecastIcons] = useState<ForcastCardProps[] | null>(null);
 
   const [currentWeather, setCurrentWeather] = useState<Record<string, string>>({})
+  const [weekdays, setWeekdays] = useState<any | null>(null)
 
   useEffect(() => {
     fetchData();
@@ -52,16 +53,52 @@ export default function StandardMode() {
     if (weatherSymbolsTemp && humidity && temperature) {
       setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
       setForecastSymbols(convertToPlotlyChartFormat(weatherSymbolsTemp, 'text'))
+      setWeekdays(weekdayAnnotations(temperature.x))
     }
 
     setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
+
   };
+
+  function weekdayAnnotations(randomTime: any[]) {
+    console.log(randomTime)
+    const uniqueDays = [...new Set(randomTime
+      .filter(t => new Date(t.split("T")[0]+ 'T12:00:00') > new Date())
+      .map(t => t.split("T")[0])
+    )];
+
+    const miau =  uniqueDays.map(day => {
+      const noonTime = new Date(`${day}T12:00:00`);  // Set noon time
+      
+      return {
+        x: noonTime.toISOString(),   // X position at noon
+        y: 1.08,                     // Y position (above first row)
+        xref: "x",
+        yref: "paper",
+        text: noonTime.toLocaleDateString("en-US", { weekday: "long" }), // "Monday", "Tuesday", etc.
+        showarrow: false,
+        font: { size: 14, color: "white", weight: "bold" },
+        align: "center",
+        yaxis: "y1"
+      };
+    });
+
+    console.log(miau)
+    return miau
+  } 
 
   const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
 
+
+  // function changeRequestDuration(days: number) {
+  //   setRequestDuration(days)
+
+  //   forecast && setWeekdays(forecast[0].x)
+  // }
+
   return (
     <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' maxWidth={'100%'}>
-      <Heading size="md" padding='0px'>Aktuelles Wetter</Heading>
+      <Heading size="md" padding='0px'>{t('startingPage.currentWeather')}</Heading>
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
         <MeasurementCard measurement={t('startingPage.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
         <MeasurementCard measurement={t('startingPage.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
@@ -69,11 +106,11 @@ export default function StandardMode() {
         <MeasurementCard measurement={t('startingPage.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
       </Flex>
 
-      <Heading size="md" pt={'10px'}>Vorhersagen</Heading>
+      <Heading size="md" pt={'10px'}>{t('startingPage.forecast')}</Heading>
       <Flex gap={'10px'}>
-        <Button onClick={() => setRequestDuration(1)}>Aktuelles Wetter</Button>
-        <Button onClick={() => setRequestDuration(2)}>Next 2 Days</Button>
-        <Button onClick={() => setRequestDuration(14)}>Next 14 Days</Button>
+        <Button onClick={() => setRequestDuration(1)}>{t('startingPage.currentWeather')}</Button>
+        <Button onClick={() => setRequestDuration(2)}>{t('startingPage.next2Days')}</Button>
+        <Button onClick={() => setRequestDuration(14)}>{t('startingPage.next14Days')}</Button>
       </Flex>
 
 
@@ -108,7 +145,7 @@ export default function StandardMode() {
 
       <Flex gap='10px'>
         {forecast && forecastSymbols ?
-          <PlotlyChart data={[...forecast, forecastSymbols]} title={'Vorhersage'} yAxis='Temperature °C' xAxis='Time' y2Axis='Humidity %' showNow={true}/>
+          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('startingPage.forecast')} yAxis={t('startingPage.temperature') + ' °C'} xAxis={t('startingPage.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} customLayout={{annotations: weekdays}}/>
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 

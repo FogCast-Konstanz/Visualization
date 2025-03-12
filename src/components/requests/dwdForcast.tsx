@@ -19,16 +19,17 @@ const weatherIcons: { [key: number]: "cloudy" | "rainy" | "sunny" | "partlySunny
 };
 
 
-const weatherSymbols: { [key: number]: string } = {
-  1: "🌞", // Clear sky
-  2: "🌤️", // Few clouds
-  3: "⛅️", // Scattered clouds
-  4: "☁️", // Cloudy
-  5: "🌧️", // Rainy
-  6: "⛈️", // Thunderstorm
-  7: "🌧️", // Snowy
-  8: "🌫️", // Foggy
+const weatherSymbols: { [key: number]: { day: string; night: string } } = {
+  1: { day: "🌞", night: "🌙" }, // Clear sky
+  2: { day: "🌤️", night: "🌖" }, // Few clouds
+  3: { day: "⛅️", night: "🌘" }, // Scattered clouds
+  4: { day: "☁️", night: "☁️" }, // Cloudy
+  5: { day: "🌧️", night: "🌧️" }, // Rainy
+  6: { day: "⛈️", night: "⛈️" }, // Thunderstorm
+  7: { day: "🌨️", night: "🌨️" }, // Snowy
+  8: { day: "🌫️", night: "🌫️" }, // Foggy
 };
+
 class DWDForcast {
   private static instance: DWDForcast;
   private temperatureHourly: LineGraphData | null = null;
@@ -87,14 +88,17 @@ class DWDForcast {
     const forecast = data[stationId].forecast1;
     const startDate = new Date(forecast.start);
     const timeStep = forecast.timeStep;
+    const isDay = forecast.isDay;
 
     const x = forecast.temperature.map((_: any, index: any) =>
       new Date(startDate.getTime() + index * timeStep).toISOString()
     );
+
+    console.log('Hello', isDay)
     const y = forecast.icon.map((value: any, index: any) =>
-      weatherSymbols[value] || "❔",
+      isDay[index] ? weatherSymbols[value]?.day || "❔" : weatherSymbols[value]?.night || "❔",
     );
-    return { x, y, name: "miau" };
+    return { x, y, name: "symbol" };
   }
 
   private extractHumidityHourly(data: any): LineGraphData {
@@ -114,7 +118,9 @@ class DWDForcast {
   private extractHourlyForcast(data: any): ForcastCardProps[] {
     const stationId = Object.keys(data)[0];
     const forecast = data[stationId].forecast1;
-    const { temperature, humidity, icon, start, timeStep } = forecast;
+    const { temperature, humidity, icon1h, start, timeStep, isDay } = forecast;
+
+    console.log('Miauuuuuuuuuuuu', forecast)
 
     const formattedData: ForcastCardProps[] = [];
     const currentTime = Date.now();
@@ -122,7 +128,7 @@ class DWDForcast {
     for (let i = 0; i < temperature.length; i++) {
       const entryTime = start + i * timeStep;
       if (entryTime < currentTime) continue;
-      if (!temperature[i] || !humidity[i] || !icon[i]) break;
+      if (!temperature[i] || !humidity[i] || !icon1h[i]) break;
 
       const time = new Date(start + i * timeStep).toLocaleTimeString("de-DE", {
         hour: "2-digit",
@@ -132,8 +138,9 @@ class DWDForcast {
       formattedData.push({
         time,
         temperature: `${temperature[i] / 10}`,
-        weather: weatherIcons[icon[i]] || "unknown",
+        weather: weatherIcons[icon1h[i]] || "unknown",
         humidity: `${humidity[i] / 10}`,
+        isDay: isDay[i],
       });
     }
 

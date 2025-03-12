@@ -107,17 +107,27 @@ export default function AdvancedMode() {
         const weatherSymbolsTemp = DWDForcast.getWeatherSymbolsHourlyNextXDays(2)
         if (weatherSymbolsTemp && humidity && temperature) {
             setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
-            // setForecastSymbols(convertToPlotlyChartFormat(weatherSymbolsTemp, 'text'))
+            setForecastSymbols(convertToPlotlyChartFormat(weatherSymbolsTemp, 'text'))
         }
     }
 
     return (
-        <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' maxWidth={'100%'} height={'calc(100vh - 100px)'} overflow='hidden' overflowY={'scroll'}>
+        <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' height={'calc(100vh - 100px)'} overflow='hidden' overflowY={'scroll'}>
             <SelectModels selectModels={weatherModel} setSelectModels={setWeatherModel}></SelectModels>
 
-            {temp && humidity ? <MultipleAxisGraph y1={temp} y2={humidity} title={t('startingPage.forcastGraph') + '**' + weatherModel} xAxis='Time' y1Axis='Temperature °C' y2Axis='Humidity %' /> : <></>}
+            <Flex>
+                {temp && humidity ? <MultipleAxisGraph y1={temp} y2={humidity} title={t('startingPage.forcastGraph') + '**' + weatherModel} xAxis='Time' y1Axis='Temperature °C' y2Axis='Humidity %' /> : <></>}
+            </Flex>
+
+            <Flex gap='10px'>
+                {forecast && forecastSymbols ?
+                    <PlotlyChart data={[...forecast, forecastSymbols]} title={t('startingPage.forecast')} yAxis={t('startingPage.temperature') + ' °C'} xAxis={t('startingPage.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} />
+                    : <OrbitProgress size="medium" />}
+            </Flex>
             {/* {visibility && cloudCover ? <MultipleAxisGraph y1={visibility} y2={cloudCover} title={t('startingPage.forcastGraph') + '**' + weatherModel} xAxis='Time' y1Axis='Temperature °C' y2Axis='Humidity %' /> : <></>} */}
-            {cloudCoverData ? <CloudGraph cloudData={cloudCoverData}></CloudGraph> : <></>}
+            <Flex>
+                {cloudCoverData ? <CloudGraph cloudData={cloudCoverData}></CloudGraph> : <></>}
+            </Flex>
 
             {/* <Flex gap='10px' height={'50%'}>
                 {forecast ?

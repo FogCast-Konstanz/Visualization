@@ -1,9 +1,11 @@
 import { Card, CardBody, createIcon, Flex, Icon, Text, useColorModeValue } from "@chakra-ui/react";
 
-import { GiWaterDrop } from "react-icons/gi";
 import { IoCloudOfflineOutline, IoCloudy, IoSnow, IoSunny } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
 import FogSVG from '/public/assets/weather/fog.svg';
+import HumiditySVG from '/public/assets/weather/humidity.svg';
+import MoonSVG from '/public/assets/weather/moon.svg';
+import PartlyMoonSVG from '/public/assets/weather/partlyMoon.svg';
 import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
 import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
@@ -12,15 +14,18 @@ const SVGRepoRainy = createIcon({displayName: "SVGRepoRainy", viewBox: "0 0 24 2
 const SVGRepoPartlySunny = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" />});
 const SVGRepoThunder = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ThunderSVG} width="24" height="24" />});
 const SVGRepoFog = createIcon({displayName: "SVGRepoFog", viewBox: "0 0 24 24", path: <image href={FogSVG} width="24" height="24" />});
+const SVGRepoHumidity = createIcon({displayName: "SVGRepoHumidity", viewBox: "0 0 24 24", path: <image href={HumiditySVG} width="24" height="24" />});
+const SVGRepoMoon = createIcon({displayName: "SVGRepoMoon", viewBox: "0 0 24 24", path: <image href={MoonSVG} width="24" height="24" />});
+const SVGRepoPartlyMoon = createIcon({displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" />});
 
 
-export type ForcastCardProps = { time: string, temperature: string, weather:  "cloudy" | "rainy" | "sunny" | "partlySunny" | "mostlySunny" | "foggy" | "thunder" | "snowy" | "unkown", humidity: string }
-export default function ForcastCard({ time, temperature, weather, humidity }: ForcastCardProps) {
+export type ForcastCardProps = { time: string, temperature: string, weather:  "cloudy" | "rainy" | "sunny" | "partlySunny" | "mostlySunny" | "foggy" | "thunder" | "snowy" | "unkown", humidity: string, isDay: boolean }
+export default function ForcastCard({ time, temperature, weather, humidity, isDay }: ForcastCardProps) {
 
     const weatherIcon: {[key: string]: {icon: IconType | any, color: string, background?: string}} = {
-        'sunny': { 'icon': IoSunny, 'color': '#F7CF52' },
-        'partlySunny': { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' },
-        'mostlySunny': { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' },
+        'sunny': isDay ? { 'icon': IoSunny, 'color': '#F7CF52' } : { 'icon': SVGRepoMoon, 'color': '#F7CF52' },
+        'partlySunny': isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
+        'mostlySunny': isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
         'cloudy': { 'icon': IoCloudy, 'color': '#999999' },
         'rainy': {'icon': SVGRepoRainy, 'color': 'blue'},
         'snowy': {'icon': IoSnow, 'color': 'white'},
@@ -43,7 +48,7 @@ export default function ForcastCard({ time, temperature, weather, humidity }: Fo
                     <Text fontSize={'lg'} mb={'0.5rem'} fontWeight={'bold'}>{temperature}°C</Text>
                     <Icon as={weatherIcon[weather].icon} boxSize={12} color={weatherIcon[weather].color} mb={'0.75rem'} />
                     {/* <Icon as={SVGRepoRainy} boxSize={12} color={weatherIcon[weather].color} mb={'0.75rem'} /> */}
-                    <Flex direction={'row'} alignItems={"center"} gap={'5px'}><Icon as={GiWaterDrop} boxSize={3} color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}/><Text fontSize={'s'}>{humidity}%</Text></Flex>
+                    <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={'5px'}><Icon as={SVGRepoHumidity} boxSize={4} mt={'2px'} color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}/><Text fontSize={'s'}>{humidity}%</Text></Flex>
                 </Flex> 
             </CardBody>
         </Card>

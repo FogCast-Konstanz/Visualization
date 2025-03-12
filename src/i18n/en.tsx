@@ -19,10 +19,15 @@ const en = {
         title: "Weather in Constance",
         temperature: "Temperature",
         humidity: "Humidity",
+        forecast: "Forecast",
+        time: "Time",
         waterTemp: "Water Temperature",
         windspeed: "Windspeed",
         waterLevel: "Waterlevel",
-        forcastGraph: "Forcasting"
+        forcastGraph: "Forcasting",
+        currentWeather: "Current Weather",
+        next2Days: "Next 2 Days",
+        next14Days: "Next 14 Days"
     },
 
     phenomena : {
@@ -60,7 +65,7 @@ const en = {
         furtherLicences: "Further Informations about the Licences",
         dwdData: "The real-time data and current forecasts are based on DWD data. The DWD data also formed the basis for the analyses.",
         openMeteoData: "The data presented on the website is largely based on Openmeteo.",
-        dataFrom: "Date from",
+        dataFrom: "Data from",
         and: "and"
     },
 
