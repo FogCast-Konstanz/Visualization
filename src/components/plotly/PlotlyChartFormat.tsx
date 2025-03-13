@@ -1,5 +1,3 @@
-import { isNull } from "node:util";
-
 export interface PlotlyChartBasicFormat {
     x: string[];
     y: number[];

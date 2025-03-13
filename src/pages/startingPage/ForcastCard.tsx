@@ -19,7 +19,7 @@ const SVGRepoMoon = createIcon({displayName: "SVGRepoMoon", viewBox: "0 0 24 24"
 const SVGRepoPartlyMoon = createIcon({displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" />});
 
 
-export type ForcastCardProps = { time: string, temperature: string, weather:  "cloudy" | "rainy" | "sunny" | "partlySunny" | "mostlySunny" | "foggy" | "thunder" | "snowy" | "unkown", humidity: string, isDay: boolean }
+export type ForcastCardProps = { time: Date, temperature: string, weather:  "cloudy" | "rainy" | "sunny" | "partlySunny" | "mostlySunny" | "foggy" | "thunder" | "snowy" | "unkown", humidity: string, isDay: boolean }
 export default function ForcastCard({ time, temperature, weather, humidity, isDay }: ForcastCardProps) {
 
     const weatherIcon: {[key: string]: {icon: IconType | any, color: string, background?: string}} = {
@@ -44,7 +44,7 @@ export default function ForcastCard({ time, temperature, weather, humidity, isDa
             >
             <CardBody padding={'0.5rem 1.75rem 0.75rem'}>
                 <Flex direction='column' alignItems='center' justifyContent={"space-between"}>
-                    <Text mb={'0.75rem'}>{time}</Text>
+                    <Text mb={'0.75rem'}>{time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}</Text>
                     <Text fontSize={'lg'} mb={'0.5rem'} fontWeight={'bold'}>{temperature}°C</Text>
                     <Icon as={weatherIcon[weather].icon} boxSize={12} color={weatherIcon[weather].color} mb={'0.75rem'} />
                     {/* <Icon as={SVGRepoRainy} boxSize={12} color={weatherIcon[weather].color} mb={'0.75rem'} /> */}

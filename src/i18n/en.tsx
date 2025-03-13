@@ -15,22 +15,38 @@ const en = {
         analysis: "Analysis"
     },
 
-    startingPage: {
-        title: "Weather in Constance",
-        temperature: "Temperature",
-        humidity: "Humidity",
+    data: {
+        temperature: "Temperature °C",
+        humidity: "Humidity % ",
         forecast: "Forecast",
         time: "Time",
-        waterTemp: "Water Temperature",
-        windspeed: "Windspeed",
-        waterLevel: "Waterlevel",
-        forcastGraph: "Forcasting",
+        waterTemp: "Water temperature",
+        waterLevel: "Water level cm",
+        windspeed: "Wind speed",
+    },
+
+    startingPage: {
+        title: "Weather in Constance",
+        forecast: "Forecast",
         currentWeather: "Current Weather",
         next2Days: "Next 2 Days",
         next14Days: "Next 14 Days"
     },
 
-    phenomena : {
+    dataPage: {
+        introduction: "How has the weather changed in recent years? What temperature trends are there within a year? How does the temperature fluctuate within a week? These and many other questions can be answered on this page with the help of many graphs!",
+        tempLastYear: "Temperature in the last year",
+        tempLastWeek: "Temperature of the last week",
+        fogMonth: "Fog days per month",
+        fogYear: "Fog days per year",
+        waterLevelLastMonth: "Water level in the last month",
+
+        tempTab: "Temperature",
+        fogTab: "Fog",
+        waterLevel: "Water level"
+    },
+
+    phenomena: {
         title: "Weather phenomena",
         introduction: "Lake Constance is a unique climate regulator that, due to its size and location, causes various weather phenomena. The Swabian Sea Effect influences the local climate by balancing temperature differences and promoting weather changes. Especially in autumn and winter, dense fog is common, formed by the lake's moisture and often significantly reducing visibility. Additionally, the lake's water level can fluctuate considerably due to flooding caused by heavy rainfall or snowmelt. The following sections will provide a closer look at these and other weather phenomena.",
         explanation: "Explanation",
@@ -43,7 +59,10 @@ const en = {
 
     models: {
         title: "Forecasting",
-        selectValues: "Select date and model. (top right)"
+        selectValues: "Select date and model. (top right)",
+        introduction: "Analyze and compare the predictions of different models! Here, you can select different models and the [predicted time](/lexikon#predictedTime). Consequently, the [historical predictions](/lexikon#timeOfPrediction) for all selected models are displayed over time.",
+        forecastTemp: 'Temperature forecast for {{date}}',
+        forecastHumidity: 'Humidity forecast for {{date}}'
     },
 
     impressum: {

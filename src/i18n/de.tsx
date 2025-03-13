@@ -16,19 +16,37 @@ const de = {
         analysis: "Analyse"
     },
 
-    startingPage: {
-        title: "Wetter in Konstanz",
-        temperature: "Temperatur",
-        humidity: "Luftfeuchtigkeit",
+    data: {
+        temperature: "Temperatur °C",
+        humidity: "Luftfeuchtigkeit % ",
         forecast: "Vorhersage",
         time: "Zeit",
         waterTemp: "Wassertemperatur",
-        waterLevel: "Wasserstand",
+        waterLevel: "Wasserstand cm",
         windspeed: "Windgeschwindigkeit",
-        forcastGraph: "Vorhersagen",
+    },
+
+    startingPage: {
+        title: "Wetter in Konstanz",
+        forecast: "Vorhersage",
+        
         currentWeather: "Aktuelles Wetter",
         next2Days: "Nächste 2 Tage",
         next14Days: "Nächste 14 Tage"
+    },
+
+    dataPage: {
+        title: "Daten Darstellung",
+        introduction: "Wie hat sich das Wetter in den letzten Jahren geändert? Welche Entwicklungen der Temperatur gibt es innerhalb eines Jahres? Wie schwankt die Temperatur innerhalb einer Woche? Diese und viele weitere Fragen können auf dieser Seite durch eine viele dargestellte Graphen geklärt werden!",
+        tempLastYear: "Temperatur im letzten Jahr",
+        tempLastWeek: "Temperatur der letzten Woche",
+        fogMonth: "Nebeltage pro Monat",
+        fogYear: "Nebeltage pro Jahr ",
+        waterLevelLastMonth: "Wasserstand im letzten Monat",
+
+        tempTab: "Temperatur",
+        fogTab: "Nebel",
+        waterLevel: "Wasserstand"
     },
 
     phenomena : {
@@ -45,7 +63,9 @@ const de = {
     models: {
         title: "Vorhersagen",
         selectValues: "Wähle ein Modell und das Datum aus (oben rechts).",
-        introduction: "Analysiere und vergleiche die Vorhersagen von verschiedenen Modellen! \nHier können verschiedene Modelle ausgewählt werden und der [vorhergesagte Zeitpunkt](/lexikon#predictedTime). Infolgedessen werden die [historischen Vorhersagen](/lexikon#timeOfPrediction) für alle ausgewählten Modelle über die Zeit angezeigt."
+        introduction: "Analysiere und vergleiche die Vorhersagen von verschiedenen Modellen! \nHier können verschiedene Modelle ausgewählt werden und der [vorhergesagte Zeitpunkt](/lexikon#predictedTime). Infolgedessen werden die [historischen Vorhersagen](/lexikon#timeOfPrediction) für alle ausgewählten Modelle über die Zeit angezeigt.",
+        forecastTemp: 'Temperaturvorhersage für {{date}}',
+        forecastHumidity: 'Luftfeuchtigkeit für {{date}}',
     },
 
     impressum: {

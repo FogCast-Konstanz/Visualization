@@ -55,7 +55,7 @@ export default function StandardMode() {
       setWeekdays(weekdayAnnotations(temperature.x))
     }
 
-    setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
+    setForecastIcons(DWDForcast.getHourlyForcastValuesIcon(requestDuration))
   };
 
   const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
@@ -64,13 +64,13 @@ export default function StandardMode() {
     <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' maxWidth={'100%'}>
       <Heading size="md" padding='0px'>{t('startingPage.currentWeather')}</Heading>
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
-        <MeasurementCard measurement={t('startingPage.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater}></MeasurementCard>
-        <MeasurementCard measurement={t('startingPage.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
+        <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
+        <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
+        <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater}></MeasurementCard>
+        <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
       </Flex>
 
-      <Heading size="md" pt={'10px'}>{t('startingPage.forecast')}</Heading>
+      <Heading size="md" pt={'10px'}>{t('data.forecast')}</Heading>
       <Flex gap={'10px'}>
         <Button onClick={() => setRequestDuration(1)}>{t('startingPage.currentWeather')}</Button>
         <Button onClick={() => setRequestDuration(2)}>{t('startingPage.next2Days')}</Button>
@@ -109,7 +109,7 @@ export default function StandardMode() {
 
       <Flex gap='10px'>
         {forecast && forecastSymbols ?
-          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('startingPage.forecast')} yAxis={t('startingPage.temperature') + ' °C'} xAxis={t('startingPage.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} customLayout={{annotations: weekdays}}/>
+          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature') + ' °C'} xAxis={t('data.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} customLayout={{annotations: weekdays}}/>
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 

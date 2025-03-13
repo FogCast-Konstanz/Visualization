@@ -8,8 +8,8 @@ import en from "./en";
 import { enPhenomena } from "./enPhenomena";
 
 i18n.use(initReactI18next).init({
-    lng: "de",
-    fallbackLng: "de",
+    lng: localStorage.getItem('lang') == 'en' ? "en" : "de",
+    fallbackLng: localStorage.getItem('lang') == 'en' ? "en" : "de",
     interpolation: {
         escapeValue: false,
     },

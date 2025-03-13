@@ -24,7 +24,7 @@ class DWDForcast {
   private weatherSymbolsHourly: PlotlyChartBasicFormat | null = null;
   private hourlyForcastWithIcons: ForcastCardProps[] | null = null;
 
-  private constructor() {}
+  private constructor() { }
 
   static getInstance(): DWDForcast {
     return DWDForcast.instance;
@@ -68,7 +68,7 @@ class DWDForcast {
   private extractHourlyForcast(data: any): ForcastCardProps[] {
     const { start, timeStep, temperature, humidity, icon1h, isDay } = data[Object.keys(data)[0]].forecast1;
     return temperature.map((temp: number, i: number) => ({
-      time: new Date(start + i * timeStep).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }),
+      time: new Date(start + i * timeStep),
       temperature: `${temp / 10}`,
       weather: weatherIcons[icon1h[i]] || "unknown",
       humidity: `${humidity[i] / 10}`,
@@ -97,17 +97,36 @@ class DWDForcast {
   }
 
   getNextXDaysHumidity(days: number): PlotlyChartBasicFormat | null {
-    return this.humidityHourly ? this.getNextXDaysValues(days).find(d => d.name === "Humidity") || null : null;
+    return this.humidityHourly ? 
+    this.getNextXDaysValues(days).find(d => d.name === "Humidity") || null : null;
   }
 
   getWeatherSymbolsHourlyNextXDays(days: number): PlotlyChartBasicFormat | null {
     if (!this.weatherSymbolsHourly || !this.temperatureHourly) return null;
     const { times, values } = this.filterNextXDays(this.weatherSymbolsHourly.x, this.weatherSymbolsHourly.y, days);
-    return { x: times, y: Array(times.length).fill(Math.max(...this.temperatureHourly.y) + 5), name: this.weatherSymbolsHourly.name, text: values };
+    
+    return { 
+      x: times, 
+      y: Array(times.length).fill(Math.max(...this.temperatureHourly.y) + 5), 
+      name: this.weatherSymbolsHourly.name, text: values 
+    };
   }
 
-  getHourlyForcastValuesIcon(): ForcastCardProps[] {
-    return this.hourlyForcastWithIcons || [];
+  getHourlyForcastValuesIcon(days?: number): ForcastCardProps[] {
+    if (!this.hourlyForcastWithIcons) return [];
+    if (!days) return this.hourlyForcastWithIcons;
+    
+    const now = new Date();
+    const limit = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
+    console.log('Dummy', days)
+
+    return this.hourlyForcastWithIcons.filter(forecast => {
+      // const forecastTime = new Date();
+      // forecastTime.setHours(parseInt(forecast.time.split(":")[0]), parseInt(forecast.time.split(":")[1]));
+      console.log(forecast.time, limit)
+      return forecast.time <= limit;
+    });
   }
 }
 

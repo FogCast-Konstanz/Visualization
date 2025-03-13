@@ -12,7 +12,7 @@ import remarkGfm from 'remark-gfm';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 
 export default function ModelsPage() {
-  const { t } = useTranslation()
+  const { t, i18n } = useTranslation()
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -74,11 +74,11 @@ export default function ModelsPage() {
 
       <Flex direction={'column'} gap='10px' flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
         {forecastTemperatureData.length > 0 ?
-          <PlotlyChart data={forecastTemperatureData} title={'Temperaturvorhersage für ' + selectedDatetime} yAxis='Temperature °C' xAxis='Time' /> :
+          <PlotlyChart data={forecastTemperatureData} title={t('models.forecastTemp', { date: selectedDatetime })} yAxis={t('data.temperature')} xAxis={t('data.time')} /> :
           <Text>{t('models.selectValues')}</Text>
         }
         {forecastHumidityData.length > 0 ?
-          <PlotlyChart data={forecastHumidityData} title={'Luftfeuchtigkeit für ' + selectedDatetime} yAxis='Humidity %' xAxis='Time' /> :
+          <PlotlyChart data={forecastHumidityData} title={t('models.forecastHumidity', { date: selectedDatetime })} yAxis={t('data.humidity')} xAxis={t('data.time')} /> :
           <Text>{t('models.selectValues')}</Text>
         }
       </Flex>
