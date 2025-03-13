@@ -2,15 +2,14 @@ import { Card, CardBody, CardHeader, Flex, Heading, Text, useColorModeValue } fr
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
-import LineGraph from "../.././components/plotly/LineGraph";
 import DataSource from '../../components/DataSource';
-import { PlotlyChartBasicFormat } from '../../components/plotly/PlotlyChartFormat';
+import { convertMultipleToPlotlyChartFormat, PlotlyChartBasicFormat } from '../../components/plotly/PlotlyChartFormat';
 import { extractHumidityAndModelOutOfForecast, extractTemperatureAndModelOutOfForcast, fetchForecast } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import MultipleAxisGraph from '../../components/plotly/MultipleAxis';
+import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 
 export default function ModelsPage() {
   const { t } = useTranslation()
@@ -42,8 +41,8 @@ export default function ModelsPage() {
       }
     }
 
-    setTimeout(() => setForecastTemperatureData(copyTemp), 0)
-    setTimeout(() => setForecastHumidityData(copyHumidity), 0)
+    setTimeout(() => setForecastTemperatureData(convertMultipleToPlotlyChartFormat(copyTemp, 'scatter')), 0)
+    setTimeout(() => setForecastHumidityData(convertMultipleToPlotlyChartFormat(copyHumidity, 'scatter')), 0)
   }
 
   async function fetchData(model: string) {
@@ -74,9 +73,14 @@ export default function ModelsPage() {
       </Card>
 
       <Flex direction={'column'} gap='10px' flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
-        {forecastTemperatureData.length > 0 ? <LineGraph values={forecastTemperatureData} showNow={false} title={'Temperaturvorhersage für ' + selectedDatetime} xAxis='Time' yAxis='Temperature °C' /> : <Text>{t('models.selectValues')}</Text>}
-        {forecastHumidityData.length > 0 ? <LineGraph values={forecastHumidityData} showNow={false} title={'Luftfeuchtigkeit für ' + selectedDatetime} xAxis='Time' yAxis='Humidity %'/> : <Text>{t('models.selectValues')}</Text>}
-        {/* {forecastHumidityData.length > 0 ? <MultipleAxisGraph y1={forecastHumidityData} y2={forecastTemperatureData} title={'Modelle für ' + selectedDatetime} /> : <Text>{t('models.selectValues')}</Text>} */}
+        {forecastTemperatureData.length > 0 ?
+          <PlotlyChart data={forecastTemperatureData} title={'Temperaturvorhersage für ' + selectedDatetime} yAxis='Temperature °C' xAxis='Time' /> :
+          <Text>{t('models.selectValues')}</Text>
+        }
+        {forecastHumidityData.length > 0 ?
+          <PlotlyChart data={forecastHumidityData} title={'Luftfeuchtigkeit für ' + selectedDatetime} yAxis='Humidity %' xAxis='Time' /> :
+          <Text>{t('models.selectValues')}</Text>
+        }
       </Flex>
 
       <DataSource></DataSource>

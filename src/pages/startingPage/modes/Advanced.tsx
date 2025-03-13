@@ -1,15 +1,12 @@
-import { Flex, Select, useColorModeValue } from '@chakra-ui/react'
+import { Flex } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import Plot from 'react-plotly.js'
-import MultipleAxisGraph, { MultipleAxisData } from '../../../components/plotly/MultipleAxis'
-import SelectModels from '../../../components/SelectModels'
-import CloudGraph, { CloudDataType } from '../../../components/plotly/CloudGraph'
-import { default as DWDForcast, default as dwdForcast } from '../../../components/requests/dwdForcast'
-import { convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
-import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import { OrbitProgress } from 'react-loading-indicators'
-import { fetchActualWeather } from '@/components/requests/actualBackend'
+import CloudGraph, { CloudDataType } from '../../../components/plotly/CloudGraph'
+import { convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
+import { default as DWDForcast } from '../../../components/requests/dwdForcast'
+import SelectModels from '../../../components/SelectModels'
+import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 
 export default function AdvancedMode() {
     const { t } = useTranslation();
@@ -17,13 +14,8 @@ export default function AdvancedMode() {
     const [forecast, setForecast] = useState<PlotlyChartDataFormat[] | null>(null);
     const [forecastSymbols, setForecastSymbols] = useState<PlotlyChartDataFormat | null>(null);
 
-    const [weatherIcons, setWeatherIcons] = useState<{ time: string; icon: string }[]>([]);
     const [weatherModel, setWeatherModel] = useState<string[]>([]);
-    const [cloudCoverData, setCloudCoverData] = useState<CloudDataType | null>(null);
-
-    const [temp, setTemperature] = useState<MultipleAxisData[] | null>(null);
-    const [humidity, setHumidity] = useState<MultipleAxisData[] | null>(null);
-    const [visibility, setVisibility] = useState<MultipleAxisData[] | null>(null);
+    const [cloudData, setCloudData] = useState<PlotlyChartDataFormat[] | null>(null)
 
     useEffect(() => {
         fetchWeather();
@@ -38,59 +30,24 @@ export default function AdvancedMode() {
             const response = await fetch(url);
             const data = await response.json();
 
-            const updatedWeatherData: { time: string; temp: number; humidity: number, cloudCover: number, cloudCoverLow: number, cloudCoverMid: number, cloudCoverHigh: number, visibility: number }[] = await data.hourly.time.map((time: string, index: number) => ({
-                time,
-                temp: data.hourly.temperature_2m[index],
-                humidity: data.hourly.relative_humidity_2m[index],
-                cloudCover: data.hourly.cloudcover[index],
-                cloudCoverLow: data.hourly.cloudcover_low[index],
-                cloudCoverMid: data.hourly.cloudcover_mid[index],
-                cloudCoverHigh: data.hourly.cloudcover_high[index],
-                visibility: data.hourly.visibility[index]
-            }));
-
-            // const updatedWeatherIcons = data.hourly.time.map((time: string, index: number) => ({
-            //     time,
-            //     icon: `https://www.weatherbit.io/static/img/icons/${data.hourly.weathercode[index]}.png`
-            // }));
-            // setWeatherIcons(updatedWeatherIcons);
-
-            setHumidity([{
-                x: updatedWeatherData.map(entry => entry.time),
-                y: updatedWeatherData.map(entry => entry.humidity),
-                type: "scatter",
-                name: "Humidity"
-            }]);
-
-            setTemperature([{
-                x: updatedWeatherData.map(entry => entry.time),
-                y: updatedWeatherData.map(entry => entry.temp),
-                type: "scatter",
-                name: "Temperature"
-            }])
-
-            setCloudCoverData({
-                time: data.hourly.time,
-                low: data.hourly.cloudcover_low,
-                mid: data.hourly.cloudcover_mid,
-                high: data.hourly.cloudcover_high,
-                visibility: data.hourly.visibility
-            })
-
-            setVisibility([{
-                x: updatedWeatherData.map(entry => entry.time),
-                y: updatedWeatherData.map(entry => entry.visibility),
-                type: "scatter",
-                name: "Visibility"
-            }])
-
             const scaleCloud = (values: number[], center: number) => {
                 const up = values.map(v => center + (v / 12));
                 const down = values.map(v => center - (v / 12)).reverse();
                 return { up, down };
             };
 
-
+            const xTime = data.hourly.time.concat([...data.hourly.time].reverse())
+            const scaledHigh = scaleCloud(data.hourly.cloudcover_high, 75)
+            const scaledMid = scaleCloud(data.hourly.cloudcover_mid, 50)
+            const scaledLow = scaleCloud(data.hourly.cloudcover_low, 25)
+            setCloudData(
+                [
+                    convertToPlotlyChartFormat({ x: xTime, y: scaledHigh.up.concat(scaledHigh.down), name: 'High Cloud Cover' }, 'cloud', 'y1', 'lightblue'),
+                    convertToPlotlyChartFormat({ x: xTime, y: scaledMid.up.concat(scaledMid.down), name: 'Mid Cloud Cover' }, 'cloud', 'y1', '#808080'),
+                    convertToPlotlyChartFormat({ x: xTime, y: scaledLow.up.concat(scaledLow.down), name: 'Low Cloud Cover' }, 'cloud', 'y1', '#202020'),
+                    convertToPlotlyChartFormat({ x: xTime, y: data.hourly.visibility.map((v: number) => v / 1000), name: 'Visibility'}, 'dashedLine', 'y2', 'orange')
+                ]
+            )
 
         } catch (error) {
             console.error("Error fetching weather data:", error);
@@ -115,34 +72,19 @@ export default function AdvancedMode() {
         <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' height={'calc(100vh - 100px)'} overflow='hidden' overflowY={'scroll'}>
             <SelectModels selectModels={weatherModel} setSelectModels={setWeatherModel}></SelectModels>
 
-            <Flex>
+            {/* <Flex>
                 {temp && humidity ? <MultipleAxisGraph y1={temp} y2={humidity} title={t('startingPage.forcastGraph') + '**' + weatherModel} xAxis='Time' y1Axis='Temperature °C' y2Axis='Humidity %' /> : <></>}
-            </Flex>
+            </Flex> */}
 
             <Flex gap='10px'>
                 {forecast && forecastSymbols ?
                     <PlotlyChart data={[...forecast, forecastSymbols]} title={t('startingPage.forecast')} yAxis={t('startingPage.temperature') + ' °C'} xAxis={t('startingPage.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} />
                     : <OrbitProgress size="medium" />}
             </Flex>
-            {/* {visibility && cloudCover ? <MultipleAxisGraph y1={visibility} y2={cloudCover} title={t('startingPage.forcastGraph') + '**' + weatherModel} xAxis='Time' y1Axis='Temperature °C' y2Axis='Humidity %' /> : <></>} */}
+
             <Flex>
-                {cloudCoverData ? <CloudGraph cloudData={cloudCoverData}></CloudGraph> : <></>}
+                {cloudData ? <PlotlyChart title={'Cloudcover'} data={cloudData} yAxis={t('startingPage.temperature') + ' °C'} xAxis={t('startingPage.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true}></PlotlyChart> : <>miau</>}
             </Flex>
-
-            {/* <Flex gap='10px' height={'50%'}>
-                {forecast ?
-                    <PlotlyChart data={[...forecast]} customLayout={{}} title={'Vorhersage'} yAxis='Temperature °C' xAxis='Time' y2Axis='Humidity %' />
-                    : <OrbitProgress size="medium" />}
-            </Flex> */}
-
-            <div style={{ display: "flex", overflowX: "auto" }}>
-                {weatherIcons.map((entry) => (
-                    <div key={entry.time} style={{ margin: "5px", textAlign: "center" }}>
-                        <img src={entry.icon} alt="Weather Icon" style={{ width: "50px", height: "50px" }} />
-                        <p>{entry.time}</p>
-                    </div>
-                ))}
-            </div>
         </Flex>
     )
 }

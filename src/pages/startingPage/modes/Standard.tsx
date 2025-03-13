@@ -6,10 +6,9 @@ import { RiWindyFill } from "react-icons/ri"
 import { WiHumidity } from "react-icons/wi"
 import { OrbitProgress } from 'react-loading-indicators'
 import DataSource from '../../../components/DataSource'
-import { LineGraphData } from "../../../components/plotly/LineGraph"
-import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
+import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
 import { fetchActualWeather } from '../../../components/requests/actualBackend'
-import { default as DWDForcast, default as dwdForcast } from '../../../components/requests/dwdForcast'
+import { default as DWDForcast } from '../../../components/requests/dwdForcast'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import ForcastCard, { ForcastCardProps } from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
@@ -20,7 +19,7 @@ export default function StandardMode() {
   const [requestDuration, setRequestDuration] = useState<number>(1);
 
   const [forecast, setForecast] = useState<PlotlyChartDataFormat[] | null>(null);
-  const [forecastSymbols, setForecastSymbols] = useState<LineGraphData | null>(null);
+  const [forecastSymbols, setForecastSymbols] = useState<PlotlyChartBasicFormat | null>(null);
   const [forecastIcons, setForecastIcons] = useState<ForcastCardProps[] | null>(null);
 
   const [currentWeather, setCurrentWeather] = useState<Record<string, string>>({})
@@ -57,44 +56,9 @@ export default function StandardMode() {
     }
 
     setForecastIcons(DWDForcast.getHourlyForcastValuesIcon())
-
   };
 
-  function weekdayAnnotations(randomTime: any[]) {
-    console.log(randomTime)
-    const uniqueDays = [...new Set(randomTime
-      .filter(t => new Date(t.split("T")[0]+ 'T12:00:00') > new Date())
-      .map(t => t.split("T")[0])
-    )];
-
-    const miau =  uniqueDays.map(day => {
-      const noonTime = new Date(`${day}T12:00:00`);  // Set noon time
-      
-      return {
-        x: noonTime.toISOString(),   // X position at noon
-        y: 1.08,                     // Y position (above first row)
-        xref: "x",
-        yref: "paper",
-        text: noonTime.toLocaleDateString("en-US", { weekday: "long" }), // "Monday", "Tuesday", etc.
-        showarrow: false,
-        font: { size: 14, color: "white", weight: "bold" },
-        align: "center",
-        yaxis: "y1"
-      };
-    });
-
-    console.log(miau)
-    return miau
-  } 
-
   const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
-
-
-  // function changeRequestDuration(days: number) {
-  //   setRequestDuration(days)
-
-  //   forecast && setWeekdays(forecast[0].x)
-  // }
 
   return (
     <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' maxWidth={'100%'}>

@@ -1,12 +1,11 @@
 import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import LineGraph from "../.././components/plotly/LineGraph";
+import { OrbitProgress } from 'react-loading-indicators';
 import DataSource from '../../components/DataSource';
-import { convertMultipleToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat } from '../../components/plotly/PlotlyChartFormat';
+import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat } from '../../components/plotly/PlotlyChartFormat';
 import { convertToPlotlyGraph, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
-import { OrbitProgress } from 'react-loading-indicators';
 
 export default function DataPage() {
   const [temperatureHistory, setTemperatureHistory] = useState<PlotlyChartBasicFormat[]>([])
@@ -20,7 +19,7 @@ export default function DataPage() {
   }, [])
 
   const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
-
+  const graphcolors = useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],);
 
   async function requestBackend() {
     /* Get date of last week */
@@ -29,14 +28,17 @@ export default function DataPage() {
 
     const tempLastWeek = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "hourly")
     const tempLastWeekDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "daily")
-    setTemperatureLastWeek([convertToPlotlyGraph(tempLastWeek, 'Hourly Temp'), convertToPlotlyGraph(tempLastWeekDaily, 'Daily Temp')])
+    setTemperatureLastWeek(
+      [convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastWeek, 'Hourly Temp'), 'scatter', null, graphcolors[0]), 
+        convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1])
+    ])
 
     /* Get date of last year */
     const dateLastYear = new Date();
     dateLastYear.setFullYear(dateLastYear.getFullYear() - 1); // Subtract 1 year
 
     const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
-    setTemperatureHistory([convertToPlotlyGraph(tempLastYearDaily, 'Daily Temp')])
+    setTemperatureHistory([convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
 
     /* Get Fog of last year */
     // const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(dateLastWeek), "monthly")
@@ -44,14 +46,14 @@ export default function DataPage() {
 
     /* Get Fog in alltime history */
     const fogHist = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "monthly")
-    setFogHistory([convertToPlotlyGraph(fogHist)])
+    setFogHistory([convertToPlotlyChartFormat(convertToPlotlyGraph(fogHist), 'bar', null, graphcolors[0])])
 
     const fogHistyearly = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "yearly")
-    setFogLastYear([convertToPlotlyGraph(fogHistyearly)])
+    setFogLastYear([convertToPlotlyChartFormat(convertToPlotlyGraph(fogHistyearly), 'bar', null, graphcolors[0])])
 
     /* Get Water Level History */
     const waterLevel = await fetchWaterLevelHistory()
-    setWaterLevel(convertMultipleToPlotlyChartFormat([convertToPlotlyGraph(waterLevel)], 'bar'))
+    setWaterLevel([(convertToPlotlyChartFormat(convertToPlotlyGraph(waterLevel), 'bar', null, graphcolors[0]))])
   }
 
   return (
@@ -59,10 +61,10 @@ export default function DataPage() {
 
       {waterLevel ?
         <Flex gap='10px' maxWidth='90%' wrap='wrap'>
-          <LineGraph values={temperatureHistory} showNow={false} title={'Temperature of last year**'} xAxis='Time' yAxis='Temperature °C' />
-          <LineGraph values={temperatureLastWeek} showNow={false} title={'Temperature in the last week**'} xAxis='Time' yAxis='Temperature °C' />
-          <LineGraph values={fogHistory} showNow={false} title={'Historical Fog (days per month)**'} type='bar' xAxis='Time' yAxis='Fog days per month' />
-          <LineGraph values={fogLastYear} showNow={false} title={'Historical Fog (days per year)**'} type='bar' xAxis='Time' yAxis='Fog days per year' />
+          <PlotlyChart data={temperatureHistory} title={'Temperature of last year**'} yAxis='Temperature °C' xAxis='Time' />
+          <PlotlyChart data={temperatureLastWeek} title={'Temperature in the last week**'} yAxis='Temperature °C' xAxis='Time' />
+          <PlotlyChart data={fogHistory} title={'Historical Fog (days per month)**'} yAxis='Fog days per month' xAxis='Time' />
+          <PlotlyChart data={fogLastYear} title={'Historical Fog (days per year)**'} yAxis='Fog days per year' xAxis='Time' />
           <PlotlyChart data={waterLevel} title='WaterLevel' yAxis='WaterLevel cm' xAxis='Time' />
         </Flex> : <OrbitProgress color={loadingColor} size="medium" />}
 
