@@ -75,9 +75,7 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
         const response = await axios.get(`${API_BASE_URL}/actual/live-data`, {
             headers: { Accept: "application/json" },
         });
-
-        console.log(response.data)
-
+        
         return response.data
     } catch (error) {
         console.error("Error fetching actual data:", error);
@@ -87,10 +85,8 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
 
 
 export function convertToPlotlyGraph(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {
-    console.log(typeof (response), response)
-
     return {
-        x: response.map(entry => formatGermanDate(entry.date)),
+        x: response.map(entry => new Date(entry.date).toISOString()),
         y: response.map(entry => parseFloat(entry.value)),
         name: name ? name : response[0].name
     };

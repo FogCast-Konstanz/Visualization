@@ -13,17 +13,19 @@ interface PlotlyChartProps {
     y2Axis?: string;
     title?: string;
     showNow?: boolean;
+
+    dateFormat?: 'standard' | 'year' | 'month' | 'day'
 }
 
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false  }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, dateFormat = 'standard' }) => {
     const theme = useTheme();
 
     useEffect(() => {
-        setLayout(() => ({...defaultLayout, ...customLayout}))
-        setStyle(() => ({...defaultStyle, ...customStyle}))
+        setLayout(() => ({ ...defaultLayout, ...customLayout }))
+        setStyle(() => ({ ...defaultStyle, ...customStyle }))
     }, [customLayout])
 
     const [layout, setLayout] = useState<any>();
@@ -41,11 +43,24 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
     const orientationModebar: orientation = "v"
     const traceorder: "normal" | "grouped" | "reversed" | "reversed+grouped" | undefined = "normal"
 
+    const tickFormatMap: Record<string, string> = {
+        year: "%Y",
+        month: "%b %Y",
+        day: "%d.%m.%Y",
+        standard: "%H:%M %d.%m.%Y",
+    };
+
+
     const defaultLayout = {
         plot_bgcolor: plotBgColor, // Background of the plot area
         paper_bgcolor: paperBgColor, // Background of the whole chart
         font: { family: "Arial, sans-serif", color: textColor }, // Font styles
-        title: title,
+        title: {
+            text: title,
+            font: {
+                weight: 'bold', // Make it bold
+            },
+        },
         xaxis: {
             gridcolor: gridColor, // Light gridlines
             zerolinecolor: "#888",
@@ -53,7 +68,8 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
             automargin: true, // Prevent cutoff
             tickmode: "auto", // Automatically adjust ticks
             nticks: 10, // Reduce number of ticks
-            title: xAxis
+            title: xAxis,
+            tickformat: tickFormatMap[dateFormat] || "%H:%M"
         },
         yaxis: {
             gridcolor: gridColor,
@@ -63,7 +79,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
             },
             zerolinecolor: "#888",
             showgrid: true,
-            
+
         },
         yaxis2: y2Axis ? {
             title: {
@@ -73,7 +89,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
             overlaying: "y",
             side: "right",
         } : {},
-        margin: { l: 50, r: 40, t: 50, b: 0 }, // Adjust margins
+        margin: { l: 50, r: 40, t: 60, b: 0 }, // Adjust margins
         legend: {
             x: 0,
             y: -0.2,
@@ -104,57 +120,55 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
     const defaultStyle = { width: "100%", height: "100%" }
 
     useEffect(() => {
-        setLayout(() => ({...defaultLayout, ...customLayout}))
-        setStyle(() => ({...defaultStyle, ...customStyle}))
+        setLayout(() => ({ ...defaultLayout, ...customLayout }))
+        setStyle(() => ({ ...defaultStyle, ...customStyle }))
     }, [])
 
 
     return (
-        <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%"}}>
+        <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%" }}>
             <Plot
-            data={data}
-            layout={layout}
-            useResizeHandler={true}
-            style={style}
-            config={{
-                modeBarButtonsToAdd: [
-                    {
-                        name: 'downloadCsv',
-                        title: 'Download data as csv',
-                        icon: csv_icon,
-                        click: (gd: any) => {
-                            let max_len = 0;
-                            const data = [
-                                gd.data.map((trace: any) => {
-                                    if (trace.x.length > max_len) max_len = trace.x.length;
-                                    return ['timestamp', trace.name];
-                                }).join(','),
-                            ];
-                            console.log(max_len);
+                data={data}
+                layout={layout}
+                useResizeHandler={true}
+                style={style}
+                config={{
+                    modeBarButtonsToAdd: [
+                        {
+                            name: 'downloadCsv',
+                            title: 'Download data as csv',
+                            icon: csv_icon,
+                            click: (gd: any) => {
+                                let max_len = 0;
+                                const data = [
+                                    gd.data.map((trace: any) => {
+                                        if (trace.x.length > max_len) max_len = trace.x.length;
+                                        return ['timestamp', trace.name];
+                                    }).join(','),
+                                ];
 
-                            for (let count = 0; count < max_len; count++) {
-                                const row: any = [];
-                                gd.data.forEach((trace: any) => {
-                                    if (trace.x[count] && trace.y[count]) {
-                                        row.push(trace.x[count], trace.y[count]);
-                                    }
-                                    else {
-                                        row.push('', '');
-                                    }
-                                });
-                                data.push(row);
-                            }
-                            const blob = new Blob([data.join('\r\n')], { type: 'text/csv' });
+                                for (let count = 0; count < max_len; count++) {
+                                    const row: any = [];
+                                    gd.data.forEach((trace: any) => {
+                                        if (trace.x[count] && trace.y[count]) {
+                                            row.push(trace.x[count], trace.y[count]);
+                                        }
+                                        else {
+                                            row.push('', '');
+                                        }
+                                    });
+                                    data.push(row);
+                                }
+                                const blob = new Blob([data.join('\r\n')], { type: 'text/csv' });
 
-                            console.log(blob)
-                            saveAs(
-                                blob,
-                                'export.csv'
-                            );
-                        },
-                    },]
-            }}
-        />
+                                saveAs(
+                                    blob,
+                                    'export.csv'
+                                );
+                            },
+                        },]
+                }}
+            />
         </div>
     );
 };

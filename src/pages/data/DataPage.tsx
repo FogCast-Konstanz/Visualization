@@ -2,7 +2,7 @@ import { Card, CardBody, CardHeader, Flex, Heading, Tab, TabList, TabPanel, TabP
 import { useEffect, useState } from 'react';
 import { OrbitProgress } from 'react-loading-indicators';
 import DataSource from '../../components/DataSource';
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat } from '../../components/plotly/PlotlyChartFormat';
+import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
 import { convertToPlotlyGraph, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
@@ -15,6 +15,9 @@ export default function DataPage() {
   const [fogHistory, setFogHistory] = useState<PlotlyChartBasicFormat[] | null>(null)
   const [fogLastYear, setFogLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
   const [waterLevel, setWaterLevel] = useState<PlotlyChartDataFormat[] | null>(null)
+
+  const [weekdaysTemp, setWeekdaysTemp] = useState<any | null>(null)
+
 
   useEffect(() => {
     requestBackend()
@@ -37,10 +40,14 @@ export default function DataPage() {
 
     const tempLastWeek = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "hourly")
     const tempLastWeekDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "daily")
+
+    const dailyTemp = convertToPlotlyGraph(tempLastWeek, 'Hourly Temp')
     setTemperatureLastWeek(
-      [convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastWeek, 'Hourly Temp'), 'scatter', null, graphcolors[0]),
-      convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1])
+      [
+        convertToPlotlyChartFormat(dailyTemp, 'scatter', null, graphcolors[0], 'year'),
+        convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1], 'year')
       ])
+      setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false))
 
     /* Get date of last year */
     const dateLastYear = new Date();
@@ -62,7 +69,9 @@ export default function DataPage() {
 
     /* Get Water Level History */
     const waterLevel = await fetchWaterLevelHistory()
-    setWaterLevel([(convertToPlotlyChartFormat(convertToPlotlyGraph(waterLevel), 'bar', null, graphcolors[0]))])
+    const waterLevelData = convertToPlotlyGraph(waterLevel)
+    setWaterLevel([(convertToPlotlyChartFormat(waterLevelData, 'bar', null, graphcolors[0]))])
+    
   }
 
   return (
@@ -88,8 +97,8 @@ export default function DataPage() {
           <TabPanel>
             {temperatureHistory && temperatureLastWeek ? (
               <Flex gap='10px' wrap='wrap' pr={0}>
-                <PlotlyChart data={temperatureHistory} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} />
-                <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} />
+                <PlotlyChart data={temperatureHistory} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
+                <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
               </Flex>
             ) : <OrbitProgress color={loadingColor} size="medium" />}
           </TabPanel>
@@ -98,15 +107,15 @@ export default function DataPage() {
           <TabPanel>
             {fogHistory && fogLastYear ? (
               <Flex gap='10px' wrap='wrap'>
-                <PlotlyChart data={fogHistory} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} />
-                <PlotlyChart data={fogLastYear} title={t('dataPage.fogYear')} yAxis={t('dataPage.fogYear')} xAxis={t('data.time')} />
+                <PlotlyChart data={fogHistory} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} dateFormat='day' />
+                <PlotlyChart data={fogLastYear} title={t('dataPage.fogYear')} yAxis={t('dataPage.fogYear')} xAxis={t('data.time')} dateFormat='year' />
               </Flex>
             ) : <OrbitProgress color={loadingColor} size="medium" />}
           </TabPanel>
 
           {/* Water Level Graph */}
           <TabPanel>
-            {waterLevel ? <PlotlyChart data={waterLevel} title={t('dataPage.waterLevelLastMonth')} yAxis={t('data.waterLevel')} xAxis={t('data.time')} /> : <OrbitProgress color={loadingColor} size='medium' />}
+            {waterLevel ? <PlotlyChart data={waterLevel} title={t('dataPage.waterLevelLastMonth')} yAxis={t('data.waterLevel')} xAxis={t('data.time')} dateFormat='day' /> : <OrbitProgress color={loadingColor} size='medium' />}
           </TabPanel>
         </TabPanels>
       </Tabs>

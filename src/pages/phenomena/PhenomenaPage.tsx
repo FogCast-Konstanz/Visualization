@@ -8,9 +8,7 @@ import PhenomenonCard from './PhenomenonCard';
 export default function Phenomena() {
     const { t } = useTranslation();
 
-    useEffect(() => {
-        console.log( t('phenomena', { returnObjects: true, ns: 'phenomena' }))
-    }, [])
+    useEffect(() => {}, [])
 
     const phenomena2: phenomenaType[] = t('phenomena', { returnObjects: true, ns: 'phenomena' }) as phenomenaType[] 
 

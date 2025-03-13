@@ -23,13 +23,9 @@ function App() {
 
   const phenomenaData: phenomenaType[] = t('phenomena', { returnObjects: true, ns: 'phenomena' }) as phenomenaType[]
 
-  useEffect(() => {
-    console.log("Language changed: ", i18n.language)
-  }, [i18n])
+  useEffect(() => { }, [i18n])
 
-  useEffect(() => {
-      console.log(phenomenaData)
-  }, [])
+  useEffect(() => { }, [])
 
   return (
     <Flex

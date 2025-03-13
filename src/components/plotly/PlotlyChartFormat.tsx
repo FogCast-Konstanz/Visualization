@@ -1,3 +1,5 @@
+import { formatGermanDate, formatYear } from "../requests/helpers";
+
 export interface PlotlyChartBasicFormat {
     x: string[];
     y: number[];
@@ -20,12 +22,36 @@ export interface PlotlyChartDataFormat {
 }
 
 
-export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud', yAxis?: string | null, customColor?: string | null): PlotlyChartDataFormat {
+export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate'): PlotlyChartDataFormat {
+    
+    let date: string[] = []
+
+    // switch (dateFormat) {
+    //     case 'germanDate':
+    //         date = basicFormatInput.x.map(t => formatGermanDate(t))
+    //         break;
+    //     case 'germanTime':
+            
+    //         break;
+    //     case 'year':
+    //         date = basicFormatInput.x.map(t => formatYear(t))
+    //         console.log(date)
+    //         break;
+    //     default:
+    //         break;
+    // }
+    
+    
+    
     const basicFormat = {
-        ...basicFormatInput,
+        x: basicFormatInput.x,
+        y: basicFormatInput.y,
+        name: basicFormatInput.name,
+        text: basicFormatInput.text,
         yaxis: yAxis ? yAxis : 'y',
         marker: { color: customColor ? customColor : null },
     }
+
 
     switch (mode) {
         case "scatter":
@@ -82,11 +108,19 @@ export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasic
  * Get plotly data for the weekdays
  * Usage: Store the data inside a useState and pass this value to DefaultGraph (customLayout={{annotations: weekdays}})
  */
-export function weekdayAnnotations(randomTime: any[]) {
+export function weekdayAnnotations(randomTime: string[], ignoreOlder=true) {
+    
+    // const formattedTimes = randomTime.map(item => 
+    //     item instanceof Date ? item.toISOString() : item
+    // );
+
     const uniqueDays = [...new Set(randomTime
-        .filter(t => new Date(t.split("T")[0] + 'T12:00:00') > new Date())
+        .filter(t => ignoreOlder ? 
+            new Date(t.split("T")[0] + 'T12:00:00') > new Date() 
+            : new Date(t.split("T")[0] + 'T12:00:00'))
         .map(t => t.split("T")[0])
     )];
+
 
     return uniqueDays.map(day => {
         const noonTime = new Date(`${day}T12:00:00`);  // Set noon time
@@ -97,7 +131,7 @@ export function weekdayAnnotations(randomTime: any[]) {
             yref: "paper",
             text: noonTime.toLocaleDateString("en-US", { weekday: "long" }), // "Monday", "Tuesday", etc.
             showarrow: false,
-            font: { size: 14, color: "white", weight: "bold" },
+            font: { size: 14, color: "white" },
             align: "center",
             yaxis: "y1"
         };

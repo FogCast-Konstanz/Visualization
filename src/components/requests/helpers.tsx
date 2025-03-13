@@ -9,6 +9,22 @@ export function formatGermanDate(dateStr: string) {
     }).replace(",", "");
 };
 
+export function formatYear(dateStr: string) {
+    const date = new Date(dateStr);
+    return date.toLocaleString("de-DE", {
+        year: "numeric"
+    }).replace(",", "");
+};
+
+export function parseGermanDateToDatetime(formattedDate: string) {
+    const [datePart, timePart] = formattedDate.split(" ");
+    const [day, month, year] = datePart.split(".").map(Number);
+    const [hour] = timePart.split(":").map(Number);
+
+    const fullYear = year < 50 ? 2000 + year : 1900 + year; // Adjust for 2-digit years
+
+    return new Date(fullYear, month - 1, day, hour);
+}
 
 export function formatActualDatetime(dateTime?: Date, dateStr?: string) {
     const date = dateStr ? new Date(dateStr) : dateTime ? dateTime : new Date()

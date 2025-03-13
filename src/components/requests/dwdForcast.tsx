@@ -118,13 +118,7 @@ class DWDForcast {
     
     const now = new Date();
     const limit = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
-
-    console.log('Dummy', days)
-
     return this.hourlyForcastWithIcons.filter(forecast => {
-      // const forecastTime = new Date();
-      // forecastTime.setHours(parseInt(forecast.time.split(":")[0]), parseInt(forecast.time.split(":")[1]));
-      console.log(forecast.time, limit)
       return forecast.time <= limit;
     });
   }

@@ -10,6 +10,13 @@ type ForecastData = {
     relative_humidity_2m: number;
 };
 
+export type ExtractedForecastData = {
+    time: string[];
+    temperature: number[];
+    humidity: number[];
+    name: string
+}
+
 export async function fetchForecast(datetime: string, modelId: string,): Promise<ForecastData[]> {
     try {
         const response = await axios.get(`${API_BASE_URL}/forecasts`, {
@@ -30,26 +37,31 @@ export async function fetchForecast(datetime: string, modelId: string,): Promise
     }
 };
 
-export function extractTemperatureAndModelOutOfForcast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
-    console.log(typeof (forcastData), forcastData)
 
+export function reformatDataofForecastBackend(forcastData: ForecastData[]): ExtractedForecastData {
     return {
-        x: forcastData.map(entry => formatGermanDate(entry._time)),
-        y: forcastData.map(entry => entry.apparent_temperature),
+        time: forcastData.map(entry => new Date(entry._time).toISOString()),
+        temperature: forcastData.map(entry => entry.apparent_temperature),
+        humidity: forcastData.map(entry => entry.relative_humidity_2m),
         name: forcastData[0].model
     };
 }
 
-export function extractHumidityAndModelOutOfForecast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
-    console.log(typeof (forcastData), forcastData)
+// export function extractTemperatureAndModelOutOfForcast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
+//     return {
+//         x: forcastData.map(entry => formatGermanDate(entry._time)),
+//         y: forcastData.map(entry => entry.apparent_temperature),
+//         name: forcastData[0].model
+//     };
+// }
 
-    return {
-        x: forcastData.map(entry => formatGermanDate(entry._time)),
-        y: forcastData.map(entry => entry.relative_humidity_2m),
-        name: forcastData[0].model
-    };
-}
-
+// export function extractHumidityAndModelOutOfForecast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
+//     return {
+//         x: forcastData.map(entry => formatGermanDate(entry._time)),
+//         y: forcastData.map(entry => entry.relative_humidity_2m),
+//         name: forcastData[0].model
+//     };
+// }
 
 export async function fetchModels(): Promise<string[]> {
     try {
@@ -57,7 +69,6 @@ export async function fetchModels(): Promise<string[]> {
             headers: { Accept: "application/json" },
         });
 
-        console.log(response.data)
         return response.data
     } catch (error) {
         console.error("Error fetching models:", error);

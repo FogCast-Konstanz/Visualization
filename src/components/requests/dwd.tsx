@@ -26,9 +26,7 @@ export const fetchForecast = async (stationId: string) => {
             headers: { Accept: "application/json" },
         });
 
-        console.log(response.data)
         const forcastData = transformForecastData(response.data);
-        console.log(forcastData)
         return [forcastData]
     } catch (error) {
         console.error("Error fetching forecast:", error);
