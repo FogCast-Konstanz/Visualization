@@ -29,8 +29,8 @@ export default function Lexikon() {
         .filter((entry) =>
             selectedTag ? entry.tags.includes(selectedTag) : true
         ).filter((entry) =>
-            entry.header.toLowerCase().includes(searchQuery.toLowerCase())
-        ).sort((a, b) => a.header.localeCompare(b.header));
+            entry.header.toLowerCase().includes(searchQuery.toLowerCase()) || entry.text.toLowerCase().includes(searchQuery.toLowerCase()
+        )).sort((a, b) => a.header.localeCompare(b.header));
 
     useEffect(() => {
         const handleUrlChange = () => {

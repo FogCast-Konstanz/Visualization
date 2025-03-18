@@ -116,10 +116,12 @@ class DWDForcast {
     if (!this.hourlyForcastWithIcons) return [];
     if (!days) return this.hourlyForcastWithIcons;
     
+    /** Filter the current Time */
     const now = new Date();
     const limit = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
     return this.hourlyForcastWithIcons.filter(forecast => {
-      return forecast.time <= limit;
+      return forecast.time <= limit && forecast.time > now;
     });
   }
 }

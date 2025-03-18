@@ -22,7 +22,7 @@ const theme = extendTheme({
             text: "#DCDCDC",
             secondarytext: "#000000",
             primary:"rgb(195, 245, 175)",
-            primary_variant:"hsl(180, 27.30%, 42.70%)",
+            primary_variant:"#4f8b8b",
             secondary: "#A1E5AB",
             ternary: "#AE5656",
             warning: "#FFAA33 "

@@ -18,7 +18,8 @@ export interface PlotlyChartDataFormat {
     text?: string[];
     textfont?: any;
     opacity?: number
-    fill?: string
+    fill?: string;
+    fillcolor?: string
 }
 
 

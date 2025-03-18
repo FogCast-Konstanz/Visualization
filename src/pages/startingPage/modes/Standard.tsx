@@ -1,5 +1,5 @@
-import { Button, Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
-import { useEffect, useState } from 'react'
+import { Button, Card, Flex, Heading, position, useColorModeValue } from '@chakra-ui/react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
 import { RiWindyFill } from "react-icons/ri"
@@ -25,13 +25,21 @@ export default function StandardMode() {
   const [currentWeather, setCurrentWeather] = useState<Record<string, string>>({})
   const [weekdays, setWeekdays] = useState<any | null>(null)
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [shape, setShape] = useState<any>(null);
+
   useEffect(() => {
     fetchData();
   }, []);
 
   useEffect(() => {
     fetchData();
+    handleScroll();
   }, [requestDuration])
+
+  useEffect(() => {
+    handleScroll();
+  }, [forecast])
 
   async function fetchData() {
     const weather = await fetchActualWeather();
@@ -47,7 +55,7 @@ export default function StandardMode() {
     /* Convert to Plotly format */
     const humidity = DWDForcast.getNextXDaysHumidity(requestDuration)
     const temperature = DWDForcast.getNextXDaysTemperature(requestDuration)
-    
+
     const weatherSymbolsTemp = DWDForcast.getWeatherSymbolsHourlyNextXDays(requestDuration)
     if (weatherSymbolsTemp && humidity && temperature) {
       setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
@@ -59,15 +67,55 @@ export default function StandardMode() {
   };
 
   const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
+  const markingColor = useColorModeValue('#4f8b8bBA', '#4C8C8CBA')
+
+  function handleScroll() {
+    const scrollLeft = scrollRef.current?.scrollLeft || 0;
+    const totalWidth = scrollRef.current?.clientWidth || 0;
+
+    if (forecast && forecast.length > 1) {
+      const x = forecast[1].x
+
+      const positionLeft = Math.round(scrollLeft / 110);
+      const rightCorner = Math.round((scrollLeft + totalWidth) / 110);
+
+      const positionRight = x.length > rightCorner ? rightCorner : x.length - 1
+
+      /** Set the shape with the current position */
+      setShape({
+        type: "rect",
+        x0: x[positionLeft],
+        x1: x[positionRight],
+        y0: 0, y1: 1,
+        yref: "paper", // Maps 0-1 to full height
+        fillcolor: markingColor,
+        opacity: 0.5,
+        // layer: "below",
+        line: { width: 0 },
+      })
+    }
+  }
+
+  function handleWheel(event: React.WheelEvent){
+    if (scrollRef.current) {
+      scrollRef.current.scrollLeft += event.deltaY; // Converts vertical to horizontal scroll
+    }
+  };
 
   return (
     <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' maxWidth={'100%'}>
       <Heading size="md" padding='0px'>{t('startingPage.currentWeather')}</Heading>
       <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
-        <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
-        <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
-        <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater}></MeasurementCard>
-        <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
+        {currentWeather ?
+          <>
+            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
+            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
+            <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater}></MeasurementCard>
+            <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
+          </>
+          : <OrbitProgress color={loadingColor} size="medium" />
+        }
+
       </Flex>
 
       <Heading size="md" pt={'10px'}>{t('data.forecast')}</Heading>
@@ -83,7 +131,14 @@ export default function StandardMode() {
         padding='10px'
         overflow={'hidden'}
       >
-        <Flex gap='10px' overflow='hidden' overflowX="auto" pb={'10px'}
+        <Flex
+          gap='10px'
+          overflow='hidden'
+          overflowX="auto"
+          pb={'10px'}
+          ref={scrollRef}
+          onScroll={() => handleScroll()}
+          onWheel={(e) => {handleWheel(e)}}
           sx={{
             "&::-webkit-scrollbar": {
               height: "8px",
@@ -109,7 +164,7 @@ export default function StandardMode() {
 
       <Flex gap='10px'>
         {forecast && forecastSymbols ?
-          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature') + ' °C'} xAxis={t('data.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} customLayout={{annotations: weekdays}}/>
+          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature') + ' °C'} xAxis={t('data.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} customLayout={{ annotations: weekdays, shapes: [shape] }} />
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
