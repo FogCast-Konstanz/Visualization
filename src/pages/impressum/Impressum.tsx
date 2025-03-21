@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 
 import { Box, Card, CardBody, CardHeader, Flex, Heading, Image, Link, Text, useColorModeValue, VStack } from "@chakra-ui/react";
 
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 
 export default function Impressum() {
     const { t } = useTranslation();
@@ -19,7 +21,7 @@ export default function Impressum() {
                 <CardBody>
                     {/* Project Information */}
 
-                    <Flex align="center" flexDirection={{lg: 'row', base: "column"}}>
+                    <Flex align="center" flexDirection={{ lg: 'row', base: "column" }}>
                         <Box>
                             <Text>{t('impressum.description')}</Text>
                             <br />
@@ -47,7 +49,7 @@ export default function Impressum() {
 
                 </CardHeader>
                 <CardBody>
-                    <Flex direction={{lg: 'row', base: 'column'}} gap='20px' justifyContent='space-between'>
+                    <Flex direction={{ lg: 'row', base: 'column' }} gap='20px' justifyContent='space-between'>
                         <Box flex="1">
                             <Text fontWeight="bold" mb={3}>{t('impressum.contact')}</Text>
                             <Text>{t('impressum.website')}: <Link href='https://www.htwg-konstanz.de'>www.htwg-konstanz.de</Link></Text>
@@ -76,7 +78,6 @@ export default function Impressum() {
                             </Box>
                         </Box>
                     </Flex>
-
                 </CardBody>
             </Card>
 
@@ -90,20 +91,37 @@ export default function Impressum() {
                 </CardHeader>
 
                 <CardBody>
-                    <Flex direction={{lg: 'row', base: 'column'}} gap='20px' justifyContent='space-between'>
-                        <Box flex="1" id='dwdSource'>
-                            <Link href='https://www.dwd.de/DE/Home/home_node.html'><Text fontWeight="bold" mb={3}>Deutscher Wetterdienst</Text></Link>
-                            <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
-                            <Text>Datenbasis: <Link href='https://www.dwd.de/DE/Home/home_node.html'>Deutscher Wetterdienst</Link> - {t('impressum.dwdData')}</Text>
-                        </Box>
+                    <Flex direction='column'>
+                        <Flex direction={{ lg: 'row', base: 'column' }} gap='20px' justifyContent='space-between'>
+                            <Box flex="1" id='dwdSource'>
+                                <Link href='https://www.dwd.de/DE/Home/home_node.html'><Text fontWeight="bold" mb={3}>Deutscher Wetterdienst</Text></Link>
+                                <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
+                                <Text>Datenbasis: <Link href='https://www.dwd.de/DE/Home/home_node.html'>Deutscher Wetterdienst</Link> - {t('impressum.dwdData')}</Text>
+                            </Box>
 
-                        <Box flex="1" id='openMeteoSource'>
-                            <Link href='https://open-meteo.com'><Text fontWeight="bold" mb={3}>OpenMeteo</Text></Link>
-                            <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
-                            <Text>{t('impressum.furtherLicences')}: <Link href='https://open-meteo.com/en/license'>Open Meteo Licences</Link></Text>
-                            <Text>Datenbasis: <Link href='https://open-meteo.com/'>Open Meteo</Link> - {t('impressum.openMeteoData')}</Text>
-                        </Box>
+                            <Box flex="1" id='openMeteoSource'>
+                                <Link href='https://open-meteo.com'><Text fontWeight="bold" mb={3}>OpenMeteo</Text></Link>
+                                <Text>{t('impressum.licence')}: <Link href='https://creativecommons.org/licenses/by/4.0/'>Attribution 4.0 International</Link></Text>
+                                <Text>{t('impressum.furtherLicences')}: <Link href='https://open-meteo.com/en/license'>Open Meteo Licences</Link></Text>
+                                <Text>Datenbasis: <Link href='https://open-meteo.com/'>Open Meteo</Link> - {t('impressum.openMeteoData')}</Text>
+                            </Box>
+
+                            <Box flex="1" id='openMeteoSource'>
+                                <Link href='https://www.pegelonline.wsv.de/gast/start'><Text fontWeight="bold" mb={3}>Pegelonline </Text></Link>
+                                <Text>{t('impressum.licence')}: <Link href='https://www.govdata.de/dl-de/zero-2-0'>DL-DE-Zero-2.0 Lizenz</Link></Text>
+                                <Text>Datenbasis: <Link href='https://www.pegelonline.wsv.de/gast/start'>Pegelonline</Link> - {t('impressum.pegelOnline')}</Text>
+                            </Box>
+                        </Flex>
+
+                        <Flex direction='column'>
+                            <ReactMarkdown
+                                children={t('impressum.legalInfoText')}
+                                remarkPlugins={[remarkGfm]}
+                            />
+                        </Flex>
                     </Flex>
+
+
                 </CardBody>
             </Card>
         </VStack >

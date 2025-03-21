@@ -23,7 +23,7 @@ export interface PlotlyChartDataFormat {
 }
 
 
-export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate'): PlotlyChartDataFormat {
+export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate'): PlotlyChartDataFormat {
     
     let date: string[] = []
 
@@ -62,6 +62,13 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
                 mode: "lines+markers",
                 line: { shape: "spline" }
             }
+        case "line":
+            return {
+                ...basicFormat,
+                type: 'scatter',
+                mode: "lines",
+                line: { shape: "spline" }
+            }
         case "dashedLine":
             return {
                 ...basicFormat,
@@ -96,7 +103,7 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
 }
 
 
-export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasicFormat[], mode: 'scatter' | 'basic' | 'bar') {
+export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasicFormat[], mode: 'scatter' | 'basic' | 'bar' | 'line') {
     const newFormat = basicFormat.map((element) => (
         convertToPlotlyChartFormat(element, mode)
     ))

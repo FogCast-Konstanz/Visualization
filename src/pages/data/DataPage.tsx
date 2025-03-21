@@ -2,16 +2,18 @@ import { Card, CardBody, CardHeader, Flex, Heading, Tab, TabList, TabPanel, TabP
 import { useEffect, useState } from 'react';
 import { OrbitProgress } from 'react-loading-indicators';
 import DataSource from '../../components/DataSource';
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { convertToPlotlyGraph, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory } from '../../components/requests/actualBackend';
+import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
+import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import ConfigurationForRequest from '../models/ConfigurationForRequest';
 import { useTranslation } from 'react-i18next';
 
 export default function DataPage() {
+  const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
   const [temperatureHistory, setTemperatureHistory] = useState<PlotlyChartBasicFormat[] | null>(null)
   const [temperatureLastWeek, setTemperatureLastWeek] = useState<PlotlyChartBasicFormat[] | null>(null)
+
   const [fogHistory, setFogHistory] = useState<PlotlyChartBasicFormat[] | null>(null)
   const [fogLastYear, setFogLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
   const [waterLevel, setWaterLevel] = useState<PlotlyChartDataFormat[] | null>(null)
@@ -41,11 +43,11 @@ export default function DataPage() {
     const tempLastWeek = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "hourly")
     const tempLastWeekDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "daily")
 
-    const dailyTemp = convertToPlotlyGraph(tempLastWeek, 'Hourly Temp')
+    const dailyTemp = parseActualRequestToPlotlyXYFormat(tempLastWeek, 'Hourly Temp')
     setTemperatureLastWeek(
       [
         convertToPlotlyChartFormat(dailyTemp, 'scatter', null, graphcolors[0], 'year'),
-        convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1], 'year')
+        convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1], 'year')
       ])
       setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false))
 
@@ -54,7 +56,14 @@ export default function DataPage() {
     dateLastYear.setFullYear(dateLastYear.getFullYear() - 1); // Subtract 1 year
 
     const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
-    setTemperatureHistory([convertToPlotlyChartFormat(convertToPlotlyGraph(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
+    setTemperatureLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
+
+    /* Get date of last year */
+    const dateLastFewYear = new Date();
+    dateLastFewYear.setFullYear(dateLastYear.getFullYear() - 10); 
+
+    const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
+    setTemperatureHistory(convertMultipleToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, 'Daily Temp'), 'line'))
 
     /* Get Fog of last year */
     // const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(dateLastWeek), "monthly")
@@ -62,14 +71,14 @@ export default function DataPage() {
 
     /* Get Fog in alltime history */
     const fogHist = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "monthly")
-    setFogHistory([convertToPlotlyChartFormat(convertToPlotlyGraph(fogHist), 'bar', null, graphcolors[0])])
+    setFogHistory([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(fogHist), 'bar', null, graphcolors[0])])
 
     const fogHistyearly = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "yearly")
-    setFogLastYear([convertToPlotlyChartFormat(convertToPlotlyGraph(fogHistyearly), 'bar', null, graphcolors[0])])
+    setFogLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(fogHistyearly), 'bar', null, graphcolors[0])])
 
     /* Get Water Level History */
     const waterLevel = await fetchWaterLevelHistory()
-    const waterLevelData = convertToPlotlyGraph(waterLevel)
+    const waterLevelData = parseActualRequestToPlotlyXYFormat(waterLevel)
     setWaterLevel([(convertToPlotlyChartFormat(waterLevelData, 'bar', null, graphcolors[0]))])
     
   }
@@ -95,10 +104,11 @@ export default function DataPage() {
           {/* Temperature Graphs */}
           {/* <TabPanel pl={0}> */}
           <TabPanel>
-            {temperatureHistory && temperatureLastWeek ? (
+            {temperatureHistory && temperatureLastWeek && temperatureLastYear ? (
               <Flex gap='10px' wrap='wrap' pr={0}>
                 <PlotlyChart data={temperatureHistory} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
                 <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
+                <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
               </Flex>
             ) : <OrbitProgress color={loadingColor} size="medium" />}
           </TabPanel>

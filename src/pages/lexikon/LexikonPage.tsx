@@ -13,6 +13,7 @@ export default function Lexikon() {
         { header: t('lexicon.predictedTime.title'), text: t('lexicon.predictedTime.text'), tags: ['prediction'], id: 'predictedTime' },
         { header: t('lexicon.timeOfPrediction.title'), text: t('lexicon.timeOfPrediction.text'), tags: ['prediction'], id: 'timeOfPrediction' },
         { header: t('lexicon.benchmarkingIdea.title'), text: t('lexicon.benchmarkingIdea.text'), tags: ['prediction', 'benchmarking'], id: 'benchmarkingIdea' },
+        { header: t('lexicon.metaForecasting.title'), text: t('lexicon.metaForecasting.text'), tags: ['prediction', 'forecasting'], id: 'metaforecasting' },
     ]
 
     const [selectedTag, setSelectedTag] = useState("");

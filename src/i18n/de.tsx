@@ -87,8 +87,18 @@ const de = {
         furtherLicences: "Weitere Informationen zur Lizenz",
         dwdData: "Die Echtzeitdaten und aktuellen Vorhersagen basieren auf Daten des DWD. Auch für die Anaylsen stellten die Daten des DWD die Grundlage dar.",
         openMeteoData: "Die auf der Webseite dargestellten Daten basiseren größtenteils auf Openmeteo.",
+        pegelOnline: "Teile der Daten, unter anderem über die Pegelstände, stammen von Pegelonline",
         dataFrom: "Daten von",
-        and: "und"
+        and: "und",
+        legalInfoText: `
+## Rechtliche Hinweise
+
+Die Inhalte dieser Website sind urheberrechtlich geschützt.
+
+Alle auf der FogCast-Website veröffentlichten Inhalte sind urheberrechtlich geschützt und dürfen nur mit Zustimmung der HTWG Konstanz verwendet, verbreitet oder öffentlich wiedergegeben werden.
+
+Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingungen der Creative Commons BY 4.0 (CC BY 4.0), Geodaten von Pegelonline unter den Bedingungen der Lizenz DL-DE->Zero-2.0 unter Nennung der Quelle verwendet werden.
+`
     },
 
     cookies: {

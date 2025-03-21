@@ -84,10 +84,30 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
 };
 
 
-export function convertToPlotlyGraph(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {
+export function parseActualRequestToPlotlyXYFormat(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {
     return {
         x: response.map(entry => new Date(entry.date).toISOString()),
         y: response.map(entry => parseFloat(entry.value)),
         name: name ? name : response[0].name
     };
+}
+
+export function parseActualRequestToPlotlyXYFormatYearWise(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat[] {
+    const result: PlotlyChartBasicFormat[] = [];
+    let startIdx = 0, currentYear = new Date(response[0].date).getFullYear();
+
+    response.forEach((entry, i) => {
+        const entryYear = new Date(entry.date).getFullYear();
+        if (entryYear !== currentYear || i === response.length - 1) {
+            result.push({
+                x: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => { const date = new Date(e.date); date.setFullYear(0); return date.toISOString()}),
+                y: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => parseFloat(e.value)),
+                name: `${name ? name + " " : ""}${currentYear}`
+            });
+            startIdx = i;
+            currentYear = entryYear;
+        }
+    });
+
+    return result;
 }

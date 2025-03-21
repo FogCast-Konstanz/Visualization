@@ -84,8 +84,18 @@ const en = {
         furtherLicences: "Further Informations about the Licences",
         dwdData: "The real-time data and current forecasts are based on DWD data. The DWD data also formed the basis for the analyses.",
         openMeteoData: "The data presented on the website is largely based on Openmeteo.",
+        pegelOnline: "Parts of the data, like the data about the water level, is from Pegelonline",
         dataFrom: "Data from",
-        and: "and"
+        and: "and",
+        legalInfoText: `
+## Legal Notice
+
+The content of this website is protected by copyright.
+
+All content published on the FogCast website is protected by copyright and may only be used, distributed or publicly reproduced with the consent of the HTWG Konstanz.
+
+Freely accessible geodata from the DWD and Open Meteo may be used under the conditions of Creative Commons BY 4.0 (CC BY 4.0), geodata from Pegelonline under the conditions of the DL-DE->Zero-2.0 licence, provided the source is cited.
+`
     },
 
     cookies: {

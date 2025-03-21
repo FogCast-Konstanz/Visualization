@@ -3,11 +3,13 @@ export type phenomenaType = { title: string, description: string, content: { tit
 const fog: phenomenaType = {
     id: 'fog',
     title: 'Nebel',
-    description: 'Nebel entsteht, wenn Wassertröpfchen oder Eiskristalle in den unteren atmosphärischen Schichten die Sichtweite auf unter 1 Kilometer reduzieren. Je nach Sichtweite unterscheidet man zwischen leichtem (500-1000 m), mäßigem (200-500 m) und starkem Nebel (< 200 m (Vgl. Bott 2023, S. 450)',
+    description: "Nebel entsteht durch Kondensation bei Sättigung der Luft, gefördert durch Abkühlung, Feuchtigkeit oder Luftmischung. Hauptarten sind Advektions-, Strahlungs-, Verdunstungs-, orographischer und Mischungsnebel. Die Bodenseeregion begünstigt durch ihre Wasserfläche, Berge und Windsysteme Nebelbildung, besonders im Herbst und Winter. Nebel löst sich durch Sonneneinstrahlung oder Wind auf.",
     content: [
         {
             title: 'Erklärung',
             text: `
+Nebel entsteht, wenn Wassertröpfchen oder Eiskristalle in den unteren atmosphärischen Schichten die Sichtweite auf unter 1 Kilometer reduzieren. Je nach Sichtweite unterscheidet man zwischen leichtem (500-1000 m), mäßigem (200-500 m) und starkem Nebel (< 200 m (Vgl. Bott 2023, S. 450),
+
 ![Picture](/assets/phenomena/2025-02-17_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")
 ## Physikalische Entstehungsprozesse
 
@@ -33,9 +35,11 @@ Der Bodensee fördert die Nebelbildung durch:
 * Geografische Lage: Die umliegenden Berge schaffen ideale Bedingungen für Strahlungs- und Mischungsnebel, da sie kalte Luftmassen einschließen können.
 * Lokale Windsysteme: Diese tragen zur Verteilung von Feuchtigkeit und Temperaturschwankungen bei, was die Bildung von Advektions- und Verdunstungsnebel unterstützt.
 
-### Zeitliche Variationen
+## Zeitliche Variationen
+
 Die Bodenseeregion weist eine erhöhte Nebelhäufigkeit im Herbst und Winter auf, wenn die Temperaturdifferenzen zwischen Wasser und Land am größten sind. Diese Unterschiede fördern insbesondere die Bildung von Advektionsnebel und Strahlungsnebel. (Vgl. Bott 2023, S. 450)
-Auflösung des Nebels
+
+## Auflösung des Nebels
 
 Nebel löst sich meist durch:
 * Solare Einstrahlung: Die Sonneneinstrahlung erwärmt den Boden, was zu einer Verdunstung der Wassertröpfchen führt.
@@ -57,15 +61,15 @@ Diese Veränderungen lassen sich auf mehrere Faktoren zurückführen. Der Klimaw
 `
 };
 
-const schwäbisches_meer_effekt: phenomenaType = {
-    id: 'schwäbisches-meer',
-    title: 'Schwäbisches Meer Effekt',
-    description: 'Der Schwäbische Meereffekt beschreibt den klimatischen Einfluss des Bodensees, der durch seine Wärmespeicherung, Feuchtigkeitsregulierung und Windmuster ein mildes und ausgeglichenes Klima in der Region schafft. Besonders im Winter verhindert der See starke Temperaturabfälle und begünstigt ein stabileres Wetter.',
-    content: [
+// const schwäbisches_meer_effekt: phenomenaType = {
+//     id: 'schwäbisches-meer',
+//     title: 'Schwäbisches Meer Effekt',
+//     description: 'Der Schwäbische Meereffekt beschreibt den klimatischen Einfluss des Bodensees, der durch seine Wärmespeicherung, Feuchtigkeitsregulierung und Windmuster ein mildes und ausgeglichenes Klima in der Region schafft. Besonders im Winter verhindert der See starke Temperaturabfälle und begünstigt ein stabileres Wetter.',
+//     content: [
 
-    ],
-    sources: ``
-};
+//     ],
+//     sources: ``
+// };
 
 const windsysteme: phenomenaType = {
     id: 'windsysteme',
@@ -167,7 +171,6 @@ Föhn entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luf
 export const dePhenomena = {
     phenomena: [
         fog,
-        schwäbisches_meer_effekt,
         windsysteme,
         hochwasser,
         bergsicht

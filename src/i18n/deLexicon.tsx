@@ -37,5 +37,30 @@ In der einfachsten Version können Benchmarks anhand von einer Hand voll Variabl
 ### Ergebnisinterpretation
 
 Die praktische Anwendung des Benchmark-Systems erfolgt über Skriptabläufe, die einen automatisierten Tagesabgleich der Modelleistungen ermöglichen. Diese können über die Weboberfläche eingesehen werden. Außerdem können die Benchmark Scores verwendet werden, um beispielsweise bei der Modellfusionierung die Aussagen einzelner Modelle auf Basis ihres durchschnittlichen historischen Benchmark Scores zu gewichten.`
+    }, 
+    metaForecasting: {
+        title: 'Meta Forecasting',
+        text: `
+Neben der Möglichkeit konkrete Wettervorhersagen zu machen, also konkrete Werte für Wetter-Features vorherzusagen, gibt es auch die Möglichkeit Vorhersagen zu Meta-Informationen zu machen. Beispiele für solche Meta-Forecasts sind Vorhersagen über die Konfidenz einer Vorhersage.
+
+### Wie kann die Konfidenz vorhergesagt werden?
+
+Die Konfidenz beschreibt, wie sicher sich ein Modell bei der Vorhersage ist. Mit der Hilfe von neuronalen Netzen können aus vergangenen Vorhersagen und den dazugehörigen Observationen Muster gelernt werden, wie sicher sich Modelle in der Vergangenheit bei der Vorhersage unter bestimmten Voraussetzungen sind. Damit kann möglicherweise auch festgestellt werden, welche von diesen Voraussetzungen ausschlaggebend für die Konfidenz von Wettervorhersagen sind.
+
+### Methodik im Hintergrund von Konfidenzvorhersagen
+
+Historische Vorhersagen sammeln: Um Modelle trainieren zu können müssen Vorhersagen gesammelt werden, um diese dann später mit den entsprechenden Observationen vergleichen zu können.
+
+Beobachtungen erfassen: Für den Abgleich der historischen Vorhersagedaten mit den tatsächlichen Werte müssen auch diese erfasst werden.
+
+Schätzen von Mittelwerten und Standardabweichungen: Auf Basis der historischen Vorhersagen und den Observationen wird versucht, die Vorhersage eines Mittelwerts und einer Standardabweichung zu lernen. Das Training wird in unserem Fall mittels der Maximum-Likelihood-Methode durchgeführt, bei welcher die Parameter des Modells so angepasst werden, dass die Wahrscheinlichkeit der beobachteten Daten unter der geschätzten Normalverteilung maximal werden.
+
+### Möglichkeit der Erweiterung der Meta-Forecasts
+
+Meta-Forecasts bieten vielfältige Erweiterungsmöglichkeiten, um die Qualität und Nützlichkeit von Wettervorhersagen zu verbessern. Eine naheliegende Erweiterung ist die Integration von Meta-Forecasts für Model-Fusion, bei der mehrere Modelle kombiniert werden, um die Vorhersagegenauigkeit und -stabilität zu erhöhen. Zudem können Abhängigkeiten von Features berücksichtigt und in die Vorhersagen einbezogen werden. Darüber hinaus können die Auswirkungen von Inputs auf die Outputs der Meta-Forecasts analysiert werden, um besser zu verstehen, welche Faktoren die Konfidenz der Vorhersagen beeinflussen.
+
+### Ergebnisinterpretation
+
+Die Interpretation der Ergebnisse von Meta-Forecasts erfordert ein tiefes Verständnis der zugrunde liegenden Modelle und Daten. Konfidenzwerte sollten nicht isoliert betrachtet werden, sondern im Kontext der historischen Leistung des Modells und der spezifischen Wetterbedingungen. Ein hoher Konfidenzwert bedeutet, dass das Modell basierend auf vergangenen Daten zuversichtlich ist, dass die Vorhersage genau ist, während ein niedriger Wert auf Unsicherheit hinweist. Es ist wichtig, Fehlerquellen zu identifizieren und zu berücksichtigen, wie z.B. unvollständige oder fehlerhafte Daten, Modellannahmen oder externe Einflüsse. Zudem sollten Trends und Muster in den Konfidenzwerten über die Zeit analysiert werden, um systematische Fehler oder Verbesserungspotenziale zu erkennen. Letztlich sollten die Ergebnisse der Meta-Forecasts immer in Kombination mit anderen Wetterdaten und -modellen betrachtet werden, um eine umfassende und zuverlässige Wettervorhersage zu gewährleisten.`
     }
 }
