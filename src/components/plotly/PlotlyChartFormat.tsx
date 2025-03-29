@@ -116,7 +116,6 @@ export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasic
     ))
 }
 
-
 /**
  * Get plotly data for the weekdays
  * Usage: Store the data inside a useState and pass this value to DefaultGraph (customLayout={{annotations: weekdays}})

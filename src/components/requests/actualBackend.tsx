@@ -1,5 +1,5 @@
 import axios from "axios";
-import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
+import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { API_BASE_URL, formatGermanDate } from "./helpers";
 
 type ActualResponseFormat = {
@@ -98,7 +98,7 @@ export function parseActualRequestToPlotlyXYFormatYearWise(response: ActualRespo
 
     response.forEach((entry, i) => {
         const entryYear = new Date(entry.date).getFullYear();
-        if (entryYear !== currentYear || i === response.length - 1) {
+        if (entryYear !== currentYear || i === response.length - 1) {  
             result.push({
                 x: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => { const date = new Date(e.date); date.setFullYear(0); return date.toISOString()}),
                 y: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => parseFloat(e.value)),
