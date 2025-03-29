@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { OrbitProgress } from 'react-loading-indicators';
 import DataSource from '../../components/DataSource';
 import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
+import { calculateAverageTrace, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import ConfigurationForRequest from '../models/ConfigurationForRequest';
@@ -33,8 +33,8 @@ export default function DataPage() {
 
   const bgColor = useColorModeValue('custom_light.background', 'custom_dark.background');
   const textColor = useColorModeValue('custom_light.text', 'custom_dark.text');
-  const tabBg = useColorModeValue('custom_light.background', 'custom_dark.background'); 
-  const tabSelectedBg = useColorModeValue('custom_light.primary_variant', 'custom_dark.primary_variant'); 
+  const tabBg = useColorModeValue('custom_light.background', 'custom_dark.background');
+  const tabSelectedBg = useColorModeValue('custom_light.primary_variant', 'custom_dark.primary_variant');
 
   async function requestBackend() {
     /* Get date of last week */
@@ -50,21 +50,35 @@ export default function DataPage() {
         convertToPlotlyChartFormat(dailyTemp, 'scatter', null, graphcolors[0], 'year'),
         convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1], 'year')
       ])
-      setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false))
+    setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false))
 
     /* Get date of last year */
     const dateLastYear = new Date();
-    dateLastYear.setFullYear(dateLastYear.getFullYear() - 1); // Subtract 1 year
+    dateLastYear.setFullYear(dateLastYear.getFullYear() - 1, 0, 1); // Set to Jan 1st
+    dateLastYear.setHours(0, 0, 0, 0); // Reset time to midnight
+    dateLastYear.setFullYear(dateLastYear.getFullYear()); // Subtract 1 year
 
     const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
     setTemperatureLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
 
     /* Get date of last year */
     const dateLastFewYear = new Date();
-    dateLastFewYear.setFullYear(dateLastYear.getFullYear() - 10); 
+    dateLastFewYear.setFullYear(dateLastYear.getFullYear() - 50);
+
+    const dateThisYear = new Date();
+    dateThisYear.setFullYear(dateThisYear.getFullYear(), 0, 1); // Set to Jan 1st
+    const tempThisYear = await fetchTemperatureHistoryDWD(formatActualDatetime(dateThisYear), formatActualDatetime(), "daily")
 
     const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
-    setTemperatureHistory(convertMultipleToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, 'Daily Temp'), 'line'))
+    const averageHistory = calculateAverageTrace(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, 'Daily Temp'))
+    setTemperatureHistory(
+      [
+        ...convertMultipleToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), 'line', true),
+        convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempLastYearDaily, 'Last Year')[0], 'line', null, graphcolors[0]),
+        convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempThisYear, 'This Year')[0], 'line', null, graphcolors[1]),
+        convertToPlotlyChartFormat(averageHistory, 'line', null, 'darkgray'),
+      ]
+    )
 
     /* Get Fog of last year */
     // const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(dateLastWeek), "monthly")
@@ -81,13 +95,13 @@ export default function DataPage() {
     const waterLevel = await fetchWaterLevelHistory()
     const waterLevelData = parseActualRequestToPlotlyXYFormat(waterLevel)
     setWaterLevel([(convertToPlotlyChartFormat(waterLevelData, 'bar', null, graphcolors[0]))])
-    
+
   }
 
   return (
     <Flex direction='column' width='100%' gap='10px' margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
       <Introduction header={t('dataPage.title')} text={t('dataPage.introduction')}></Introduction>
-      
+
       {/* <Card
         bg={bgColor} color={textColor} width={'100%'}>
         <CardHeader pb={'0px'}>
@@ -99,17 +113,17 @@ export default function DataPage() {
       </Card> */}
       <Tabs variant="soft-rounded" colorScheme="teal">
         <TabList >
-            <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Temperature</Tab>
-            <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Fog</Tab>
-            <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Water Level</Tab>
-          </TabList>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Temperature</Tab>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Fog</Tab>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Water Level</Tab>
+        </TabList>
         <TabPanels>
           {/* Temperature Graphs */}
           {/* <TabPanel pl={0}> */}
           <TabPanel>
             {temperatureHistory && temperatureLastWeek && temperatureLastYear ? (
               <Flex gap='10px' wrap='wrap' pr={0}>
-                <PlotlyChart data={temperatureHistory} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
+                <PlotlyChart data={temperatureHistory} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' customLayout={{ showlegend: false }} />
                 <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
                 <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
               </Flex>

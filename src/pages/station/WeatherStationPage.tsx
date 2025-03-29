@@ -1,17 +1,16 @@
-import { Box, Card, Container, Flex, Heading, Image, List, ListItem, SimpleGrid, Text, useColorModeValue } from '@chakra-ui/react';
-import UnderConstruction from '../../components/UnderConstruction';
-import Introduction from '../../components/introduction';
-import { useSSR, useTranslation } from 'react-i18next';
-import MeasurementCard from '../startingPage/MeasurementCard';
-import { OrbitProgress } from 'react-loading-indicators';
+import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { OrbitProgress } from 'react-loading-indicators';
+import Introduction from '../../components/introduction';
+import MeasurementCard from '../startingPage/MeasurementCard';
 
-import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
-import { RiWindyFill } from "react-icons/ri"
-import { WiHumidity } from "react-icons/wi"
+import { FaTemperatureHalf, FaWater } from "react-icons/fa6";
+import { RiWindyFill } from "react-icons/ri";
+import { WiHumidity } from "react-icons/wi";
 import CardIndividual from '../../components/CardIndividual';
-import Map from './Map';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
+import Map from './Map';
 
 export default function WeatherStationPage() {
   const { t } = useTranslation();

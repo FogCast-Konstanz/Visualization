@@ -1,10 +1,10 @@
-import { Card, CardBody, CardHeader, Flex, Heading, Text, useColorModeValue } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import Introduction from '../../components/introduction';
 import { phenomenaType } from '../../i18n/dePhenomena';
 import PhenomenonCard from './PhenomenonCard';
-import Introduction from '../../components/introduction';
 
 export default function Phenomena() {
     const { t } = useTranslation();

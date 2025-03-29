@@ -9,7 +9,7 @@ import { fetchServerStatus } from './requests/statusBackend';
 
 export default function StatusBadge() {
 
-    const [status, setStatus] = useState<boolean>(true);
+    const [status, setStatus] = useState<'running' | 'down' | 'unreachable'>('running');
 
 
     useEffect(() => {
@@ -21,7 +21,6 @@ export default function StatusBadge() {
 
     async function checkStatus() {
         const tempStatus = await fetchServerStatus();
-
         setStatus(tempStatus);
         return true;
     }
@@ -33,25 +32,12 @@ export default function StatusBadge() {
                 borderRadius="md"
                 align="center"
                 justify="center"
-                // border="1px solid"
-                // borderColor={status === "running" ? "green.500" : "red.500"}
             >
-                {/* <Icon
-                    as={status === "running" ? CheckCircleIcon : WarningIcon}
-                    boxSize={6}
-                    color={status === "running" ? "green.500" : "red.500"}
-                    mr={2}
-                /> */}
-                {/* <Text fontSize="md" fontWeight="bold">
-                    Server {status === "running" ? "Running" : "Down"}
-                </Text> */}
-                <Badge colorScheme={status ? "green" : "red"} fontSize="md">
-                    Server {status ? 'RUNNING' : 'DOWN'}
+                <Badge colorScheme={status == 'running' ? "green" : status == 'down' ? "red" : 'orange'} fontSize="md">
+                    Server {status.toUpperCase()}
                 </Badge>
             </Flex>
-
         </>
-
     )
 }
 

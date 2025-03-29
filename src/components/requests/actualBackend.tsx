@@ -111,3 +111,23 @@ export function parseActualRequestToPlotlyXYFormatYearWise(response: ActualRespo
 
     return result;
 }
+
+export function calculateAverageTrace(datasets: PlotlyChartBasicFormat[]): PlotlyChartBasicFormat {
+    const numPoints = datasets[2].x.length;
+    const avgY = new Array(numPoints).fill(0);
+
+    datasets.forEach(dataset => {
+        dataset.y.forEach((value, index) => {
+            avgY[index] += value;
+        });
+    });
+
+    // Divide by the number of datasets to get the average
+    avgY.forEach((_, index) => avgY[index] /= datasets.length);
+
+    return {
+        x: datasets[2].x, // Assume all datasets have the same x values
+        y: avgY,
+        name: 'Average'
+    };
+}

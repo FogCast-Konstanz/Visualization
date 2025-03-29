@@ -23,7 +23,7 @@ export interface PlotlyChartDataFormat {
 }
 
 
-export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate'): PlotlyChartDataFormat {
+export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate', customOpacity?: number): PlotlyChartDataFormat {
     
     let date: string[] = []
 
@@ -50,6 +50,7 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
         name: basicFormatInput.name,
         text: basicFormatInput.text,
         yaxis: yAxis ? yAxis : 'y',
+        opacity: customOpacity ? customOpacity : 1.0,
         marker: { color: customColor ? customColor : null },
     }
 
@@ -103,12 +104,16 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
 }
 
 
-export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasicFormat[], mode: 'scatter' | 'basic' | 'bar' | 'line') {
-    const newFormat = basicFormat.map((element) => (
+export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasicFormat[], mode: 'scatter' | 'basic' | 'bar' | 'line', gray: boolean = false) {
+    if (gray) {
+        return basicFormat.map((element) => (
+            convertToPlotlyChartFormat(element, mode, null, 'gray', 'germanDate', 0.5)
+        ))
+    }
+
+    return basicFormat.map((element) => (
         convertToPlotlyChartFormat(element, mode)
     ))
-
-    return newFormat
 }
 
 
