@@ -75,7 +75,7 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
         const response = await axios.get(`${API_BASE_URL}/actual/live-data`, {
             headers: { Accept: "application/json" },
         });
-        
+
         return response.data
     } catch (error) {
         console.error("Error fetching actual data:", error);
@@ -98,9 +98,9 @@ export function parseActualRequestToPlotlyXYFormatYearWise(response: ActualRespo
 
     response.forEach((entry, i) => {
         const entryYear = new Date(entry.date).getFullYear();
-        if (entryYear !== currentYear || i === response.length - 1) {  
+        if (entryYear !== currentYear || i === response.length - 1) {
             result.push({
-                x: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => { const date = new Date(e.date); date.setFullYear(0); return date.toISOString()}),
+                x: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => { const date = new Date(e.date); date.setFullYear(0); return date.toISOString() }),
                 y: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => parseFloat(e.value)),
                 name: `${name ? name + " " : ""}${currentYear}`
             });
@@ -130,4 +130,32 @@ export function calculateAverageTrace(datasets: PlotlyChartBasicFormat[]): Plotl
         y: avgY,
         name: 'Average'
     };
+}
+
+
+export function highlightingAndAverage(basicFormatInput: PlotlyChartBasicFormat[], highlight: string[], graphcolors: string[]) {
+    let counter = 0
+
+    const highlighted: any[] = [];
+    const nonHighlighted: any[] = [];
+
+    basicFormatInput.map((input, index) => {
+        const formattedData = {
+            x: input.x,
+            y: input.y,
+            name: input.name,
+            marker: { color: highlight.includes(input.name) ? graphcolors[counter % graphcolors.length] : "gray" },
+            opacity: highlight.includes(input.name) ? 1 : 0.5,
+        };
+
+        if (highlight.includes(input.name)) {
+            highlighted.push(formattedData);
+            counter += 1;
+        } else {
+            nonHighlighted.push(formattedData);
+        }
+    })
+
+    const averageHistory = calculateAverageTrace(basicFormatInput)
+    return [...nonHighlighted, ...highlighted, convertToPlotlyChartFormat(averageHistory, 'line', null, 'black')]
 }

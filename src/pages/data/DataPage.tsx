@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { OrbitProgress } from 'react-loading-indicators';
 import DataSource from '../../components/DataSource';
 import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { calculateAverageTrace, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
+import { calculateAverageTrace, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import ConfigurationForRequest from '../models/ConfigurationForRequest';
@@ -65,54 +65,9 @@ export default function DataPage() {
     const dateLastFewYear = new Date();
     dateLastFewYear.setFullYear(dateLastYear.getFullYear() - 50);
 
-    const dateThisYear = new Date();
-    dateThisYear.setFullYear(dateThisYear.getFullYear(), 0, 1); // Set to Jan 1st
-    const tempThisYear = await fetchTemperatureHistoryDWD(formatActualDatetime(dateThisYear), formatActualDatetime(), "daily")
-
     const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
-    const averageHistory = calculateAverageTrace(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, 'Daily Temp'))
-    // setTemperatureHistory(
-    //   [
-    //     ...convertMultipleToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), 'line', true),
-    //     convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempLastYearDaily, 'Last Year')[0], 'line', null, graphcolors[0]),
-    //     convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormatYearWise(tempThisYear, 'This Year')[0], 'line', null, graphcolors[1]),
-    //     convertToPlotlyChartFormat(averageHistory, 'line', null, 'darkgray'),
-    //   ]
-    // )
-
-    setTemperatureHistory(
-      [
-        ...highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), ['2025', '2023', '1984'])
-      ]
-    )
-
-
-    function highlightingAndAverage(basicFormatInput: PlotlyChartBasicFormat[], highlight: string[]) {
-      let counter = 0
-
-      const highlighted: any[] = [];
-      const nonHighlighted: any[] = [];
-
-      basicFormatInput.map((input, index) => {
-        console.log(input.name, highlight)
-        const formattedData = {
-          x: input.x,
-          y: input.y,
-          name: input.name,
-          marker: { color: highlight.includes(input.name) ? graphcolors[counter % graphcolors.length] : "gray" },
-          opacity: highlight.includes(input.name) ? 1 : 0.5,
-        };
-
-        if (highlight.includes(input.name)) {
-          highlighted.push(formattedData);
-          counter += 1;
-        } else {
-          nonHighlighted.push(formattedData);
-        }
-      })
-
-      return [...nonHighlighted, ...highlighted, convertToPlotlyChartFormat(averageHistory, 'line', null, 'black')]
-    }
+    setTemperatureHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), ['2025', '2023', '1984'], graphcolors))
+ 
 
     /* Get Fog of last year */
     // const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(dateLastWeek), "monthly")
