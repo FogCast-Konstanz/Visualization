@@ -9,6 +9,8 @@ import PartlyMoonSVG from '/public/assets/weather/partlyMoon.svg';
 import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
 import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
+import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
+import { useEffect } from "react";
 
 const SVGRepoRainy = createIcon({displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" />});
 const SVGRepoPartlySunny = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" />});
@@ -19,20 +21,14 @@ const SVGRepoMoon = createIcon({displayName: "SVGRepoMoon", viewBox: "0 0 24 24"
 const SVGRepoPartlyMoon = createIcon({displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" />});
 
 
-export type ForcastCardProps = { time: Date, temperature: string, weather:  "cloudy" | "rainy" | "sunny" | "partlySunny" | "mostlySunny" | "foggy" | "thunder" | "snowy" | "unkown", humidity: string, isDay: boolean }
-export default function ForcastCard({ time, temperature, weather, humidity, isDay }: ForcastCardProps) {
+export type ForcastCardProps = { time: Date, temperature: number, weather: number, humidity: string, isDay: number }
+export default function ForcastCard({ time, temperature, weather, humidity, isDay }: ForcastCardProps) { 
+    
+    useEffect(() => {
+        console.log(temperature)
+        console.log(time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }))
 
-    const weatherIcon: {[key: string]: {icon: IconType | any, color: string, background?: string}} = {
-        'sunny': isDay ? { 'icon': IoSunny, 'color': '#F7CF52' } : { 'icon': SVGRepoMoon, 'color': '#F7CF52' },
-        'partlySunny': isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
-        'mostlySunny': isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
-        'cloudy': { 'icon': IoCloudy, 'color': '#999999' },
-        'rainy': {'icon': SVGRepoRainy, 'color': 'blue'},
-        'snowy': {'icon': IoSnow, 'color': 'white'},
-        'foggy': {'icon': SVGRepoFog, 'color': 'white'},
-        'thunder': {'icon': SVGRepoThunder, 'color': 'blue'},
-        'unknown': {'icon': IoCloudOfflineOutline, 'color': 'black'}
-    }
+    }, [ ])
     
     return (
         <Card
@@ -45,9 +41,8 @@ export default function ForcastCard({ time, temperature, weather, humidity, isDa
             <CardBody padding={'0.5rem 1.75rem 0.75rem'}>
                 <Flex direction='column' alignItems='center' justifyContent={"space-between"}>
                     <Text mb={'0.75rem'}>{time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}</Text>
-                    <Text fontSize={'lg'} mb={'0.5rem'} fontWeight={'bold'}>{temperature}°C</Text>
-                    <Icon as={weatherIcon[weather].icon} boxSize={12} color={weatherIcon[weather].color} mb={'0.75rem'} />
-                    {/* <Icon as={SVGRepoRainy} boxSize={12} color={weatherIcon[weather].color} mb={'0.75rem'} /> */}
+                    <Text fontSize={'lg'} mb={'0.5rem'} fontWeight={'bold'}>{Math.round(temperature * 100) / 100}°C</Text>
+                    <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={'0.75rem'} />
                     <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={'5px'}><Icon as={SVGRepoHumidity} boxSize={4} mt={'2px'} color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}/><Text fontSize={'s'}>{humidity}%</Text></Flex>
                 </Flex> 
             </CardBody>

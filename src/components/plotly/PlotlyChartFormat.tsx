@@ -1,4 +1,5 @@
 import { formatGermanDate, formatYear } from "../requests/helpers";
+import { getWeatherAscii } from "../requests/mapWeatherCodes";
 
 export interface PlotlyChartBasicFormat {
     x: string[];
@@ -23,7 +24,7 @@ export interface PlotlyChartDataFormat {
 }
 
 
-export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate', customOpacity?: number): PlotlyChartDataFormat {
+export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate', customOpacity?: number): PlotlyChartDataFormat {
     
     let date: string[] = []
 
@@ -96,6 +97,15 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
                 mode: "lines",
                 line: { color: customColor, width: 1 }, 
                 opacity: 0.9,
+            }
+        case "weatherIcon":
+            return {
+                x: basicFormatInput.x,
+                y: Array(basicFormatInput.x.length).fill(20),
+                text: basicFormatInput.y.map(code => getWeatherAscii(code)),
+                name: basicFormatInput.name,
+                mode: 'text',
+                textfont: { size: 20 }
             }
         case "basic":
         default:

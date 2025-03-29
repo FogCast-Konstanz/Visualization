@@ -6,6 +6,7 @@ type ActualResponseFormat = {
     date: string,
     name: string,
     quality: string,
+    unit: string,
     value: string
 };
 

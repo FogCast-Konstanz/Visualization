@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Heading, position, useColorModeValue } from '@chakra-ui/react'
+import { Button, Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
@@ -12,6 +12,7 @@ import { default as DWDForcast } from '../../../components/requests/dwdForcast'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import ForcastCard, { ForcastCardProps } from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
+import { extractCurrentWeatherForecastHourly, extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
 
 export default function StandardMode() {
   const { t } = useTranslation();
@@ -21,6 +22,7 @@ export default function StandardMode() {
   const [forecast, setForecast] = useState<PlotlyChartDataFormat[] | null>(null);
   const [forecastSymbols, setForecastSymbols] = useState<PlotlyChartBasicFormat | null>(null);
   const [forecastIcons, setForecastIcons] = useState<ForcastCardProps[] | null>(null);
+  const [forecastCard, setForecastCard] = useState<any | null>(null);
 
   const [currentWeather, setCurrentWeather] = useState<Record<string, string>>({})
   const [weekdays, setWeekdays] = useState<any | null>(null)
@@ -43,23 +45,33 @@ export default function StandardMode() {
 
   async function fetchData() {
     const weather = await fetchActualWeather();
-
     const reformattedWeather = weather.reduce((acc, entry) => {
       acc[entry.name] = entry.value;
       return acc;
     }, {} as Record<string, string>);
     setCurrentWeather(reformattedWeather);
-
-    await DWDForcast.fetchData("10929");
+    
+    const currentForecast = await fetchCurrentForecast('icon_global');
 
     /* Convert to Plotly format */
-    const humidity = DWDForcast.getNextXDaysHumidity(requestDuration)
-    const temperature = DWDForcast.getNextXDaysTemperature(requestDuration)
-    const weatherSymbolsTemp = DWDForcast.getWeatherSymbolsHourlyNextXDays(requestDuration)
+    const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', 'Temperature', requestDuration)
+    const humidity = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'rain', 'Rain', requestDuration)
+    const weather_code = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'weather_code', 'Weather Code', requestDuration)
+    const is_day = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'is_day', 'isDay', requestDuration)
 
-    if (weatherSymbolsTemp && humidity && temperature) {
+    setForecastCard(
+      {
+        temperature: temperature.y,
+        humidity: humidity.y,
+        time: temperature.x,
+        weather_code: weather_code.y,
+        is_day: is_day.y
+      }
+    )
+
+    if (weather_code && humidity && temperature) {
       setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
-      setForecastSymbols(convertToPlotlyChartFormat(weatherSymbolsTemp, 'text'))
+      setForecastSymbols(convertToPlotlyChartFormat(weather_code, 'weatherIcon'))
       setWeekdays(weekdayAnnotations(temperature.x))
     }
 
@@ -156,8 +168,14 @@ export default function StandardMode() {
             }
           }}
         >
-          {forecastIcons ? forecastIcons.map((forcastElem, index) => (
-            <ForcastCard {...forcastElem} key={index}></ForcastCard>
+          {forecastCard ? forecastCard.temperature.map((_: any, index: any) => (
+            <ForcastCard 
+              time={new Date(forecastCard.time[index])}
+              temperature={forecastCard.temperature[index]}
+              humidity={forecastCard.humidity[index]}
+              isDay={forecastCard.is_day[index]}
+              weather={forecastCard.weather_code[index]}
+              key={index}></ForcastCard>
           )) : <OrbitProgress color={loadingColor} size="medium" />}
         </Flex>
       </Card>
