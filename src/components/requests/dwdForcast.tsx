@@ -41,6 +41,8 @@ class DWDForcast {
       this.humidityHourly = this.extractHourlyData(data, "humidity", "Humidity", 10);
       this.weatherSymbolsHourly = this.extractWeatherSymbolsHourly(data);
       this.hourlyForcastWithIcons = this.extractHourlyForcast(data);
+
+      console.log(this.hourlyForcastWithIcons)
     } catch (error) {
       console.error("Error fetching forecast:", error);
       throw error;
@@ -57,9 +59,9 @@ class DWDForcast {
   }
 
   private extractWeatherSymbolsHourly(data: any): PlotlyChartBasicFormat {
-    const { start, timeStep, isDay, icon } = data[Object.keys(data)[0]].forecast1;
+    const { start, timeStep, isDay, icon, temperature } = data[Object.keys(data)[0]].forecast1;
     return {
-      x: icon.map((_: any, i: number) => new Date(start + i * timeStep).toISOString()),
+      x: temperature.map((_: any, i: number) => new Date(start + i * timeStep).toISOString()),
       y: icon.map((v: number, i: number) => (isDay[i] ? weatherSymbols[v]?.day : weatherSymbols[v]?.night) || "❔"),
       name: "symbol",
     };
@@ -67,6 +69,7 @@ class DWDForcast {
 
   private extractHourlyForcast(data: any): ForcastCardProps[] {
     const { start, timeStep, temperature, humidity, icon1h, isDay } = data[Object.keys(data)[0]].forecast1;
+    
     return temperature.map((temp: number, i: number) => ({
       time: new Date(start + i * timeStep),
       temperature: `${temp / 10}`,
@@ -102,6 +105,7 @@ class DWDForcast {
   }
 
   getWeatherSymbolsHourlyNextXDays(days: number): PlotlyChartBasicFormat | null {
+    console.log(this.weatherSymbolsHourly)
     if (!this.weatherSymbolsHourly || !this.temperatureHourly) return null;
     const { times, values } = this.filterNextXDays(this.weatherSymbolsHourly.x, this.weatherSymbolsHourly.y, days);
     

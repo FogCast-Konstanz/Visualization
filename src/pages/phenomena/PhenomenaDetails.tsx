@@ -1,6 +1,6 @@
 import { Flex, Icon, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import CardIndividual from './CardIndividual';
+import CardIndividual from '../../components/CardIndividual';
 
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';

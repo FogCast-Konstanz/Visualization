@@ -65,6 +65,11 @@ const en = {
         forecastHumidity: 'Humidity forecast for {{date}}'
     },
 
+    weatherStation: {
+        title: "Weather station",
+        introduction: "The weather station..."
+    },
+
     impressum: {
         title: "Impressum",
         aboutTitle: "About the project",

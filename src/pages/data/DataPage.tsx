@@ -8,6 +8,7 @@ import { formatActualDatetime } from '../../components/requests/helpers';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import ConfigurationForRequest from '../models/ConfigurationForRequest';
 import { useTranslation } from 'react-i18next';
+import Introduction from '../../components/introduction';
 
 export default function DataPage() {
   const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
@@ -85,15 +86,17 @@ export default function DataPage() {
 
   return (
     <Flex direction='column' width='100%' gap='10px' margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
-      <Card
+      <Introduction header={t('dataPage.title')} text={t('dataPage.introduction')}></Introduction>
+      
+      {/* <Card
         bg={bgColor} color={textColor} width={'100%'}>
         <CardHeader pb={'0px'}>
           <Flex alignItems='center' justifyContent='space-between'>
-            <Heading>{t('dataPage.title')}</Heading>
+            <Heading></Heading>
           </Flex>
         </CardHeader>
-        <CardBody>{t('dataPage.introduction')}</CardBody>
-      </Card>
+        <CardBody></CardBody>
+      </Card> */}
       <Tabs variant="soft-rounded" colorScheme="teal">
         <TabList >
             <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Temperature</Tab>

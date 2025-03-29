@@ -55,8 +55,8 @@ export default function StandardMode() {
     /* Convert to Plotly format */
     const humidity = DWDForcast.getNextXDaysHumidity(requestDuration)
     const temperature = DWDForcast.getNextXDaysTemperature(requestDuration)
-
     const weatherSymbolsTemp = DWDForcast.getWeatherSymbolsHourlyNextXDays(requestDuration)
+
     if (weatherSymbolsTemp && humidity && temperature) {
       setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
       setForecastSymbols(convertToPlotlyChartFormat(weatherSymbolsTemp, 'text'))
@@ -164,7 +164,7 @@ export default function StandardMode() {
 
       <Flex gap='10px'>
         {forecast && forecastSymbols ?
-          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature') + ' °C'} xAxis={t('data.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true} customLayout={{ annotations: weekdays, shapes: [shape] }} />
+          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature')} xAxis={t('data.time')} y2Axis={t('data.humidity')} showNow={true} customLayout={{ annotations: weekdays, shapes: [shape] }} />
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
