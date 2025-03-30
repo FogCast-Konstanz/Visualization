@@ -21,8 +21,9 @@ export default function StandardMode() {
 
   const [forecast, setForecast] = useState<PlotlyChartDataFormat[] | null>(null);
   const [forecastSymbols, setForecastSymbols] = useState<PlotlyChartBasicFormat | null>(null);
-  const [forecastIcons, setForecastIcons] = useState<ForcastCardProps[] | null>(null);
   const [forecastCard, setForecastCard] = useState<any | null>(null);
+
+  const [cloudData, setCloudData] = useState<PlotlyChartDataFormat[] | null>(null)
 
   const [currentWeather, setCurrentWeather] = useState<Record<string, string>>({})
   const [weekdays, setWeekdays] = useState<any | null>(null)
@@ -31,11 +32,13 @@ export default function StandardMode() {
   const [shape, setShape] = useState<any>(null);
 
   useEffect(() => {
-    fetchData();
+    fetchCurrentForecastData();
+    fetchActualWeatherData();
   }, []);
 
   useEffect(() => {
-    fetchData();
+    fetchCurrentForecastData();
+    fetchActualWeatherData();
     handleScroll();
   }, [requestDuration])
 
@@ -43,22 +46,26 @@ export default function StandardMode() {
     handleScroll();
   }, [forecast])
 
-  async function fetchData() {
+
+  async function fetchActualWeatherData() {
     const weather = await fetchActualWeather();
     const reformattedWeather = weather.reduce((acc, entry) => {
       acc[entry.name] = entry.value;
       return acc;
     }, {} as Record<string, string>);
     setCurrentWeather(reformattedWeather);
-    
+  }
+
+  async function fetchCurrentForecastData() {
     const currentForecast = await fetchCurrentForecast('icon_global');
 
     /* Convert to Plotly format */
     const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', 'Temperature', requestDuration)
-    const humidity = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'rain', 'Rain', requestDuration)
+    const humidity = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'relative_humidity_2m', 'Humidity', requestDuration)
     const weather_code = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'weather_code', 'Weather Code', requestDuration)
     const is_day = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'is_day', 'isDay', requestDuration)
 
+    // Set the cards
     setForecastCard(
       {
         temperature: temperature.y,
@@ -69,13 +76,39 @@ export default function StandardMode() {
       }
     )
 
+    // Set data for plotly graph: temperature weather code and humidity
     if (weather_code && humidity && temperature) {
       setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
       setForecastSymbols(convertToPlotlyChartFormat(weather_code, 'weatherIcon'))
       setWeekdays(weekdayAnnotations(temperature.x))
     }
 
-    setForecastIcons(DWDForcast.getHourlyForcastValuesIcon(requestDuration))
+    // Set cloud cover
+    const cloud_cover_high = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'cloud_cover_high', 'Cloud Cover High', requestDuration)
+    const cloud_cover_mid = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'cloud_cover_mid', 'Cloud Cover High', requestDuration)
+    const cloud_cover_low = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'cloud_cover_low', 'Cloud Cover High', requestDuration)
+    // const visibility = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'cloud_cover_low', 'Cloud Cover High', requestDuration)
+
+
+    const scaleCloud = (values: number[], center: number) => {
+      const up = values.map(v => center + (v / 12));
+      const down = values.map(v => center - (v / 12)).reverse();
+      return { up, down };
+    };
+
+    const xTime = cloud_cover_high.x.concat([...cloud_cover_high.x].reverse())
+    const scaledHigh = scaleCloud(cloud_cover_high.y, 75)
+    const scaledMid = scaleCloud(cloud_cover_mid.y, 50)
+    const scaledLow = scaleCloud(cloud_cover_low.y, 25)
+    setCloudData(
+      [
+        convertToPlotlyChartFormat({ x: xTime, y: scaledHigh.up.concat(scaledHigh.down), name: 'High Cloud Cover' }, 'cloud', 'y1', 'lightblue'),
+        convertToPlotlyChartFormat({ x: xTime, y: scaledMid.up.concat(scaledMid.down), name: 'Mid Cloud Cover' }, 'cloud', 'y1', '#808080'),
+        convertToPlotlyChartFormat({ x: xTime, y: scaledLow.up.concat(scaledLow.down), name: 'Low Cloud Cover' }, 'cloud', 'y1', '#202020'),
+        // convertToPlotlyChartFormat({ x: xTime, y: data.hourly.visibility.map((v: number) => v / 1000), name: 'Visibility' }, 'dashedLine', 'y2', 'orange')
+      ]
+    )
+
   };
 
   const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
@@ -108,7 +141,7 @@ export default function StandardMode() {
     }
   }
 
-  function handleWheel(event: React.WheelEvent){
+  function handleWheel(event: React.WheelEvent) {
     if (scrollRef.current) {
       scrollRef.current.scrollLeft += event.deltaY; // Converts vertical to horizontal scroll
     }
@@ -150,7 +183,7 @@ export default function StandardMode() {
           pb={'10px'}
           ref={scrollRef}
           onScroll={() => handleScroll()}
-          onWheel={(e) => {handleWheel(e)}}
+          onWheel={(e) => { handleWheel(e) }}
           sx={{
             "&::-webkit-scrollbar": {
               height: "8px",
@@ -169,7 +202,7 @@ export default function StandardMode() {
           }}
         >
           {forecastCard ? forecastCard.temperature.map((_: any, index: any) => (
-            <ForcastCard 
+            <ForcastCard
               time={new Date(forecastCard.time[index])}
               temperature={forecastCard.temperature[index]}
               humidity={forecastCard.humidity[index]}
@@ -184,6 +217,10 @@ export default function StandardMode() {
         {forecast && forecastSymbols ?
           <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature')} xAxis={t('data.time')} y2Axis={t('data.humidity')} showNow={true} customLayout={{ annotations: weekdays, shapes: [shape] }} />
           : <OrbitProgress color={loadingColor} size="medium" />}
+      </Flex>
+
+      <Flex>
+        {cloudData ? <PlotlyChart title={'Cloudcover'} data={cloudData} yAxis={t('startingPage.temperature') + ' °C'} xAxis={t('startingPage.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true}></PlotlyChart> : <>miau</>}
       </Flex>
 
       <DataSource></DataSource>

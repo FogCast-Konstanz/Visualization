@@ -11,7 +11,9 @@ type CurrentForecastResponseFormat = {
     forecast_date: number,
     weather_code: number,
     is_day: number,
-    rain: number
+    rain: number,
+    relative_humidity_2m: number,
+    
 };
 
 export async function fetchCurrentForecast(modelId: string): Promise<CurrentForecastResponseFormat[]> {

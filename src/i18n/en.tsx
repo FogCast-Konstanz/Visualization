@@ -16,12 +16,12 @@ const en = {
     },
 
     data: {
-        temperature: "Temperature °C",
-        humidity: "Humidity % ",
+        temperature: "Temperature",
+        humidity: "Humidity",
         forecast: "Forecast",
         time: "Time",
         waterTemp: "Water temperature",
-        waterLevel: "Water level cm",
+        waterLevel: "Water level",
         windspeed: "Wind speed",
     },
 

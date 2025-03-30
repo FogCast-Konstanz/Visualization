@@ -25,7 +25,7 @@ export default function StartingPage() {
   }
 
   return (
-    <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={'10px'} maxWidth={'100%'}>
+    <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={'10px'} maxWidth={'100%'} overflow={'hidden'} overflowY={'auto'} height={'calc(100dvh - 20px)'}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
         <Heading>{t('startingPage.title')}</Heading>
 

@@ -17,12 +17,12 @@ const de = {
     },
 
     data: {
-        temperature: "Temperatur °C",
-        humidity: "Luftfeuchtigkeit % ",
+        temperature: "Temperatur",
+        humidity: "Luftfeuchtigkeit",
         forecast: "Vorhersage",
         time: "Zeit",
         waterTemp: "Wassertemperatur",
-        waterLevel: "Wasserstand cm",
+        waterLevel: "Wasserstand",
         windspeed: "Windgeschwindigkeit",
     },
 
