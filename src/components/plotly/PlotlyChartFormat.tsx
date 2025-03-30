@@ -24,7 +24,7 @@ export interface PlotlyChartDataFormat {
 }
 
 
-export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon', yAxis?: string | null, customColor?: string | null, dateFormat: 'germanDate' | 'germanTime' | 'year' = 'germanDate', customOpacity?: number): PlotlyChartDataFormat {
+export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon', yAxis?: string | null, customColor?: string | null, customOpacity?: number): PlotlyChartDataFormat {
     
     let date: string[] = []
 
@@ -117,7 +117,7 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
 export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasicFormat[], mode: 'scatter' | 'basic' | 'bar' | 'line', gray: boolean = false) {
     if (gray) {
         return basicFormat.map((element) => (
-            convertToPlotlyChartFormat(element, mode, null, 'gray', 'germanDate', 0.5)
+            convertToPlotlyChartFormat(element, mode, null, 'gray', 0.5)
         ))
     }
 

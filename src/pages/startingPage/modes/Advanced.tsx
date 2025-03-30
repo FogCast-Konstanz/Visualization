@@ -2,63 +2,80 @@ import { Flex } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OrbitProgress } from 'react-loading-indicators'
-import CloudGraph, { CloudDataType } from '../../../components/plotly/CloudGraph'
+import { useSearchParams } from 'react-router-dom'
 import { convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
-import { default as DWDForcast } from '../../../components/requests/dwdForcast'
+import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataOptions } from '../../../components/requests/currentForecacstBackend'
+import SelectParameter from '../../../components/SelectMeasurements'
 import SelectModels from '../../../components/SelectModels'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
-import { useSearchParams } from 'react-router-dom'
-import { extractCurrentWeatherForecastHourly, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
 
 export default function AdvancedMode() {
     const { t } = useTranslation();
 
-    const [forecast, setForecast] = useState<PlotlyChartDataFormat[] | null>(null);
-    const [forecastSymbols, setForecastSymbols] = useState<PlotlyChartDataFormat | null>(null);
-
-    // const [weatherModel, setWeatherModel] = useState<string[]>([]);
-    const [cloudData, setCloudData] = useState<PlotlyChartDataFormat[] | null>(null)
-
     const [searchParams, setSearchParams] = useSearchParams();
     const [weatherModel, setWeatherModel] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
+    const [measurements, setMeasurement] = useState(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
 
-    const [temperatureForecast, setTemperatureForecast] = useState<PlotlyChartDataFormat[] | null>(null)
+    const [temperatureForecast, setTemperatureForecast] = useState<{ [key: string]: PlotlyChartDataFormat[]; } | null>(null)
+
+    useEffect(() => {
+
+    }, [])
 
     useEffect(() => {
         fetchForecastsWeatherModels();
 
-        setSearchParams({ models: JSON.stringify(weatherModel) });
-    }, [weatherModel]);
+        setSearchParams({ models: JSON.stringify(weatherModel), measurements: JSON.stringify(measurements) });
+    }, [weatherModel, measurements]);
 
     async function fetchForecastsWeatherModels() {
         console.log(weatherModel);
 
 
-        let newTemperature: PlotlyChartDataFormat[] = []
+        let newData: { [key: string]: PlotlyChartDataFormat[] } = {};
+
         if (weatherModel.length > 0) {
             for (const model of weatherModel) {
                 const currentModelForecast = await fetchCurrentForecast(model);
 
-                const temperature = extractCurrentWeatherForecastHourly(currentModelForecast, 'apparent_temperature', model)
+                for (const measurement of measurements) {
+                    const data = extractCurrentWeatherForecastHourly(currentModelForecast, measurement, model);
 
-                newTemperature = [...newTemperature, convertToPlotlyChartFormat(temperature, 'scatter', null, null, "year")]
+                    if (!newData[measurement]) {
+                        newData[measurement] = [];
+                    }
+
+                    newData[measurement].push(convertToPlotlyChartFormat(data, 'scatter'));
+                }
             }
         }
 
-        if (newTemperature.length > 0) {
-            setTimeout(() => setTemperatureForecast(newTemperature))
-        }
-
+        console.log("New Data", newData)
+        setTemperatureForecast(newData)
     }
 
     return (
         <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' height={'calc(100vh - 100px)'} overflow='hidden' overflowY={'scroll'}>
-            <SelectModels selectModels={weatherModel} setSelectModels={setWeatherModel}></SelectModels>
+            <Flex gap={'10px'}>
+                <SelectModels selectModels={weatherModel} setSelectModels={setWeatherModel}></SelectModels>
+                <SelectParameter select={measurements} setSelect={setMeasurement} measurements={weatherDataOptions}></SelectParameter>
+            </Flex>
 
-            <Flex gap='10px'>
+            <Flex gap="10px" direction='column'>
                 {temperatureForecast ?
-                    <PlotlyChart data={temperatureForecast} title={t('data.temperature')} yAxis={t('data.temperature') + ' °C'} xAxis={t('data.time')} showNow={true} dateFormat={'day'} />
-                    : <OrbitProgress size="medium" />}
+                    Object.keys(temperatureForecast).map(key => (
+                        <PlotlyChart
+                            key={key}
+                            data={temperatureForecast[key]}
+                            title={key}
+                            yAxis={t('data.temperature') + ' °C'}
+                            xAxis={t('data.time')}
+                            showNow={true}
+                            dateFormat={'day'}
+                        />
+                    )) :
+                    <OrbitProgress size="medium" />
+                }
             </Flex>
         </Flex>
     )

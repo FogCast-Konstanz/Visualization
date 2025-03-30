@@ -47,8 +47,8 @@ export default function DataPage() {
     const dailyTemp = parseActualRequestToPlotlyXYFormat(tempLastWeek, 'Hourly Temp')
     setTemperatureLastWeek(
       [
-        convertToPlotlyChartFormat(dailyTemp, 'scatter', null, graphcolors[0], 'year'),
-        convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1], 'year')
+        convertToPlotlyChartFormat(dailyTemp, 'scatter', null, graphcolors[0]),
+        convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1])
       ])
     setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false))
 
