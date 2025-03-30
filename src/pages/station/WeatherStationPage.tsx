@@ -2,7 +2,7 @@ import { Flex, useColorModeValue } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrbitProgress } from 'react-loading-indicators';
-import Introduction from '../../components/introduction';
+import Introduction from '../../components/Introduction';
 import MeasurementCard from '../startingPage/MeasurementCard';
 
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6";

@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import Introduction from '../../components/introduction';
+import Introduction from '../../components/Introduction';
 import { phenomenaType } from '../../i18n/dePhenomena';
 import PhenomenonCard from './PhenomenonCard';
 

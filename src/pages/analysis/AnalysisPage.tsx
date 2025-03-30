@@ -1,7 +1,7 @@
 import { Flex, Heading } from '@chakra-ui/react';
 import DataSource from '../../components/DataSource';
 import Leaderboard from './Leaderboard';
-import Introduction from '../../components/introduction';
+import Introduction from '../../components/Introduction';
 
 export default function AnalysisPage() {
 
