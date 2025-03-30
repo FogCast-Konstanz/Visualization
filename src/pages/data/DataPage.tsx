@@ -8,7 +8,7 @@ import { formatActualDatetime } from '../../components/requests/helpers';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import ConfigurationForRequest from '../models/ConfigurationForRequest';
 import { useTranslation } from 'react-i18next';
-import Introduction from '../../components/introduction';
+import Introduction from '../../components/Introduction';
 
 export default function DataPage() {
   const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
