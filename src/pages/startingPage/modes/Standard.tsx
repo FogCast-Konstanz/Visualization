@@ -13,7 +13,8 @@ import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import ForcastCard, { ForcastCardProps } from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
 import { extractCurrentWeatherForecastHourly, extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
-import { layoutConfig, useBackgroundColor, usePrimaryColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import { layoutConfig, useBackgroundColor, usePrimaryColor, usePrimaryVariantColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import { convertCodesAndIsDaysToAscii } from '../../../components/requests/mapWeatherCodes'
 
 
 export default function StandardMode() {
@@ -61,6 +62,7 @@ export default function StandardMode() {
       acc[entry.name] = entry.value;
       return acc;
     }, {} as Record<string, string>);
+
     setCurrentWeather(reformattedWeather);
   }
 
@@ -85,14 +87,16 @@ export default function StandardMode() {
       }
     )
 
+    console.log(temperature.x[0], rain.x[0], new Date(temperature.x[0]))
+
     // Set data for plotly graph: temperature weather code and humidity
     if (weather_code && humidity && temperature) {
       setForecast([
-        convertToPlotlyChartFormat(humidity, 'scatter', 'y2'),
-        convertToPlotlyChartFormat(temperature, 'scatter', 'y1'),
+        convertToPlotlyChartFormat(humidity, 'line', 'y2'),
+        convertToPlotlyChartFormat(temperature, 'line', 'y1'),
         convertToPlotlyChartFormat(rain, 'bar', 'y1'),
       ])
-      setForecastSymbols(convertToPlotlyChartFormat(weather_code, 'weatherIcon'))
+      setForecastSymbols(convertToPlotlyChartFormat(convertCodesAndIsDaysToAscii(weather_code, is_day), 'weatherIcon'))
       setWeekdays(weekdayAnnotations(temperature.x))
     }
 
@@ -124,7 +128,7 @@ export default function StandardMode() {
   };
 
   const loadingColor = usePrimaryColor()
-  const markingColor = usePrimaryColor()
+  const markingColor = usePrimaryVariantColor()
 
   function handleScroll() {
     const scrollLeft = scrollRef.current?.scrollLeft || 0;
@@ -160,7 +164,7 @@ export default function StandardMode() {
   };
 
   return (
-    <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }}gap={layoutConfig.gap} maxWidth={'100%'}>
+    <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }} gap={layoutConfig.gap} maxWidth={'100%'}>
       <Heading size="md" padding='0px'>{t('startingPage.currentWeather')}</Heading>
       <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }}>
         {currentWeather ?
@@ -201,7 +205,7 @@ export default function StandardMode() {
         borderRadius={layoutConfig.borderRadius}
       >
         <Flex
-         gap={layoutConfig.gap}
+          gap={layoutConfig.gap}
           overflow='hidden'
           overflowX="auto"
           pb={layoutConfig.padding}
@@ -239,12 +243,30 @@ export default function StandardMode() {
 
       <Flex gap={layoutConfig.gap}>
         {forecast && forecastSymbols ?
-          <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature')} xAxis={t('data.time')} y2Axis={t('data.humidity')} showNow={true} customLayout={{ annotations: weekdays, shapes: [shape] }} />
+          <PlotlyChart
+            data={[...forecast, forecastSymbols]}
+            title={t('data.forecast')}
+            yAxis={t('data.temperature')}
+            xAxis={t('data.time')}
+            y2Axis={t('data.humidity')}
+            showNow={true}
+            customLayout={{ annotations: weekdays, shapes: [shape] }} />
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
       <Flex>
-        {cloudData ? <PlotlyChart title={'Cloudcover'} data={cloudData} yAxis={t('startingPage.temperature') + ' °C'} xAxis={t('startingPage.time')} y2Axis={t('startingPage.humidity') + ' %'} showNow={true}></PlotlyChart> : <>miau</>}
+        {cloudData ?
+          <PlotlyChart
+            title={'CloudCover'}
+            data={cloudData}
+            yAxis={t('startingPage.temperature') + ' °C'}
+            xAxis={t('startingPage.time')}
+            y2Axis={t('startingPage.humidity') + ' %'}
+            showNow={true}
+            customLayout={{ annotations: weekdays, shapes: [shape] }} 
+            startFromZero={false}
+            />
+          : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
       <DataSource></DataSource>

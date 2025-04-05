@@ -25,7 +25,7 @@ export default function CookieBanner() {
     return (
         <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }} >
             <Box p={layoutConfig.padding}
-                bg={useBackgroundColor()}
+                bg={usePrimaryColor()}
                 color={useTextColor()}
                 textAlign="center"
                 marginInline={{lg: '20%', base: '10%'}}
@@ -37,7 +37,7 @@ export default function CookieBanner() {
                     <Icon as={FaCookieBite } boxSize={12} />
                     <Text>{t('cookies.text')}</Text>
                     <Button
-                        background={usePrimaryColor()}
+                        background={useBackgroundColor()}
                         color={useTextColor()}
                         _hover={{ bg: useSurfaceColor() }}
                         onClick={acceptCookies}

@@ -6,13 +6,15 @@ import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from 
 
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import Introduction from '../../components/Introduction';
 
 export default function Impressum() {
     const { t } = useTranslation();
 
     return (
         <VStack width={'100%'} padding={layoutConfig.padding} overflow="auto" maxHeight={layoutConfig.pageHeight} gap={layoutConfig.gap}>
-            <Heading size='lg'>{t('impressum.title')}</Heading>
+            <Introduction header={t('impressum.title')} text=''></Introduction>
+            {/* <Heading size='lg'></Heading> */}
             <Card
                 bg={useBackgroundColor()}
                 color={useTextColor()}

@@ -9,7 +9,8 @@ export const useBackgroundColor = () => useColorModeValue('#C7DFDF', '#293F3F');
 export const useSurfaceColor = () => useColorModeValue('#DDEDED', '#2F4F4F');
 export const useTextColor = () => useColorModeValue("#2F4F4F", "#DCDCDC");
 export const useSecondaryTextColor = () => useColorModeValue("#FFFFFF", "#000000");
-export const usePrimaryColor = () => useColorModeValue('#4C8C8CBA', '#4C8C8CBA');
+export const usePrimaryColor = () => useColorModeValue('#4C8C8C', '#4C8C8C');
+export const usePrimaryVariantColor = () => useColorModeValue('#4C8C8CBA', '#4C8C8CBA');
 export const useWarningColor = () => useColorModeValue('#FFA500', '#FFAA33');
 export const useGraphColors = () => useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],)
 

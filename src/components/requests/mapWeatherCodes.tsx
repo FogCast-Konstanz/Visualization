@@ -11,14 +11,15 @@ import PartlyMoonSVG from '/public/assets/weather/partlyMoon.svg';
 import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
 import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
+import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 
-const SVGRepoRainy = createIcon({displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" />});
-const SVGRepoPartlySunny = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" />});
-const SVGRepoThunder = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ThunderSVG} width="24" height="24" />});
-const SVGRepoFog = createIcon({displayName: "SVGRepoFog", viewBox: "0 0 24 24", path: <image href={FogSVG} width="24" height="24" />});
-const SVGRepoHumidity = createIcon({displayName: "SVGRepoHumidity", viewBox: "0 0 24 24", path: <image href={HumiditySVG} width="24" height="24" />});
-const SVGRepoMoon = createIcon({displayName: "SVGRepoMoon", viewBox: "0 0 24 24", path: <image href={MoonSVG} width="24" height="24" />});
-const SVGRepoPartlyMoon = createIcon({displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" />});
+const SVGRepoRainy = createIcon({ displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" /> });
+const SVGRepoPartlySunny = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" /> });
+const SVGRepoThunder = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ThunderSVG} width="24" height="24" /> });
+const SVGRepoFog = createIcon({ displayName: "SVGRepoFog", viewBox: "0 0 24 24", path: <image href={FogSVG} width="24" height="24" /> });
+const SVGRepoHumidity = createIcon({ displayName: "SVGRepoHumidity", viewBox: "0 0 24 24", path: <image href={HumiditySVG} width="24" height="24" /> });
+const SVGRepoMoon = createIcon({ displayName: "SVGRepoMoon", viewBox: "0 0 24 24", path: <image href={MoonSVG} width="24" height="24" /> });
+const SVGRepoPartlyMoon = createIcon({ displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" /> });
 
 // Function to map weather codes to descriptions
 const getWeatherDescription = (code: number): string => {
@@ -80,3 +81,33 @@ export function getWeatherAscii(code: number): string {
     return asciiMap[code] || "❓";
 };
 
+export function getWeatherAsciiDayAndNight(code: number, isDay: boolean) {
+    const asciiMap: Record<number, { day: string; night: string }> = {
+        0: { day: "🌞", night: "🌙" }, 1: { day: "🌤️", night: "🌖" },
+        2: { day: "⛅️", night: "🌘" }, 3: { day: "☁️", night: "☁️" },
+        51: { day: "🌧️", night: "🌧️" }, 61: { day: "⛈️", night: "⛈️" },
+        62: { day: "🌨️", night: "🌨️" }, 45: { day: "🌫️", night: "🌫️" }
+    }
+
+    return isDay ? asciiMap[code]?.day || "❓" : asciiMap[code]?.night || "❓";
+};
+
+export function convertCodesAndIsDaysToAscii(weatherCodes: PlotlyChartBasicFormat, isDayFlags: PlotlyChartBasicFormat): PlotlyChartBasicFormat {
+    
+    const adjustedTimes = weatherCodes.x.map(time => {
+        const date = new Date(time);
+        date.setHours(date.getHours() + 2); // Adjust for 2-hour difference
+        return date.toISOString(); // or return date.toString() depending on format
+    });
+    
+    return {
+        x: adjustedTimes,
+        y: Array(weatherCodes.x.length).fill(20),
+        text: weatherCodes.y.map((code, i) => {
+            console.log(code)
+            return getWeatherAsciiDayAndNight(code, Boolean(isDayFlags.y[i]))
+        }
+        ),
+        name: weatherCodes.name
+    }
+}

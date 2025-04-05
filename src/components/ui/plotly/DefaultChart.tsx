@@ -15,13 +15,14 @@ interface PlotlyChartProps {
     title?: string;
     showNow?: boolean;
 
+    startFromZero?: boolean
     dateFormat?: 'standard' | 'year' | 'month' | 'day'
 }
 
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, dateFormat = 'standard' }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, dateFormat = 'standard' }) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -44,6 +45,10 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
     const orientationModebar: orientation = "v"
     const traceorder: "normal" | "grouped" | "reversed" | "reversed+grouped" | undefined = "normal"
 
+    const range = startFromZero ? [data[0].x[0], data[0].x[data[0].x.length - 1]] : [];
+
+    // const [firstKey, firstValue] = Object.entries(data)[0] || [];
+
     const tickFormatMap: Record<string, string> = {
         year: "%Y",
         month: "%b %Y",
@@ -65,12 +70,14 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
         xaxis: {
             gridcolor: gridColor, // Light gridlines
             zerolinecolor: "#888",
-            tickangle: -45, // Rotate labels
+            // tickangle: -45, // Rotate labels
             automargin: true, // Prevent cutoff
             tickmode: "auto", // Automatically adjust ticks
             nticks: 10, // Reduce number of ticks
             title: xAxis,
-            tickformat: tickFormatMap[dateFormat] || "%H:%M"
+            // tickformat: tickFormatMap[dateFormat] || "%H:%M",
+            range: range,
+            type: 'date'
         },
         yaxis: {
             gridcolor: gridColor,

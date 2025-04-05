@@ -31,6 +31,7 @@ export default function ForcastCard({ time, temperature, weather, rain, isDay }:
     
     useEffect(() => {
         console.log(temperature)
+        console.log(time)
         console.log(time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }))
 
     }, [ ])
@@ -46,7 +47,7 @@ export default function ForcastCard({ time, temperature, weather, rain, isDay }:
             <CardBody padding={'0.5rem 1.75rem 0.75rem'}>
                 <Flex direction='column' alignItems='center' justifyContent={"space-between"}>
                     <Text mb={layoutConfig.margin}>{time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}</Text>
-                    <Text fontSize={'lg'} mb={layoutConfig.margin} fontWeight={'bold'}>{Math.round(temperature * 100) / 100}°C</Text>
+                    <Text fontSize={'lg'} mb={layoutConfig.margin} fontWeight={'bold'}>{Math.round(temperature)}°C</Text>
                     <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={layoutConfig.margin} />
                     <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={layoutConfig.gap}><Icon as={TbDropletFilled} boxSize={4} mt={'2px'} color={useSecondaryTextColor()}/><Text fontSize={'s'}>{rain}%</Text></Flex>
                 </Flex> 

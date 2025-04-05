@@ -3,12 +3,13 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OrbitProgress } from 'react-loading-indicators'
 import { useSearchParams } from 'react-router-dom'
-import { convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
+import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
 import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataOptions } from '../../../components/requests/currentForecacstBackend'
 import SelectParameter from '../../../components/SelectMeasurements'
 import SelectModels from '../../../components/SelectModels'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import DataSource from '../../../components/DataSource'
 
 
 export default function AdvancedMode() {
@@ -19,6 +20,7 @@ export default function AdvancedMode() {
     const [measurements, setMeasurement] = useState(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
 
     const [temperatureForecast, setTemperatureForecast] = useState<{ [key: string]: PlotlyChartDataFormat[]; } | null>(null)
+    const [weekdays, setWeekdays] = useState<any | null>(null)
 
     useEffect(() => {
 
@@ -50,10 +52,14 @@ export default function AdvancedMode() {
                     newData[measurement].push(convertToPlotlyChartFormat(data, 'scatter'));
                 }
             }
+
+            const [_, randomElement] = Object.entries(newData)[0] || [];
+            setWeekdays(weekdayAnnotations(randomElement[0].x))
         }
 
         console.log("New Data", newData)
         setTemperatureForecast(newData)
+        
     }
 
     return (
@@ -74,11 +80,14 @@ export default function AdvancedMode() {
                             xAxis={t('data.time')}
                             showNow={true}
                             dateFormat={'day'}
+                            customLayout={{ annotations: weekdays }}
                         />
                     )) :
                     <OrbitProgress size="medium" />
                 }
             </Flex>
+
+            <DataSource></DataSource>
         </Flex>
     )
 }

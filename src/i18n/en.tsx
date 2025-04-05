@@ -34,7 +34,8 @@ const en = {
     },
 
     dataPage: {
-        introduction: "How has the weather changed in recent years? What temperature trends are there within a year? How does the temperature fluctuate within a week? These and many other questions can be answered on this page with the help of many graphs!",
+        title: "Data Visualization",
+        introduction: "How has the weather changed in recent years? What temperature trends are there within a year? How does the temperature fluctuate within a week? These and many other questions can be answered on this page with the help of many graphs! The displayed data are measured data received from DWD, OpenMeteo and PegelOnline.",
         tempLastYear: "Temperature in the last year",
         tempLastWeek: "Temperature of the last week",
         fogMonth: "Fog days per month",

@@ -26,27 +26,16 @@ export interface PlotlyChartDataFormat {
 
 export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon', yAxis?: string | null, customColor?: string | null, customOpacity?: number): PlotlyChartDataFormat {
     
-    let date: string[] = []
+    console.log(basicFormatInput.name, basicFormatInput.y, basicFormatInput.x)
 
-    // switch (dateFormat) {
-    //     case 'germanDate':
-    //         date = basicFormatInput.x.map(t => formatGermanDate(t))
-    //         break;
-    //     case 'germanTime':
-            
-    //         break;
-    //     case 'year':
-    //         date = basicFormatInput.x.map(t => formatYear(t))
-    //         console.log(date)
-    //         break;
-    //     default:
-    //         break;
-    // }
-    
-    
-    
+    const adjustedTimes = basicFormatInput.x.map(time => {
+        const date = new Date(time);
+        date.setHours(date.getHours() + 2); // Adjust for 2-hour difference
+        return date.toISOString(); // or return date.toString() depending on format
+    });
+
     const basicFormat = {
-        x: basicFormatInput.x,
+        x: adjustedTimes,
         y: basicFormatInput.y,
         name: basicFormatInput.name,
         text: basicFormatInput.text,
@@ -101,8 +90,8 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
         case "weatherIcon":
             return {
                 x: basicFormatInput.x,
-                y: Array(basicFormatInput.x.length).fill(20),
-                text: basicFormatInput.y.map(code => getWeatherAscii(code)),
+                y: basicFormatInput.y,
+                text: basicFormatInput.text,
                 name: basicFormatInput.name,
                 mode: 'text',
                 textfont: { size: 20 }
