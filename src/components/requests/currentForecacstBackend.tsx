@@ -150,4 +150,5 @@ export type CurrentForecastResponseFormat = {
     wind_speed_120m: number;
     wind_speed_180m: number;
     forecast_date: number;
+    is_day: number;
 };

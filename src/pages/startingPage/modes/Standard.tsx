@@ -62,6 +62,7 @@ export default function StandardMode() {
     /* Convert to Plotly format */
     const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', 'Temperature', requestDuration)
     const humidity = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'relative_humidity_2m', 'Humidity', requestDuration)
+    const rain = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'rain', 'Rain', requestDuration)
     const weather_code = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'weather_code', 'Weather Code', requestDuration)
     const is_day = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'is_day', 'isDay', requestDuration)
 
@@ -69,7 +70,7 @@ export default function StandardMode() {
     setForecastCard(
       {
         temperature: temperature.y,
-        humidity: humidity.y,
+        rain: rain.y,
         time: temperature.x,
         weather_code: weather_code.y,
         is_day: is_day.y
@@ -78,7 +79,11 @@ export default function StandardMode() {
 
     // Set data for plotly graph: temperature weather code and humidity
     if (weather_code && humidity && temperature) {
-      setForecast([convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), convertToPlotlyChartFormat(temperature, 'scatter', 'y1')])
+      setForecast([
+        convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), 
+        convertToPlotlyChartFormat(temperature, 'scatter', 'y1'),
+        convertToPlotlyChartFormat(rain, 'bar', 'y1'),
+      ])
       setForecastSymbols(convertToPlotlyChartFormat(weather_code, 'weatherIcon'))
       setWeekdays(weekdayAnnotations(temperature.x))
     }
@@ -205,7 +210,7 @@ export default function StandardMode() {
             <ForcastCard
               time={new Date(forecastCard.time[index])}
               temperature={forecastCard.temperature[index]}
-              humidity={forecastCard.humidity[index]}
+              rain={forecastCard.rain[index]}
               isDay={forecastCard.is_day[index]}
               weather={forecastCard.weather_code[index]}
               key={index}></ForcastCard>

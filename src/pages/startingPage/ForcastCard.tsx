@@ -2,6 +2,8 @@ import { Card, CardBody, createIcon, Flex, Icon, Text, useColorModeValue } from 
 
 import { IoCloudOfflineOutline, IoCloudy, IoSnow, IoSunny } from "react-icons/io5";
 import { IconType } from "react-icons/lib";
+import { FaDroplet } from "react-icons/fa6";
+
 import FogSVG from '/public/assets/weather/fog.svg';
 import HumiditySVG from '/public/assets/weather/humidity.svg';
 import MoonSVG from '/public/assets/weather/moon.svg';
@@ -12,6 +14,7 @@ import ThunderSVG from '/public/assets/weather/thunder.svg';
 import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
 import { useEffect } from "react";
 
+import { TbDropletFilled } from "react-icons/tb";
 const SVGRepoRainy = createIcon({displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" />});
 const SVGRepoPartlySunny = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" />});
 const SVGRepoThunder = createIcon({displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ThunderSVG} width="24" height="24" />});
@@ -21,8 +24,8 @@ const SVGRepoMoon = createIcon({displayName: "SVGRepoMoon", viewBox: "0 0 24 24"
 const SVGRepoPartlyMoon = createIcon({displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" />});
 
 
-export type ForcastCardProps = { time: Date, temperature: number, weather: number, humidity: string, isDay: number }
-export default function ForcastCard({ time, temperature, weather, humidity, isDay }: ForcastCardProps) { 
+export type ForcastCardProps = { time: Date, temperature: number, weather: number, rain: string, isDay: number }
+export default function ForcastCard({ time, temperature, weather, rain, isDay }: ForcastCardProps) { 
     
     useEffect(() => {
         console.log(temperature)
@@ -43,7 +46,7 @@ export default function ForcastCard({ time, temperature, weather, humidity, isDa
                     <Text mb={'0.75rem'}>{time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}</Text>
                     <Text fontSize={'lg'} mb={'0.5rem'} fontWeight={'bold'}>{Math.round(temperature * 100) / 100}°C</Text>
                     <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={'0.75rem'} />
-                    <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={'5px'}><Icon as={SVGRepoHumidity} boxSize={4} mt={'2px'} color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}/><Text fontSize={'s'}>{humidity}%</Text></Flex>
+                    <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={'5px'}><Icon as={TbDropletFilled} boxSize={4} mt={'2px'} color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}/><Text fontSize={'s'}>{rain}%</Text></Flex>
                 </Flex> 
             </CardBody>
         </Card>

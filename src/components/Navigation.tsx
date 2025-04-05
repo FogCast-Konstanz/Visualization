@@ -7,6 +7,7 @@ import { GoHomeFill } from "react-icons/go";
 import { useLocation } from 'react-router-dom';
 import Settings from './Menu';
 import StatusBadge from './StatusBadge';
+import { layoutConfig, useCustomBg } from './style';
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -30,11 +31,11 @@ export default function Navigation() {
       <Flex
         display={{ lg: 'flex', base: 'none' }}
         height={'100dvh'}
-        width={'250px'}
+        width={layoutConfig.navBar.width}
         padding={'20px'}
         direction='column'
         justify={'space-between'}
-        bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
+        bg={useCustomBg()}
       >
         <div>
           <Link href='/' _hover={{ textDecoration: "none" }}><Heading size="2xl">{t('title')}</Heading></Link>
