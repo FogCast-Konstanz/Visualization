@@ -3,6 +3,7 @@ import { useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { fetchModels } from './requests/forcastBackend';
+import { useBackgroundColor, useSurfaceColor, useTextColor } from './style';
 
 type ModelSelectionProps = {
     selectModels: string[];
@@ -29,9 +30,9 @@ export default function SelectModels({ selectModels, setSelectModels }: ModelSel
         console.log("Selected Option", selectedOptions)
     };
 
-    const bgColor = useColorModeValue('#C7DFDF', '#293F3F');
-    const focusColor = useColorModeValue('#DDEDED', '#2F4F4F');
-    const textColor = useColorModeValue("#2F4F4F", "#DCDCDC");
+    const bgColor = useBackgroundColor();
+    const focusColor = useSurfaceColor();
+    const textColor = useTextColor();
 
     const customStyles = {
         control: (provided: any) => ({

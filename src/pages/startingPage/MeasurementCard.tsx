@@ -1,15 +1,19 @@
 import { Card, CardBody, Flex, Heading, Icon, useColorModeValue } from "@chakra-ui/react"
 import { IconType } from "react-icons/lib"
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+
 
 type Input = { measurement: string, value: string, unit: string, icon?: IconType }
 export default function MeasurementCard({ measurement, value, unit, icon }: Input) {
 
     return (
         <Card
-            bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-            color={useColorModeValue('custom_light.text', 'custom_dark.text')} width='100%'>
+            bg={useBackgroundColor()}
+            color={useTextColor()} width='100%'
+            borderRadius={layoutConfig.borderRadius}
+            >
             <CardBody >
-                <Flex alignItems={"center"} gap={'20px'}>
+                <Flex alignItems={"center"} gap={layoutConfig.gap}>
                     {icon && <Icon as={icon} boxSize={10} />}
                     <div>
                         <Heading size={'md'}>{measurement}</Heading>

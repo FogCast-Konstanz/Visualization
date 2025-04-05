@@ -80,15 +80,3 @@ export function getWeatherAscii(code: number): string {
     return asciiMap[code] || "❓";
 };
 
-// Example usage component
-// const WeatherDisplay = ({ code }: { code: number }) => {
-//     return (
-//         <Box textAlign="center" p={4} borderWidth={1} borderRadius="md">
-//             <Icon as={() => getWeatherIcon(code)} boxSize={10} />
-//             <Text fontSize="xl">{getWeatherDescription(code)}</Text>
-//             <Text fontSize="2xl">{getWeatherAscii(code)}</Text>
-//         </Box>
-//     );
-// };
-
-// export default WeatherDisplay;

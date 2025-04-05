@@ -1,3 +1,4 @@
+import { layoutConfig } from "../../components/style";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { Box, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import { useState } from "react";
@@ -38,9 +39,9 @@ export default function Leaderboard({entries, name}: Entries){
   };
 
   return (
-    <Flex direction='column' alignItems={'right'} mt='10px'>
+    <Flex direction='column' alignItems={'right'} mt={layoutConfig.margin}>
       <Text p='0' fontWeight={'bold'} >{name}</Text>
-      <Box maxW="md" p={4} borderWidth="1px" borderRadius="lg" boxShadow="md">
+      <Box maxW="md" p={layoutConfig.padding} borderWidth="1px" borderRadius={layoutConfig.borderRadius} boxShadow="md">
         <Table variant="simple">
           <Thead>
             <Tr>

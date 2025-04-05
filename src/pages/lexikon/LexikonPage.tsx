@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LexikonEntry from './LexikonEntry'
 
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+
+
 export default function Lexikon() {
     const [hash, setHash] = useState('')
 
@@ -47,21 +50,21 @@ export default function Lexikon() {
 
 
     return (
-        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={'10px'} gap='10px' width={{ lg: '100%' }}>
+        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={layoutConfig.margin}gap={layoutConfig.gap} width={{ lg: '100%' }}>
             <Flex direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent='space-between'>
                 <Heading flex={2}>{t('lexicon.title')}</Heading>
                 <Flex flex={1} direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent={'space-between'} gap={{ lg: '20px', base: '10px' }} width={'100%'}>
                     <InputGroup
                         flex={{ lg: 1, base: 'none' }}
 
-                        bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-                        color={useColorModeValue('custom_light.text', 'custom_dark.text')}
-                        _focus={{ borderColor: useColorModeValue('custom_light.background', 'custom_dark.background') }}
+                        bg={useBackgroundColor()}
+                        color={useTextColor()}
+                        _focus={{ borderColor: useBackgroundColor() }}
                         sx={{
                             option: {
-                                background: useColorModeValue('custom_light.background', 'custom_dark.background'),
-                                color: useColorModeValue('custom_light.text', 'custom_dark.text'),
-                                _hover: { background: useColorModeValue('custom_light.background', 'custom_dark.background') }
+                                background: useBackgroundColor(),
+                                color: useTextColor(),
+                                _hover: { background: useBackgroundColor() }
                             },
                         }}
                     >
@@ -89,14 +92,14 @@ export default function Lexikon() {
                         flex={1}
 
                         onChange={(e) => setSelectedTag(e.target.value)}
-                        bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-                        color={useColorModeValue('custom_light.text', 'custom_dark.text')}
-                        _focus={{ borderColor: useColorModeValue('custom_light.background', 'custom_dark.background') }}
+                        bg={useBackgroundColor()}
+                        color={useTextColor()}
+                        _focus={{ borderColor: useBackgroundColor() }}
                         sx={{
                             option: {
-                                background: useColorModeValue('custom_light.background', 'custom_dark.background'),
-                                color: useColorModeValue('custom_light.text', 'custom_dark.text'),
-                                _hover: { background: useColorModeValue('custom_light.background', 'custom_dark.background') }
+                                background: useBackgroundColor(),
+                                color: useTextColor(),
+                                _hover: { background: useBackgroundColor() }
                             },
                         }}
                     >

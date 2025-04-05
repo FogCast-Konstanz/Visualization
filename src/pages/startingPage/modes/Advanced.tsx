@@ -8,6 +8,8 @@ import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataO
 import SelectParameter from '../../../components/SelectMeasurements'
 import SelectModels from '../../../components/SelectModels'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../../components/style';
+
 
 export default function AdvancedMode() {
     const { t } = useTranslation();
@@ -55,8 +57,8 @@ export default function AdvancedMode() {
     }
 
     return (
-        <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' height={'calc(100vh - 100px)'} overflow='hidden' overflowY={'scroll'}>
-            <Flex gap={'10px'}>
+        <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }}gap={layoutConfig.gap} height={'calc(100vh - 100px)'} overflow='hidden' overflowY={'scroll'}>
+            <Flex gap={layoutConfig.gap}>
                 <SelectModels selectModels={weatherModel} setSelectModels={setWeatherModel}></SelectModels>
                 <SelectParameter select={measurements} setSelect={setMeasurement} measurements={weatherDataOptions}></SelectParameter>
             </Flex>

@@ -1,14 +1,15 @@
 import { Card, CardBody, CardHeader, Heading, useColorModeValue } from "@chakra-ui/react"
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from './style';
 
 type Input = {header: string, body: string}
 export default function CardIndividual({ header, body }: Input) {
 
     return (
         <Card
-            bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-            color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+            bg={useBackgroundColor()}
+            color={useTextColor()}
             width={'100%'} >
             <CardHeader paddingBottom={'0'}>
                 <Heading size='lg'>{header}</Heading>

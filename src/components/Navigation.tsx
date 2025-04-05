@@ -1,5 +1,5 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
-import { Flex, Heading, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, UnorderedList, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Heading, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, Text, UnorderedList, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaDatabase } from "react-icons/fa";
 import { FaBolt, FaBook, FaChartSimple, FaCircleInfo, FaRankingStar, FaSatellite } from "react-icons/fa6";
@@ -7,7 +7,7 @@ import { GoHomeFill } from "react-icons/go";
 import { useLocation } from 'react-router-dom';
 import Settings from './Menu';
 import StatusBadge from './StatusBadge';
-import { layoutConfig, useCustomBg } from './style';
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from './style';
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -30,12 +30,12 @@ export default function Navigation() {
     <>
       <Flex
         display={{ lg: 'flex', base: 'none' }}
-        height={'100dvh'}
+        height={layoutConfig.navBar.height}
         width={layoutConfig.navBar.width}
-        padding={'20px'}
+        padding={layoutConfig.padding}
         direction='column'
         justify={'space-between'}
-        bg={useCustomBg()}
+        bg={useBackgroundColor()}
       >
         <div>
           <Link href='/' _hover={{ textDecoration: "none" }}><Heading size="2xl">{t('title')}</Heading></Link>
@@ -49,24 +49,23 @@ export default function Navigation() {
             {navigation.map((entry, index) => (
               <ListItem
                 key={index}
-                marginBottom="10px"
-                display="flex"
-                alignItems="center"
-                _hover={{ bg: useColorModeValue('custom_light.surface', 'custom_dark.surface') }}
-                bg={isActive(entry.href) ? useColorModeValue('custom_light.surface', 'custom_dark.surface') : 'transparent'}
-                borderRadius="md"
-                pl={'10px'}
+                marginBottom={layoutConfig.margin}
+                _hover={{ bg: useSurfaceColor() }}
+                bg={isActive(entry.href) ? useSurfaceColor() : 'transparent'}
+                borderRadius={layoutConfig.buttonBorderRadius}
+                pl={layoutConfig.padding}
               >
-                <Icon as={entry.icon} boxSize={5} />
                 <Link
                   href={entry.href}
-                  display="block"
+                  display="flex"
+                  pl={layoutConfig.padding}
+                  alignItems="center"
                   padding="8px 12px"
-                  borderRadius="md"
                   textDecoration='none'
                   _hover={{ textDecoration: "none" }}
                 >
-                  {entry.name}
+                  <Icon as={entry.icon} boxSize={5} />
+                  <Text pl={layoutConfig.padding}>{entry.name}</Text>
                 </Link>
               </ListItem>
             ))}
@@ -84,7 +83,7 @@ export default function Navigation() {
         position={'sticky'}
         top={'0'}
         zIndex={'1'}
-        bg={useColorModeValue('custom_light.surface', 'custom_dark.surface')}
+        bg={useSurfaceColor()}
       >
         <Menu>
           <MenuButton
@@ -92,21 +91,21 @@ export default function Navigation() {
             aria-label='Options'
             icon={<HamburgerIcon />}
             variant='outline'
-            margin='10px'
+            margin={layoutConfig.margin}
           />
           <MenuList
-            background={useColorModeValue('custom_light.background', 'custom_dark.background')}
-            textColor={useColorModeValue('custom_light.text', 'custom_dark.text')}
-            borderColor={useColorModeValue('custom_light.surface', 'custom_dark.surface')}
+            background={useBackgroundColor()}
+            textColor={useTextColor()}
+            borderColor={useSurfaceColor()}
           >
             {navigation.map((entry, index) => (
               <MenuItem
                 icon={<Icon as={entry.icon} boxSize={4} />}
-                marginBottom="10px"
+                marginBottom={layoutConfig.margin}
                 key={index}
                 onClick={() => window.location.href = entry.href}
-                background={useColorModeValue('custom_light.background', 'custom_dark.background')}
-                _hover={{background: useColorModeValue('custom_light.background', 'custom_dark.background')}}
+                background={useBackgroundColor()}
+                _hover={{background: useBackgroundColor()}}
               >
                 <Link href={entry.href}>{entry.name}</Link>
               </MenuItem>

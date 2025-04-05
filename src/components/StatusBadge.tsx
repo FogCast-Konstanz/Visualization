@@ -5,6 +5,7 @@ import Select from 'react-select';
 import { fetchModels } from './requests/forcastBackend';
 import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
 import { fetchServerStatus } from './requests/statusBackend';
+import { layoutConfig } from './style';
 
 
 export default function StatusBadge() {
@@ -28,8 +29,8 @@ export default function StatusBadge() {
     return (
         <>
             <Flex
-                p={2}
-                borderRadius="md"
+                p={layoutConfig.padding}
+                borderRadius={layoutConfig.borderRadius}
                 align="center"
                 justify="center"
             >

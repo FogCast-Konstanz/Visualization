@@ -13,6 +13,8 @@ import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
 import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
 import { useEffect } from "react";
+import { layoutConfig, useBackgroundColor, usePrimaryColor, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../components/style';
+
 
 import { TbDropletFilled } from "react-icons/tb";
 const SVGRepoRainy = createIcon({displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" />});
@@ -35,18 +37,18 @@ export default function ForcastCard({ time, temperature, weather, rain, isDay }:
     
     return (
         <Card
-            bg={useColorModeValue('custom_light.primary_variant', 'custom_dark.primary_variant')}
-            color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}
+            bg={usePrimaryColor()}
+            color={useSecondaryTextColor()}
             width='fit-content'
             minWidth={'100px'}
-            borderRadius={'20px'}
+            borderRadius={layoutConfig.borderRadius}
             >
             <CardBody padding={'0.5rem 1.75rem 0.75rem'}>
                 <Flex direction='column' alignItems='center' justifyContent={"space-between"}>
-                    <Text mb={'0.75rem'}>{time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}</Text>
-                    <Text fontSize={'lg'} mb={'0.5rem'} fontWeight={'bold'}>{Math.round(temperature * 100) / 100}°C</Text>
-                    <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={'0.75rem'} />
-                    <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={'5px'}><Icon as={TbDropletFilled} boxSize={4} mt={'2px'} color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}/><Text fontSize={'s'}>{rain}%</Text></Flex>
+                    <Text mb={layoutConfig.margin}>{time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}</Text>
+                    <Text fontSize={'lg'} mb={layoutConfig.margin} fontWeight={'bold'}>{Math.round(temperature * 100) / 100}°C</Text>
+                    <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={layoutConfig.margin} />
+                    <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={layoutConfig.gap}><Icon as={TbDropletFilled} boxSize={4} mt={'2px'} color={useSecondaryTextColor()}/><Text fontSize={'s'}>{rain}%</Text></Flex>
                 </Flex> 
             </CardBody>
         </Card>

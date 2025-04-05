@@ -2,6 +2,7 @@ import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
 import { Flex, useColorModeValue, useTheme } from "@chakra-ui/react";
+import { layoutConfig, useBackgroundColor, useGraphColors, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../../components/style';
 
 interface PlotlyChartProps {
     data: any[];
@@ -31,12 +32,12 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
     const [layout, setLayout] = useState<any>();
     const [style, setStyle] = useState<any>();
 
-    const colors = useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],);
+    const colors = useGraphColors();
 
-    const plotBgColor = useColorModeValue(theme.colors.custom_light.surface, theme.colors.custom_dark.surface);
-    const paperBgColor = useColorModeValue(theme.colors.custom_light.background, theme.colors.custom_dark.background);
-    const textColor = useColorModeValue(theme.colors.custom_light.text, theme.colors.custom_dark.text);
-    const gridColor = useColorModeValue(theme.colors.custom_light.secondarytext, theme.colors.custom_dark.secondarytext);
+    const plotBgColor = useSurfaceColor();
+    const paperBgColor = useBackgroundColor();
+    const textColor = useTextColor();
+    const gridColor = useSecondaryTextColor();
 
     const orientationLegendBottom: orientation = "h"
     const orientationLegendRight: orientation = "v"
@@ -126,7 +127,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
 
 
     return (
-        <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%" }}>
+        <div style={{ borderRadius: layoutConfig.borderRadius, overflow: "hidden", width: "100%" }}>
             <Plot
                 data={data}
                 layout={layout}

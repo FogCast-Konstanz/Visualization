@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next';
 import Introduction from '../../components/Introduction';
 import { phenomenaType } from '../../i18n/dePhenomena';
 import PhenomenonCard from './PhenomenonCard';
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+
 
 export default function Phenomena() {
     const { t } = useTranslation();
@@ -14,10 +16,10 @@ export default function Phenomena() {
     const phenomena2: phenomenaType[] = t('phenomena', { returnObjects: true, ns: 'phenomena' }) as phenomenaType[] 
 
     return (
-        <Flex padding={'10px'} direction={'column'} gap={'20px'} overflow="auto" maxHeight={'100dvh'} ml='10px'>
+        <Flex padding={layoutConfig.padding} direction={'column'} gap={layoutConfig.gap} overflow="auto" maxHeight={'100dvh'} ml={layoutConfig.margin}>
             <Introduction header={t('phenomena.title')} text={t('phenomena.introduction')}></Introduction>
 
-            <Flex gap={'20px'} wrap={'wrap'}>
+            <Flex gap={layoutConfig.gap} wrap={'wrap'}>
                 {phenomena2.map((entry, index) => (
                     <PhenomenonCard {...entry} key={index} />
                 ))}

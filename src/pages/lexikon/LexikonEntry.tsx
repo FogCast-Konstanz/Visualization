@@ -1,6 +1,9 @@
 import { Card, CardBody, CardHeader, Flex, Heading, Tag, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor, useWarningColor } from '../../components/style';
+
+
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -20,7 +23,7 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
         }
     }, [defaultShown])
 
-    const color = useColorModeValue('custom_light.warning', 'custom_dark.warning')
+    const color = useWarningColor()
 
     function highlightText(text: string, query: string) {
         if (!query) return <Heading as='span' size={'md'}>{text}</Heading>;
@@ -35,8 +38,8 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
 
     return (
         <Card
-            bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-            color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+            bg={useBackgroundColor()}
+            color={useTextColor()}
             _hover={{ boxShadow: "md", transform: "scale(1.001)", cursor: "pointer" }}
             transition="all 0.2s ease-in-out"
             width={'100%'}
@@ -50,9 +53,9 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
                             tags?.map((tag, index) => (
                                 <Tag
                                     key={index}
-                                    bg={useColorModeValue('custom_light.surface', 'custom_dark.surface')}
-                                    color={useColorModeValue('custom_light.text', 'custom_dark.text')}
-                                    marginStart={'10px'} size='md'>
+                                    bg={useSurfaceColor()}
+                                    color={useTextColor()}
+                                    marginStart={layoutConfig.margin} size='md'>
                                     {tag}
                                 </Tag>
                             ))

@@ -9,6 +9,7 @@ import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import ConfigurationForRequest from '../models/ConfigurationForRequest';
 import { useTranslation } from 'react-i18next';
 import Introduction from '../../components/Introduction';
+import { layoutConfig, useBackgroundColor, useGraphColors, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 export default function DataPage() {
   const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
@@ -28,13 +29,13 @@ export default function DataPage() {
 
   const { t } = useTranslation()
 
-  const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
-  const graphcolors = useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],);
+  const loadingColor = usePrimaryColor();
+  const graphcolors = useGraphColors();
 
-  const bgColor = useColorModeValue('custom_light.background', 'custom_dark.background');
-  const textColor = useColorModeValue('custom_light.text', 'custom_dark.text');
-  const tabBg = useColorModeValue('custom_light.background', 'custom_dark.background');
-  const tabSelectedBg = useColorModeValue('custom_light.primary_variant', 'custom_dark.primary_variant');
+  const bgColor = useBackgroundColor();
+  const textColor = useTextColor();
+  const tabBg = useBackgroundColor();
+  const tabSelectedBg = usePrimaryColor();
 
   async function requestBackend() {
     /* Get date of last week */
@@ -88,7 +89,7 @@ export default function DataPage() {
   }
 
   return (
-    <Flex direction='column' width='100%' gap='10px' margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
+    <Flex direction='column' width='100%'gap={layoutConfig.gap} margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
       <Introduction header={t('dataPage.title')} text={t('dataPage.introduction')}></Introduction>
 
       {/* <Card
@@ -102,16 +103,16 @@ export default function DataPage() {
       </Card> */}
       <Tabs variant="soft-rounded" colorScheme="teal">
         <TabList >
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Temperature</Tab>
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Fog</Tab>
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius="md" px={4} py={2} mr={2}>Water Level</Tab>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>Temperature</Tab>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>Fog</Tab>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>Water Level</Tab>
         </TabList>
         <TabPanels>
           {/* Temperature Graphs */}
           {/* <TabPanel pl={0}> */}
           <TabPanel>
             {temperatureHistory && temperatureLastWeek && temperatureLastYear ? (
-              <Flex gap='10px' wrap='wrap' pr={0}>
+              <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
                 <PlotlyChart data={temperatureHistory} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' customLayout={{ showlegend: false }} />
                 <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
                 <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
@@ -122,7 +123,7 @@ export default function DataPage() {
           {/* Fog Graphs */}
           <TabPanel>
             {fogHistory && fogLastYear ? (
-              <Flex gap='10px' wrap='wrap'>
+              <Flex gap={layoutConfig.gap} wrap='wrap'>
                 <PlotlyChart data={fogHistory} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} dateFormat='day' />
                 <PlotlyChart data={fogLastYear} title={t('dataPage.fogYear')} yAxis={t('dataPage.fogYear')} xAxis={t('data.time')} dateFormat='year' />
               </Flex>

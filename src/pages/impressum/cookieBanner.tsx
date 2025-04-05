@@ -2,6 +2,8 @@ import { Box, Button, Flex, Icon, Slide, Text, useColorModeValue } from "@chakra
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCookieBite } from "react-icons/fa";
+import { layoutConfig, useBackgroundColor, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
+
 
 export default function CookieBanner() {
     const { t } = useTranslation();
@@ -22,22 +24,22 @@ export default function CookieBanner() {
 
     return (
         <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }} >
-            <Box p={4}
-                bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-                color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+            <Box p={layoutConfig.padding}
+                bg={useBackgroundColor()}
+                color={useTextColor()}
                 textAlign="center"
                 marginInline={{lg: '20%', base: '10%'}}
-                borderRadius={'5px'}
-                mb={'10px'}
+                borderRadius={layoutConfig.borderRadius}
+                mb={layoutConfig.margin}
                 >
 
-                <Flex justify="space-between" align="center" direction={{lg: 'row', base: 'column'}} gap={'10px'}>
+                <Flex justify="space-between" align="center" direction={{lg: 'row', base: 'column'}} gap={layoutConfig.gap}>
                     <Icon as={FaCookieBite } boxSize={12} />
                     <Text>{t('cookies.text')}</Text>
                     <Button
-                        background={useColorModeValue('custom_light.primary', 'custom_dark.primary')}
-                        color={useColorModeValue('custom_light.secondarytext', 'custom_dark.secondarytext')}
-                        _hover={{ bg: useColorModeValue('custom_light.surface', 'custom_dark.surface') }}
+                        background={usePrimaryColor()}
+                        color={useTextColor()}
+                        _hover={{ bg: useSurfaceColor() }}
                         onClick={acceptCookies}
                         flexShrink={0}
                         >{t('cookies.accept')}</Button>

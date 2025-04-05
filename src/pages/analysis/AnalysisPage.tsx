@@ -2,6 +2,7 @@ import { Flex, Heading } from '@chakra-ui/react';
 import DataSource from '../../components/DataSource';
 import Leaderboard from './Leaderboard';
 import Introduction from '../../components/Introduction';
+import { layoutConfig } from '../../components/style';
 
 export default function AnalysisPage() {
 
@@ -25,7 +26,7 @@ export default function AnalysisPage() {
 
 
   return (
-    <Flex direction='column' width='100%' gap='10px' margin={'10px'}>
+    <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={layoutConfig.margin}>
       <Introduction header="Analysis Page" text='t.b.d'></Introduction>
 
       <Leaderboard entries={shortTerm} name='shortTerm'></Leaderboard>

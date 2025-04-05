@@ -13,6 +13,8 @@ import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import ForcastCard, { ForcastCardProps } from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
 import { extractCurrentWeatherForecastHourly, extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
+import { layoutConfig, useBackgroundColor, usePrimaryColor, useSurfaceColor, useTextColor } from '../../../components/style';
+
 
 export default function StandardMode() {
   const { t } = useTranslation();
@@ -30,6 +32,12 @@ export default function StandardMode() {
 
   const scrollRef = useRef<HTMLDivElement>(null);
   const [shape, setShape] = useState<any>(null);
+
+  const buttons = [
+    { label: t('startingPage.currentWeather'), value: 1 },
+    { label: t('startingPage.next2Days'), value: 2 },
+    { label: t('startingPage.next14Days'), value: 14 },
+  ];
 
   useEffect(() => {
     fetchCurrentForecastData();
@@ -80,7 +88,7 @@ export default function StandardMode() {
     // Set data for plotly graph: temperature weather code and humidity
     if (weather_code && humidity && temperature) {
       setForecast([
-        convertToPlotlyChartFormat(humidity, 'scatter', 'y2'), 
+        convertToPlotlyChartFormat(humidity, 'scatter', 'y2'),
         convertToPlotlyChartFormat(temperature, 'scatter', 'y1'),
         convertToPlotlyChartFormat(rain, 'bar', 'y1'),
       ])
@@ -113,11 +121,10 @@ export default function StandardMode() {
         // convertToPlotlyChartFormat({ x: xTime, y: data.hourly.visibility.map((v: number) => v / 1000), name: 'Visibility' }, 'dashedLine', 'y2', 'orange')
       ]
     )
-
   };
 
-  const loadingColor = useColorModeValue('#4C8C8C', '#AFDBF5')
-  const markingColor = useColorModeValue('#4f8b8bBA', '#4C8C8CBA')
+  const loadingColor = usePrimaryColor()
+  const markingColor = usePrimaryColor()
 
   function handleScroll() {
     const scrollLeft = scrollRef.current?.scrollLeft || 0;
@@ -153,9 +160,9 @@ export default function StandardMode() {
   };
 
   return (
-    <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' maxWidth={'100%'}>
+    <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }}gap={layoutConfig.gap} maxWidth={'100%'}>
       <Heading size="md" padding='0px'>{t('startingPage.currentWeather')}</Heading>
-      <Flex gap='10px' flexDirection={{ lg: "row", base: 'column' }}>
+      <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }}>
         {currentWeather ?
           <>
             <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
@@ -168,24 +175,36 @@ export default function StandardMode() {
 
       </Flex>
 
-      <Heading size="md" pt={'10px'}>{t('data.forecast')}</Heading>
-      <Flex gap={'10px'}>
-        <Button onClick={() => setRequestDuration(1)}>{t('startingPage.currentWeather')}</Button>
-        <Button onClick={() => setRequestDuration(2)}>{t('startingPage.next2Days')}</Button>
-        <Button onClick={() => setRequestDuration(14)}>{t('startingPage.next14Days')}</Button>
+      <Heading size="md" pt={layoutConfig.padding}>{t('data.forecast')}</Heading>
+      <Flex gap={layoutConfig.smallGap}>
+        {buttons.map(({ label, value }) => (
+          <Button
+            key={value}
+            onClick={() => setRequestDuration(value)}
+            bg={requestDuration === value ? usePrimaryColor() : useBackgroundColor()}
+            color={requestDuration === value ? useTextColor() : 'inherit'}
+            borderRadius={layoutConfig.buttonBorderRadius}
+            px={layoutConfig.padding}
+            py={layoutConfig.padding}
+            mr={layoutConfig.margin}
+          >
+            {label}
+          </Button>
+        ))}
       </Flex>
 
 
-      <Card bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-        color={useColorModeValue('custom_light.text', 'custom_dark.text')}
-        padding='10px'
+      <Card bg={useBackgroundColor()}
+        color={useTextColor()}
+        padding={layoutConfig.padding}
         overflow={'hidden'}
+        borderRadius={layoutConfig.borderRadius}
       >
         <Flex
-          gap='10px'
+         gap={layoutConfig.gap}
           overflow='hidden'
           overflowX="auto"
-          pb={'10px'}
+          pb={layoutConfig.padding}
           ref={scrollRef}
           onScroll={() => handleScroll()}
           onWheel={(e) => { handleWheel(e) }}
@@ -194,15 +213,15 @@ export default function StandardMode() {
               height: "8px",
             },
             "&::-webkit-scrollbar-track": {
-              background: useColorModeValue('custom_light.surface', 'custom_dark.surface'),
-              borderRadius: "8px",
+              background: useSurfaceColor(),
+              borderRadius: layoutConfig.borderRadius,
             },
             "&::-webkit-scrollbar-thumb": {
-              background: useColorModeValue('custom_light.text', 'custom_dark.text'),
-              borderRadius: "8px",
+              background: useTextColor(),
+              borderRadius: layoutConfig.borderRadius,
             },
             "&::-webkit-scrollbar-thumb:hover": {
-              background: useColorModeValue('custom_light.primary_variant', 'custom_dark.primary_variant'),
+              background: usePrimaryColor(),
             }
           }}
         >
@@ -218,7 +237,7 @@ export default function StandardMode() {
         </Flex>
       </Card>
 
-      <Flex gap='10px'>
+      <Flex gap={layoutConfig.gap}>
         {forecast && forecastSymbols ?
           <PlotlyChart data={[...forecast, forecastSymbols]} title={t('data.forecast')} yAxis={t('data.temperature')} xAxis={t('data.time')} y2Axis={t('data.humidity')} showNow={true} customLayout={{ annotations: weekdays, shapes: [shape] }} />
           : <OrbitProgress color={loadingColor} size="medium" />}

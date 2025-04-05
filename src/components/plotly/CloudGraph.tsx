@@ -1,6 +1,7 @@
 import { useColorModeValue, useTheme } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import PlotlyChart from "../ui/plotly/DefaultChart";
+import { layoutConfig, useBackgroundColor, useGraphColors, useSecondaryTextColor, useSurfaceColor, useTextColor } from "../style";
 
 export type CloudDataType = { time: string[]; low: number[]; mid: number[]; high: number[]; visibility: number[] }
 
@@ -15,12 +16,12 @@ export default function CloudGraph({ cloudData }: CloudGraphInterface) {
     const [weatherData, setWeatherData] = useState<{ time: string[]; low: { up: number[], down: number[] }; mid: { up: number[], down: number[] }; high: { up: number[], down: number[] }; visibility: number[] } | null>(null);
     const [data, setData] = useState<any[]>([])
 
-    const colors = useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],);
+    const colors = useGraphColors();
 
-    const plotBgColor = useColorModeValue(theme.colors.custom_light.surface, theme.colors.custom_dark.surface);
-    const paperBgColor = useColorModeValue(theme.colors.custom_light.background, theme.colors.custom_dark.background);
-    const textColor = useColorModeValue(theme.colors.custom_light.text, theme.colors.custom_dark.text);
-    const gridColor = useColorModeValue(theme.colors.custom_light.secondarytext, theme.colors.custom_dark.secondarytext);
+    const plotBgColor = useSurfaceColor();
+    const paperBgColor = useBackgroundColor();
+    const textColor = useTextColor();
+    const gridColor = useSecondaryTextColor();
 
     const orientationLegendBottom: orientation = "h"
     const orientationLegendRight: orientation = "v"
@@ -104,7 +105,7 @@ export default function CloudGraph({ cloudData }: CloudGraphInterface) {
     };
 
     return (
-        <div style={{ borderRadius: "15px", overflow: "hidden", width: "100%", height: "100%"}}>
+        <div style={{ borderRadius: layoutConfig.borderRadius, overflow: "hidden", width: "100%", height: "100%" }}>
             {weatherData ? (
                 <PlotlyChart data={[
                     {

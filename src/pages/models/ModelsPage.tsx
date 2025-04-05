@@ -6,6 +6,8 @@ import DataSource from '../../components/DataSource';
 import { convertMultipleToPlotlyChartFormat, PlotlyChartBasicFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
 import { ExtractedForecastData, fetchForecast, reformatDataofForecastBackend } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -32,6 +34,7 @@ export default function ModelsPage() {
   async function setModels() {
     console.log(selectedModels)
     setSearchParams({ models: JSON.stringify(selectedModels), time: selectedDatetime });
+    
 
     let copyTemp: any = []
     let copyHumidity: any = []
@@ -75,10 +78,10 @@ export default function ModelsPage() {
   };
 
   return (
-    <Flex direction='column' gap='10px' margin={'10px'} width={{ lg: '100%' }} maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
+    <Flex direction='column'gap={layoutConfig.gap} margin={layoutConfig.margin} width={{ lg: '100%' }} maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
       <Card
-        bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-        color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+        bg={useBackgroundColor()}
+        color={useTextColor()}
         width={'100%'}>
         <CardHeader pb={'0px'}>
           <Flex alignItems='center' justifyContent='space-between'>
@@ -91,7 +94,7 @@ export default function ModelsPage() {
         </CardBody>
       </Card>
 
-      <Flex direction={'column'} gap='10px' flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
+      <Flex direction={'column'}gap={layoutConfig.gap} flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
         {forecastTemperatureData.length > 0 ?
           <PlotlyChart data={forecastTemperatureData} title={t('models.forecastTemp', { date: selectedDatetime })} yAxis={t('data.temperature')} xAxis={t('data.time')} customLayout={{ annotations: weekdaysTemp }} /> :
           <Text>{t('models.selectValues')}</Text>

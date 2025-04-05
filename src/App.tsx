@@ -15,6 +15,9 @@ import Phenomena from './pages/phenomena/PhenomenaPage';
 import StartingPage from './pages/startingPage/StartingPage';
 import WeatherStationPage from './pages/station/WeatherStationPage';
 
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from './components/style';
+
+
 function App() {
   // const color = 'custom_light'
   const { i18n, t } = useTranslation()
@@ -29,7 +32,7 @@ function App() {
 
   return (
     <Flex
-      bg={useColorModeValue('custom_light.surface', 'custom_dark.surface')}
+      bg={useSurfaceColor()}
       minHeight='100vh'
       width='100%'
       margin='0'

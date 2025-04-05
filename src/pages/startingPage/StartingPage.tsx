@@ -5,6 +5,8 @@ import { useTranslation } from 'react-i18next'
 import StandardMode from './modes/Standard'
 import { useState } from 'react';
 import AdvancedMode from './modes/Advanced';
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+
 
 // const userModes = ['Standard', 'Advanced', 'Segler']
 
@@ -25,7 +27,7 @@ export default function StartingPage() {
   }
 
   return (
-    <Flex direction='column' width={{ lg: "calc(100vw - 250px)", base: 'calc(100vw - 20px)' }} gap='10px' margin={'10px'} maxWidth={'100%'} overflow={'hidden'} overflowY={'auto'} height={'calc(100dvh - 20px)'}>
+    <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }}gap={layoutConfig.gap} margin={layoutConfig.margin} maxWidth={'100%'} overflow={'hidden'} overflowY={'auto'} height={'calc(100dvh - 20px)'}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
         <Heading>{t('startingPage.title')}</Heading>
 
@@ -33,14 +35,14 @@ export default function StartingPage() {
           defaultValue={userMode}
           onChange={(e) => changeUserMode(Number(e.target.value))}
           width={'fit-content'}
-          bg={useColorModeValue('custom_light.background', 'custom_dark.background')}
-          color={useColorModeValue('custom_light.text', 'custom_dark.text')}
-          _focus={{ borderColor: useColorModeValue('custom_light.background', 'custom_dark.background') }}
+          bg={useBackgroundColor()}
+          color={useTextColor()}
+          _focus={{ borderColor: useBackgroundColor() }}
           sx={{
             option: {
-              background: useColorModeValue('custom_light.background', 'custom_dark.background'),
-              color: useColorModeValue('custom_light.text', 'custom_dark.text'),
-              _hover: { background: useColorModeValue('custom_light.background', 'custom_dark.background') }
+              background: useBackgroundColor(),
+              color: useTextColor(),
+              _hover: { background: useBackgroundColor() }
             },
           }}
         >
@@ -48,7 +50,7 @@ export default function StartingPage() {
             <option
               key={code}
               value={code}
-              color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+              color={useTextColor()}
             >
               {label}
             </option>

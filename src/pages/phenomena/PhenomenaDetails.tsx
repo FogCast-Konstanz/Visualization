@@ -5,6 +5,8 @@ import CardIndividual from '../../components/CardIndividual';
 import { ArrowLeftIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
 import { phenomenaType } from '../../i18n/dePhenomena';
+import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+
 import './phenomena.scss';
 
 type Input = phenomenaType
@@ -13,20 +15,20 @@ export default function PhenomenaSite({ title, description, content, sources, id
     const navigate = useNavigate();
 
     return (
-        <Flex padding={'20px'} direction={'column'} gap={'20px'} overflow="auto" maxHeight={'100dvh'} key={id}>
+        <Flex padding={layoutConfig.padding} direction={'column'} gap={layoutConfig.gap} overflow="auto" maxHeight={'100dvh'} key={id}>
             <Icon
                 as={ArrowLeftIcon}
                 aria-label="Go Back"
                 top="10px"
                 left="10px"
                 onClick={() => navigate(-1)} // Go back to the previous page
-                _hover={{ bg: useColorModeValue('custom_light.background', 'custom_dark.surface') }}
-                borderRadius='5px'
-                padding={'5px'}
+                _hover={{ bg: useBackgroundColor() }}
+                borderRadius={layoutConfig.borderRadius}
+                padding={layoutConfig.padding}
                 margin={'0px'}
                 height='auto'
                 width='25px'
-                color={useColorModeValue('custom_light.text', 'custom_dark.text')}
+                color={useTextColor()}
             />
             
             <CardIndividual header={title} body={description} />
