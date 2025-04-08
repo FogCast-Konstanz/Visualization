@@ -2,7 +2,7 @@ import { Card, CardBody, CardHeader, Heading, useColorModeValue } from '@chakra-
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { layoutConfig, useBackgroundColor, useTextColor } from './style';
+import { layoutConfig, useColor, useTextColor } from './style';
 
 
 type IntroductionFormat = { header: string; text: string };
@@ -11,8 +11,8 @@ export default function Introduction({ header, text }: IntroductionFormat) {
     return (
         <>
             <Card
-                bg={useBackgroundColor()}
-                color={useTextColor()}
+                bg={useColor('background')}
+                color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
                 >

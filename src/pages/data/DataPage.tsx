@@ -9,7 +9,7 @@ import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import ConfigurationForRequest from '../models/ConfigurationForRequest';
 import { useTranslation } from 'react-i18next';
 import Introduction from '../../components/Introduction';
-import { layoutConfig, useBackgroundColor, useGraphColors, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useGraphColors, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 export default function DataPage() {
   const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
@@ -29,13 +29,13 @@ export default function DataPage() {
 
   const { t } = useTranslation()
 
-  const loadingColor = usePrimaryColor();
+  const loadingColor = useColor('primary');
   const graphcolors = useGraphColors();
 
-  const bgColor = useBackgroundColor();
-  const textColor = useTextColor();
-  const tabBg = useBackgroundColor();
-  const tabSelectedBg = usePrimaryColor();
+  const bgColor = useColor('background');
+  const textColor = useColor('text');
+  const tabBg = useColor('background');
+  const tabSelectedBg = useColor('primary');
 
   async function requestBackend() {
     /* Get date of last week */

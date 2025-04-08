@@ -7,7 +7,7 @@ import { GoHomeFill } from "react-icons/go";
 import { useLocation } from 'react-router-dom';
 import Settings from './Menu';
 import StatusBadge from './StatusBadge';
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from './style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
 
 export default function Navigation() {
   const { t } = useTranslation();
@@ -35,7 +35,7 @@ export default function Navigation() {
         padding={layoutConfig.padding}
         direction='column'
         justify={'space-between'}
-        bg={useBackgroundColor()}
+        bg={useColor('background')}
       >
         <div>
           <Link href='/' _hover={{ textDecoration: "none" }}><Heading size="2xl">{t('title')}</Heading></Link>
@@ -50,8 +50,8 @@ export default function Navigation() {
               <ListItem
                 key={index}
                 marginBottom={layoutConfig.margin}
-                _hover={{ bg: useSurfaceColor() }}
-                bg={isActive(entry.href) ? useSurfaceColor() : 'transparent'}
+                _hover={{ bg: useColor('surface') }}
+                bg={isActive(entry.href) ? useColor('surface') : 'transparent'}
                 borderRadius={layoutConfig.buttonBorderRadius}
                 pl={layoutConfig.padding}
               >
@@ -83,7 +83,7 @@ export default function Navigation() {
         position={'sticky'}
         top={'0'}
         zIndex={'1'}
-        bg={useSurfaceColor()}
+        bg={useColor('surface')}
       >
         <Menu>
           <MenuButton
@@ -94,9 +94,9 @@ export default function Navigation() {
             margin={layoutConfig.margin}
           />
           <MenuList
-            background={useBackgroundColor()}
-            textColor={useTextColor()}
-            borderColor={useSurfaceColor()}
+            background={useColor('background')}
+            textColor={useColor('text')}
+            borderColor={useColor('surface')}
           >
             {navigation.map((entry, index) => (
               <MenuItem
@@ -104,8 +104,8 @@ export default function Navigation() {
                 marginBottom={layoutConfig.margin}
                 key={index}
                 onClick={() => window.location.href = entry.href}
-                background={useBackgroundColor()}
-                _hover={{background: useBackgroundColor()}}
+                background={useColor('background')}
+                _hover={{background: useColor('background')}}
               >
                 <Link href={entry.href}>{entry.name}</Link>
               </MenuItem>

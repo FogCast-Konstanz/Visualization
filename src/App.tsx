@@ -15,7 +15,7 @@ import Phenomena from './pages/phenomena/PhenomenaPage';
 import StartingPage from './pages/startingPage/StartingPage';
 import WeatherStationPage from './pages/station/WeatherStationPage';
 
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from './components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './components/style';
 
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
 
   return (
     <Flex
-      bg={useSurfaceColor()}
+      bg={useColor('surface')}
       minHeight='100vh'
       width='100%'
       margin='0'

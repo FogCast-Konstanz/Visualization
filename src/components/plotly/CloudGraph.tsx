@@ -1,7 +1,7 @@
 import { useColorModeValue, useTheme } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import PlotlyChart from "../ui/plotly/DefaultChart";
-import { layoutConfig, useBackgroundColor, useGraphColors, useSecondaryTextColor, useSurfaceColor, useTextColor } from "../style";
+import { layoutConfig, useColor, useGraphColors, useSecondaryTextColor, useSurfaceColor, useTextColor } from "../style";
 
 export type CloudDataType = { time: string[]; low: number[]; mid: number[]; high: number[]; visibility: number[] }
 
@@ -18,10 +18,10 @@ export default function CloudGraph({ cloudData }: CloudGraphInterface) {
 
     const colors = useGraphColors();
 
-    const plotBgColor = useSurfaceColor();
-    const paperBgColor = useBackgroundColor();
-    const textColor = useTextColor();
-    const gridColor = useSecondaryTextColor();
+    const plotBgColor = useColor('surface');
+    const paperBgColor = useColor('background');
+    const textColor = useColor('text');
+    const gridColor = useColor('secondaryText');
 
     const orientationLegendBottom: orientation = "h"
     const orientationLegendRight: orientation = "v"

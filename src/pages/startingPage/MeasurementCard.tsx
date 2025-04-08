@@ -1,6 +1,6 @@
 import { Card, CardBody, Flex, Heading, Icon, useColorModeValue } from "@chakra-ui/react"
 import { IconType } from "react-icons/lib"
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 type Input = { measurement: string, value: string, unit: string, icon?: IconType }
@@ -8,8 +8,8 @@ export default function MeasurementCard({ measurement, value, unit, icon }: Inpu
 
     return (
         <Card
-            bg={useBackgroundColor()}
-            color={useTextColor()} width='100%'
+            bg={useColor('background')}
+            color={useColor('text')} width='100%'
             borderRadius={layoutConfig.borderRadius}
             >
             <CardBody >

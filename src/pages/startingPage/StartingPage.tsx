@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import StandardMode from './modes/Standard'
 import { useState } from 'react';
 import AdvancedMode from './modes/Advanced';
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 // const userModes = ['Standard', 'Advanced', 'Segler']
@@ -35,14 +35,14 @@ export default function StartingPage() {
           defaultValue={userMode}
           onChange={(e) => changeUserMode(Number(e.target.value))}
           width={'fit-content'}
-          bg={useBackgroundColor()}
-          color={useTextColor()}
-          _focus={{ borderColor: useBackgroundColor() }}
+          bg={useColor('background')}
+          color={useColor('text')}
+          _focus={{ borderColor: useColor('background') }}
           sx={{
             option: {
-              background: useBackgroundColor(),
-              color: useTextColor(),
-              _hover: { background: useBackgroundColor() }
+              background: useColor('background'),
+              color: useColor('text'),
+              _hover: { background: useColor('background') }
             },
           }}
         >
@@ -50,7 +50,7 @@ export default function StartingPage() {
             <option
               key={code}
               value={code}
-              color={useTextColor()}
+              color={useColor('text')}
             >
               {label}
             </option>

@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { fetchModels } from './requests/forcastBackend';
 import { CurrentForecastResponseFormat } from './requests/currentForecacstBackend';
-import { useBackgroundColor, useSurfaceColor, useTextColor } from './style';
+import { useColor, useSurfaceColor, useTextColor } from './style';
 
 type ModelSelectionProps = {
     select: string[];
@@ -24,9 +24,9 @@ export default function SelectParameter({ select, setSelect, measurements }: Mod
         console.log("Selected Option", selectedOptions)
     };
 
-    const bgColor = useBackgroundColor();
-    const focusColor = useSurfaceColor();
-    const textColor = useTextColor();
+    const bgColor = useColor('background');
+    const focusColor = useColor('surface');
+    const textColor = useColor('text');
 
     const customStyles = {
         control: (provided: any) => ({

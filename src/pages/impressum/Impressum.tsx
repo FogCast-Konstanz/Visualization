@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { Box, Card, CardBody, CardHeader, Flex, Heading, Image, Link, Text, useColorModeValue, VStack } from "@chakra-ui/react";
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 import ReactMarkdown from 'react-markdown'
@@ -16,8 +16,8 @@ export default function Impressum() {
             <Introduction header={t('impressum.title')} text=''></Introduction>
             {/* <Heading size='lg'></Heading> */}
             <Card
-                bg={useBackgroundColor()}
-                color={useTextColor()}
+                bg={useColor('background')}
+                color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
                 >
@@ -46,8 +46,8 @@ export default function Impressum() {
                 </CardBody>
             </Card>
             <Card
-                bg={useBackgroundColor()}
-                color={useTextColor()}
+                bg={useColor('background')}
+                color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
                 >
@@ -89,8 +89,8 @@ export default function Impressum() {
             </Card>
 
             <Card
-                bg={useBackgroundColor()}
-                color={useTextColor()}
+                bg={useColor('background')}
+                color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
                 >

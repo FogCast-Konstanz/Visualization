@@ -13,7 +13,7 @@ import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
 import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
 import { useEffect } from "react";
-import { layoutConfig, useBackgroundColor, usePrimaryColor, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, usePrimaryColor, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 import { TbDropletFilled } from "react-icons/tb";
@@ -38,8 +38,8 @@ export default function ForcastCard({ time, temperature, weather, rain, isDay }:
     
     return (
         <Card
-            bg={usePrimaryColor()}
-            color={useSecondaryTextColor()}
+            bg={useColor('primary')}
+            color={useColor('secondaryText')}
             width='fit-content'
             minWidth={'100px'}
             borderRadius={layoutConfig.borderRadius}
@@ -49,7 +49,7 @@ export default function ForcastCard({ time, temperature, weather, rain, isDay }:
                     <Text mb={layoutConfig.margin}>{time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" })}</Text>
                     <Text fontSize={'lg'} mb={layoutConfig.margin} fontWeight={'bold'}>{Math.round(temperature)}°C</Text>
                     <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={layoutConfig.margin} />
-                    <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={layoutConfig.gap}><Icon as={TbDropletFilled} boxSize={4} mt={'2px'} color={useSecondaryTextColor()}/><Text fontSize={'s'}>{rain}%</Text></Flex>
+                    <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={layoutConfig.gap}><Icon as={TbDropletFilled} boxSize={4} mt={'2px'} color={useColor('secondaryText')}/><Text fontSize={'s'}>{rain}%</Text></Flex>
                 </Flex> 
             </CardBody>
         </Card>

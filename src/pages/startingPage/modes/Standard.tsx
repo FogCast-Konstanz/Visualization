@@ -13,7 +13,7 @@ import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import ForcastCard, { ForcastCardProps } from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
 import { extractCurrentWeatherForecastHourly, extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
-import { layoutConfig, useBackgroundColor, usePrimaryColor, usePrimaryVariantColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import { layoutConfig, useColor, usePrimaryColor, usePrimaryVariantColor, useSurfaceColor, useTextColor } from '../../../components/style';
 import { convertCodesAndIsDaysToAscii } from '../../../components/requests/mapWeatherCodes'
 
 
@@ -127,8 +127,8 @@ export default function StandardMode() {
     )
   };
 
-  const loadingColor = usePrimaryColor()
-  const markingColor = usePrimaryVariantColor()
+  const loadingColor = useColor('primary')
+  const markingColor = useColor('primaryVariant')
 
   function handleScroll() {
     const scrollLeft = scrollRef.current?.scrollLeft || 0;
@@ -185,8 +185,8 @@ export default function StandardMode() {
           <Button
             key={value}
             onClick={() => setRequestDuration(value)}
-            bg={requestDuration === value ? usePrimaryColor() : useBackgroundColor()}
-            color={requestDuration === value ? useTextColor() : 'inherit'}
+            bg={requestDuration === value ? useColor('primary') : useColor('background')}
+            color={requestDuration === value ? useColor('text') : 'inherit'}
             borderRadius={layoutConfig.buttonBorderRadius}
             px={layoutConfig.padding}
             py={layoutConfig.padding}
@@ -198,8 +198,8 @@ export default function StandardMode() {
       </Flex>
 
 
-      <Card bg={useBackgroundColor()}
-        color={useTextColor()}
+      <Card bg={useColor('background')}
+        color={useColor('text')}
         padding={layoutConfig.padding}
         overflow={'hidden'}
         borderRadius={layoutConfig.borderRadius}
@@ -217,15 +217,15 @@ export default function StandardMode() {
               height: "8px",
             },
             "&::-webkit-scrollbar-track": {
-              background: useSurfaceColor(),
+              background: useColor('surface'),
               borderRadius: layoutConfig.borderRadius,
             },
             "&::-webkit-scrollbar-thumb": {
-              background: useTextColor(),
+              background: useColor('text'),
               borderRadius: layoutConfig.borderRadius,
             },
             "&::-webkit-scrollbar-thumb:hover": {
-              background: usePrimaryColor(),
+              background: useColor('primary'),
             }
           }}
         >

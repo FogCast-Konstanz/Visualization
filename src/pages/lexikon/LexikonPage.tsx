@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LexikonEntry from './LexikonEntry'
 
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 export default function Lexikon() {
@@ -57,14 +57,14 @@ export default function Lexikon() {
                     <InputGroup
                         flex={{ lg: 1, base: 'none' }}
 
-                        bg={useBackgroundColor()}
-                        color={useTextColor()}
-                        _focus={{ borderColor: useBackgroundColor() }}
+                        bg={useColor('background')}
+                        color={useColor('text')}
+                        _focus={{ borderColor: useColor('background') }}
                         sx={{
                             option: {
-                                background: useBackgroundColor(),
-                                color: useTextColor(),
-                                _hover: { background: useBackgroundColor() }
+                                background: useColor('background'),
+                                color: useColor('text'),
+                                _hover: { background: useColor('background') }
                             },
                         }}
                     >
@@ -92,14 +92,14 @@ export default function Lexikon() {
                         flex={1}
 
                         onChange={(e) => setSelectedTag(e.target.value)}
-                        bg={useBackgroundColor()}
-                        color={useTextColor()}
-                        _focus={{ borderColor: useBackgroundColor() }}
+                        bg={useColor('background')}
+                        color={useColor('text')}
+                        _focus={{ borderColor: useColor('background') }}
                         sx={{
                             option: {
-                                background: useBackgroundColor(),
-                                color: useTextColor(),
-                                _hover: { background: useBackgroundColor() }
+                                background: useColor('background'),
+                                color: useColor('text'),
+                                _hover: { background: useColor('background') }
                             },
                         }}
                     >

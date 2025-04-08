@@ -1,7 +1,7 @@
 import { Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaHammer } from 'react-icons/fa';
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from './style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
 
 export default function UnderConstruction() {
     const { t } = useTranslation()
@@ -9,11 +9,11 @@ export default function UnderConstruction() {
     return (
         <>
             <Flex gap="10px" >
-                <Icon as={FaHammer} boxSize={8} color={useTextColor()} />
+                <Icon as={FaHammer} boxSize={8} color={useColor('text')} />
                 <Text 
                     fontSize="xl" 
                     fontWeight="bold" 
-                    color={useTextColor()} >
+                    color={useColor('text')} >
                     {t('other.underConstruction')}
                 </Text>
             </Flex>

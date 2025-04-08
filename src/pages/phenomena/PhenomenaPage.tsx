@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Introduction from '../../components/Introduction';
 import { phenomenaType } from '../../i18n/dePhenomena';
 import PhenomenonCard from './PhenomenonCard';
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 export default function Phenomena() {

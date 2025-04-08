@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader, Flex, Heading, Tag, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor, useWarningColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor, useWarningColor } from '../../components/style';
 
 
 import ReactMarkdown from 'react-markdown';
@@ -23,7 +23,7 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
         }
     }, [defaultShown])
 
-    const color = useWarningColor()
+    const color = useColor('warning')
 
     function highlightText(text: string, query: string) {
         if (!query) return <Heading as='span' size={'md'}>{text}</Heading>;
@@ -38,8 +38,8 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
 
     return (
         <Card
-            bg={useBackgroundColor()}
-            color={useTextColor()}
+            bg={useColor('background')}
+            color={useColor('text')}
             _hover={{ boxShadow: "md", transform: "scale(1.001)", cursor: "pointer" }}
             transition="all 0.2s ease-in-out"
             width={'100%'}
@@ -53,8 +53,8 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
                             tags?.map((tag, index) => (
                                 <Tag
                                     key={index}
-                                    bg={useSurfaceColor()}
-                                    color={useTextColor()}
+                                    bg={useColor('surface')}
+                                    color={useColor('text')}
                                     marginStart={layoutConfig.margin} size='md'>
                                     {tag}
                                 </Tag>

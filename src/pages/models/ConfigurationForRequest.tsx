@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { GrConfigure } from "react-icons/gr";
 import SelectModels from '../../components/SelectModels';
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 type ModelSelectionProps = {
@@ -28,8 +28,8 @@ export default function ConfigurationForRequest({ selectedModels, selectedDateTi
     <Menu>
       <MenuButton as={IconButton} icon={<Icon as={GrConfigure} />} aria-label="Open Config" width={'20px'} />
       <MenuList p={layoutConfig.padding} maxWidth={{lg: '600px', base: '400px'}} 
-        background={useBackgroundColor()}
-        textColor={useTextColor()}>
+        background={useColor('background')}
+        textColor={useColor('text')}>
         <VStack spacing={layoutConfig.padding} p={layoutConfig.padding} width='100%'>
           <SelectModels selectModels={selectModels} setSelectModels={setSelectModels}></SelectModels>
           <Input type="datetime-local" value={selectDatetime} onChange={(e) => setSelectedDatetime(e.target.value)} />

@@ -8,7 +8,7 @@ import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataO
 import SelectParameter from '../../../components/SelectMeasurements'
 import SelectModels from '../../../components/SelectModels'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../../components/style';
 import DataSource from '../../../components/DataSource'
 
 

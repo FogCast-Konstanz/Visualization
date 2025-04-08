@@ -2,7 +2,7 @@ import { Box, Button, Flex, Icon, Slide, Text, useColorModeValue } from "@chakra
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCookieBite } from "react-icons/fa";
-import { layoutConfig, useBackgroundColor, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 export default function CookieBanner() {
@@ -25,8 +25,8 @@ export default function CookieBanner() {
     return (
         <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }} >
             <Box p={layoutConfig.padding}
-                bg={usePrimaryColor()}
-                color={useTextColor()}
+                bg={useColor('primary')}
+                color={useColor('text')}
                 textAlign="center"
                 marginInline={{lg: '20%', base: '10%'}}
                 borderRadius={layoutConfig.borderRadius}
@@ -37,9 +37,9 @@ export default function CookieBanner() {
                     <Icon as={FaCookieBite } boxSize={12} />
                     <Text>{t('cookies.text')}</Text>
                     <Button
-                        background={useBackgroundColor()}
-                        color={useTextColor()}
-                        _hover={{ bg: useSurfaceColor() }}
+                        background={useColor('background')}
+                        color={useColor('text')}
+                        _hover={{ bg: useColor('surface') }}
                         onClick={acceptCookies}
                         flexShrink={0}
                         >{t('cookies.accept')}</Button>

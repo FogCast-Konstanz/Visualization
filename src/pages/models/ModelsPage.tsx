@@ -6,7 +6,7 @@ import DataSource from '../../components/DataSource';
 import { convertMultipleToPlotlyChartFormat, PlotlyChartBasicFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
 import { ExtractedForecastData, fetchForecast, reformatDataofForecastBackend } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 import ReactMarkdown from 'react-markdown';
@@ -80,8 +80,8 @@ export default function ModelsPage() {
   return (
     <Flex direction='column'gap={layoutConfig.gap} margin={layoutConfig.margin} width={{ lg: '100%' }} maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
       <Card
-        bg={useBackgroundColor()}
-        color={useTextColor()}
+        bg={useColor('background')}
+        color={useColor('text')}
         width={'100%'}>
         <CardHeader pb={'0px'}>
           <Flex alignItems='center' justifyContent='space-between'>

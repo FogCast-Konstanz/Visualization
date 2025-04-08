@@ -2,7 +2,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { Button, Flex, Select, useColorMode, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from './constants';
-import { layoutConfig, useBackgroundColor, useSurfaceColor, useTextColor } from './style';
+import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
 
 export default function Settings() {
     const { i18n } = useTranslation();
@@ -26,14 +26,14 @@ export default function Settings() {
                     defaultValue={i18n.language}
                     onChange={onChangeLang}
                     width={'fit-content'}
-                    bg={useBackgroundColor()}
-                    color={useTextColor()}
-                    _focus={{ borderColor: useBackgroundColor() }}
+                    bg={useColor('background')}
+                    color={useColor('text')}
+                    _focus={{ borderColor: useColor('background') }}
                     sx={{
                         option: {
-                            background: useBackgroundColor(),
-                            color: useTextColor(),
-                            _hover: {background: useBackgroundColor()}
+                            background: useColor('background'),
+                            color: useColor('text'),
+                            _hover: {background: useColor('background')}
                         },
                     }}
                 >
@@ -41,7 +41,7 @@ export default function Settings() {
                         <option
                             key={code}
                             value={code}
-                            color={useTextColor()}
+                            color={useColor('text')}
                         >
                             {label}
                         </option>

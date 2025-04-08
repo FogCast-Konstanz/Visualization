@@ -12,14 +12,14 @@ import CardIndividual from '../../components/CardIndividual';
 import PlotlyChart from '../../components/ui/plotly/DefaultChart';
 import Map from './Map';
 
-import { layoutConfig, useBackgroundColor, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 export default function WeatherStationPage() {
   const { t } = useTranslation();
   const [currentWeather, setCurrentWeather] = useState(true);
 
-  const loadingColor = usePrimaryColor()
+  const loadingColor = useColor('primary')
 
   const dummyData = [{
     x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],

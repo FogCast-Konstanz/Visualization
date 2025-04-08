@@ -2,7 +2,7 @@ import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
 import { Flex, useColorModeValue, useTheme } from "@chakra-ui/react";
-import { layoutConfig, useBackgroundColor, useGraphColors, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import { layoutConfig, useColor, useGraphColors, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../../components/style';
 
 interface PlotlyChartProps {
     data: any[];
@@ -35,10 +35,10 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
 
     const colors = useGraphColors();
 
-    const plotBgColor = useSurfaceColor();
-    const paperBgColor = useBackgroundColor();
-    const textColor = useTextColor();
-    const gridColor = useSecondaryTextColor();
+    const plotBgColor = useColor('surface');
+    const paperBgColor = useColor('background');
+    const textColor = useColor('text');
+    const gridColor = useColor('secondaryText');
 
     const orientationLegendBottom: orientation = "h"
     const orientationLegendRight: orientation = "v"
