@@ -259,9 +259,9 @@ export default function StandardMode() {
           <PlotlyChart
             title={'CloudCover'}
             data={cloudData}
-            yAxis={t('startingPage.temperature') + ' °C'}
-            xAxis={t('startingPage.time')}
-            y2Axis={t('startingPage.humidity') + ' %'}
+            yAxis={t('data.cloud')}
+            xAxis={t('data.time')}
+            y2Axis={t('data.visibility')}
             showNow={true}
             customLayout={{ annotations: weekdays, shapes: [shape] }} 
             startFromZero={false}

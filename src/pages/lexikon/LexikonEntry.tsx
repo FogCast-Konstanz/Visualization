@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Flex, Heading, Tag, useColorModeValue } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Flex, Heading, Icon, Tag, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { layoutConfig, useColor, useSurfaceColor, useTextColor, useWarningColor } from '../../components/style';
@@ -6,6 +6,8 @@ import { layoutConfig, useColor, useSurfaceColor, useTextColor, useWarningColor 
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { MinusIcon, PlusSquareIcon } from '@chakra-ui/icons';
+import { FaMinus, FaPlus } from 'react-icons/fa';
 
 type Input = { text: string, header: string, tags?: string[], id: string, defaultShown: boolean, searchQuery?: string }
 export default function LexikonEntry({ text, header, tags, id, defaultShown = false, searchQuery = '' }: Input) {
@@ -45,9 +47,18 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
             width={'100%'}
             id={id}
         >
+            {/* <CardHeader onClick={() => toggleCard()} borderBottomColor={useColor('background')} borderBottom={shown ? "1px solid" : ""} paddingBottom={shown ? layoutConfig.padding : ""}> */}
             <CardHeader onClick={() => toggleCard()}>
-                <Flex justify={'space-between'}>
-                    <Heading lineHeight={0}>{highlightText(header, searchQuery)}</Heading>
+                <Flex justify={'space-between'} >
+                    <Heading lineHeight={0}>
+                        <Icon
+                            as={shown ? FaMinus : FaPlus}
+                            boxSize={3}
+                            color={useColor('text')}
+                            mr={layoutConfig.margin}
+                        />
+                        {highlightText(header, searchQuery)} </Heading>
+
                     <div className='tags'>
                         {
                             tags?.map((tag, index) => (
@@ -63,7 +74,7 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
                     </div>
                 </Flex>
             </CardHeader>
-            <CardBody style={{ display: shown ? 'block' : 'none' }} pt={'0px'}>
+            <CardBody style={{ display: shown ? 'block' : 'none' }} pt={'0px'} >
                 <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} />
             </CardBody>
         </Card>

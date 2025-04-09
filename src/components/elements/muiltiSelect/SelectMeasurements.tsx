@@ -2,9 +2,10 @@
 import { useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { fetchModels } from './requests/forcastBackend';
-import { CurrentForecastResponseFormat } from './requests/currentForecacstBackend';
-import { useColor, useSurfaceColor, useTextColor } from './style';
+import { fetchModels } from '../../requests/forcastBackend';
+import { CurrentForecastResponseFormat } from '../../requests/currentForecacstBackend';
+import { useColor, useSurfaceColor, useTextColor } from '../../style';
+import { selectedStyle, } from './selectStyle';
 
 type ModelSelectionProps = {
     select: string[];
@@ -24,34 +25,7 @@ export default function SelectParameter({ select, setSelect, measurements }: Mod
         console.log("Selected Option", selectedOptions)
     };
 
-    const bgColor = useColor('background');
-    const focusColor = useColor('surface');
-    const textColor = useColor('text');
-
-    const customStyles = {
-        control: (provided: any) => ({
-            ...provided,
-            backgroundColor: bgColor,
-            boxShadow: "none",
-            color: textColor,
-            borderColor: textColor,
-            width: "100%",
-            maxWidth: "500px"
-        }),
-        menu: (provided: any) => ({
-            ...provided,
-            backgroundColor: bgColor,
-            width: "100%"
-        }),
-        option: (provided: any, { isFocused }: any) => ({
-            ...provided,
-            backgroundColor: isFocused ? focusColor : bgColor,
-            color: textColor,
-        }),
-    };
-
     return (
-
         <Select
             options={measurements}
             isMulti
@@ -59,7 +33,7 @@ export default function SelectParameter({ select, setSelect, measurements }: Mod
             onChange={(e) => handleModelChange(e)}
             placeholder="Select models..."
             menuPlacement='auto'
-            styles={customStyles}
+            styles={selectedStyle()}
         />
 
     )

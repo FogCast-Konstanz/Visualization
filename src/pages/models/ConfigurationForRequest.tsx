@@ -1,9 +1,9 @@
 
-import { Button, Icon, IconButton, Input, Menu, MenuButton, MenuList, useColorModeValue, VStack } from '@chakra-ui/react';
+import { Button, Flex, Icon, IconButton, Input, Menu, MenuButton, MenuList, useColorModeValue, VStack } from '@chakra-ui/react';
 import { useState } from 'react';
 
 import { GrConfigure } from "react-icons/gr";
-import SelectModels from '../../components/SelectModels';
+import SelectModels from '../../components/elements/muiltiSelect/SelectModels';
 import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
@@ -25,17 +25,21 @@ export default function ConfigurationForRequest({ selectedModels, selectedDateTi
   }
 
   return (
-    <Menu>
-      <MenuButton as={IconButton} icon={<Icon as={GrConfigure} />} aria-label="Open Config" width={'20px'} />
-      <MenuList p={layoutConfig.padding} maxWidth={{lg: '600px', base: '400px'}} 
-        background={useColor('background')}
-        textColor={useColor('text')}>
-        <VStack spacing={layoutConfig.padding} p={layoutConfig.padding} width='100%'>
+    // <Menu>
+    //   <MenuButton as={IconButton} icon={<Icon as={GrConfigure} />} aria-label="Open Config" width={'20px'} />
+    //   <MenuList p={layoutConfig.padding} maxWidth={{lg: '600px', base: '400px'}} 
+    //     background={useColor('background')}
+    //     textColor={useColor('text')}>
+    //     <VStack spacing={layoutConfig.padding} p={layoutConfig.padding} width='100%'>
+
+    //       <Button onClick={() => setValues()}>Send</Button>
+    //     </VStack>
+    //   </MenuList>
+    // </Menu >
+
+    <Flex gap={layoutConfig.gap} alignItems={'center'}>
           <SelectModels selectModels={selectModels} setSelectModels={setSelectModels}></SelectModels>
-          <Input type="datetime-local" value={selectDatetime} onChange={(e) => setSelectedDatetime(e.target.value)} />
-          <Button onClick={() => setValues()}>Send</Button>
-        </VStack>
-      </MenuList>
-    </Menu >
+          <Input width={'fit-content'} borderColor={useColor('text')} _hover={{borderColor: useColor('text')}} type="datetime-local" value={selectDatetime} onChange={(e) => setSelectedDatetime(e.target.value)} />
+    </Flex>
   )
 }

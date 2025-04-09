@@ -3,14 +3,17 @@ import { Button, Flex, Select, useColorMode, useColorModeValue } from '@chakra-u
 import { useTranslation } from 'react-i18next';
 import { LANGUAGES } from './constants';
 import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
+import CustomSelect from './elements/Select';
 
 export default function Settings() {
     const { i18n } = useTranslation();
     const { colorMode, toggleColorMode } = useColorMode()
 
-    function onChangeLang(e: React.ChangeEvent<HTMLSelectElement>){
+    function onChangeLang(e: React.ChangeEvent<HTMLSelectElement>) {
         const lang_code = e.target.value;
         i18n.changeLanguage(lang_code);
+
+        console.log(lang_code)
 
         localStorage.setItem('lang', lang_code)
     };
@@ -22,7 +25,19 @@ export default function Settings() {
                 margin={{ lg: '0', base: layoutConfig.margin }}
                 gap={layoutConfig.gap}
             >
-                <Select
+                {/* <CustomSelect
+                    value={i18n.language}
+                    onChange={(value) => onChangeLang(value)}
+                    options={LANGUAGES}
+                /> */}
+
+                <CustomSelect
+                    defaultValue={i18n.language}
+                    onChange={(value) => onChangeLang(value)}
+                    options={LANGUAGES}
+                />
+
+                {/* <Select
                     defaultValue={i18n.language}
                     onChange={onChangeLang}
                     width={'fit-content'}
@@ -36,22 +51,22 @@ export default function Settings() {
                             _hover: {background: useColor('background')}
                         },
                     }}
-                >
-                    {LANGUAGES.map(({ code, label }) => (
-                        <option
-                            key={code}
-                            value={code}
-                            color={useColor('text')}
-                        >
-                            {label}
-                        </option>
-                    ))}
-                </Select>
+                > */}
+                {/* {LANGUAGES.map(({ code, label }) => (
+                    <option
+                        key={code}
+                        value={code}
+                        color={useColor('text')}
+                    >
+                        {label}
+                    </option>
+                ))}
+            </Select> */}
 
-                <Button onClick={toggleColorMode}>
-                    {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
-                </Button>
-            </Flex>
+            <Button onClick={toggleColorMode}>
+                {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
+            </Button>
+        </Flex >
 
         </>
     )

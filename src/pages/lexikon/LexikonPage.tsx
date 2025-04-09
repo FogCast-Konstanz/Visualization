@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import LexikonEntry from './LexikonEntry'
 
 import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
+import CustomSelect from '../../components/elements/Select'
 
 
 export default function Lexikon() {
@@ -25,6 +26,11 @@ export default function Lexikon() {
     const uniqueTags = Array.from(
         new Set(lexikonEntries.flatMap((entry) => entry.tags))
     );
+
+    const tagOptions = uniqueTags.map((tag) => ({
+        code: tag,
+        label: tag,
+      }));
 
     /* Filter after:
     * 1. Search value in 
@@ -48,9 +54,14 @@ export default function Lexikon() {
         };
     }, [])
 
+    function changeTags(e: React.ChangeEvent<HTMLSelectElement>) {
+        const tag = e.target.value
+        setSelectedTag(tag)
+    }
+
 
     return (
-        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={layoutConfig.margin}gap={layoutConfig.gap} width={{ lg: '100%' }}>
+        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={layoutConfig.margin}gap={layoutConfig.gap} width={{ lg: '100%' }} pr={layoutConfig.padding}>
             <Flex direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent='space-between'>
                 <Heading flex={2}>{t('lexicon.title')}</Heading>
                 <Flex flex={1} direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent={'space-between'} gap={{ lg: '20px', base: '10px' }} width={'100%'}>
@@ -67,11 +78,13 @@ export default function Lexikon() {
                                 _hover: { background: useColor('background') }
                             },
                         }}
+                        borderRadius={layoutConfig.buttonBorderRadius}
                     >
                         <Input
                             placeholder="Search title..."
                             value={searchQuery}
                             onChange={(e) => setSearchQuery(e.target.value)}
+                            
                         />
                         {searchQuery && (
                             <InputRightElement>
@@ -86,33 +99,15 @@ export default function Lexikon() {
                             </InputRightElement>
                         )}
                     </InputGroup>
-                    <Select
-                        width={{ lg: 'fit-content', base: '100%' }}
-                        placeholder="Filter by tag"
-                        flex={1}
-
-                        onChange={(e) => setSelectedTag(e.target.value)}
-                        bg={useColor('background')}
-                        color={useColor('text')}
-                        _focus={{ borderColor: useColor('background') }}
-                        sx={{
-                            option: {
-                                background: useColor('background'),
-                                color: useColor('text'),
-                                _hover: { background: useColor('background') }
-                            },
-                        }}
-                    >
-                        {uniqueTags.map((tag) => (
-                            <option key={tag} value={tag}>
-                                {tag}
-                            </option>
-                        ))}
-                    </Select>
+                    <CustomSelect
+                        onChange={(value) => changeTags(value)}
+                        options={tagOptions}
+                        placeholder='Filter by tag'
+                    />
                 </Flex>
             </Flex>
 
-            <VStack width={'100%'} padding={'0px'} margin={'0'}>
+            <VStack width={'100%'} margin={'0'}>
                 {filteredEntries.map((entry, index) => (
                     <LexikonEntry {...entry} searchQuery={searchQuery} defaultShown={entry.id == hash} key={index} />
                 ))}

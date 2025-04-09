@@ -23,6 +23,9 @@ const en = {
         waterTemp: "Water temperature",
         waterLevel: "Water level",
         windspeed: "Wind speed",
+        cloud: "Cloud Cover",
+        visibility: "Visibility",
+        rain: "Rain"
     },
 
     startingPage: {
@@ -37,6 +40,7 @@ const en = {
         title: "Data Visualization",
         introduction: "How has the weather changed in recent years? What temperature trends are there within a year? How does the temperature fluctuate within a week? These and many other questions can be answered on this page with the help of many graphs! The displayed data are measured data received from DWD, OpenMeteo and PegelOnline.",
         tempLastYear: "Temperature in the last year",
+        tempYears: "Temperature over the years",
         tempLastWeek: "Temperature of the last week",
         fogMonth: "Fog days per month",
         fogYear: "Fog days per year",

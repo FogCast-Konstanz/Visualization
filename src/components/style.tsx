@@ -8,11 +8,12 @@ const colors = {
         background: "#293F3F",
         text: "#DCDCDC",
         secondarytext: "#000000",
-        primary: "rgb(195, 245, 175)",
-        primary_variant: "#4f8b8b",
+        primary: "#4f8b8b",
+        primary_variant: "#4f8b8bBA",
         secondary: "#A1E5AB",
         ternary: "#AE5656",
-        warning: "#FFAA33 "
+        warning: "#FFAA33",
+        warningVariant: "#FFAA33DD"
     },
     light: {
         surface: "#DDEDED",
@@ -23,7 +24,8 @@ const colors = {
         primary_variant: "#4C8C8CBA", // 70% transparent
         secondary: "#7EDBB7",       // Mint green for secondary actions
         ternary: "#F28C8C",         // Warm coral for contrast or alerts
-        warning: "#FFA500"
+        warning: "#FFA500",
+        warningVariant: "#FFA500BA",
     }
 }
 
@@ -39,7 +41,7 @@ export const usePrimaryVariantColor = () => useColorModeValue(colors.light.prima
 export const useWarningColor = () => useColorModeValue(colors.light.warning, colors.dark.warning);
 export const useGraphColors = () => useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],)
 
-export function useColor(color: 'background' | 'surface' | 'text' | 'secondaryText' | 'primary' | 'primaryVariant' | 'warning') {
+export function useColor(color: 'background' | 'surface' | 'text' | 'secondaryText' | 'primary' | 'primaryVariant' | 'warning' | 'warningVariant') {
     switch (color) {
         case 'background': return useColorModeValue(colors.light.background, colors.dark.background);
         case 'surface': return useColorModeValue(colors.light.surface, colors.dark.surface);
@@ -48,6 +50,7 @@ export function useColor(color: 'background' | 'surface' | 'text' | 'secondaryTe
         case 'primary': return useColorModeValue(colors.light.primary, colors.dark.primary);
         case 'primaryVariant': return useColorModeValue(colors.light.primary_variant, colors.dark.primary_variant);
         case 'warning': return useColorModeValue(colors.light.warning, colors.dark.warning);
+        case 'warningVariant': return useColorModeValue(colors.light.warningVariant, colors.dark.warningVariant);
         default: return '#FFFFFF'
     }
 }
@@ -56,7 +59,7 @@ export function useColor(color: 'background' | 'surface' | 'text' | 'secondaryTe
 export const layoutConfig = {
     margin: '10px',
     padding: '10px',
-    
+
     smallGap: '5px',
 
     pageWidth: 'calc(100vw - 250px)',

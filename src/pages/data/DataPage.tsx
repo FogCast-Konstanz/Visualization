@@ -113,7 +113,7 @@ export default function DataPage() {
           <TabPanel>
             {temperatureHistory && temperatureLastWeek && temperatureLastYear ? (
               <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
-                <PlotlyChart data={temperatureHistory} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' customLayout={{ showlegend: false }} />
+                <PlotlyChart data={temperatureHistory} title={t('dataPage.tempYears')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' customLayout={{ showlegend: false }} />
                 <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
                 <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
               </Flex>

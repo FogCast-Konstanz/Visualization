@@ -2,8 +2,9 @@
 import { useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
-import { fetchModels } from './requests/forcastBackend';
-import { useColor, useSurfaceColor, useTextColor } from './style';
+import { fetchModels } from '../../requests/forcastBackend';
+import { useColor, useSurfaceColor, useTextColor } from '../../style';
+import { selectedStyle } from './selectStyle';
 
 type ModelSelectionProps = {
     selectModels: string[];
@@ -20,7 +21,6 @@ export default function SelectModels({ selectModels, setSelectModels }: ModelSel
 
     async function fetchData() {
         const forcastResponse = await fetchModels();
-
         setModelOptions(forcastResponse.map((model) => ({ label: model, value: model })))
     };
 
@@ -28,32 +28,6 @@ export default function SelectModels({ selectModels, setSelectModels }: ModelSel
     function handleModelChange(selectedOptions: any) {
         setSelectModels(selectedOptions ? selectedOptions.map((option: any) => option.value) : []);
         console.log("Selected Option", selectedOptions)
-    };
-
-    const bgColor = useColor('background');
-    const focusColor = useColor('surface');
-    const textColor = useColor('text');
-
-    const customStyles = {
-        control: (provided: any) => ({
-            ...provided,
-            backgroundColor: bgColor,
-            boxShadow: "none",
-            color: textColor,
-            borderColor: textColor,
-            width: "100%",
-            maxWidth: "500px"
-        }),
-        menu: (provided: any) => ({
-            ...provided,
-            backgroundColor: bgColor,
-            width: "100%"
-        }),
-        option: (provided: any, { isFocused }: any) => ({
-            ...provided,
-            backgroundColor: isFocused ? focusColor : bgColor,
-            color: textColor,
-        }),
     };
 
     return (
@@ -65,7 +39,7 @@ export default function SelectModels({ selectModels, setSelectModels }: ModelSel
             onChange={(e) => handleModelChange(e)}
             placeholder="Select models..."
             menuPlacement='auto'
-            styles={customStyles}
+            styles={selectedStyle()}
         />
 
     )

@@ -6,6 +6,7 @@ import StandardMode from './modes/Standard'
 import { useState } from 'react';
 import AdvancedMode from './modes/Advanced';
 import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
+import CustomSelect from '../../components/elements/Select';
 
 
 // const userModes = ['Standard', 'Advanced', 'Segler']
@@ -21,49 +22,29 @@ export default function StartingPage() {
 
   const [userMode, setUserMode] = useState<number>(Number(localStorage.getItem('userMode') ?? 1) ?? 1)
 
-  function changeUserMode(mode: number) {
+  function changeUserMode(e: React.ChangeEvent<HTMLSelectElement>) {
+    const mode = Number(e.target.value)
+
     setUserMode(mode);
     localStorage.setItem('userMode', mode.toString())
   }
 
   return (
-    <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }}gap={layoutConfig.gap} margin={layoutConfig.margin} maxWidth={'100%'} overflow={'hidden'} overflowY={'auto'} height={'calc(100dvh - 20px)'}>
+    <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }} gap={layoutConfig.gap} margin={layoutConfig.margin} maxWidth={'100%'} overflow={'hidden'} overflowY={'auto'} height={'calc(100dvh - 20px)'}>
       <Flex justifyContent={'space-between'} alignItems={'center'}>
         <Heading>{t('startingPage.title')}</Heading>
 
-        <Select
-          defaultValue={userMode}
-          onChange={(e) => changeUserMode(Number(e.target.value))}
-          width={'fit-content'}
-          bg={useColor('background')}
-          color={useColor('text')}
-          _focus={{ borderColor: useColor('background') }}
-          sx={{
-            option: {
-              background: useColor('background'),
-              color: useColor('text'),
-              _hover: { background: useColor('background') }
-            },
-          }}
-        >
-          {userModes.map(({code, label}) => (
-            <option
-              key={code}
-              value={code}
-              color={useColor('text')}
-            >
-              {label}
-            </option>
-          ))}
-          
-        </Select>
-
+        <CustomSelect
+          value={userMode}
+          onChange={(value) => changeUserMode(value)}
+          options={userModes}
+        />
       </Flex>
 
-      { userMode == 1 ? <StandardMode></StandardMode> 
-        : userMode == 2 ? <AdvancedMode></AdvancedMode> 
-        : <></>
-    }
+      {userMode == 1 ? <StandardMode></StandardMode>
+        : userMode == 2 ? <AdvancedMode></AdvancedMode>
+          : <></>
+      }
     </Flex>
   )
 }
