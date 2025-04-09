@@ -101,6 +101,8 @@ Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie co
         dwdData: "Die Echtzeitdaten und aktuellen Vorhersagen basieren auf Daten des DWD. Auch für die Anaylsen stellten die Daten des DWD die Grundlage dar.",
         openMeteoData: "Die auf der Webseite dargestellten Daten basiseren größtenteils auf Openmeteo.",
         pegelOnline: "Teile der Daten, unter anderem über die Pegelstände, stammen von Pegelonline",
+        lubw: "Grundlage: Daten aus dem Umweltinformationssystem (UIS) der LUBW Landesanstalt für Umwelt Baden-Württemberg",
+        userAgreement: "Nutzungsvereinbarung",
         dataFrom: "Daten von",
         and: "und",
         legalInfoText: `

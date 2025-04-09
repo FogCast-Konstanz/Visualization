@@ -86,7 +86,7 @@ const windsysteme: phenomenaType = {
 
 Der Föhn ist ein warmer, trockener Fallwind, der vom Süden über die Alpen kommt. Er kann plötzlich auftreten und führt oft zu klarem Himmel und hohen Temperaturen.
 
-Föhn entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luft steigt an den Bergen auf (Luvseite) und kühlt sich ab, es bilden sich dichte Wolken und Niederschlag. Sobald die Luft über den Alpenhauptkamm strömt und in das Absinkgebiet gelangt (Leeseite), löst sich die Wolkendecke rasch auf. Die absinkende Luft ist nach dem Wasserverlust an der Luvseite meist sehr trocken und kann einen sprunghaften Temperaturanstieg von 10 K oder mehr bewirken, was zu einem tiefblauen Himmel und einer ungewöhnlichen Fernsicht führt (Vgl. Deutscher Wetterdienst, k.D. a).
+Föhn entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luft steigt an den Bergen auf (Luvseite) und kühlt sich ab, es bilden sich dichte Wolken und Niederschlag. Sobald die Luft über den Alpenhauptkamm strömt und in das Absinkgebiet gelangt (Leeseite), löst sich die Wolkendecke rasch auf. Die absinkende Luft ist nach dem Wasserverlust an der Luvseite meist sehr trocken und kann einen sprunghaften Temperaturanstieg von 10 K oder mehr bewirken, was zu einem tiefblauen Himmel und einer [ungewöhnlichen Fernsicht](/phenomena/bergsicht) führt (Vgl. Deutscher Wetterdienst, k.D. a).
 
 \n
 
@@ -97,7 +97,7 @@ Die Bise ist ein kalter, trockener Wind aus dem Nordosten. Sie tritt besonders i
 Für die Entstehung von Bise ist eine spezielle Druckkonstellation erforderlich: Ein Hochdruckgebiet über Nordeuropa verbindet sich mit einem Tiefdruckgebiet über dem Mittelmeer. Diese Konstellation bewirkt, dass die Luft aus nordöstlicher Richtung über die Schweiz strömt. Vor allem im Genferseegebiet, wo der Abstand zwischen Alpen und Jura immer kleiner wird, wird diese Luft durch den Engpass geleitet, was in den unteren Schichten zu extrem hohen Windgeschwindigkeiten von teilweise über 50 Knoten führt. 
 
 ![Picture](/assets/phenomena/2021-05-22_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")
-Auch der Bodensee wird von der Bise beeinflusst.  Während die kontinentale Luft im Sommer relativ trocken ist und für schönes Wetter sorgt, weist sie in der kalten Jahreszeit einen deutlich höheren Feuchtigkeitsgehalt auf. Häufig bildet sich dann eine horizontale Schicht, in der warme, trockene Luft über kühlerer, feuchter Luft liegt, was zur Bildung von Nebel führt, aus dem gelegentlich leichter Regen oder Schnee fällt. Diese Schicht behindert auch den vertikalen Luftaustausch, so dass sich Schadstoffe in Bodennähe anreichern (Vgl. Meteo Schweiz, 2015).
+Auch der Bodensee wird von der Bise beeinflusst.  Während die kontinentale Luft im Sommer relativ trocken ist und für schönes Wetter sorgt, weist sie in der kalten Jahreszeit einen deutlich höheren Feuchtigkeitsgehalt auf. Häufig bildet sich dann eine horizontale Schicht, in der warme, trockene Luft über kühlerer, feuchter Luft liegt, was zur Bildung von [Nebel](/phenomena/fog) führt, aus dem gelegentlich leichter Regen oder Schnee fällt. Diese Schicht behindert auch den vertikalen Luftaustausch, so dass sich Schadstoffe in Bodennähe anreichern (Vgl. Meteo Schweiz, 2015).
 
 ## Talwind und Bergwind
 
@@ -153,13 +153,13 @@ Wenn am Pegel Konstanz ein Wasserstand von mehr als 4,80 m erreicht wird, sprich
 const bergsicht: phenomenaType = {
     id: 'bergsicht',
     title: 'Bergsicht',
-    description: 'Eine Sichtweite von mehr als 50 km wird als außergewöhnliche Fernsicht bezeichnet. Sie ist eine häufige Begleiterscheinung des Föhns, eines warmen, trockenen Fallwinds, der von Süden nach Norden über die Alpen weht. Wenn Föhn auftritt, bringt er oft eine deutliche Wetterbesserung und klare Sichtverhältnisse mit sich, sodass die Alpen vom Bodensee aus sichtbar werden.',
+    description: 'Eine Sichtweite von mehr als 50 km wird als außergewöhnliche Fernsicht bezeichnet. Sie ist eine häufige Begleiterscheinung des [Föhns](/phenomena/windsysteme), eines warmen, trockenen Fallwinds, der von Süden nach Norden über die Alpen weht. Wenn Föhn auftritt, bringt er oft eine deutliche Wetterbesserung und klare Sichtverhältnisse mit sich, sodass die Alpen vom Bodensee aus sichtbar werden.',
     content: [
         {
             title: "Bergsicht am Bodensee",
             text: `![Picture](/assets/phenomena/2021-03-30_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")    
 Ungewöhnliche Fernsicht ist eine sehr klare Sicht, die häufig nach Kaltfronten oder bei Föhn auftritt, wenn die trockene, absinkende Luft die sonst sichtbehindernden Schwebeteilchen reduziert. Ungewöhnliche Fernsicht wird ab einer Sichtweite von mehr als 50 km vermerkt, an hoch gelegenen Stationen erst ab 150 km bzw. 200 km (Vgl. Deutscher Wetterdienst, k.D.b).
-Föhn entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luft steigt an den Bergen auf (Luvseite) und kühlt sich ab, es bilden sich dichte Wolken und Niederschlag. Sobald die Luft über den Alpenhauptkamm strömt und in das Absinkgebiet gelangt (Leeseite), löst sich die Wolkendecke rasch auf. Die absinkende Luft ist nach dem Wasserverlust an der Luvseite meist sehr trocken und kann einen sprunghaften Temperaturanstieg von 10 K oder mehr bewirken, was zu einem tiefblauen Himmel und einer ungewöhnlichen Fernsicht führt (Vgl. Deutscher Wetterdienst, k.D.a).`,
+[Föhn](/phenomena/windsysteme) entsteht, wenn Luft aus dem Süden gegen die Alpen gedrückt wird. Die Luft steigt an den Bergen auf (Luvseite) und kühlt sich ab, es bilden sich dichte Wolken und Niederschlag. Sobald die Luft über den Alpenhauptkamm strömt und in das Absinkgebiet gelangt (Leeseite), löst sich die Wolkendecke rasch auf. Die absinkende Luft ist nach dem Wasserverlust an der Luvseite meist sehr trocken und kann einen sprunghaften Temperaturanstieg von 10 K oder mehr bewirken, was zu einem tiefblauen Himmel und einer ungewöhnlichen Fernsicht führt (Vgl. Deutscher Wetterdienst, k.D.a).`,
         },
     ],
     sources: `

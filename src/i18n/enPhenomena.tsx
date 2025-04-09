@@ -86,7 +86,7 @@ const windsysteme: phenomenaType = {
 
 The foehn is a warm, dry downslope wind that blows over the Alps from the south. It can be sudden and often brings clear skies and high temperatures.
 
-The foehn occurs when air from the south is pushed towards the Alps. The air rises on the mountains (windward side) and cools down, forming dense clouds and precipitation. Once the air flows over the main Alpine ridge and enters the sinking area (leeward side), the cloud cover quickly dissipates. The descending air is usually very dry after the loss of water on the windward side and can cause a sudden rise in temperature of 10 K or more, resulting in deep blue skies and unusual visibility (cf. Deutscher Wetterdienst, n.d. a).
+The foehn occurs when air from the south is pushed towards the Alps. The air rises on the mountains (windward side) and cools down, forming dense clouds and precipitation. Once the air flows over the main Alpine ridge and enters the sinking area (leeward side), the cloud cover quickly dissipates. The descending air is usually very dry after the loss of water on the windward side and can cause a sudden rise in temperature of 10 K or more, resulting in deep blue skies and [unusual visibility](/phenomena/bergsicht) (cf. Deutscher Wetterdienst, n.d. a).
 
  \n 
 
@@ -97,7 +97,7 @@ Bise is a cold, dry wind that blows from the north-east. It occurs mainly in win
 A special pressure pattern is required for bise to develop: an area of high pressure over northern Europe combines with an area of low pressure over the Mediterranean. This combination causes the air to flow over Switzerland from the north-east. Particularly in the Lake Geneva region, where the distance between the Alps and the Jura mountains is decreasing, this air is channelled through the bottleneck, resulting in extremely high wind speeds, sometimes exceeding 50 knots, in the lower layers.
 
 ![Picture](/assets/phenomena/2021-05-22_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")
-Lake Constance is also influenced by the Bise.  While the continental air is relatively dry in the summer and provides fine weather, it has a much higher moisture content in the cold season. This often results in a horizontal layer of warm, dry air above cooler, moist air, leading to the formation of fog from which light rain or snow occasionally falls. This layer also hinders the vertical exchange of air, causing pollutants to accumulate near the ground (see Meteo Schweiz, 2015).
+Lake Constance is also influenced by the Bise.  While the continental air is relatively dry in the summer and provides fine weather, it has a much higher moisture content in the cold season. This often results in a horizontal layer of warm, dry air above cooler, moist air, leading to the formation of [fog](/phenomena/fog) from which light rain or snow occasionally falls. This layer also hinders the vertical exchange of air, causing pollutants to accumulate near the ground (see Meteo Schweiz, 2015).
 
 \n
 
@@ -160,14 +160,14 @@ When the water level reaches more than 4.80 metres at the Konstanz gauge, Lake C
 const bergsicht: phenomenaType = {
     id: 'bergsicht',
     title: 'Mountain View',
-    description: 'A visibility of more than 50 kilometres is called exceptional visibility. It is a common side effect of the foehn, a warm, dry downslope wind that blows from south to north across the Alps. When the foehn occurs, it often brings a significant improvement in the weather and clear visibility, making the Alps visible from Lake Constance.',
+    description: 'A visibility of more than 50 kilometres is called exceptional visibility. It is a common side effect of the [Foehn](/phenomena/windsysteme), a warm, dry downslope wind that blows from south to north across the Alps. When the foehn occurs, it often brings a significant improvement in the weather and clear visibility, making the Alps visible from Lake Constance.',
     content: [{
         title: 'Lake Constanze Mountain View',
         text: `![Picture](/assets/phenomena/2021-03-30_SAMANTHA_ISTED_1.jpg "Foto von Samantha Isted")
 
 Unusual visibility is a very clear view that often occurs after cold fronts or during foehn winds, when the dry, descending air reduces the suspended particles that would otherwise obstruct visibility. Unusual visibility is recorded from a visibility of more than 50 km, at high altitude stations only from 150 km or 200 km (cf. Deutscher Wetterdienst, n.d. b). 
 
-Föhn occurs when air from the south is pressed against the Alps. The air rises on the mountains (windward side) and cools down, forming dense clouds and precipitation. Once the air flows over the main Alpine ridge and enters the sinking area (leeward side), the cloud cover quickly dissipates. After the loss of water on the windward side, the descending air is usually very dry and can cause a sudden rise in temperature of 10 K or more, resulting in deep blue skies and unusual visibility (see Deutscher Wetterdienst, n.d. a).`
+[Foehn](/phenomena/windsysteme) occurs when air from the south is pressed against the Alps. The air rises on the mountains (windward side) and cools down, forming dense clouds and precipitation. Once the air flows over the main Alpine ridge and enters the sinking area (leeward side), the cloud cover quickly dissipates. After the loss of water on the windward side, the descending air is usually very dry and can cause a sudden rise in temperature of 10 K or more, resulting in deep blue skies and unusual visibility (see Deutscher Wetterdienst, n.d. a).`
     }],
     sources: `
 *   Deutscher Wetterdienst. (kein Datum a). _Alpen-Süd-Föhn_. Abgerufen am 17. Februar 2025 von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100072&lv3=100180) 

@@ -1,7 +1,7 @@
 import { Card, CardBody, CardHeader, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { OrbitProgress } from 'react-loading-indicators';
-import DataSource from '../../components/DataSource';
+import DataSource from '../impressum/DataSource';
 import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
 import { calculateAverageTrace, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { formatActualDatetime } from '../../components/requests/helpers';

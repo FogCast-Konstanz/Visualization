@@ -115,10 +115,16 @@ export default function Impressum() {
                                 <Text>Datenbasis: <Link href='https://open-meteo.com/'>Open Meteo</Link> - {t('impressum.openMeteoData')}</Text>
                             </Box>
 
-                            <Box flex="1" id='openMeteoSource'>
+                            <Box flex="1" id='pegelOnlineSource'>
                                 <Link href='https://www.pegelonline.wsv.de/gast/start'><Text fontWeight="bold" mb={layoutConfig.margin}>Pegelonline </Text></Link>
                                 <Text>{t('impressum.licence')}: <Link href='https://www.govdata.de/dl-de/zero-2-0'>DL-DE-Zero-2.0 Lizenz</Link></Text>
                                 <Text>Datenbasis: <Link href='https://www.pegelonline.wsv.de/gast/start'>Pegelonline</Link> - {t('impressum.pegelOnline')}</Text>
+                            </Box>
+
+                            <Box flex="1" id='lubwSource'>
+                                <Link href='https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem'><Text fontWeight="bold" mb={layoutConfig.margin}>LUBW Baden WÜrttemberg (LUBW)</Text></Link>
+                                <Text>{t('impressum.licence')}: <Link href='https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem/nutzungsvereinbarung'>{t('impressum.userAgreement')} LUBW Baden Württemberg</Link></Text>
+                                <Text>Datenbasis: <Link href='https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem'>LUBW Baden Württemberg (LUBW)</Link> - {t('impressum.pegelOnline')}</Text>
                             </Box>
                         </Flex>
 

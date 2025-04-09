@@ -5,7 +5,7 @@ import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
 import { RiWindyFill } from "react-icons/ri"
 import { WiHumidity } from "react-icons/wi"
 import { OrbitProgress } from 'react-loading-indicators'
-import DataSource from '../../../components/DataSource'
+import DataSource from '../../impressum/DataSource'
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
 import { fetchActualWeather } from '../../../components/requests/actualBackend'
 import { default as DWDForcast } from '../../../components/requests/dwdForcast'

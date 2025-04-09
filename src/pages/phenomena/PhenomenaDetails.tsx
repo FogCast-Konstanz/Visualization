@@ -32,7 +32,7 @@ export default function PhenomenaSite({ title, description, content, sources, id
                     color={useColor('text')}
                 />
                 <Text marginLeft={'20px'}>
-                    <Link onClick={() => navigate(-1)}>Phenomena</Link>
+                    <Link href='/phenomena'>Phenomena</Link>
                     <Icon
                         as={ChevronRightIcon}
                         aria-label="Go Back"
@@ -45,12 +45,14 @@ export default function PhenomenaSite({ title, description, content, sources, id
                 </Text>
             </Flex>
 
+            <Flex id='phenomenas' padding={layoutConfig.padding} direction={'column'} gap={layoutConfig.gap} overflow="auto">
+                <CardIndividual header={title} body={description} />
+                {content.map((c, index) => {
+                    return <CardIndividual header={c.title} body={c.text} key={index} />
+                })}
+                {sources && <CardIndividual header={t('phenomena.sources')} body={sources} />}
+            </Flex>
 
-            <CardIndividual header={title} body={description} />
-            {content.map((c, index) => {
-                return <CardIndividual header={c.title} body={c.text} key={index} />
-            })}
-            {sources && <CardIndividual header={t('phenomena.sources')} body={sources} />}
         </Flex>
     )
 }

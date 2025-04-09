@@ -95,6 +95,8 @@ const en = {
         dwdData: "The real-time data and current forecasts are based on DWD data. The DWD data also formed the basis for the analyses.",
         openMeteoData: "The data presented on the website is largely based on Openmeteo.",
         pegelOnline: "Parts of the data, like the data about the water level, is from Pegelonline",
+        lubw: "Basis: Data from the Environmental Information System (UIS) of the Landesanstalt für Umwelt Baden-Württemberg (LUBW)",
+        userAgreement: "User Agreement",
         dataFrom: "Data from",
         and: "and",
         legalInfoText: `

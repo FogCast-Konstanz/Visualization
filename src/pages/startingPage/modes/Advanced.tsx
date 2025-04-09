@@ -9,7 +9,7 @@ import SelectParameter from '../../../components/elements/muiltiSelect/SelectMea
 import SelectModels from '../../../components/elements/muiltiSelect/SelectModels'
 import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
 import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../../components/style';
-import DataSource from '../../../components/DataSource'
+import DataSource from '../../impressum/DataSource'
 
 
 export default function AdvancedMode() {

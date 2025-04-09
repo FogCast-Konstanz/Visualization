@@ -2,7 +2,7 @@ import { Card, CardBody, CardHeader, Flex, Heading, Text, useColorModeValue } fr
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSearchParams } from 'react-router-dom';
-import DataSource from '../../components/DataSource';
+import DataSource from '../impressum/DataSource';
 import { convertMultipleToPlotlyChartFormat, PlotlyChartBasicFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
 import { ExtractedForecastData, fetchForecast, reformatDataofForecastBackend } from '../../components/requests/forcastBackend';
 import ConfigurationForRequest from './ConfigurationForRequest';

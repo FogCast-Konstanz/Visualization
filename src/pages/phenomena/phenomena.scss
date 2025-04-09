@@ -33,6 +33,16 @@ textarea {
     font-weight: 500;
 }
 
+#phenomenas {
+    a {
+        text-decoration: underline !important;
+    
+        &:hover {
+            text-decoration: none !important;
+        }
+    }
+}
+
 
 ul, ol {
     margin-left: 25px;

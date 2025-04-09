@@ -1,5 +1,5 @@
 import { Flex, Heading } from '@chakra-ui/react';
-import DataSource from '../../components/DataSource';
+import DataSource from '../impressum/DataSource';
 import Leaderboard from './Leaderboard';
 import Introduction from '../../components/Introduction';
 import { layoutConfig } from '../../components/style';
