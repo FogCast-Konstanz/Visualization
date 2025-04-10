@@ -1,7 +1,7 @@
 import axios from "axios";
-import { API_BASE_URL } from "./helpers";
+import { API_BASE_URL } from "../helpers";
 import { ForcastCardProps } from "@/pages/startingPage/ForcastCard";
-import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
+import { PlotlyChartBasicFormat } from "../../plotly/PlotlyChartFormat";
 
 const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 

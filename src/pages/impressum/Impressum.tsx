@@ -1,12 +1,12 @@
 import { useTranslation } from 'react-i18next';
 
-import { Box, Card, CardBody, CardHeader, Flex, Heading, Image, Link, Text, useColorModeValue, VStack } from "@chakra-ui/react";
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { Box, Card, CardBody, CardHeader, Flex, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
+import { layoutConfig, useColor } from '../../components/style';
 
 
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import Introduction from '../../components/Introduction';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import Introduction from '../../components/elements/Introduction';
 
 export default function Impressum() {
     const { t } = useTranslation();

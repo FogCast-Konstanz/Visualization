@@ -1,8 +1,8 @@
-import { Card, CardBody, CardHeader, Heading, useColorModeValue } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading } from '@chakra-ui/react';
 
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
-import { layoutConfig, useColor, useTextColor } from './style';
+import { layoutConfig, useColor } from '../style';
 
 
 type IntroductionFormat = { header: string; text: string };

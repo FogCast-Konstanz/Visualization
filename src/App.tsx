@@ -1,8 +1,9 @@
-import { Flex, useColorModeValue } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
-import Navigation from './components/Navigation';
+import Navigation from './components/navigation/Navigation';
+import { useColor } from './components/style';
 import { phenomenaType } from './i18n/dePhenomena';
 import AnalysisPage from './pages/analysis/AnalysisPage';
 import DataPage from './pages/data/DataPage';
@@ -14,8 +15,6 @@ import PhenomenaSite from './pages/phenomena/PhenomenaDetails';
 import Phenomena from './pages/phenomena/PhenomenaPage';
 import StartingPage from './pages/startingPage/StartingPage';
 import WeatherStationPage from './pages/station/WeatherStationPage';
-
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './components/style';
 
 
 function App() {

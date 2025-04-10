@@ -3,12 +3,12 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OrbitProgress } from 'react-loading-indicators'
 import { useSearchParams } from 'react-router-dom'
-import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
-import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataOptions } from '../../../components/requests/currentForecacstBackend'
 import SelectParameter from '../../../components/elements/muiltiSelect/SelectMeasurements'
 import SelectModels from '../../../components/elements/muiltiSelect/SelectModels'
-import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import PlotlyChart from '../../../components/plotly/DefaultChart'
+import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
+import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataOptions } from '../../../components/requests/currentForecacstBackend'
+import { layoutConfig } from '../../../components/style'
 import DataSource from '../../impressum/DataSource'
 
 

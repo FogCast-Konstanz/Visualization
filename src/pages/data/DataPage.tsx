@@ -1,15 +1,14 @@
-import { Card, CardBody, CardHeader, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { OrbitProgress } from 'react-loading-indicators';
-import DataSource from '../impressum/DataSource';
-import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { calculateAverageTrace, fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
-import { formatActualDatetime } from '../../components/requests/helpers';
-import PlotlyChart from '../../components/ui/plotly/DefaultChart';
-import ConfigurationForRequest from '../models/ConfigurationForRequest';
 import { useTranslation } from 'react-i18next';
-import Introduction from '../../components/Introduction';
-import { layoutConfig, useColor, useGraphColors, usePrimaryColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { OrbitProgress } from 'react-loading-indicators';
+import Introduction from '../../components/elements/Introduction';
+import PlotlyChart from '../../components/plotly/DefaultChart';
+import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
+import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
+import { formatActualDatetime } from '../../components/requests/helpers';
+import { layoutConfig, useColor, useGraphColors } from '../../components/style';
+import DataSource from '../impressum/DataSource';
 
 export default function DataPage() {
   const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
@@ -21,7 +20,6 @@ export default function DataPage() {
   const [waterLevel, setWaterLevel] = useState<PlotlyChartDataFormat[] | null>(null)
 
   const [weekdaysTemp, setWeekdaysTemp] = useState<any | null>(null)
-
 
   useEffect(() => {
     requestBackend()

@@ -1,8 +1,8 @@
 import { ArrowRightIcon } from '@chakra-ui/icons';
-import { Card, CardBody, CardHeader, Heading, Icon, Text, useColorModeValue } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Heading, Icon, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
+import { useColor } from '../../components/style';
 import { phenomenaType } from '../../i18n/dePhenomena';
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 
 
 type Input = phenomenaType

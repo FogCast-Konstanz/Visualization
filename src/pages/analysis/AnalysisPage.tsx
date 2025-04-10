@@ -1,8 +1,8 @@
-import { Flex, Heading } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
+import Introduction from '../../components/elements/Introduction';
+import { layoutConfig } from '../../components/style';
 import DataSource from '../impressum/DataSource';
 import Leaderboard from './Leaderboard';
-import Introduction from '../../components/Introduction';
-import { layoutConfig } from '../../components/style';
 
 export default function AnalysisPage() {
 

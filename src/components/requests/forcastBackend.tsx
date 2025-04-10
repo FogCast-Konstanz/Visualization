@@ -1,7 +1,6 @@
 
 import axios from "axios";
-import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
-import { API_BASE_URL, formatGermanDate } from "./helpers";
+import { API_BASE_URL } from "./helpers";
 
 type ForecastData = {
     _time: string;

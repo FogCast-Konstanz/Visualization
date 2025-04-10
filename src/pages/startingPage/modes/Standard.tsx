@@ -1,20 +1,19 @@
-import { Button, Card, Flex, Heading, useColorModeValue } from '@chakra-ui/react'
+import { Button, Card, Flex, Heading } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
 import { RiWindyFill } from "react-icons/ri"
 import { WiHumidity } from "react-icons/wi"
 import { OrbitProgress } from 'react-loading-indicators'
-import DataSource from '../../impressum/DataSource'
+import PlotlyChart from '../../../components/plotly/DefaultChart'
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
 import { fetchActualWeather } from '../../../components/requests/actualBackend'
-import { default as DWDForcast } from '../../../components/requests/dwdForcast'
-import PlotlyChart from '../../../components/ui/plotly/DefaultChart'
-import ForcastCard, { ForcastCardProps } from '../ForcastCard'
-import MeasurementCard from '../MeasurementCard'
-import { extractCurrentWeatherForecastHourly, extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
-import { layoutConfig, useColor, usePrimaryColor, usePrimaryVariantColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import { extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
 import { convertCodesAndIsDaysToAscii } from '../../../components/requests/mapWeatherCodes'
+import { layoutConfig, useColor } from '../../../components/style'
+import DataSource from '../../impressum/DataSource'
+import ForcastCard from '../ForcastCard'
+import MeasurementCard from '../MeasurementCard'
 
 
 export default function StandardMode() {

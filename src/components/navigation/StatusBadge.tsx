@@ -1,17 +1,13 @@
 
-import { Badge, Box, Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react';
+import { Badge, Flex } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import Select from 'react-select';
-import { fetchModels } from './requests/forcastBackend';
-import { CheckCircleIcon, WarningIcon } from "@chakra-ui/icons";
-import { fetchServerStatus } from './requests/statusBackend';
-import { layoutConfig } from './style';
+import { fetchServerStatus } from '../requests/statusBackend';
+import { layoutConfig } from '../style';
 
 
 export default function StatusBadge() {
 
     const [status, setStatus] = useState<'running' | 'down' | 'unreachable'>('running');
-
 
     useEffect(() => {
         checkStatus();

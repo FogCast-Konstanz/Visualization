@@ -1,6 +1,6 @@
 import axios from "axios";
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
-import { API_BASE_URL, formatGermanDate } from "./helpers";
+import { API_BASE_URL } from "./helpers";
 
 type ActualResponseFormat = {
     date: string,
@@ -32,6 +32,7 @@ export async function fetchTemperatureHistoryDWD(start: string, stop: string, fr
 
 
 export async function fetchFogDaysHistoryDWD(start: string, stop: string, frequency: "monthly" | "yearly"): Promise<ActualResponseFormat[]> {
+    // Date Format 2025-02-01 00:00:00
     try {
         const response = await axios.get(`${API_BASE_URL}/actual/fog-count-history`, {
             params: { start: start, stop: stop, frequency: frequency },
@@ -78,6 +79,29 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
         });
 
         return response.data
+    } catch (error) {
+        console.error("Error fetching actual data:", error);
+        throw error;
+    }
+};
+
+
+export async function fetchArchiveWeather(date: string, model: string): Promise<[{date: string, apparent_temperature: number, relative_humidity_2m: number}]> {
+    // Date Format 2025-02-01 00:00:00
+
+    try {
+        const response = await axios.get(`${API_BASE_URL}/actual/archive`, {
+            params: { model_id: model, date: date },
+            headers: { Accept: "application/json" },
+        });
+
+        let data = response.data
+        if (typeof (data) == 'string') {
+            data = data.replace(/NaN/g, "null");
+            data = JSON.parse(data)
+        }
+
+        return data
     } catch (error) {
         console.error("Error fetching actual data:", error);
         throw error;

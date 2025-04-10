@@ -1,7 +1,7 @@
-import { Flex, Icon, Text, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Icon, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaHammer } from 'react-icons/fa';
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
+import { useColor } from '../style';
 
 export default function UnderConstruction() {
     const { t } = useTranslation()

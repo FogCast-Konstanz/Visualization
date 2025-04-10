@@ -1,9 +1,9 @@
-import { Card, CardBody, createIcon, Flex, Icon, Text, Tooltip, useColorModeValue } from "@chakra-ui/react";
-
-import { IoCloudOfflineOutline, IoCloudy, IoSnow, IoSunny } from "react-icons/io5";
-import { IconType } from "react-icons/lib";
-import { FaDroplet } from "react-icons/fa6";
-
+import { Card, CardBody, createIcon, Flex, Icon, Text, Tooltip } from "@chakra-ui/react";
+import { t } from "i18next";
+import { useEffect } from "react";
+import { WiRaindrop } from "react-icons/wi";
+import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
+import { layoutConfig, useColor } from '../../components/style';
 import FogSVG from '/public/assets/weather/fog.svg';
 import HumiditySVG from '/public/assets/weather/humidity.svg';
 import MoonSVG from '/public/assets/weather/moon.svg';
@@ -11,14 +11,7 @@ import PartlyMoonSVG from '/public/assets/weather/partlyMoon.svg';
 import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
 import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
-import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
-import { useEffect } from "react";
-import { layoutConfig, useColor, usePrimaryColor, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../components/style';
 
-
-import { TbDropletFilled } from "react-icons/tb";
-import { WiRaindrop, WiRaindrops } from "react-icons/wi";
-import { t } from "i18next";
 const SVGRepoRainy = createIcon({ displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" /> });
 const SVGRepoPartlySunny = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" /> });
 const SVGRepoThunder = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ThunderSVG} width="24" height="24" /> });

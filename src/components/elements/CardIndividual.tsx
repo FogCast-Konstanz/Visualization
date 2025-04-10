@@ -1,7 +1,7 @@
-import { Card, CardBody, CardHeader, Heading, useColorModeValue } from "@chakra-ui/react"
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
+import { Card, CardBody, CardHeader, Heading } from "@chakra-ui/react";
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { useColor } from '../style';
 
 type Input = {header: string, body: string}
 export default function CardIndividual({ header, body }: Input) {

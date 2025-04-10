@@ -1,7 +1,7 @@
 import axios from "axios";
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
-import { API_BASE_URL, formatGermanDate } from "./helpers";
 import { ModelOption } from "../elements/muiltiSelect/SelectMeasurements";
+import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
+import { API_BASE_URL } from "./helpers";
 
 export async function fetchCurrentForecast(modelId: string): Promise<CurrentForecastResponseFormat[]> {
     try {

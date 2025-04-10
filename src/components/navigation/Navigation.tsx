@@ -1,13 +1,13 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
-import { Flex, Heading, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, Text, UnorderedList, useColorModeValue } from '@chakra-ui/react';
+import { Flex, Heading, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, Text, UnorderedList } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaDatabase } from "react-icons/fa";
 import { FaBolt, FaBook, FaChartSimple, FaCircleInfo, FaRankingStar, FaSatellite } from "react-icons/fa6";
 import { GoHomeFill } from "react-icons/go";
 import { useLocation } from 'react-router-dom';
+import { layoutConfig, useColor } from '../style';
 import Settings from './Menu';
 import StatusBadge from './StatusBadge';
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
 
 export default function Navigation() {
   const { t } = useTranslation();

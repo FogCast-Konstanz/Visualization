@@ -1,6 +1,6 @@
 
 import axios from "axios";
-import { API_BASE_URL } from "./helpers";
+import { API_BASE_URL } from "../helpers";
 
 const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 

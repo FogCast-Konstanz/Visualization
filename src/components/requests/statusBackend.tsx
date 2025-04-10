@@ -1,6 +1,5 @@
 import axios from "axios";
-import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
-import { API_SERVER_BASE_URL, formatGermanDate } from "./helpers";
+import { API_SERVER_BASE_URL } from "./helpers";
 
 export async function fetchServerStatus(): Promise<'running' | 'down' | 'unreachable'> {
     try {
@@ -16,7 +15,6 @@ export async function fetchServerStatus(): Promise<'running' | 'down' | 'unreach
         return 'down'
     } catch (error) {
         console.error("Error fetching forecast:", error);
-        return 'unreachable'
-        throw error;        
+        return 'unreachable'    
     }
 };

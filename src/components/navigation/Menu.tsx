@@ -1,9 +1,9 @@
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Button, Flex, Select, useColorMode, useColorModeValue } from '@chakra-ui/react';
+import { Button, Flex, useColorMode } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { LANGUAGES } from './constants';
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from './style';
-import CustomSelect from './elements/Select';
+import { LANGUAGES } from '../constants';
+import CustomSelect from '../elements/Select';
+import { layoutConfig } from '../style';
 
 export default function Settings() {
     const { i18n } = useTranslation();

@@ -1,8 +1,8 @@
+import { useTheme } from "@chakra-ui/react";
 import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
-import { Flex, useColorModeValue, useTheme } from "@chakra-ui/react";
-import { layoutConfig, useColor, useGraphColors, useSecondaryTextColor, useSurfaceColor, useTextColor } from '../../../components/style';
+import { layoutConfig, useColor, useGraphColors } from '../style';
 
 interface PlotlyChartProps {
     data: any[];

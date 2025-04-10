@@ -1,12 +1,10 @@
-import { Flex, Heading, Select, useColorModeValue } from '@chakra-ui/react'
-
-
-import { useTranslation } from 'react-i18next'
-import StandardMode from './modes/Standard'
+import { Flex, Heading } from '@chakra-ui/react';
 import { useState } from 'react';
-import AdvancedMode from './modes/Advanced';
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { useTranslation } from 'react-i18next';
 import CustomSelect from '../../components/elements/Select';
+import { layoutConfig } from '../../components/style';
+import AdvancedMode from './modes/Advanced';
+import StandardMode from './modes/Standard';
 
 
 // const userModes = ['Standard', 'Advanced', 'Segler']

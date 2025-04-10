@@ -1,6 +1,6 @@
-import { Link, Text, useColorModeValue } from '@chakra-ui/react';
+import { Link, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { useColor } from '../../components/style';
 
 export default function DataSource() {
     const { t } = useTranslation()

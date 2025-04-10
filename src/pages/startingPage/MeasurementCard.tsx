@@ -1,6 +1,6 @@
-import { Card, CardBody, Flex, Heading, Icon, useColorModeValue } from "@chakra-ui/react"
-import { IconType } from "react-icons/lib"
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { Card, CardBody, Flex, Heading, Icon } from "@chakra-ui/react";
+import { IconType } from "react-icons/lib";
+import { layoutConfig, useColor } from '../../components/style';
 
 
 type Input = { measurement: string, value: string, unit: string, icon?: IconType }

@@ -1,10 +1,8 @@
 
-import { Button, Flex, Icon, IconButton, Input, Menu, MenuButton, MenuList, useColorModeValue, VStack } from '@chakra-ui/react';
-import { useState } from 'react';
-
-import { GrConfigure } from "react-icons/gr";
+import { Flex, Input } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
 import SelectModels from '../../components/elements/muiltiSelect/SelectModels';
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
+import { layoutConfig, useColor } from '../../components/style';
 
 
 type ModelSelectionProps = {
@@ -14,10 +12,17 @@ type ModelSelectionProps = {
   onDateTimeChange: (dateTime: string) => void;
 };
 
-export default function ConfigurationForRequest({ selectedModels, selectedDateTime, onModelChange, onDateTimeChange }: ModelSelectionProps) {
-
+export default function ConfigurationForRequest({ selectedModels, selectedDateTime, onModelChange, onDateTimeChange }: ModelSelectionProps) { 
   const [selectModels, setSelectModels] = useState(selectedModels);
   const [selectDatetime, setSelectedDatetime] = useState(selectedDateTime);
+  
+  useEffect(() => {
+    onModelChange(selectModels);
+  }, [selectModels])
+
+  useEffect(() => {
+    onDateTimeChange(selectDatetime);
+  }, [selectDatetime])
 
   function setValues() {
     onModelChange(selectModels);

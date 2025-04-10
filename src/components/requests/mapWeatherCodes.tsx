@@ -1,9 +1,8 @@
-import { Box, Text, Icon } from "@chakra-ui/react";
-import { FaSun, FaCloud, FaCloudRain, FaSnowflake } from "react-icons/fa";
+import { createIcon } from "@chakra-ui/react";
 import { IconType } from "react-icons/lib";
-import { Card, CardBody, createIcon, Flex, useColorModeValue } from "@chakra-ui/react";
 
 import { IoCloudOfflineOutline, IoCloudy, IoSnow, IoSunny } from "react-icons/io5";
+import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import FogSVG from '/public/assets/weather/fog.svg';
 import HumiditySVG from '/public/assets/weather/humidity.svg';
 import MoonSVG from '/public/assets/weather/moon.svg';
@@ -11,7 +10,6 @@ import PartlyMoonSVG from '/public/assets/weather/partlyMoon.svg';
 import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
 import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
-import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 
 const SVGRepoRainy = createIcon({ displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" /> });
 const SVGRepoPartlySunny = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" /> });

@@ -1,11 +1,11 @@
 import { CloseIcon } from '@chakra-ui/icons'
-import { Flex, Heading, IconButton, Input, InputGroup, InputRightElement, Select, useColorModeValue, VStack } from '@chakra-ui/react'
+import { Flex, Heading, IconButton, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LexikonEntry from './LexikonEntry'
 
-import { layoutConfig, useColor, useSurfaceColor, useTextColor } from '../../components/style';
 import CustomSelect from '../../components/elements/Select'
+import { layoutConfig, useColor } from '../../components/style'
 
 
 export default function Lexikon() {

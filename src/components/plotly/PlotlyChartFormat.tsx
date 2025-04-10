@@ -1,5 +1,3 @@
-import { formatGermanDate, formatYear } from "../requests/helpers";
-import { getWeatherAscii } from "../requests/mapWeatherCodes";
 
 export interface PlotlyChartBasicFormat {
     x: string[];
