@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build: .
+    container_name: fogcast-frontend
+    networks:
+      - proxy-net
+    restart: always
+
+networks:
+  proxy-net:
+    external: true
