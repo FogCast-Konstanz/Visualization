@@ -1,6 +1,5 @@
 
 import axios from "axios";
-import { API_BASE_URL } from "../helpers";
 
 const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 
@@ -18,7 +17,7 @@ type ForecastData = {
 
 export const fetchForecast = async (stationId: string) => {
     try {
-        const response = await axios.get(`${API_BASE_URL}/dwd-proxy`, {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/dwd-proxy`, {
             params: { 
                 url: `${DWD_BASE_URL}/stationOverviewExtended`,
                 stationIds: stationId

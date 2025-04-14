@@ -6,13 +6,13 @@ const en = {
     insert: "My name is {{name}}",
 
     navigation: {
-        models: "Models",
-        station: "Station",
+        models: "Model comparison",
+        station: "Weatherstation",
         data: "Data",
         lexikon: "Lexikon",
         phenomena: "Phenomena",
         home: "Home",
-        analysis: "Analysis"
+        analysis: "Leaderboard"
     },
 
     data: {

@@ -1,9 +1,8 @@
 import axios from "axios";
-import { API_SERVER_BASE_URL } from "./helpers";
 
 export async function fetchServerStatus(): Promise<'running' | 'down' | 'unreachable'> {
     try {
-        const response = await axios.get(`${API_SERVER_BASE_URL}/cronjob-status`, {
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_BASE_URL}/cronjob-status`, {
             headers: { Accept: "application/json" },
         });
 

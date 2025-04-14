@@ -12,8 +12,7 @@ import ConfigurationForRequest from './ConfigurationForRequest';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import PlotlyChart from '../../components/plotly/DefaultChart';
-import { fetchArchiveWeather } from '../../components/requests/actualBackend';
-import { formatActualDatetime } from '../../components/requests/helpers';
+import { fetchArchiveWeather, formatActualDatetime } from '../../components/requests/actualBackend';
 
 export default function ModelsPage() {
   const { t } = useTranslation()

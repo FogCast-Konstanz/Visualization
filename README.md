@@ -9,4 +9,4 @@ Visualisierung der Daten in einem Frontend
 ## Start with Docker
 
 `docker build --tag frontend .`
-`docker run -d --name frontend -p 80:80 frontend`
+`docker run -d --name frontend -p 80:80 frontend --restart`

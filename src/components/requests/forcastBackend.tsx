@@ -1,6 +1,5 @@
 
 import axios from "axios";
-import { API_BASE_URL } from "./helpers";
 
 type ForecastData = {
     _time: string;
@@ -18,7 +17,7 @@ export type ExtractedForecastData = {
 
 export async function fetchForecast(datetime: string, modelId: string,): Promise<ForecastData[]> {
     try {
-        const response = await axios.get(`${API_BASE_URL}/forecasts`, {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/forecasts`, {
             params: { datetime: datetime, model_id: modelId },
             headers: { Accept: "application/json" },
         });
@@ -46,25 +45,9 @@ export function reformatDataofForecastBackend(forcastData: ForecastData[]): Extr
     };
 }
 
-// export function extractTemperatureAndModelOutOfForcast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
-//     return {
-//         x: forcastData.map(entry => formatGermanDate(entry._time)),
-//         y: forcastData.map(entry => entry.apparent_temperature),
-//         name: forcastData[0].model
-//     };
-// }
-
-// export function extractHumidityAndModelOutOfForecast(forcastData: ForecastData[]): PlotlyChartBasicFormat {
-//     return {
-//         x: forcastData.map(entry => formatGermanDate(entry._time)),
-//         y: forcastData.map(entry => entry.relative_humidity_2m),
-//         name: forcastData[0].model
-//     };
-// }
-
 export async function fetchModels(): Promise<string[]> {
     try {
-        const response = await axios.get(`${API_BASE_URL}/models`, {
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/models`, {
             headers: { Accept: "application/json" },
         });
 

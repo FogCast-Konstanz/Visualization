@@ -7,13 +7,13 @@ const de = {
     insert: "Mein Name ist {{name}}",
 
     navigation: {
-        models: "Vorhersagen",
-        station: "Station",
+        models: "Modellvergleich",
+        station: "Wetterstation",
         data: "Daten",
         lexikon: "Lexikon",
         phenomena: "Phänomene",
         home: "Startseite",
-        analysis: "Analyse"
+        analysis: "Leaderboard"
     },
 
     data: {
@@ -65,7 +65,7 @@ const de = {
     lexicon: deLexicon,
 
     models: {
-        title: "Vorhersagen",
+        title: "Modellvergleich",
         selectValues: "Wähle ein Modell und das Datum aus (oben rechts).",
         introduction: "Analysiere und vergleiche die Vorhersagen von verschiedenen Modellen! \nHier können verschiedene Modelle ausgewählt werden und der [vorhergesagte Zeitpunkt](/lexikon#predictedTime). Infolgedessen werden die [historischen Vorhersagen](/lexikon#timeOfPrediction) für alle ausgewählten Modelle über die Zeit angezeigt.",
         forecastTemp: 'Temperaturvorhersage für {{date}}',

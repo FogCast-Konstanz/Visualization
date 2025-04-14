@@ -7,6 +7,7 @@ const colors = {
         surface: "#2F4F4F",
         background: "#293F3F",
         text: "#DCDCDC",
+        text_variant: "#DCDCDCBA",
         secondarytext: "#000000",
         primary: "#4f8b8b",
         primary_variant: "#4f8b8bBA",
@@ -19,6 +20,7 @@ const colors = {
         surface: "#DDEDED",
         background: "#C7DFDF",
         text: "#2F4F4F",
+        text_variant: "#2F4F4FBA",
         secondarytext: "#FFFFFF",
         primary: "#4C8C8C",
         primary_variant: "#4C8C8CBA", // 70% transparent
@@ -41,11 +43,12 @@ export const usePrimaryVariantColor = () => useColorModeValue(colors.light.prima
 export const useWarningColor = () => useColorModeValue(colors.light.warning, colors.dark.warning);
 export const useGraphColors = () => useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],)
 
-export function useColor(color: 'background' | 'surface' | 'text' | 'secondaryText' | 'primary' | 'primaryVariant' | 'warning' | 'warningVariant') {
+export function useColor(color: 'background' | 'surface' | 'text' | 'secondaryText' | 'primary' | 'primaryVariant' | 'warning' | 'warningVariant' | 'textVariant') {
     switch (color) {
         case 'background': return useColorModeValue(colors.light.background, colors.dark.background);
         case 'surface': return useColorModeValue(colors.light.surface, colors.dark.surface);
         case 'text': return useColorModeValue(colors.light.text, colors.dark.text);
+        case 'textVariant': return useColorModeValue(colors.light.text_variant, colors.dark.text_variant);
         case 'secondaryText': return useColorModeValue(colors.light.secondarytext, colors.dark.secondarytext);
         case 'primary': return useColorModeValue(colors.light.primary, colors.dark.primary);
         case 'primaryVariant': return useColorModeValue(colors.light.primary_variant, colors.dark.primary_variant);

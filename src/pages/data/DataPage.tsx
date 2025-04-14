@@ -5,8 +5,7 @@ import { OrbitProgress } from 'react-loading-indicators';
 import Introduction from '../../components/elements/Introduction';
 import PlotlyChart from '../../components/plotly/DefaultChart';
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
-import { formatActualDatetime } from '../../components/requests/helpers';
+import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, formatActualDatetime, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { layoutConfig, useColor, useGraphColors } from '../../components/style';
 import DataSource from '../impressum/DataSource';
 
@@ -66,7 +65,7 @@ export default function DataPage() {
 
     const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
     setTemperatureHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), ['2025', '2023', '1984'], graphcolors))
- 
+
 
     /* Get Fog of last year */
     // const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(dateLastWeek), "monthly")
@@ -87,7 +86,7 @@ export default function DataPage() {
   }
 
   return (
-    <Flex direction='column' width='100%'gap={layoutConfig.gap} margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
+    <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
       <Introduction header={t('dataPage.title')} text={t('dataPage.introduction')}></Introduction>
 
       {/* <Card
