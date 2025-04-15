@@ -1,5 +1,6 @@
 
 import axios from "axios";
+import { BACKEND_API_URL } from "../constants";
 
 type ForecastData = {
     _time: string;
@@ -17,7 +18,7 @@ export type ExtractedForecastData = {
 
 export async function fetchForecast(datetime: string, modelId: string,): Promise<ForecastData[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/forecasts`, {
+        const response = await axios.get(`${BACKEND_API_URL}/forecasts`, {
             params: { datetime: datetime, model_id: modelId },
             headers: { Accept: "application/json" },
         });
@@ -47,7 +48,7 @@ export function reformatDataofForecastBackend(forcastData: ForecastData[]): Extr
 
 export async function fetchModels(): Promise<string[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/models`, {
+        const response = await axios.get(`${BACKEND_API_URL}/models`, {
             headers: { Accept: "application/json" },
         });
 

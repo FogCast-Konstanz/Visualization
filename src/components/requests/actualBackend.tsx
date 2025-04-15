@@ -1,5 +1,6 @@
 import axios from "axios";
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
+import { BACKEND_API_URL } from "../constants";
 
 type ActualResponseFormat = {
     date: string,
@@ -9,9 +10,10 @@ type ActualResponseFormat = {
     value: string
 };
 
+
 export async function fetchTemperatureHistoryDWD(start: string, stop: string, frequency: "daily" | "hourly" | "10-minutes"): Promise<ActualResponseFormat[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL }/api/actual/temperature-history`, {
+        const response = await axios.get(`${BACKEND_API_URL}/actual/temperature-history`, {
             params: { start: start, stop: stop, frequency: frequency },
             headers: { Accept: "application/json" },
         });
@@ -33,7 +35,7 @@ export async function fetchTemperatureHistoryDWD(start: string, stop: string, fr
 export async function fetchFogDaysHistoryDWD(start: string, stop: string, frequency: "monthly" | "yearly"): Promise<ActualResponseFormat[]> {
     // Date Format 2025-02-01 00:00:00
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/actual/fog-count-history`, {
+        const response = await axios.get(`${BACKEND_API_URL}/actual/fog-count-history`, {
             params: { start: start, stop: stop, frequency: frequency },
             headers: { Accept: "application/json" },
         });
@@ -54,7 +56,7 @@ export async function fetchFogDaysHistoryDWD(start: string, stop: string, freque
 
 export async function fetchWaterLevelHistory(): Promise<ActualResponseFormat[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/actual/water-level-history`, {
+        const response = await axios.get(`${BACKEND_API_URL}/actual/water-level-history`, {
             headers: { Accept: "application/json" },
         });
 
@@ -73,7 +75,7 @@ export async function fetchWaterLevelHistory(): Promise<ActualResponseFormat[]> 
 
 export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/actual/live-data`, {
+        const response = await axios.get(`${BACKEND_API_URL}/actual/live-data`, {
             headers: { Accept: "application/json" },
         });
 
@@ -89,7 +91,7 @@ export async function fetchArchiveWeather(date: string, model: string): Promise<
     // Date Format 2025-02-01 00:00:00
 
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/actual/archive`, {
+        const response = await axios.get(`${BACKEND_API_URL}/actual/archive`, {
             params: { model_id: model, date: date },
             headers: { Accept: "application/json" },
         });
