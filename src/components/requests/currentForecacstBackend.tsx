@@ -4,7 +4,7 @@ import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 
 export async function fetchCurrentForecast(modelId: string): Promise<CurrentForecastResponseFormat[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/current-forecast`, {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/current-forecast`, {
             params: { model_id: modelId },
             headers: { Accept: "application/json" },
         });

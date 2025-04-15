@@ -17,7 +17,7 @@ export type ExtractedForecastData = {
 
 export async function fetchForecast(datetime: string, modelId: string,): Promise<ForecastData[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/forecasts`, {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/forecasts`, {
             params: { datetime: datetime, model_id: modelId },
             headers: { Accept: "application/json" },
         });
@@ -47,7 +47,7 @@ export function reformatDataofForecastBackend(forcastData: ForecastData[]): Extr
 
 export async function fetchModels(): Promise<string[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/models`, {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/models`, {
             headers: { Accept: "application/json" },
         });
 

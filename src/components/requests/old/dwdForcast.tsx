@@ -31,7 +31,7 @@ class DWDForcast {
 
   async fetchData(stationId: string): Promise<void> {
     try {
-      const { data } = await axios.get(`${import.meta.env.VITE_BASE_URL}/dwd-proxy`, {
+      const { data } = await axios.get(`${import.meta.env.VITE_BACKEND_BASE_URL}/api/dwd-proxy`, {
         params: { url: `${DWD_BASE_URL}/stationOverviewExtended`, stationIds: stationId },
         headers: { Accept: "application/json" },
       });
