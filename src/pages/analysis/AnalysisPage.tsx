@@ -3,6 +3,7 @@ import Introduction from '../../components/elements/Introduction';
 import { layoutConfig } from '../../components/style';
 import DataSource from '../impressum/DataSource';
 import Leaderboard from './Leaderboard';
+import UnderConstruction from '../../components/elements/UnderConstruction';
 
 export default function AnalysisPage() {
 
@@ -28,6 +29,8 @@ export default function AnalysisPage() {
   return (
     <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={layoutConfig.margin}>
       <Introduction header="Analysis Page" text='t.b.d'></Introduction>
+
+      <UnderConstruction></UnderConstruction>
 
       <Leaderboard entries={shortTerm} name='shortTerm'></Leaderboard>
       <Leaderboard entries={midTerm} name='midTerm'></Leaderboard>

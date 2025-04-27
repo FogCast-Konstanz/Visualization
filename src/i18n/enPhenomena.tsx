@@ -180,11 +180,117 @@ Unusual visibility is a very clear view that often occurs after cold fronts or d
 *   Deutscher Wetterdienst. (kein Datum b). _Ungewöhnliche Fernsicht_. Abgerufen am 17. Februar 2025 von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102828&lv3=102854](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102828&lv3=102854)`
 };
 
+
+const wolkenbildung: phenomenaType = {
+    id: 'wolkenbildung',
+    title: 'Cloud Formations',
+    description: 'Clouds are made up of water droplets or ice crystals and are divided into ten main types with Latin names. Some special forms, such as Mammatus clouds or Kelvin-Helmholtz waves, occur in the Lake Constance region under special conditions such as thunderstorms or wind shear.',
+    content: [
+        {
+            title: "Formation of Clouds",
+            text: `
+A cloud is a collection of tiny water droplets or ice crystals floating in the air, usually not contacting the ground. It can sometimes contain larger droplets or other particles such as dust or smoke (see World Meteorological Organisation, 2017a).
+Clouds come in many forms and, like plants or animals, can be classified into a limited number of typical forms with Latin names for genera. Transitional forms are unstable and are rarely classified. There are also Special clouds and Upper atmospheric clouds (see World Meteorological Organisation, 2017b).
+
+### Wolkengattungen 
+
+![Wolkenarten](/assets/phenomena/clouds/Cloud_Types.png "Picture: Valentin de Bruyn 2021, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+
+The classification of clouds consists of ten main groups called genera. Each observed cloud belongs to exactly one genus (see World Meteorological Organisation, 2017c). These are
+
+* Stratus (St) 
+* Stratocumulus (Sc)
+* Cumulus (Cu)  
+* Nimbostratus (Ns)
+* Altostratus (As) 
+* Altocumulus (Ac) 
+* Cirrus (Ci) 
+* Cirrocumulus (Cc)
+* Cirrostratus (Cs) 
+* Cumulonimbus (Cb)
+
+
+(Vgl. Deutscher Wetterdienst, k. D. a).
+`
+        }, {
+            title: "Clouds over Lake Constance",
+            text: `
+            
+![center](/assets/phenomena/clouds/Stratus.png "Stratus - Photo: Simon A. Eugster, 2005, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+![not center](/assets/phenomena/clouds/Stratocumulus.png "Stratocumulus - Photo: Simon A. Eugster, 2004, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+## Stratus
+            
+Stratus is a grey layer of cloud with a uniform base from which drizzle, snow or sleet can fall. When the Sun (or Moon) is visible through it, the contours of the Stratus are clearly visible (see World Meteorological Organization, 2017c).
+
+## Stratocumulus
+
+These clouds appear as grey or whitish patches or layers in the sky. They are made up of round or elongated pieces such as clods, balls or rolls, often joined together. The clouds usually have dark areas and no fibrous structure. Many of the small cloud particles are regularly arranged and slightly larger than 5 degrees in the sky (see Deutscher Wetterdienst, n. d. b).
+
+
+## Cumulus
+
+Dissolved, usually dense and sharply defined clouds that develop vertically in the form of rising hills, domes or towers, often with a cauliflower-like bulging top. The parts of these clouds illuminated by the Sun are usually white, while their base is relatively dark and almost horizontal. Sometimes the Cumulus clouds are ragged (see World Meteorological Organisation, 2017e).
+![center](/assets/phenomena/clouds/Cumulus.jpg "Cumulus - Photo: Samantha Isted") 
+![not center](/assets/phenomena/clouds/Cumulonimbus.jpg "Cumulonimbus - Photo: Samantha Isted") 
+
+
+
+## Cumulonimbus
+
+A massive, thick cloud formation reaching impressive vertical heights, resembling a towering mountain or colossal structures. Its upper surface is often sleek, fibrous, or marked with streaks, typically appearing flattened. This section frequently spreads out like an anvil or a vast expanse of cloud (see World Meteorological Organisation, 2017e). Cumulonimbus clouds form in moist, unstable, rising air and can reach up to the tropopause (about 12 km high). They are made up of water droplets and ice crystals, are very large and often bring heavy precipitation, thunderstorms, hail and squalls (see Deutscher Wetterdienst, n. d. c).
+
+
+
+
+## Mammatus clouds 
+![center](/assets/phenomena/clouds/Mammatuswolken.jpg "Mammatuswolken - Photo: Samantha Isted") 
+
+Mammatus clouds usually form in thunderclouds, but they can also form in other types of clouds. Their formation is not fully understood, but there are several theories. Turbulence, evaporation and cooling cause cold air to sink, resulting in bulges. Radiation processes and temperature differences in the anvil can also cause instability. As Mammatus clouds also occur in Cirrus clouds, it is likely that several different processes are involved, depending on the cloud type (see Fruntke, 2018). Mammatus clouds can form in Cirrus, Cirrocumulus, Altocumulus, Altostratus, Stratocumulus and Cumulonimbus (see World Meteorological Organisation, 2017g).
+
+![not center](/assets/phenomena/clouds/Kelvin-Helmholtz-Wellen.png "Kelvin-Helmholtz-Wellen - Photo: GRAHAMUK, 2006, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+
+
+
+## Kelvin-Helmholtz-Waves
+
+Kelvin-Helmholtz waves are relatively short-lived wave formations, usually at the top of clouds, in the form of loops or breaking waves. Kelvin-Helmholtz waves occur when layers of air at different temperatures are set in motion by wind shear and form breaking waves as a sign of incipient mixing. They are rare, but can usually be seen over mountains or in special weather conditions such as Foehn. They occur mainly with Cirrus, Altocumulus, Stratocumulus, Stratus and occasionally Cumulus (cf. Hinz, 2022; World Meteorological Organisation, 2017h).
+
+![center](/assets/phenomena/clouds/Altocumulus_Lenticularis.png "Altocumulus Lenticularis - Photo: Karlheinz Essl, 2015, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)") 
+
+
+## Altocumulus Lenticularis
+
+This type of altocumulus, also known as 'Foehn fish', occurs as lenticular patches on the lee side of mountains parallel to the ridge during foehn winds. The vertical extent does not usually exceed 200 m (cf. World Meteorological Organisation, 2017i; Deutscher Wetterdienst, n.d. d).
+          `
+
+        }
+    ], sources: `
+    
+* Deutscher Wetterdienst. (kein Datum c). Cumulonimbus. Von https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100510&lv3=100572
+* Deutscher Wetterdienst. (kein Datum d). Föhnfische. Von https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=100784&lv3=100880
+* Deutscher Wetterdienst. (kein Datum b). Stratocumulus. Von https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=102248&lv3=102630
+* Deutscher Wetterdienst. (kein Datum a). Wolkengattungen. Von https://www.dwd.de/DE/service/lexikon/begriffe/W/Wolkengattungen_pdf.pdf?__blob=publicationFile&v=5
+* Fruntke, J. (2018). Rätselhafte "Mammatus". Von https://www.dwd.de/DE/wetter/thema_des_tages/2018/9/1.html 
+* Hinz, C. (2022). Kelvin-Helmholtz-Wellen – Wie entstehen die Wellen am Himmel? Von https://www.dmg-ev.de/2022/04/20/kelvin-helmholtz-wellen-wie-entstehen-die-wellen-am-himmel/
+* World Meteorological Organization. (2017i). Altocumulus lenticularis. Von https://cloudatlas.wmo.int/en/altocumulus-lenticularis.html
+* World Meteorological Organization. (2017f). Cumulonimbus (Cb) (Weilbach 1880). Von Definition of Cumulonimbus: https://cloudatlas.wmo.int/en/cumulonimbus-cb.html
+* World Meteorological Organization. (2017e). Cumulus (Cu) (Howard 1803). Von Definition of Cumulus: https://cloudatlas.wmo.int/en/cumulus-cu.html
+* World Meteorological Organization. (2017h). Fluctus. Von https://cloudatlas.wmo.int/en/clouds-supplementary-features-fluctus.html
+* World Meteorological Organization. (2017a). Introduction and principles of cloud classification. Von Definition of a cloud: https://cloudatlas.wmo.int/en/introduction-and-principles-of-cloud-classification.html
+* World Meteorological Organization. (2017c). Genera. Von https://cloudatlas.wmo.int/en/principles-of-cloud-classification-genera.html 
+* World Meteorological Organization. (2017g). Mamma. Von https://cloudatlas.wmo.int/en/clouds-supplementary-features-mamma.html 
+* World Meteorological Organization. (2017b). Principles of cloud classification. Von https://cloudatlas.wmo.int/en/principles-of-cloud-classification.html
+* World Meteorological Organization. (2017d). Stratus (St) (Howard 1803; Hildebrandsson 1887; Abercromby 1887). Von Definition of Stratus: https://cloudatlas.wmo.int/en/clouds-genera-stratus.html
+  `
+}
+
+
 export const enPhenomena = {
     phenomena: [
         fog,
         windsysteme,
         hochwasser,
-        bergsicht
+        bergsicht,
+        wolkenbildung
     ]
 }

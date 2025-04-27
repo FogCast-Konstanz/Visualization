@@ -29,6 +29,8 @@
     "react-plotly.js": "^2.6.0",
     "react-router-dom": "^7.1.1",
     "react-select": "^5.10.0",
+    "rehype-raw": "^7.0.0",
+    "remark-breaks": "^4.0.0",
     "remark-gfm": "^4.0.0",
     "three": "^0.135.0"
   },

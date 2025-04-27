@@ -51,7 +51,7 @@ export default function ForcastCard({ time, temperature, weather, rain, isDay }:
                     </Tooltip>
 
                     <Tooltip label={t('startingPage.currentWeather')} bg={useColor('surface')} color={useColor('text')} hasArrow>
-                        <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={layoutConfig.margin} />
+                        <Text><Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={layoutConfig.margin} /></Text>
                     </Tooltip>
 
                     <Tooltip label={t('data.rain')} bg={useColor('surface')} color={useColor('text')} hasArrow>

@@ -11,6 +11,7 @@ import PlotlyChart from '../../components/plotly/DefaultChart';
 import { layoutConfig, useColor } from '../../components/style';
 import MeasurementCard from '../startingPage/MeasurementCard';
 import Map from './Map';
+import UnderConstruction from '../../components/elements/UnderConstruction';
 
 
 export default function WeatherStationPage() {
@@ -31,7 +32,9 @@ export default function WeatherStationPage() {
 
       <Introduction header={t('weatherStation.title')} text={t('weatherStation.introduction')}></Introduction>
 
-      <Flex gap={layoutConfig.gap}>
+      <UnderConstruction></UnderConstruction>
+
+      {/* <Flex gap={layoutConfig.gap}>
         <CardIndividual header={t('weatherStation.details')} body={t('weatherStation.description')}></CardIndividual>
         <Map></Map>
       </Flex>
@@ -51,7 +54,7 @@ export default function WeatherStationPage() {
           </>
           : <OrbitProgress color={loadingColor} size="medium" />
         }
-      </Flex>
+      </Flex> */}
     </Flex>
   )
 }

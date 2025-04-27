@@ -129,7 +129,7 @@ Die Land-Seewind-Zirkulation ist ein täglich wiederkehrendes Windsystem, das vo
 const hochwasser: phenomenaType = {
     id: 'hochwasser',
     title: 'Wasserstand und Hochwasser',
-    description: `Der Wasserstand in Konstanz variiert saisonal durchschnittlich zwischen ca. 285 und 410 cm – im Winter sinkt er unter 240 cm, im Frühjahr und Sommer steigt er durch Schneeschmelze an. Hochwasser liegt ab 4,80 m, wobei 1 cm Zuwachs etwa 5,36 Mio m³ Wasser entspricht; Pfingsten 1999 wurde mit 5,65 m ein Tagesrekord erreicht, der nur 1817 mit 6,23 m übertroffen wurde.`,
+    description: `Der Wasserstand in Konstanz variiert saisonal durchschnittlich zwischen ca. 285 und 410 cm - im Winter sinkt er unter 240 cm, im Frühjahr und Sommer steigt er durch Schneeschmelze an. Hochwasser liegt ab 4,80 m, wobei 1 cm Zuwachs etwa 5,36 Mio m³ Wasser entspricht; Pfingsten 1999 wurde mit 5,65 m ein Tagesrekord erreicht, der nur 1817 mit 6,23 m übertroffen wurde.`,
     content: [{
         title: 'Hochwasser und Schwankungen am Bodensee',
         text: `
@@ -141,7 +141,7 @@ Der mittlere Wasserstand das Jahr über schwankte über die Jahre 1981-2024 zwis
 
 ## Hochwasserstände
 
-Wenn am Pegel Konstanz ein Wasserstand von mehr als 4,80 m erreicht wird, spricht man am Bodensee von Hochwasser. Die Oberfläche des Sees beträgt 536 km². So entspricht 1 cm Zuwachs des Wasserpegels einem Zuwachs von 5,36 Millionen Kubikmeter Wasser. An Pfingsten 1999 erreichte der Pegel in Konstanz innerhalb eines Tages einen Anstieg von 47 cm und erreichte 5,65 m – ein Rekord, der nur 1817 mit 6,36 m übertroffen wurde (Vgl. Anger, 2016).`
+Wenn am Pegel Konstanz ein Wasserstand von mehr als 4,80 m erreicht wird, spricht man am Bodensee von Hochwasser. Die Oberfläche des Sees beträgt 536 km². So entspricht 1 cm Zuwachs des Wasserpegels einem Zuwachs von 5,36 Millionen Kubikmeter Wasser. An Pfingsten 1999 erreichte der Pegel in Konstanz innerhalb eines Tages einen Anstieg von 47 cm und erreichte 5,65 m - ein Rekord, der nur 1817 mit 6,36 m übertroffen wurde (Vgl. Anger, 2016).`
     }, {
         title: 'Daten',
         text: `
@@ -174,11 +174,118 @@ Ungewöhnliche Fernsicht ist eine sehr klare Sicht, die häufig nach Kaltfronten
 *   Deutscher Wetterdienst. (kein Datum b). _Ungewöhnliche Fernsicht_. Abgerufen am 17. Februar 2025 von [https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102828&lv3=102854](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=102828&lv3=102854)`
 };
 
+
+const wolkenbildung: phenomenaType = {
+    id: 'wolkenbildung',
+    title: 'Wolkenbildung',
+    description: 'Wolken bestehen aus Wassertröpfchen oder Eiskristallen und werden in zehn Haupttypen mit lateinischen Namen eingeteilt. Einige im Bodenseeraum vorkommende Sonderformen wie Mammatuswolken oder Kelvin-Helmholtz-Wellen entstehen unter besonderen Bedingungen wie Gewitter oder Windscherung.',
+    content: [
+        {
+            title: "Wolkenbildung",
+            text: `
+Eine Wolke ist eine Ansammlung winziger Wassertröpfchen oder Eiskristalle, die in der Luft schweben und meist nicht den Boden berühren. Manchmal können auch größere Tropfen oder andere Teilchen wie Staub oder Rauch enthalten sein (Vgl. World Meteorological Organization, 2017a).
+
+Wolken treten in vielen Formen auf und lassen sich - ähnlich wie Pflanzen oder Tiere - in eine begrenzte Anzahl typischer Formen mit lateinischen Namen für Gattungen einteilen. Übergangsformen sind instabil und werden selten klassifiziert. Darüber hinaus gibt es Spezialwolken und seltene Wolken in der hohen Atmosphäre (Vgl. World Meteorological Organization, 2017b).
+
+### Wolkengattungen 
+
+![Wolkenarten](/assets/phenomena/clouds/Cloud_Types.png "Bild: Valentin de Bruyn 2021, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+
+Die Klassifikation der Wolken umfasst zehn Hauptgruppen, die Gattungen genannt werden. Jede beobachtete Wolke gehört genau einer Gattung an (Vgl. World Meteorological Organization, 2017c). Diese sind
+
+* Stratus (St) - niedrige Schichtwolke
+* Stratocumulus (Sc) - Schicht-Haufenwolke
+* Cumulus (Cu) - Haufenwolke
+* Nimbostratus (Ns) - Regen-Schichtwolke
+* Altostratus (As) - mittelhohe Schichtwolke
+* Altocumulus (Ac) - grobe Schäfchenwolke
+* Cirrus (Ci) - hohe Federwolke
+* Cirrocumulus (Cc) - hohe Schäfchenwolke
+* Cirrostratus (Cs) - hohe Schleierwolke
+* Cumulonimbus (Cb) - Schauer- u. Gewitterwolke
+
+(Vgl. Deutscher Wetterdienst, k. D. a).
+`
+        }, {
+            title: "Wolken über dem Bodensee",
+            text: `
+            
+![center](/assets/phenomena/clouds/Stratus.png "Stratus - Foto: Simon A. Eugster, 2005, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+![not center](/assets/phenomena/clouds/Stratocumulus.png "Stratocumulus - Foto: Simon A. Eugster, 2004, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+## Stratus - niedrige Wolkenschicht
+            
+Stratus ist eine graue Wolkenschicht mit einer gleichmäßigen Basis, aus der Nieselregen, Schnee oder Schneeregen fallen kann. Wenn die Sonne (oder der Mond) durch den Hochnebel sichtbar ist, sind die Konturen des Hochnebels deutlich zu erkennen (Vgl. World Meteorological Organization, 2017c).
+
+
+## Stratocumulus - Schicht-Haufenwolke
+
+Diese Wolken erscheinen als graue oder weißliche Flecken oder Schichten am Himmel. Sie bestehen aus runden oder länglichen Teilen wie Schollen, Ballen oder Walzen, die oft zusammenhängen. Die Wolken haben meist dunkle Bereiche und keine faserige Struktur. Viele der kleinen Wolkenteile sind regelmäßig angeordnet und etwas größer als 5 Grad am Himmel (Vgl. Deutscher Wetterdienst, k. D. b).
+
+
+
+## Cumulus
+![center](/assets/phenomena/clouds/Cumulus.jpg "Cumulus - Foto: Samantha Isted") 
+
+Gelöste, meist dichte und scharf begrenzte Wolken, die sich vertikal in Form von aufsteigenden Hügeln, Kuppeln oder Türmen entwickeln, deren aufgewölbter oberer Teil oft an einen Blumenkohl erinnert. Die von der Sonne bestrahlten Teile dieser Wolken sind meist weiß, ihre Basis ist relativ dunkel und fast horizontal. Manchmal sind die Cumuluswolken zerklüftet (Vgl. World Meteorological Organization, 2017e).
+![not center](/assets/phenomena/clouds/Cumulonimbus.jpg "Cumulonimbus - Foto: Samantha Isted") 
+
+
+
+
+## Cumulonimbus - Schauer- und Gewitterwolke
+
+Schwere, dichte Wolke mit beträchtlicher vertikaler Ausdehnung in Form eines Berges oder riesiger Türme. Zumindest ein Teil der Oberseite ist gewöhnlich glatt, faserig oder gestreift und fast immer abgeflacht; dieser Teil erstreckt sich oft in Form eines Ambosses oder einer großen Wolke (Vgl. World Meteorological Organization, 2017e). Cumulonimbuswolken entstehen in feuchtlabiler, aufsteigender Luft und können bis zur Tropopause (ca. 12 km Höhe) reichen. Sie bestehen aus Wassertröpfchen und Eiskristallen, sind mächtig ausgedehnt und bringen oft starke Niederschläge, Gewitter, Hagel und Sturmböen (Vgl. Deutscher Wetterdienst, k. D. c).
+
+![center](/assets/phenomena/clouds/Mammatuswolken.jpg "Mammatuswolken - Foto: Samantha Isted") 
+
+## Mammatuswolken 
+
+Mammatuswolken entstehen meist in Gewitterwolken, aber auch in anderen Wolkentypen. Ihre Entstehung ist noch nicht vollständig geklärt, aber es gibt verschiedene Theorien. 
+Turbulenzen, Verdunstung und Abkühlung führen zum Absinken kalter Luft, die zu Aufwölbungen führt. Strahlungsprozesse und Temperaturunterschiede im Amboss können ebenfalls zu Instabilitäten führen. Da Mammatuswolken auch in Zirruswolken auftreten, ist es wahrscheinlich, dass je nach Wolkentyp mehrere verschiedene Prozesse beteiligt sind (Vgl. Fruntke, 2018). Mammatuswolken können bei Cirrus, Cirrocumulus, Altocumulus, Altostratus, Stratocumulus und Cumulonimbus entstehen (Vgl. World Meteorological Organization, 2017g).
+
+
+![not center](/assets/phenomena/clouds/Kelvin-Helmholtz-Wellen.png "Kelvin-Helmholtz-Wellen - Foto: GRAHAMUK, 2006, [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)") 
+
+## Kelvin-Helmholtz-Wellen
+
+Kelvin-Helmholtz-Wellen sind relativ kurzlebige Wellenbildungen, meist an der Wolkenoberseite, in Form von Schleifen oder brechenden Wellen. Kelvin-Helmholtz-Wellen entstehen, wenn unterschiedlich warme Luftschichten durch Windscherung in Bewegung geraten und sich als Zeichen beginnender Durchmischung zu brechenden Wellen ausbilden. Sie sind selten, aber meistens über Gebirgen oder bei speziellen Wetterlagen wie Föhn zu beobachten. Sie treten vor allem bei Cirrus, Altocumulus, Stratocumulus, Stratus und gelegentlich bei Cumulus auf (Vgl. Hinz, 2022; World Meteorological Organization, 2017h)
+
+
+![center](/assets/phenomena/clouds/Altocumulus_Lenticularis.png "Altocumulus Lenticularis - Foto: Karlheinz Essl, 2015, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0)") 
+
+
+## Altocumulus Lenticularis (Föhnwolke)
+
+Dieser Altocumulus-Typ, auch “Föhnfisch” genannt, tritt bei Föhn auf der Leeseite des Gebirges parallel zum Gebirgskamm in Form von linsenförmigen Flecken auf. Die vertikale Ausdehnung beträgt in der Regel nicht mehr als 200 m (Vgl. World Meteorological Organization, 2017i; Deutscher Wetterdienst, k. D. d).
+            `
+
+        }
+    ], sources: `
+    
+* Deutscher Wetterdienst. (kein Datum c). Cumulonimbus. Von https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=100510&lv3=100572
+* Deutscher Wetterdienst. (kein Datum d). Föhnfische. Von https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv2=100784&lv3=100880
+* Deutscher Wetterdienst. (kein Datum b). Stratocumulus. Von https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?nn=103346&lv2=102248&lv3=102630
+* Deutscher Wetterdienst. (kein Datum a). Wolkengattungen. Von https://www.dwd.de/DE/service/lexikon/begriffe/W/Wolkengattungen_pdf.pdf?__blob=publicationFile&v=5
+* Fruntke, J. (2018). Rätselhafte "Mammatus". Von https://www.dwd.de/DE/wetter/thema_des_tages/2018/9/1.html 
+* Hinz, C. (2022). Kelvin-Helmholtz-Wellen – Wie entstehen die Wellen am Himmel? Von https://www.dmg-ev.de/2022/04/20/kelvin-helmholtz-wellen-wie-entstehen-die-wellen-am-himmel/
+* World Meteorological Organization. (2017i). Altocumulus lenticularis. Von https://cloudatlas.wmo.int/en/altocumulus-lenticularis.html
+* World Meteorological Organization. (2017f). Cumulonimbus (Cb) (Weilbach 1880). Von Definition of Cumulonimbus: https://cloudatlas.wmo.int/en/cumulonimbus-cb.html
+* World Meteorological Organization. (2017e). Cumulus (Cu) (Howard 1803). Von Definition of Cumulus: https://cloudatlas.wmo.int/en/cumulus-cu.html
+* World Meteorological Organization. (2017h). Fluctus. Von https://cloudatlas.wmo.int/en/clouds-supplementary-features-fluctus.html
+* World Meteorological Organization. (2017a). Introduction and principles of cloud classification. Von Definition of a cloud: https://cloudatlas.wmo.int/en/introduction-and-principles-of-cloud-classification.html
+* World Meteorological Organization. (2017c). Genera. Von https://cloudatlas.wmo.int/en/principles-of-cloud-classification-genera.html 
+* World Meteorological Organization. (2017g). Mamma. Von https://cloudatlas.wmo.int/en/clouds-supplementary-features-mamma.html 
+* World Meteorological Organization. (2017b). Principles of cloud classification. Von https://cloudatlas.wmo.int/en/principles-of-cloud-classification.html
+* World Meteorological Organization. (2017d). Stratus (St) (Howard 1803; Hildebrandsson 1887; Abercromby 1887). Von Definition of Stratus: https://cloudatlas.wmo.int/en/clouds-genera-stratus.html
+  `
+}
+
 export const dePhenomena = {
     phenomena: [
         fog,
         windsysteme,
         hochwasser,
-        bergsicht
+        bergsicht,
+        wolkenbildung
     ]
 }
