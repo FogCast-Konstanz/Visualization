@@ -1,8 +1,9 @@
 import axios from "axios";
+import { BACKEND_URL } from "../constants";
 
 export async function fetchServerStatus(): Promise<'running' | 'down' | 'unreachable'> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_BASE_URL}/cronjob-status`, {
+        const response = await axios.get(`${BACKEND_URL}/cronjob/status`, {
             headers: { Accept: "application/json" },
         });
 

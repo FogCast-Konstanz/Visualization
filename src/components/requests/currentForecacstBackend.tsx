@@ -1,10 +1,11 @@
 import axios from "axios";
 import { ModelOption } from "../elements/muiltiSelect/SelectMeasurements";
 import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
+import { BACKEND_API_URL } from "../constants";
 
 export async function fetchCurrentForecast(modelId: string): Promise<CurrentForecastResponseFormat[]> {
     try {
-        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/current-forecast`, {
+        const response = await axios.get(`${BACKEND_API_URL}/current-forecast`, {
             params: { model_id: modelId },
             headers: { Accept: "application/json" },
         });
