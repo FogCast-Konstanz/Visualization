@@ -16,7 +16,6 @@ import Phenomena from './pages/phenomena/PhenomenaPage';
 import StartingPage from './pages/startingPage/StartingPage';
 import WeatherStationPage from './pages/station/WeatherStationPage';
 
-
 function App() {
   // const color = 'custom_light'
   const { i18n, t } = useTranslation()

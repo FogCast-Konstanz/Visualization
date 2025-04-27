@@ -14,14 +14,14 @@ export default function Navigation() {
 
   const groupedNavigation = [
     {
-      title: 'Main',
+      title: t('navigation.main'),
       items: [
         { name: t('navigation.home'), href: '/', icon: GoHomeFill },
         { name: t('navigation.station'), href: '/station', icon: FaSatellite },
       ],
     },
     {
-      title: 'Data',
+      title: t('navigation.data'),
       items: [
         { name: t('navigation.models'), href: '/models', icon: FaChartSimple },
         { name: t('navigation.analysis'), href: '/analysis', icon: FaRankingStar },
@@ -29,7 +29,7 @@ export default function Navigation() {
       ],
     },
     {
-      title: 'Info',
+      title: t('navigation.info'),
       items: [
         { name: t('navigation.lexikon'), href: '/lexikon', icon: FaBook },
         { name: t('navigation.phenomena'), href: '/phenomena', icon: FaBolt },

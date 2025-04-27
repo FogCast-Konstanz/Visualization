@@ -57,7 +57,7 @@ export default function ForcastCard({ time, temperature, weather, rain, isDay }:
                     <Tooltip label={t('data.rain')} bg={useColor('surface')} color={useColor('text')} hasArrow>
                         <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={'0px'}>
                             <Icon as={WiRaindrop} boxSize={6} mt={'4px'} color={useColor('secondaryText')} />
-                            <Text fontSize={'s'}>{Math.round(Number(rain) * 100)}%</Text>
+                            <Text fontSize={'s'}>{Math.round(Number(rain) * 10) / 10} l</Text>
                         </Flex>
                     </Tooltip>
 

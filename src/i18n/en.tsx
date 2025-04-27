@@ -12,12 +12,16 @@ const en = {
         lexikon: "Lexikon",
         phenomena: "Phenomena",
         home: "Home",
-        analysis: "Leaderboard"
+        analysis: "Leaderboard",
+
+        main: "Main",
+        info: "Info"
     },
 
     data: {
         temperature: "Temperature",
         humidity: "Humidity",
+        fog: "Fog",
         forecast: "Forecast",
         time: "Time",
         waterTemp: "Water temperature",
@@ -48,7 +52,7 @@ const en = {
 
         tempTab: "Temperature",
         fogTab: "Fog",
-        waterLevel: "Water level"
+        waterLevelTab: "Water level"
     },
 
     phenomena: {
@@ -80,7 +84,7 @@ const en = {
         aboutTitle: "About the project",
         description: "Weather forecasting is not only fun, but also crucial for predicting and planning the production of renewable energy such as wind and solar power. More accurate forecasting can help increase the stability and efficiency of energy production by better adapting to local weather conditions.",
         about: "Fogcast is a project that is being developed as part of the 2024/25 team project in the Master of Computer Science (MSI) at the HTWG Konstanz. It deals with the analysis, evaluation and presentation of weather data for Constance and the Lake Constance area, with the aim of better understanding weather phenomena (such as fog) and improving forecasts. To this end, techniques such as machine learning will be applied, a dedicated weather station will be set up to record results and a platform will be developed for public access.",
-        developerTeam: "The development team consists of 8 developers and is led by Professor Dr. Oliver Dürr. The 8 developers are all Master's students with a computer science background: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch and Elija Stauss.",
+        developerTeam: "The development team consists of 8 developers and is led by Professor Dr. Oliver Dürr. The 8 developers are all Master's students with a computer science background: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch and Elijah Stauss.",
         contact: "Contact",
         university: "University",
         website: "Website",

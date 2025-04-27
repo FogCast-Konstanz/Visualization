@@ -8,6 +8,9 @@ import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataForm
 import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, formatActualDatetime, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { layoutConfig, useColor, useGraphColors } from '../../components/style';
 import DataSource from '../impressum/DataSource';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+
+const tabKeys = ['temperature', 'fog', 'waterLevel'];
 
 export default function DataPage() {
   const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
@@ -23,6 +26,15 @@ export default function DataPage() {
   useEffect(() => {
     requestBackend()
   }, [])
+
+  // Handle Navigation
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get('tab') || 'temperature';
+  const tabIndex = tabKeys.indexOf(tab);
+
+  const handleTabChange = (index: number) => {
+    setSearchParams({ tab: tabKeys[index] });
+  };
 
   const { t } = useTranslation()
 
@@ -98,11 +110,11 @@ export default function DataPage() {
         </CardHeader>
         <CardBody></CardBody>
       </Card> */}
-      <Tabs variant="soft-rounded" colorScheme="teal">
-        <TabList >
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>Temperature</Tab>
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>Fog</Tab>
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>Water Level</Tab>
+      <Tabs variant="soft-rounded" colorScheme="teal" index={tabIndex} onChange={handleTabChange}>
+        <TabList>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.tempTab')}</Tab>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.fogTab')}</Tab>
+          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.waterLevelTab')}</Tab>
         </TabList>
         <TabPanels>
           {/* Temperature Graphs */}

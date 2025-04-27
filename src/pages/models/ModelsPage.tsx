@@ -13,6 +13,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import PlotlyChart from '../../components/plotly/DefaultChart';
 import { fetchArchiveWeather, formatActualDatetime } from '../../components/requests/actualBackend';
+import { OrbitProgress } from 'react-loading-indicators';
 
 export default function ModelsPage() {
   const { t } = useTranslation()
@@ -28,6 +29,8 @@ export default function ModelsPage() {
 
   const [weekdaysTemp, setWeekdaysTemp] = useState<any | null>(null)
   const [weekdaysHum, setWeekdaysHum] = useState<any | null>(null)
+
+  const loadingColor = useColor('primary');
 
   useEffect(() => { setModels() }, [selectedModels])
   useEffect(() => { setModels() }, [selectedDatetime])
@@ -129,16 +132,13 @@ export default function ModelsPage() {
         </CardBody>
       </Card>
 
-      <Flex direction={'column'} gap={layoutConfig.gap} flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
-        {forecastTemperatureData.length > 0 ?
-          <PlotlyChart data={forecastTemperatureData} title={t('models.forecastTemp', { date: selectedDatetime })} yAxis={t('data.temperature')} xAxis={t('data.time')} customLayout={{ annotations: weekdaysTemp }} /> :
-          <Text>{t('models.selectValues')}</Text>
-        }
-        {forecastHumidityData.length > 0 ?
-          <PlotlyChart data={forecastHumidityData} title={t('models.forecastHumidity', { date: selectedDatetime })} yAxis={t('data.humidity')} xAxis={t('data.time')} customLayout={{ annotations: weekdaysHum }} /> :
-          <Text>{t('models.selectValues')}</Text>
-        }
-      </Flex>
+      {forecastTemperatureData.length > 0 && forecastHumidityData.length > 0 ?
+        <Flex direction={'column'} gap={layoutConfig.gap} flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
+          <PlotlyChart data={forecastTemperatureData} title={t('models.forecastTemp', { date: selectedDatetime })} yAxis={t('data.temperature')} xAxis={t('data.time')} customLayout={{ annotations: weekdaysTemp }} />
+          <PlotlyChart data={forecastHumidityData} title={t('models.forecastHumidity', { date: selectedDatetime })} yAxis={t('data.humidity')} xAxis={t('data.time')} customLayout={{ annotations: weekdaysHum }} />
+        </Flex>
+        : <OrbitProgress color={loadingColor} size="medium" />
+      }
 
       <DataSource></DataSource>
     </Flex>

@@ -52,6 +52,8 @@ Nebel löst sich meist durch:
 ## Historische Entwicklung
 In den letzten Jahrzehnten hat sich die zeitliche Entwicklung des Nebels in der Bodenseeregion deutlich verändert. Die jährlichen Nebelstunden sind seit den 1980er-Jahren von 400-600 Stunden auf unter 400 und teilweise sogar unter 200 Stunden gesunken. Gleichzeitig sind die Nebeltage in den letzten zehn Jahren um etwa 10 % zurückgegangen.
 Diese Veränderungen lassen sich auf mehrere Faktoren zurückführen. Der Klimawandel hat die Durchschnittstemperaturen um etwa 2 Grad erhöht, wodurch die wärmere Luft mehr Wasserdampf aufnehmen kann, ohne dass dieser als Nebel kondensiert. Gleichzeitig hat die Reduktion der Luftverschmutzung die Zahl der Kondensationskerne verringert, was die Nebelbildung erschwert. Hinzu kommt, dass stärkere Winde bei Tiefdruckwetterlagen den Nebel häufiger vertreiben und dessen Dauer verkürzen. (Vgl. Kumbier 2023)
+
+Um weitere Informationen über die historische Entwicklung des Nebels herauszufinden, können Sie hier schauen: [Nebel](/data?tab=fog)
 `
         }
     ],
@@ -127,7 +129,7 @@ Die Land-Seewind-Zirkulation ist ein täglich wiederkehrendes Windsystem, das vo
 const hochwasser: phenomenaType = {
     id: 'hochwasser',
     title: 'Wasserstand und Hochwasser',
-    description: 'Der Wasserstand in Konstanz variiert saisonal durchschnittlich zwischen ca. 285 und 410 cm – im Winter sinkt er unter 240 cm, im Frühjahr und Sommer steigt er durch Schneeschmelze an. Hochwasser liegt ab 4,80 m, wobei 1 cm Zuwachs etwa 5,36 Mio m³ Wasser entspricht; Pfingsten 1999 wurde mit 5,65 m ein Tagesrekord erreicht, der nur 1817 mit 6,23 m übertroffen wurde.',
+    description: `Der Wasserstand in Konstanz variiert saisonal durchschnittlich zwischen ca. 285 und 410 cm – im Winter sinkt er unter 240 cm, im Frühjahr und Sommer steigt er durch Schneeschmelze an. Hochwasser liegt ab 4,80 m, wobei 1 cm Zuwachs etwa 5,36 Mio m³ Wasser entspricht; Pfingsten 1999 wurde mit 5,65 m ein Tagesrekord erreicht, der nur 1817 mit 6,23 m übertroffen wurde.`,
     content: [{
         title: 'Hochwasser und Schwankungen am Bodensee',
         text: `
@@ -140,6 +142,10 @@ Der mittlere Wasserstand das Jahr über schwankte über die Jahre 1981-2024 zwis
 ## Hochwasserstände
 
 Wenn am Pegel Konstanz ein Wasserstand von mehr als 4,80 m erreicht wird, spricht man am Bodensee von Hochwasser. Die Oberfläche des Sees beträgt 536 km². So entspricht 1 cm Zuwachs des Wasserpegels einem Zuwachs von 5,36 Millionen Kubikmeter Wasser. An Pfingsten 1999 erreichte der Pegel in Konstanz innerhalb eines Tages einen Anstieg von 47 cm und erreichte 5,65 m – ein Rekord, der nur 1817 mit 6,36 m übertroffen wurde (Vgl. Anger, 2016).`
+    }, {
+        title: 'Daten',
+        text: `
+Um weitere Informationen über die historische Entwicklung des Wasserstands herauszufinden, können Sie hier schauen: [Hochwasserentwicklung](/data?tab=waterLevel)   `
     }
     ],
     sources: `

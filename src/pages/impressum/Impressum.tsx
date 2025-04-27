@@ -123,7 +123,7 @@ export default function Impressum() {
 
                             <Box flex="1" id='lubwSource'>
                                 <Link href='https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem'><Text fontWeight="bold" mb={layoutConfig.margin}>LUBW Baden Württemberg (LUBW)</Text></Link>
-                                <Text>{t('impressum.licence')}: <Link href='https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem/nutzungsvereinbarung'>{t('impressum.userAgreement')} LUBW Baden Württemberg</Link></Text>
+                                <Text><Link href='https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem/nutzungsvereinbarung'>{t('impressum.userAgreement')} LUBW Baden Württemberg</Link></Text>
                                 <Text>Datenbasis: <Link href='https://www.lubw.baden-wuerttemberg.de/umweltinformationssystem'>LUBW Baden Württemberg (LUBW)</Link> - {t('impressum.pegelOnline')}</Text>
                             </Box>
                         </Flex>
