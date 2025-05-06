@@ -54,9 +54,14 @@ export async function fetchFogDaysHistoryDWD(start: string, stop: string, freque
 };
 
 
-export async function fetchWaterLevelHistory(): Promise<ActualResponseFormat[]> {
+export async function fetchWaterLevelHistory(start: string, stop: string): Promise<ActualResponseFormat[]> {
     try {
-        const response = await axios.get(`${BACKEND_API_URL}/actual/water-level-history`, {
+        const response = await axios.get(`${BACKEND_API_URL}/archive/water-level`, {
+            params: {
+                start: start,
+                stop: stop,
+                station_id: 1
+            },
             headers: { Accept: "application/json" },
         });
 
@@ -111,6 +116,8 @@ export async function fetchArchiveWeather(date: string, model: string): Promise<
 
 
 export function parseActualRequestToPlotlyXYFormat(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {
+    console.log(response[0].date)
+    
     return {
         x: response.map(entry => new Date(entry.date).toISOString()),
         y: response.map(entry => parseFloat(entry.value)),
@@ -139,24 +146,34 @@ export function parseActualRequestToPlotlyXYFormatYearWise(response: ActualRespo
 }
 
 export function calculateAverageTrace(datasets: PlotlyChartBasicFormat[]): PlotlyChartBasicFormat {
-    const numPoints = datasets[2].x.length;
+    const completeDatasets = datasets.filter(dataset => {
+        const x = dataset.x;
+        if (!x || x.length === 0) return false;
+
+        const lastDate = new Date(x[x.length - 1]);
+        return lastDate.getMonth() === 11 && lastDate.getDate() === 31;
+    });
+
+    if (completeDatasets.length === 0) return { x: [], y: [], name: 'Average' };
+
+    const numPoints = completeDatasets[0].x.length;
     const avgY = new Array(numPoints).fill(0);
 
-    datasets.forEach(dataset => {
+    completeDatasets.forEach(dataset => {
         dataset.y.forEach((value, index) => {
             avgY[index] += value;
         });
     });
 
-    // Divide by the number of datasets to get the average
-    avgY.forEach((_, index) => avgY[index] /= datasets.length);
+    avgY.forEach((_, index) => avgY[index] /= completeDatasets.length);
 
     return {
-        x: datasets[2].x, // Assume all datasets have the same x values
+        x: completeDatasets[0].x,
         y: avgY,
         name: 'Average'
     };
 }
+
 
 
 export function highlightingAndAverage(basicFormatInput: PlotlyChartBasicFormat[], highlight: string[], graphcolors: string[]) {
