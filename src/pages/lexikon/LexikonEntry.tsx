@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Flex, Heading, Icon, Tag } from '@chakra-ui/react';
+import { Box, Card, CardBody, CardHeader, Flex, Heading, Icon, Tag } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
 import { layoutConfig, useColor } from '../../components/style';
@@ -44,12 +44,13 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
             _hover={{ boxShadow: "md", transform: "scale(1.001)", cursor: "pointer" }}
             transition="all 0.2s ease-in-out"
             width={'100%'}
+            marginTop={'5px'}
             id={id}
         >
             {/* <CardHeader onClick={() => toggleCard()} borderBottomColor={useColor('background')} borderBottom={shown ? "1px solid" : ""} paddingBottom={shown ? layoutConfig.padding : ""}> */}
             <CardHeader onClick={() => toggleCard()}>
                 <Flex justify={'space-between'} >
-                    <Heading lineHeight={0}>
+                    <Heading lineHeight={1.2} fontSize='lg'>
                         <Icon
                             as={shown ? FaMinus : FaPlus}
                             boxSize={3}
@@ -74,7 +75,17 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
                 </Flex>
             </CardHeader>
             <CardBody style={{ display: shown ? 'block' : 'none' }} pt={'0px'} >
-                <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} />
+                <ReactMarkdown
+                    children={text}
+                    remarkPlugins={[remarkGfm]}
+                    components={{
+                        p: ({ children }) => (
+                            <Box mb={6}>
+                                {children}
+                            </Box>
+                        ),
+                    }}
+                />
             </CardBody>
         </Card>
     )

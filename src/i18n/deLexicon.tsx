@@ -1,5 +1,6 @@
 export const deLexicon = {
     title: "Lexikon",
+    introduction: "Lorem ipsum",
     predictedTime: {
         title: 'Vorhergesagter Zeitpunkt',
         text: 'Zeitpunkt auf den sich die Vorhersage bezieht,sprich an dem der vorhergesagte Wert auftreten soll. Beispielsweise: Am 24.02.2025 um 12:00 Uhr soll es 12°C geben. In diesem Fall ist "24.12.2025 um 12 Uhr" der vorhergesagte Zeitpunkt.'

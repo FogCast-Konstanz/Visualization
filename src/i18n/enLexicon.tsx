@@ -1,5 +1,6 @@
 export const enLexicon = {
     title: "Lexicon",
+    introduction: "Lorem ipsum",
     predictedTime: {
         title: 'Predicted time',
         text: 'Time to which the prediction refers, i.e. at which the predicted value should occur. For example: On 24/02/2025 at 12:00 it should be 12°C. In this case, "24/12/2025 at 12 noon" is the predicted time.'

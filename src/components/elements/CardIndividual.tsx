@@ -1,13 +1,30 @@
-import { Card, CardBody, CardHeader, Heading } from "@chakra-ui/react";
+import { Box, Card, CardBody, CardHeader, Heading, Image, Modal, ModalBody, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';  // Import the remark-breaks plugin
 import rehypeRaw from "rehype-raw";
 
 import { useColor } from '../style';
+import { useState } from "react";
+
+
 
 type Input = { header: string, body: string }
 export default function CardIndividual({ header, body }: Input) {
+
+    const [isOpen, setIsOpen] = useState(false);
+    const [previewSrc, setPreviewSrc] = useState('');
+    const [previewTitle, setPreviewTitle] = useState('');
+
+    const onOpenPreview = (src: string, title = '') => {
+        setPreviewSrc(src);
+        setPreviewTitle(title);
+        setIsOpen(true);
+    };
+    const onClose = () => {
+        setIsOpen(false);
+        setTimeout(() => setPreviewSrc(''), 300); // wait for modal to close
+    };
 
     let md = body;
     md = body.replace(/```[\s\S]*?```/g, (m) =>
@@ -32,21 +49,48 @@ export default function CardIndividual({ header, body }: Input) {
                     remarkPlugins={[remarkBreaks]}
                     components={{
                         p: ({ node, children }) => <div>{children}</div>, // Ensures paragraphs work properly
-                        img: ({ node, ...props }) => (
-                            <figure style={{
-                                float: props.alt === 'center' ? 'left' : 'right',
-                                margin: props.alt !== 'center' ? '0' : '0 auto',
-                            }}>
-                                <img {...props}
-                                    alt={props.alt}
-                                    style={{ padding: '10px 10px 0px 10px' }}
-                                />
-                                {props.title && <figcaption style={{ padding: '10px' }}>{<ReactMarkdown children={props.title} />}</figcaption>}
-                            </figure>
-                        ),
+                        img: ({ node, ...props }) => {
+                            const isPreview = previewSrc === props.src && isOpen;
+
+                            return (
+                                <figure
+                                    style={{
+                                        float: props.alt === 'center' ? 'left' : 'right',
+                                        margin: props.alt !== 'center' ? '0' : '0 auto',
+                                        cursor: 'pointer',
+                                        pointerEvents: isPreview ? 'none' : 'auto',
+                                    }}
+                                    onClick={() => onOpenPreview(props.src ?? '', props.title ?? '')}
+                                >
+                                    <img
+                                        {...props}
+                                        alt={props.alt}
+                                        style={{ padding: '10px 10px 0px 10px', maxWidth: '100%' }}
+                                    />
+                                    {props.title && (
+                                        <figcaption style={{ padding: '10px' }}>
+                                            <ReactMarkdown children={props.title} />
+                                        </figcaption>
+                                    )}
+                                </figure>
+                            )
+                        },
                     }}
                 />
             </CardBody>
+            <Modal isOpen={isOpen} onClose={onClose} size="xl" isCentered>
+                <ModalOverlay />
+                <ModalContent bg="transparent" boxShadow="none">
+                    <ModalBody p={0} display="flex" flexDirection="column" alignItems="center">
+                        <Image src={previewSrc} alt="Preview" w="100%" borderRadius="md" />
+                        {previewTitle && (
+                            <Box p={3} color="white" textAlign="center">
+                                <ReactMarkdown children={previewTitle} />
+                            </Box>
+                        )}
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
         </Card>
     )
 }

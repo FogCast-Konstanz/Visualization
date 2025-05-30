@@ -1,4 +1,6 @@
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-weight: bold;
     margin-top: 5px;
 }
@@ -19,33 +21,28 @@ h3 {
     font-size: clamp(0.75rem, 0.6176rem + 0.4706vw, 1rem);
 }
 
-p,
-a,
-span,
-button,
-input,
-select,
-label,
-table,
-li,
-textarea {
-    font-size: var(--text_size);
-    font-weight: 500;
-}
+
 
 #phenomenas {
     a {
         text-decoration: underline !important;
         color: #4f8b8b;
-    
+
         &:hover {
             text-decoration: none !important;
         }
     }
+
+    p,
+    div,
+    h2 {
+        padding-top: 10px;
+    }
 }
 
 
-ul, ol {
+ul,
+ol {
     margin-left: 25px;
 }
 
@@ -54,31 +51,31 @@ figure {
     max-width: 30%;
     max-height: 100%;
     margin-left: 10px;
-    
+
     figcaption {
-        width:fit-content;
+        width: fit-content;
 
     }
-    
-    img {    
+
+    img {
         border-radius: 20px;
     }
 
 }
 
 
-@media screen and (max-width: 990px) { 
+@media screen and (max-width: 990px) {
     figure {
         float: unset;
         max-width: 100%;
         max-height: 100%;
-    
+
         margin-block: 10px;
         margin-left: 0px;
-        
+
         img {
             border-radius: 20px;
         }
-        
+
     }
 }

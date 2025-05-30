@@ -32,7 +32,7 @@ export default function PhenomenaSite({ title, description, content, sources, id
                     color={useColor('text')}
                 />
                 <Text marginLeft={'20px'}>
-                    <Link href='/phenomena'>Phenomena</Link>
+                    <Link href='/phenomena'>{t('navigation.phenomena')}</Link>
                     <Icon
                         as={ChevronRightIcon}
                         aria-label="Go Back"

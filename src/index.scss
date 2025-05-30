@@ -24,3 +24,18 @@
         }
     }
 }
+
+
+p,
+a,
+span,
+button,
+input,
+select,
+label,
+table,
+li,
+textarea {
+    font-size: var(--text_size);
+    font-weight: 500;
+}

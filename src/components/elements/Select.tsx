@@ -3,7 +3,7 @@ import { Select } from "@chakra-ui/react";
 import { useColor } from '../../components/style';
 // adjust path as needed
 
-interface Option {
+export interface SelectOption {
     code: string | number;
     label: string;
 }
@@ -13,7 +13,7 @@ interface CustomSelectProps {
     defaultValue?: string | number;
     placeholder?: string;
     onChange: (value: string | number | any) => void;
-    options: Option[];
+    options: SelectOption[];
 }
 
 export default function CustomSelect({ value, onChange, options, defaultValue, placeholder }: CustomSelectProps) {

@@ -1,11 +1,15 @@
 import { CloseIcon } from '@chakra-ui/icons'
-import { Flex, Heading, IconButton, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, Flex, Heading, IconButton, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import LexikonEntry from './LexikonEntry'
 
-import CustomSelect from '../../components/elements/Select'
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
+
 import { layoutConfig, useColor } from '../../components/style'
+import SearchFilterBar from './SearchFilterBar'
 
 
 export default function Lexikon() {
@@ -30,7 +34,7 @@ export default function Lexikon() {
     const tagOptions = uniqueTags.map((tag) => ({
         code: tag,
         label: tag,
-      }));
+    }));
 
     /* Filter after:
     * 1. Search value in 
@@ -40,7 +44,7 @@ export default function Lexikon() {
             selectedTag ? entry.tags.includes(selectedTag) : true
         ).filter((entry) =>
             entry.header.toLowerCase().includes(searchQuery.toLowerCase()) || entry.text.toLowerCase().includes(searchQuery.toLowerCase()
-        )).sort((a, b) => a.header.localeCompare(b.header));
+            )).sort((a, b) => a.header.localeCompare(b.header));
 
     useEffect(() => {
         const handleUrlChange = () => {
@@ -61,50 +65,30 @@ export default function Lexikon() {
 
 
     return (
-        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={layoutConfig.margin}gap={layoutConfig.gap} width={{ lg: '100%' }} pr={layoutConfig.padding}>
+        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={layoutConfig.margin} gap={layoutConfig.gap} width={{ lg: '100%' }} pr={layoutConfig.padding}>
             <Flex direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent='space-between'>
-                <Heading flex={2}>{t('lexicon.title')}</Heading>
-                <Flex flex={1} direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent={'space-between'} gap={{ lg: '20px', base: '10px' }} width={'100%'}>
-                    <InputGroup
-                        flex={{ lg: 1, base: 'none' }}
+                <Card
+                    bg={useColor('background')}
+                    color={useColor('text')}
+                    width={'100%'}>
+                    <CardHeader pb={'0px'}>
+                        <Flex alignItems='center' justifyContent='space-between'>
+                            <Heading flex={2}>{t('lexicon.title')}</Heading>
+                            <SearchFilterBar
+                                searchQuery={searchQuery}
+                                setSearchQuery={setSearchQuery}
+                                tagOptions={tagOptions}
+                                changeTags={changeTags}
+                                layoutConfig={layoutConfig}
+                            />
+                        </Flex>
+                    </CardHeader>
+                    <CardBody>
+                        <ReactMarkdown children={t('lexicon.introduction')} remarkPlugins={[remarkGfm]} />
+                    </CardBody>
+                </Card>
 
-                        bg={useColor('background')}
-                        color={useColor('text')}
-                        _focus={{ borderColor: useColor('background') }}
-                        sx={{
-                            option: {
-                                background: useColor('background'),
-                                color: useColor('text'),
-                                _hover: { background: useColor('background') }
-                            },
-                        }}
-                        borderRadius={layoutConfig.buttonBorderRadius}
-                    >
-                        <Input
-                            placeholder="Search title..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            
-                        />
-                        {searchQuery && (
-                            <InputRightElement>
-                                <IconButton
-                                    aria-label="Clear search"
-                                    icon={<CloseIcon />}
-                                    size="xs"
-                                    border={'none'}
-                                    background={'none'}
-                                    onClick={() => setSearchQuery("")}
-                                />
-                            </InputRightElement>
-                        )}
-                    </InputGroup>
-                    <CustomSelect
-                        onChange={(value) => changeTags(value)}
-                        options={tagOptions}
-                        placeholder='Filter by tag'
-                    />
-                </Flex>
+
             </Flex>
 
             <VStack width={'100%'} margin={'0'}>
