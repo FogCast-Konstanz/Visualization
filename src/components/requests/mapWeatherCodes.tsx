@@ -12,6 +12,11 @@ import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
 import { toUtcIsoString, toUtcPlotlyIsoString } from "../time";
 
+import {
+    WiDaySunny, WiNightClear, WiDayCloudy, WiNightAltCloudy, WiCloudy, WiFog, WiShowers,
+    WiRain, WiSnow, WiThunderstorm
+} from 'react-icons/wi';
+
 const SVGRepoRainy = createIcon({ displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" /> });
 const SVGRepoPartlySunny = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" /> });
 const SVGRepoThunder = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ThunderSVG} width="24" height="24" /> });
@@ -20,88 +25,148 @@ const SVGRepoHumidity = createIcon({ displayName: "SVGRepoHumidity", viewBox: "0
 const SVGRepoMoon = createIcon({ displayName: "SVGRepoMoon", viewBox: "0 0 24 24", path: <image href={MoonSVG} width="24" height="24" /> });
 const SVGRepoPartlyMoon = createIcon({ displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" /> });
 
-// Function to map weather codes to descriptions
-const getWeatherDescription = (code: number): string => {
-    const descriptions: Record<number, string> = {
-        0: "Clear sky",
-        1: "Mainly clear",
-        2: "Partly cloudy",
-        3: "Overcast",
-        45: "Fog",
-        51: "Drizzle",
-        61: "Rain",
-        71: "Snowfall",
+// // Function to map weather codes to icons
+// export function getWeatherIcon(code: number, isDay: boolean): any {
+
+//     const weatherIcon: { [key: number]: { icon: IconType | any, color: string, background?: string } } = {
+//         0: isDay ? { 'icon': IoSunny, 'color': '#F7CF52' } : { 'icon': SVGRepoMoon, 'color': '#F7CF52' },
+//         1: isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
+//         2: isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
+//         3: { 'icon': IoCloudy, 'color': '#999999' },
+//         45: { 'icon': SVGRepoRainy, 'color': 'blue' },
+//         71: { 'icon': IoSnow, 'color': 'white' },
+//         72: { 'icon': SVGRepoFog, 'color': 'white' },
+//         73: { 'icon': SVGRepoThunder, 'color': 'blue' },
+//         74: { 'icon': IoCloudOfflineOutline, 'color': 'black' }
+//     }
+//     const dayColor = '#F7CF52';
+//     const nightColor = '#F7CF52';
+
+//     return weatherIcon[code] || weatherIcon[3]
+// };
+
+
+export function getWeatherIcon(code: number, isDay: boolean): { icon: IconType | any; color: string; background?: string } {
+    const dayColor = '#F7CF52';
+    const nightColor = '#F7CF52';
+    const defaultColor = '#999999';
+
+    const mapping: Record<number, { icon: IconType | any; color: string; background?: string }> = {
+        // Clear sky
+        0: isDay ? { icon: IoSunny, color: dayColor } : { icon: SVGRepoMoon, color: nightColor },
+
+        // Mainly clear, partly cloudy, and overcast
+        1: isDay ? { icon: SVGRepoPartlySunny, color: dayColor } : { icon: SVGRepoPartlyMoon, color: nightColor },
+        2: isDay ? { icon: SVGRepoPartlySunny, color: dayColor } : { icon: SVGRepoPartlyMoon, color: nightColor },
+        3: { icon: IoCloudy, color: defaultColor },
+
+        // Fog
+        45: { icon: SVGRepoFog, color: defaultColor },
+        48: { icon: SVGRepoFog, color: defaultColor },
+
+        // Drizzle
+        51: { icon: SVGRepoRainy, color: '#4DA6FF' },
+        53: { icon: SVGRepoRainy, color: '#4DA6FF' },
+        55: { icon: SVGRepoRainy, color: '#4DA6FF' },
+        56: { icon: SVGRepoRainy, color: '#4DA6FF' },
+        57: { icon: SVGRepoRainy, color: '#4DA6FF' },
+
+        // Rain
+        61: { icon: SVGRepoRainy, color: '#0066CC' },
+        63: { icon: SVGRepoRainy, color: '#0066CC' },
+        65: { icon: SVGRepoRainy, color: '#0066CC' },
+        66: { icon: SVGRepoRainy, color: '#0066CC' },
+        67: { icon: SVGRepoRainy, color: '#0066CC' },
+
+        // Snow fall
+        71: { icon: IoSnow, color: '#FFFFFF' },
+        73: { icon: IoSnow, color: '#FFFFFF' },
+        75: { icon: IoSnow, color: '#FFFFFF' },
+        77: { icon: IoSnow, color: '#FFFFFF' },
+
+        // Rain showers
+        80: { icon: SVGRepoRainy, color: '#4DA6FF' },
+        81: { icon: SVGRepoRainy, color: '#4DA6FF' },
+        82: { icon: SVGRepoRainy, color: '#0066CC' },
+
+        // Snow showers
+        85: { icon: IoSnow, color: '#FFFFFF' },
+        86: { icon: IoSnow, color: '#FFFFFF' },
+
+        // Thunderstorm
+        95: { icon: SVGRepoThunder, color: '#0000FF' },
+        96: { icon: SVGRepoThunder, color: '#0000FF' },
+        99: { icon: SVGRepoThunder, color: '#0000FF' },
+        // Freezing rain
+        74: { icon: IoCloudOfflineOutline, color: '#000000' }
     };
-    return descriptions[code] || "Unknown weather condition";
-};
 
-// Function to map weather codes to icons
-export function getWeatherIcon(code: number, isDay: boolean): any {
-    // const icons: Record<number, JSX.Element> = {
-    //     0: <FaSun />,
-    //     1: <FaSun />,
-    //     2: <FaCloud />,
-    //     3: <FaCloud />,
-    //     45: <FaCloud />,
-    //     51: <FaCloudRain />,
-    //     61: <FaCloudRain />,
-    //     71: <FaSnowflake />,
-    // };
-    // return icons[code] || <FaCloud />;
-
-    const weatherIcon: { [key: number]: { icon: IconType | any, color: string, background?: string } } = {
-        0: isDay ? { 'icon': IoSunny, 'color': '#F7CF52' } : { 'icon': SVGRepoMoon, 'color': '#F7CF52' },
-        1: isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
-        2: isDay ? { 'icon': SVGRepoPartlySunny, 'color': '#F7CF52' } : { 'icon': SVGRepoPartlyMoon, 'color': '#F7CF52' },
-        3: { 'icon': IoCloudy, 'color': '#999999' },
-        45: { 'icon': SVGRepoRainy, 'color': 'blue' },
-        71: { 'icon': IoSnow, 'color': 'white' },
-        72: { 'icon': SVGRepoFog, 'color': 'white' },
-        73: { 'icon': SVGRepoThunder, 'color': 'blue' },
-        74: { 'icon': IoCloudOfflineOutline, 'color': 'black' }
-    }
-
-    return weatherIcon[code] || weatherIcon[3]
-};
+    return mapping[code] || { icon: IoCloudy, color: defaultColor };
+}
 
 
 // Function to map weather codes to ASCII symbols
-export function getWeatherAscii(code: number): string {
-    const asciiMap: Record<number, string> = {
-        0: "☀️",
-        1: "⛅",
-        2: "⛅",
-        3: "☁️",
-        45: "🌫",
-        51: "🌧",
-        61: "🌦",
-        71: "❄️",
-    };
-    return asciiMap[code] || "❓";
-};
+// export function getWeatherAscii(code: number): string {
+//     const asciiMap: Record<number, string> = {
+//         0: "☀️",
+//         1: "⛅",
+//         2: "⛅",
+//         3: "☁️",
+//         45: "🌫",
+//         51: "🌧",
+//         61: "🌦",
+//         71: "❄️",
+//     };
+//     return asciiMap[code] || "❓";
+// };
 
 export function getWeatherAsciiDayAndNight(code: number, isDay: boolean) {
     const asciiMap: Record<number, { day: string; night: string }> = {
-        0: { day: "🌞", night: "🌙" }, 1: { day: "🌤️", night: "🌖" },
-        2: { day: "⛅️", night: "🌘" }, 3: { day: "☁️", night: "☁️" },
-        51: { day: "🌧️", night: "🌧️" }, 61: { day: "⛈️", night: "⛈️" },
-        62: { day: "🌨️", night: "🌨️" }, 45: { day: "🌫️", night: "🌫️" }
-    }
+        0: { day: "🌞", night: "🌙" },
+        1: { day: "🌤️", night: "🌖" },
+        2: { day: "⛅️", night: "🌘" },
+        3: { day: "☁️", night: "☁️" },
+        45: { day: "🌫️", night: "🌫️" },
+        48: { day: "🌫️", night: "🌫️" },
+        51: { day: "🌦️", night: "🌦️" },
+        53: { day: "🌧️", night: "🌧️" },
+        55: { day: "🌧️", night: "🌧️" },
+        56: { day: "🌧️", night: "🌧️" },
+        57: { day: "🌧️", night: "🌧️" },
+        61: { day: "🌧️", night: "🌧️" },
+        63: { day: "🌧️", night: "🌧️" },
+        65: { day: "🌧️", night: "🌧️" },
+        66: { day: "🌧️", night: "🌧️" },
+        67: { day: "🌧️", night: "🌧️" },
+        71: { day: "❄️", night: "❄️" },
+        73: { day: "❄️", night: "❄️" },
+        75: { day: "❄️", night: "❄️" },
+        77: { day: "❄️", night: "❄️" },
+        80: { day: "🌦️", night: "🌦️" },
+        81: { day: "🌦️", night: "🌦️" },
+        82: { day: "🌧️", night: "🌧️" },
+        85: { day: "🌨️", night: "🌨️" },
+        86: { day: "🌨️", night: "🌨️" },
+        95: { day: "⛈️", night: "⛈️" },
+        96: { day: "⛈️", night: "⛈️" },
+        99: { day: "⛈️", night: "⛈️" },
+        74: { day: "❄️", night: "❄️" }
+    };
 
     return isDay ? asciiMap[code]?.day || "❓" : asciiMap[code]?.night || "❓";
 };
 
-export function convertCodesAndIsDaysToAscii(weatherCodes: PlotlyChartBasicFormat, isDayFlags: PlotlyChartBasicFormat): PlotlyChartBasicFormat {
-    
+export function convertCodesAndIsDaysToAscii(weatherCodes: PlotlyChartBasicFormat, isDayFlags: PlotlyChartBasicFormat, maxY: number): PlotlyChartBasicFormat {
+
     const adjustedTimes = weatherCodes.x.map(time => {
         // const date = new Date(time);
         // date.setHours(date.getHours() + 2); // Adjust for 2-hour difference
         return toUtcPlotlyIsoString(time); // or return date.toString() depending on format
     });
-    
+
     return {
         x: adjustedTimes,
-        y: Array(weatherCodes.x.length).fill(20),
+        y: Array(weatherCodes.x.length).fill(maxY),
         text: weatherCodes.y.map((code, i) => {
             console.log(code)
             return getWeatherAsciiDayAndNight(code, Boolean(isDayFlags.y[i]))

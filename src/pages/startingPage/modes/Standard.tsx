@@ -97,13 +97,9 @@ export default function StandardMode() {
         convertToPlotlyChartFormat(temperature, 'line', 'y1'),
         convertToPlotlyChartFormat(rain, 'bar', 'y1'),
       ])
-      setForecastSymbols(convertToPlotlyChartFormat(convertCodesAndIsDaysToAscii(weather_code, is_day), 'weatherIcon'))
+      setForecastSymbols(convertToPlotlyChartFormat(convertCodesAndIsDaysToAscii(weather_code, is_day, Math.max(...temperature.y) + 5), 'weatherIcon'))
       setWeekdays(weekdayAnnotations(temperature.x))
-      setIsDay({x: is_day.x.map(time => {
-              console.log('Miau2', time, toUtcIsoString(time))
-              return toUtcPlotlyIsoString(time);
-          }), y: is_day.y})
-      console.log("IS DAY", is_day);
+      setIsDay({x: is_day.x.map(time => ( toUtcPlotlyIsoString(time))), y: is_day.y})
     }
 
     // Set cloud cover
@@ -244,7 +240,7 @@ export default function StandardMode() {
             yAxis={t('data.temperature')}
             xAxis={t('data.time')}
             y2Axis={t('data.humidity')}
-            showNow={true}
+            // showNow={true}
             customLayout={{ annotations: weekdays }}
             isDay={isDay}
             movingShape={shape}
@@ -260,10 +256,11 @@ export default function StandardMode() {
             yAxis={t('data.cloud')}
             xAxis={t('data.time')}
             y2Axis={t('data.visibility')}
-            showNow={true}
+            // showNow={true}
             customLayout={{ annotations: weekdays }} 
             startFromZero={false}
             movingShape={shape}
+            isDay={isDay}
             />
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
