@@ -11,7 +11,6 @@ export async function fetchCurrentForecast(modelId: string): Promise<CurrentFore
             headers: { Accept: "application/json" },
         });
 
-        console.log(response.data)
         let data = response.data
         if (typeof (data) == 'string') {
             data = data.replace(/NaN/g, "null");
@@ -49,15 +48,10 @@ export function extractCurrentWeatherForecastHourlyLastXDays(
     const endTime = new Date(new Date().getTime() + days * 24 * 60 * 60 * 1000);
     const startTime = new Date();
 
-
-    console.log("Time Miau", data[0].forecast_date, new Date(data[0].forecast_date), startTime, endTime);
-
     const filteredData = data.filter(entry => {
         const entryTime = new Date(entry.forecast_date);
         return entryTime >= startTime && entryTime <= endTime;
     });
-
-    console.log("Time Filtered", filteredData[0].forecast_date, toUtcIsoString(new Date(filteredData[0].forecast_date)))
 
     return {
         x: filteredData.map(entry => toUtcIsoString(new Date(entry.forecast_date))),

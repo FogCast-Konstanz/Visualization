@@ -22,7 +22,6 @@ export default function SelectParameter({ select, setSelect, measurements }: Mod
 
     function handleModelChange(selectedOptions: any) {
         setSelect(selectedOptions ? selectedOptions.map((option: any) => option.value) : []);
-        console.log("Selected Option", selectedOptions)
     };
 
     return (

@@ -37,10 +37,7 @@ export default function WaterLevelTab() {
         const waterLevelData = parseActualRequestToPlotlyXYFormat(waterLevel)
         setWaterLevelLastYear([(convertToPlotlyChartFormat(waterLevelData, 'line', null, graphcolors[0]))])
 
-        console.log(dateLastFewYear);
-
         const waterLevelHistory = await fetchWaterLevelHistory("2017-01-01 00:00:00", formatActualDatetime())
-        console.log('Miauuuu', waterLevelHistory[0]);
         // const waterLevelDataHistory = parseActualRequestToPlotlyXYFormat(waterLevelHistory)
         setWaterLevelHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(waterLevelHistory, ''), ['2025', '2023', '2000'], graphcolors))
 

@@ -88,8 +88,6 @@ export default function StandardMode() {
       }
     )
 
-    console.log("Miauuuuu", temperature.x[0], rain.x[0], new Date(temperature.x[0]), toUtcIsoString(temperature.x[0]))
-
     // Set data for plotly graph: temperature weather code and humidity
     if (weather_code && humidity && temperature) {
       setForecast([

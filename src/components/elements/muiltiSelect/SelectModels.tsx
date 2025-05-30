@@ -27,7 +27,6 @@ export default function SelectModels({ selectModels, setSelectModels }: ModelSel
 
     function handleModelChange(selectedOptions: any) {
         setSelectModels(selectedOptions ? selectedOptions.map((option: any) => option.value) : []);
-        console.log("Selected Option", selectedOptions)
     };
 
     return (

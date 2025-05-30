@@ -1,35 +1,12 @@
 import { Card, CardBody, createIcon, Flex, Icon, Text, Tooltip } from "@chakra-ui/react";
 import { t } from "i18next";
-import { useEffect } from "react";
 import { WiRaindrop } from "react-icons/wi";
 import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
 import { layoutConfig, useColor } from '../../components/style';
-import FogSVG from '/public/assets/weather/fog.svg';
-import HumiditySVG from '/public/assets/weather/humidity.svg';
-import MoonSVG from '/public/assets/weather/moon.svg';
-import PartlyMoonSVG from '/public/assets/weather/partlyMoon.svg';
-import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
-import RainySVG from '/public/assets/weather/rainy.svg';
-import ThunderSVG from '/public/assets/weather/thunder.svg';
-
-const SVGRepoRainy = createIcon({ displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" /> });
-const SVGRepoPartlySunny = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" /> });
-const SVGRepoThunder = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ThunderSVG} width="24" height="24" /> });
-const SVGRepoFog = createIcon({ displayName: "SVGRepoFog", viewBox: "0 0 24 24", path: <image href={FogSVG} width="24" height="24" /> });
-const SVGRepoHumidity = createIcon({ displayName: "SVGRepoHumidity", viewBox: "0 0 24 24", path: <image href={HumiditySVG} width="24" height="24" /> });
-const SVGRepoMoon = createIcon({ displayName: "SVGRepoMoon", viewBox: "0 0 24 24", path: <image href={MoonSVG} width="24" height="24" /> });
-const SVGRepoPartlyMoon = createIcon({ displayName: "SVGRepoPartlyMoon", viewBox: "0 0 24 24", path: <image href={PartlyMoonSVG} width="24" height="24" /> });
 
 
 export type ForcastCardProps = { time: Date, temperature: number, weather: number, rain: string, isDay: number }
 export default function ForcastCard({ time, temperature, weather, rain, isDay }: ForcastCardProps) {
-
-    useEffect(() => {
-        console.log(temperature)
-        console.log(time)
-        console.log(time.toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }))
-
-    }, [])
 
     return (
         <Card

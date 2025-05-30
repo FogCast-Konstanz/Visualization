@@ -168,7 +168,6 @@ export function convertCodesAndIsDaysToAscii(weatherCodes: PlotlyChartBasicForma
         x: adjustedTimes,
         y: Array(weatherCodes.x.length).fill(maxY),
         text: weatherCodes.y.map((code, i) => {
-            console.log(code)
             return getWeatherAsciiDayAndNight(code, Boolean(isDayFlags.y[i]))
         }
         ),

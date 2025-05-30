@@ -37,7 +37,6 @@ export default function ModelsPage() {
   useEffect(() => { setModels() }, [selectedDatetime])
 
   async function setModels() {
-    console.log(selectedModels)
     setSearchParams({ models: JSON.stringify(selectedModels), time: selectedDatetime });
 
     let copyTemp: any = []
@@ -70,23 +69,6 @@ export default function ModelsPage() {
       setWeekdaysTemp(weekdayAnnotations(copyTemp[0].x, false))
       setWeekdaysHum(weekdayAnnotations(copyHumidity[0].x, false))
     }
-
-    // TODO: Nicht fertig!
-    // TODO: Warten auf tatsächliche Werte
-
-    // if (copyTemp.length > 0 && copyHumidity.length > 0 && actualValues) {
-
-    //   console.log('Miauuuu', actualValues);
-
-    //   const actualTemperature = {
-    //     x: copyTemp[0].x,
-    //     y: Array(copyTemp[0].x.length).fill(actualValues.apparent_temperature),
-    //     name: 'Temperature'
-    //   }
-    //   console.log(actualTemperature)
-    //   setTimeout(() => setForecastTemperatureData([...convertMultipleToPlotlyChartFormat(copyTemp, 'scatter'), convertToPlotlyChartFormat(actualTemperature, 'scatter')]), 0)
-    //   setWeekdaysTemp(weekdayAnnotations(copyTemp[0].x, false))
-    // }
   }
 
   async function fetchHistoricForecastModel(model: string): Promise<ExtractedForecastData> {
@@ -107,11 +89,8 @@ export default function ModelsPage() {
     const format = (date: Date) => toUtcIsoString(date).slice(0, 16); // "YYYY-MM-DDTHH:MM"
 
     const match = weatherAtTime.find(item => {
-      console.log(new Date(item.date), date, format(new Date(item.date)) == format(date))
       return format(new Date(item.date)) == format(date)
     });
-
-    console.log('Match', match, weatherAtTime, date)
 
     return match
   }

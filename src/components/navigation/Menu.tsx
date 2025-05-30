@@ -13,8 +13,6 @@ export default function Settings() {
         const lang_code = e.target.value;
         i18n.changeLanguage(lang_code);
 
-        console.log(lang_code)
-
         localStorage.setItem('lang', lang_code)
     };
 

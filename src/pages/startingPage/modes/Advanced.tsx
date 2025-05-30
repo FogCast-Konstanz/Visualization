@@ -33,8 +33,6 @@ export default function AdvancedMode() {
     }, [weatherModel, measurements]);
 
     async function fetchForecastsWeatherModels() {
-        console.log(weatherModel);
-
 
         let newData: { [key: string]: PlotlyChartDataFormat[] } = {};
 
@@ -56,8 +54,6 @@ export default function AdvancedMode() {
             const [_, randomElement] = Object.entries(newData)[0] || [];
             setWeekdays(weekdayAnnotations(randomElement[0].x))
         }
-
-        console.log("New Data", newData)
         setTemperatureForecast(newData)
         
     }

@@ -42,8 +42,6 @@ class DWDForcast {
       this.humidityHourly = this.extractHourlyData(data, "humidity", "Humidity", 10);
       this.weatherSymbolsHourly = this.extractWeatherSymbolsHourly(data);
       this.hourlyForcastWithIcons = this.extractHourlyForcast(data);
-
-      console.log(this.hourlyForcastWithIcons)
     } catch (error) {
       console.error("Error fetching forecast:", error);
       throw error;
@@ -106,7 +104,6 @@ class DWDForcast {
   }
 
   getWeatherSymbolsHourlyNextXDays(days: number): PlotlyChartBasicFormat | null {
-    console.log(this.weatherSymbolsHourly)
     if (!this.weatherSymbolsHourly || !this.temperatureHourly) return null;
     const { times, values } = this.filterNextXDays(this.weatherSymbolsHourly.x, this.weatherSymbolsHourly.y, days);
     

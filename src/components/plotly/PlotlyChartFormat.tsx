@@ -24,13 +24,8 @@ export interface PlotlyChartDataFormat {
 
 
 export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon', yAxis?: string | null, customColor?: string | null, customOpacity?: number): PlotlyChartDataFormat {
-    
-    console.log(basicFormatInput.name, basicFormatInput.y, basicFormatInput.x)
 
-    const adjustedTimes = basicFormatInput.x.map(time => {
-        console.log('Miau2', time, toUtcIsoString(time))
-        return toUtcPlotlyIsoString(time);
-    });
+    const adjustedTimes = basicFormatInput.x.map(time => ( toUtcPlotlyIsoString(time)));
 
     const basicFormat = {
         x: adjustedTimes,

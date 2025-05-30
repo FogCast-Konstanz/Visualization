@@ -116,9 +116,7 @@ export async function fetchArchiveWeather(date: string, model: string): Promise<
 };
 
 
-export function parseActualRequestToPlotlyXYFormat(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {
-    console.log(response[0].date)
-    
+export function parseActualRequestToPlotlyXYFormat(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {    
     return {
         x: response.map(entry => toUtcIsoString(new Date(entry.date))),
         y: response.map(entry => parseFloat(entry.value)),
