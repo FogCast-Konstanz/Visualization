@@ -2,6 +2,7 @@ import { useTheme } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { layoutConfig, useColor, useGraphColors } from "../style";
 import PlotlyChart from "./DefaultChart";
+import { toUtcIsoString } from "../time";
 
 export type CloudDataType = { time: string[]; low: number[]; mid: number[]; high: number[]; visibility: number[] }
 
@@ -72,8 +73,8 @@ export default function CloudGraph({ cloudData }: CloudGraphInterface) {
         shapes: [
             {
                 type: "line",
-                x0: new Date().toISOString(),
-                x1: new Date().toISOString(),
+                x0: toUtcIsoString(),
+                x1: toUtcIsoString(),
                 y0: 0,
                 y1: 1,
                 xref: "x",

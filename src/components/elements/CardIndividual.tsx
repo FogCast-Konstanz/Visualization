@@ -1,12 +1,9 @@
 import { Box, Card, CardBody, CardHeader, Heading, Image, Modal, ModalBody, ModalContent, ModalOverlay } from "@chakra-ui/react";
 import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
 import remarkBreaks from 'remark-breaks';  // Import the remark-breaks plugin
-import rehypeRaw from "rehype-raw";
 
 import { useColor } from '../style';
 import { useState } from "react";
-
 
 
 type Input = { header: string, body: string }

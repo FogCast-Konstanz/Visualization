@@ -1,6 +1,7 @@
 
 import axios from "axios";
 import { BACKEND_API_URL } from "../constants";
+import { toUtcIsoString } from "../time";
 
 type ForecastData = {
     _time: string;
@@ -39,7 +40,7 @@ export async function fetchForecast(datetime: string, modelId: string,): Promise
 
 export function reformatDataofForecastBackend(forcastData: ForecastData[]): ExtractedForecastData {
     return {
-        time: forcastData.map(entry => new Date(entry._time).toISOString()),
+        time: forcastData.map(entry => toUtcIsoString(new Date(entry._time))),
         temperature: forcastData.map(entry => entry.apparent_temperature),
         humidity: forcastData.map(entry => entry.relative_humidity_2m),
         name: forcastData[0].model

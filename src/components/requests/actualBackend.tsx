@@ -1,6 +1,7 @@
 import axios from "axios";
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { BACKEND_API_URL } from "../constants";
+import { toUtcIsoString } from "../time";
 
 type ActualResponseFormat = {
     date: string,
@@ -119,7 +120,7 @@ export function parseActualRequestToPlotlyXYFormat(response: ActualResponseForma
     console.log(response[0].date)
     
     return {
-        x: response.map(entry => new Date(entry.date).toISOString()),
+        x: response.map(entry => toUtcIsoString(new Date(entry.date))),
         y: response.map(entry => parseFloat(entry.value)),
         name: name ? name : response[0].name
     };
@@ -133,7 +134,7 @@ export function parseActualRequestToPlotlyXYFormatYearWise(response: ActualRespo
         const entryYear = new Date(entry.date).getFullYear();
         if (entryYear !== currentYear || i === response.length - 1) {
             result.push({
-                x: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => { const date = new Date(e.date); date.setFullYear(0); return date.toISOString() }),
+                x: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => { const date = new Date(e.date); date.setFullYear(0); return toUtcIsoString(date) }),
                 y: response.slice(startIdx, i + (i === response.length - 1 ? 1 : 0)).map(e => parseFloat(e.value)),
                 name: `${name ? name + " " : ""}${currentYear}`
             });

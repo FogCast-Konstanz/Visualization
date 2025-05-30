@@ -1,7 +1,8 @@
 import { ForcastCardProps } from "@/pages/startingPage/ForcastCard";
 import axios from "axios";
 import { PlotlyChartBasicFormat } from "../../plotly/PlotlyChartFormat";
-import { BACKEND_API_URL } from "@/components/constants";
+import { BACKEND_API_URL } from "../../../components/constants";
+import { toUtcIsoString } from "../../../components/time";
 
 const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 
@@ -52,7 +53,7 @@ class DWDForcast {
   private extractHourlyData(data: any, key: string, name: string, divisor = 1): PlotlyChartBasicFormat {
     const { start, timeStep } = data[Object.keys(data)[0]].forecast1;
     return {
-      x: Array.from({ length: data[Object.keys(data)[0]].forecast1[key].length }, (_, i) => new Date(start + i * timeStep).toISOString()),
+      x: Array.from({ length: data[Object.keys(data)[0]].forecast1[key].length }, (_, i) => toUtcIsoString(new Date(start + i * timeStep))),
       y: data[Object.keys(data)[0]].forecast1[key].map((v: number) => v / divisor),
       name,
     };
@@ -61,7 +62,7 @@ class DWDForcast {
   private extractWeatherSymbolsHourly(data: any): PlotlyChartBasicFormat {
     const { start, timeStep, isDay, icon, temperature } = data[Object.keys(data)[0]].forecast1;
     return {
-      x: temperature.map((_: any, i: number) => new Date(start + i * timeStep).toISOString()),
+      x: temperature.map((_: any, i: number) => toUtcIsoString(new Date(start + i * timeStep))),
       y: icon.map((v: number, i: number) => (isDay[i] ? weatherSymbols[v]?.day : weatherSymbols[v]?.night) || "❔"),
       name: "symbol",
     };

@@ -14,6 +14,7 @@ import remarkGfm from 'remark-gfm';
 import PlotlyChart from '../../components/plotly/DefaultChart';
 import { fetchArchiveWeather, formatActualDatetime } from '../../components/requests/actualBackend';
 import { OrbitProgress } from 'react-loading-indicators';
+import { toUtcIsoString } from '../../components/time';
 
 export default function ModelsPage() {
   const { t } = useTranslation()
@@ -25,7 +26,7 @@ export default function ModelsPage() {
   const [forecastHumidityData, setForecastHumidityData] = useState<PlotlyChartBasicFormat[]>([])
 
   const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
-  const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? (new Date()).toISOString().split('.')[0] + "Z")
+  const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? (toUtcIsoString(new Date())).split('.')[0] + "Z")
 
   const [weekdaysTemp, setWeekdaysTemp] = useState<any | null>(null)
   const [weekdaysHum, setWeekdaysHum] = useState<any | null>(null)
@@ -91,7 +92,7 @@ export default function ModelsPage() {
   async function fetchHistoricForecastModel(model: string): Promise<ExtractedForecastData> {
     const time = new Date(selectedDatetime);
     time.setMinutes(0, 0, 0); // Round to last full hour
-    const timeIsoString = time.toISOString().split('.')[0] + "Z"
+    const timeIsoString = toUtcIsoString(time).split('.')[0] + "Z"
 
     const forcastResponse = await fetchForecast(timeIsoString, model);
     return reformatDataofForecastBackend(forcastResponse)
@@ -103,7 +104,7 @@ export default function ModelsPage() {
     const date = new Date(selectedDatetime);
     const weatherAtTime = await fetchArchiveWeather(formatActualDatetime(date), model);
 
-    const format = (date: Date) => date.toISOString().slice(0, 16); // "YYYY-MM-DDTHH:MM"
+    const format = (date: Date) => toUtcIsoString(date).slice(0, 16); // "YYYY-MM-DDTHH:MM"
 
     const match = weatherAtTime.find(item => {
       console.log(new Date(item.date), date, format(new Date(item.date)) == format(date))

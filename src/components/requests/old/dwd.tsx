@@ -1,5 +1,6 @@
 
-import { BACKEND_API_URL } from "@/components/constants";
+import { BACKEND_API_URL } from "../../../components/constants";
+import { toUtcIsoString } from "../../../components/time";
 import axios from "axios";
 
 const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
@@ -45,7 +46,7 @@ function transformForecastData(data: ForecastData): {x: string[], y: number[], n
     const x = forecast.temperature.map((_, index) => {
         // const date = new Date(startDate.getTime() + index * timeStep);
         const date = new Date(startDate.getTime() + index * timeStep);
-        return date.toISOString(); // Formats as DD.MM.YYYY
+        return toUtcIsoString(date);
     });
 
     const y = forecast.temperature.map((temp) => {

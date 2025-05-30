@@ -10,6 +10,7 @@ import PartlyMoonSVG from '/public/assets/weather/partlyMoon.svg';
 import ParltySunnySVG from '/public/assets/weather/partlySunny.svg';
 import RainySVG from '/public/assets/weather/rainy.svg';
 import ThunderSVG from '/public/assets/weather/thunder.svg';
+import { toUtcIsoString, toUtcPlotlyIsoString } from "../time";
 
 const SVGRepoRainy = createIcon({ displayName: "SVGRepoRainy", viewBox: "0 0 24 24", path: <image href={RainySVG} width="24" height="24" /> });
 const SVGRepoPartlySunny = createIcon({ displayName: "SVGRepoPartlySunny", viewBox: "0 0 24 24", path: <image href={ParltySunnySVG} width="24" height="24" /> });
@@ -93,9 +94,9 @@ export function getWeatherAsciiDayAndNight(code: number, isDay: boolean) {
 export function convertCodesAndIsDaysToAscii(weatherCodes: PlotlyChartBasicFormat, isDayFlags: PlotlyChartBasicFormat): PlotlyChartBasicFormat {
     
     const adjustedTimes = weatherCodes.x.map(time => {
-        const date = new Date(time);
-        date.setHours(date.getHours() + 2); // Adjust for 2-hour difference
-        return date.toISOString(); // or return date.toString() depending on format
+        // const date = new Date(time);
+        // date.setHours(date.getHours() + 2); // Adjust for 2-hour difference
+        return toUtcPlotlyIsoString(time); // or return date.toString() depending on format
     });
     
     return {

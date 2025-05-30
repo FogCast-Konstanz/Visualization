@@ -3,6 +3,7 @@ import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
 import { layoutConfig, useColor, useGraphColors } from '../style';
+import { toUtcIsoString } from "../time";
 
 interface PlotlyChartProps {
     data: any[];
@@ -17,12 +18,15 @@ interface PlotlyChartProps {
 
     startFromZero?: boolean
     dateFormat?: 'standard' | 'year' | 'month' | 'day'
+
+    isDay?: { x: string[]; y: number[] }
+    movingShape?: { left: string, right: string }
 }
 
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, dateFormat = 'standard' }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, isDay, movingShape }) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -39,6 +43,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
     const paperBgColor = useColor('background');
     const textColor = useColor('text');
     const gridColor = useColor('secondaryText');
+    const markingColor = useColor('warning')
 
     const orientationLegendBottom: orientation = "h"
     const orientationLegendRight: orientation = "v"
@@ -46,6 +51,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
     const traceorder: "normal" | "grouped" | "reversed" | "reversed+grouped" | undefined = "normal"
 
     const range = startFromZero ? [data[0].x[0], data[0].x[data[0].x.length - 1]] : [];
+
 
     // const [firstKey, firstValue] = Object.entries(data)[0] || [];
 
@@ -106,32 +112,102 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
         },
         modebar: {
             orientation: orientationModebar,
-        },
-        shapes: showNow ? [
-            {
-                type: "line",
-                x0: (new Date()).toISOString().split('.')[0] + "Z",
-                x1: (new Date()).toISOString().split('.')[0] + "Z",
-                y0: 0,
-                y1: 1,
-                xref: "x",
-                yref: "paper", // Extends line across y-axis
-                line: {
-                    color: "red",
-                    width: 2,
-                    dash: "dash",
-                },
-            },
-        ] : []
+        }
     }
 
     const defaultStyle = { width: "100%", height: "100%" }
 
-    useEffect(() => {
-        setLayout(() => ({ ...defaultLayout, ...customLayout }))
-        setStyle(() => ({ ...defaultStyle, ...customStyle }))
-    }, [])
+    function generateDayNightShadesFromTrace(trace: { x: string[]; y: number[] }) {
+        const shapes = [];
+        let i = 0;
 
+        while (i < trace.y.length) {
+            if (trace.y[i] === 0) {
+                const start = trace.x[i];
+                while (i + 1 < trace.y.length && trace.y[i + 1] === 0) {
+                    i++;
+                }
+                const end = trace.x[i + 1] || trace.x[i];
+                shapes.push({
+                    type: "rect",
+                    xref: "x",
+                    yref: "paper",
+                    x0: toUtcIsoString(start),
+                    x1: toUtcIsoString(end),
+                    y0: 0,
+                    y1: 1,
+                    fillcolor: paperBgColor,
+                    opacity: 0.5,
+                    layer: "below",
+                    line: { width: 0 }
+                });
+            }
+            i++;
+        }
+
+        return shapes;
+    }
+
+
+    useEffect(() => {
+
+        const nowShape = showNow
+            ? [{
+                type: "line",
+                x0: toUtcIsoString(Date.now() + 1 * 60 * 60 * 1000),
+                x1: toUtcIsoString(Date.now() + 1 * 60 * 60 * 1000),
+                y0: 0,
+                y1: 1,
+                xref: "x",
+                yref: "paper",
+                line: {
+                    color: "red",
+                    width: 2,
+                    dash: "dash"
+                },
+                layer: "above"
+            }]
+            : [];
+
+        const additionalMovingShape = movingShape ? [
+            {
+                type: "line",
+                x0: movingShape.left,
+                x1: movingShape.left,
+                y0: 0,
+                y1: 1,
+                xref: "x",
+                yref: "paper",
+                line: {
+                    color: markingColor,
+                    width: 1,
+                    dash: "dot"
+                },
+                layer: "above"
+            },
+            {
+                type: "line",
+                x0: movingShape.right,
+                x1: movingShape.right,
+                y0: 0,
+                y1: 1,
+                xref: "x",
+                yref: "paper",
+                line: {
+                    color: markingColor,
+                    width: 1,
+                    dash: "dot"
+                },
+                layer: "above"
+            }
+        ] : [];
+
+        const isDayShape = isDay ? generateDayNightShadesFromTrace(isDay) : []
+
+        const shapes = [...nowShape, ...additionalMovingShape, ...isDayShape]
+
+        setLayout({ ...defaultLayout, shapes, ...customLayout });
+    }, [customLayout, isDay, showNow, movingShape]);
 
     return (
         <div style={{ borderRadius: layoutConfig.borderRadius, overflow: "hidden", width: "100%" }}>

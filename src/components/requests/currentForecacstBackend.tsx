@@ -2,6 +2,7 @@ import axios from "axios";
 import { ModelOption } from "../elements/muiltiSelect/SelectMeasurements";
 import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { BACKEND_API_URL } from "../constants";
+import { toUtcIsoString } from "../time";
 
 export async function fetchCurrentForecast(modelId: string): Promise<CurrentForecastResponseFormat[]> {
     try {
@@ -32,7 +33,7 @@ export function extractCurrentWeatherForecastHourly(
 ): PlotlyChartBasicFormat {
 
     return {
-        x: data.map(entry => new Date(entry.forecast_date).toISOString()), // Use forecast_date
+        x: data.map(entry => toUtcIsoString(new Date(entry.forecast_date))), // Use forecast_date
         y: data.map(entry => entry[key]), // Extract and adjust values
         name,
     };
@@ -48,13 +49,18 @@ export function extractCurrentWeatherForecastHourlyLastXDays(
     const endTime = new Date(new Date().getTime() + days * 24 * 60 * 60 * 1000);
     const startTime = new Date();
 
+
+    console.log("Time Miau", data[0].forecast_date, new Date(data[0].forecast_date), startTime, endTime);
+
     const filteredData = data.filter(entry => {
         const entryTime = new Date(entry.forecast_date);
         return entryTime >= startTime && entryTime <= endTime;
     });
 
+    console.log("Time Filtered", filteredData[0].forecast_date, toUtcIsoString(new Date(filteredData[0].forecast_date)))
+
     return {
-        x: filteredData.map(entry => new Date(entry.forecast_date).toISOString()),
+        x: filteredData.map(entry => toUtcIsoString(new Date(entry.forecast_date))),
         y: filteredData.map(entry => entry[key]),
         name,
     };

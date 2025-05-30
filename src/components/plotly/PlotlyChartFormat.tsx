@@ -1,3 +1,4 @@
+import { toUtcIsoString, toUtcPlotlyIsoString } from "../time";
 
 export interface PlotlyChartBasicFormat {
     x: string[];
@@ -27,9 +28,8 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
     console.log(basicFormatInput.name, basicFormatInput.y, basicFormatInput.x)
 
     const adjustedTimes = basicFormatInput.x.map(time => {
-        const date = new Date(time);
-        date.setHours(date.getHours() + 2); // Adjust for 2-hour difference
-        return date.toISOString(); // or return date.toString() depending on format
+        console.log('Miau2', time, toUtcIsoString(time))
+        return toUtcPlotlyIsoString(time);
     });
 
     const basicFormat = {
@@ -118,10 +118,6 @@ export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasic
  * Usage: Store the data inside a useState and pass this value to DefaultGraph (customLayout={{annotations: weekdays}})
  */
 export function weekdayAnnotations(randomTime: string[], ignoreOlder=true) {
-    
-    // const formattedTimes = randomTime.map(item => 
-    //     item instanceof Date ? item.toISOString() : item
-    // );
 
     const uniqueDays = [...new Set(randomTime
         .filter(t => ignoreOlder ? 
@@ -134,7 +130,7 @@ export function weekdayAnnotations(randomTime: string[], ignoreOlder=true) {
     return uniqueDays.map(day => {
         const noonTime = new Date(`${day}T12:00:00`);  // Set noon time
         return {
-            x: noonTime.toISOString(),   // X position at noon
+            x: toUtcIsoString(noonTime),   // X position at noon
             y: 1.08,                     // Y position (above first row)
             xref: "x",
             yref: "paper",
@@ -146,21 +142,3 @@ export function weekdayAnnotations(randomTime: string[], ignoreOlder=true) {
         };
     });
 }
-
-// export function shadeTheNights() {
-//     const nightShading = [];
-//       for (let i = 0; i < sunrises.length - 1; i++) {
-//         // Define the night period as the time between sunset[i] and sunrise[i+1]
-//         nightShading.push({
-//           type: "rect",
-//           xref: "x",
-//           yref: "paper",
-//           x0: sunsets[i],   // Start of the night (sunset)
-//           x1: sunrises[i + 1], // End of the night (next sunrise)
-//           y0: 0, y1: 1,  // Full height (paper coordinates from 0 to 1)
-//           fillcolor: "rgba(0, 0, 0, 0.08)", // Semi-transparent black for night shading
-//           layer: "below",
-//           line: { width: 0 }
-//         });
-//       }
-// }

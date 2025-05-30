@@ -14,6 +14,7 @@ import { layoutConfig, useColor } from '../../../components/style'
 import DataSource from '../../impressum/DataSource'
 import ForcastCard from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
+import { toUtcIsoString, toUtcPlotlyIsoString } from '../../../components/time'
 
 
 export default function StandardMode() {
@@ -24,6 +25,7 @@ export default function StandardMode() {
   const [forecast, setForecast] = useState<PlotlyChartDataFormat[] | null>(null);
   const [forecastSymbols, setForecastSymbols] = useState<PlotlyChartBasicFormat | null>(null);
   const [forecastCard, setForecastCard] = useState<any | null>(null);
+  const [isDay, setIsDay] = useState<{x: string[], y: number[]}>({x: [], y: []});
 
   const [cloudData, setCloudData] = useState<PlotlyChartDataFormat[] | null>(null)
 
@@ -86,7 +88,7 @@ export default function StandardMode() {
       }
     )
 
-    console.log(temperature.x[0], rain.x[0], new Date(temperature.x[0]))
+    console.log("Miauuuuu", temperature.x[0], rain.x[0], new Date(temperature.x[0]), toUtcIsoString(temperature.x[0]))
 
     // Set data for plotly graph: temperature weather code and humidity
     if (weather_code && humidity && temperature) {
@@ -97,6 +99,11 @@ export default function StandardMode() {
       ])
       setForecastSymbols(convertToPlotlyChartFormat(convertCodesAndIsDaysToAscii(weather_code, is_day), 'weatherIcon'))
       setWeekdays(weekdayAnnotations(temperature.x))
+      setIsDay({x: is_day.x.map(time => {
+              console.log('Miau2', time, toUtcIsoString(time))
+              return toUtcPlotlyIsoString(time);
+          }), y: is_day.y})
+      console.log("IS DAY", is_day);
     }
 
     // Set cloud cover
@@ -127,7 +134,6 @@ export default function StandardMode() {
   };
 
   const loadingColor = useColor('primary')
-  const markingColor = useColor('primaryVariant')
 
   function handleScroll() {
     const scrollLeft = scrollRef.current?.scrollLeft || 0;
@@ -142,17 +148,7 @@ export default function StandardMode() {
       const positionRight = x.length > rightCorner ? rightCorner : x.length - 1
 
       /** Set the shape with the current position */
-      setShape({
-        type: "rect",
-        x0: x[positionLeft],
-        x1: x[positionRight],
-        y0: 0, y1: 1,
-        yref: "paper", // Maps 0-1 to full height
-        fillcolor: markingColor,
-        opacity: 0.5,
-        // layer: "below",
-        line: { width: 0 },
-      })
+      setShape({left: x[positionLeft], right: x[positionRight] })
     }
   }
 
@@ -249,7 +245,10 @@ export default function StandardMode() {
             xAxis={t('data.time')}
             y2Axis={t('data.humidity')}
             showNow={true}
-            customLayout={{ annotations: weekdays, shapes: [shape] }} />
+            customLayout={{ annotations: weekdays }}
+            isDay={isDay}
+            movingShape={shape}
+            />
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
 
@@ -262,8 +261,9 @@ export default function StandardMode() {
             xAxis={t('data.time')}
             y2Axis={t('data.visibility')}
             showNow={true}
-            customLayout={{ annotations: weekdays, shapes: [shape] }} 
+            customLayout={{ annotations: weekdays }} 
             startFromZero={false}
+            movingShape={shape}
             />
           : <OrbitProgress color={loadingColor} size="medium" />}
       </Flex>
