@@ -6,7 +6,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 // import theme from "./theme"; // Optional custom theme
-import "./index.css"; // Optional global styles
+import "./index.scss"; // Optional global styles
 
 import "./i18n/i18n";
 import theme from "./theme";

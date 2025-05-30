@@ -3,7 +3,8 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { FaCookieBite } from "react-icons/fa";
 import { layoutConfig, useColor } from '../../components/style';
-
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 export default function CookieBanner() {
     const { t } = useTranslation();
@@ -23,7 +24,7 @@ export default function CookieBanner() {
     };
 
     return (
-        <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }} >
+        <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }} id="cookieBanner" >
             <Box p={layoutConfig.padding}
                 bg={useColor('primary')}
                 color={useColor('text')}
@@ -35,7 +36,7 @@ export default function CookieBanner() {
 
                 <Flex justify="space-between" align="center" direction={{lg: 'row', base: 'column'}} gap={layoutConfig.gap}>
                     <Icon as={FaCookieBite } boxSize={12} />
-                    <Text>{t('cookies.text')}</Text>
+                    <ReactMarkdown children={t('cookies.text')} />
                     <Button
                         background={useColor('background')}
                         color={useColor('text')}

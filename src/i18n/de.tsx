@@ -112,17 +112,14 @@ Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie co
         legalInfoText: `
 ## Rechtliche Hinweise
 
-Die Inhalte dieser Website sind urheberrechtlich geschützt.
-
-Alle auf der FogCast-Website veröffentlichten Inhalte sind urheberrechtlich geschützt und dürfen nur mit Zustimmung der HTWG Konstanz verwendet, verbreitet oder öffentlich wiedergegeben werden.
-
 Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingungen der Creative Commons BY 4.0 (CC BY 4.0), Geodaten von Pegelonline unter den Bedingungen der Lizenz DL-DE->Zero-2.0 unter Nennung der Quelle verwendet werden.
 `
     },
 
     cookies: {
-        text: "Diese Website verwendet Cookies. Sie sind für die Funktionalität der Seite notwendig, verbessern die Benutzerfreundlichkeit und helfen beim Speichern von Konfigurationen wie Sprache und Farbmodus.",
-        accept: "Akzeptieren"
+        text: `Wir verwenden nur technisch notwendige Cookies. Sie sind für die Funktionalität der Seite notwendig, verbessern die Benutzerfreundlichkeit und helfen beim Speichern von Konfigurationen wie Sprache und Farbmodus.
+Weitere Informationen zum Datenschutz finden Sie in unserem [Impressum](\impressum).`,
+        accept: "Verstanden",
     },
 
     other: {

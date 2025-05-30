@@ -1,0 +1,26 @@
+/* * {
+    color: #2f6969
+} */
+
+
+#cookieBanner {
+    a {
+        text-decoration: underline !important;
+
+        &:hover {
+            text-decoration: none !important;
+        }
+    }
+}
+
+
+#phenomena {
+    a {
+        text-decoration: underline !important;
+        color: #4f8b8b;
+
+        &:hover {
+            text-decoration: none !important;
+        }
+    }
+}

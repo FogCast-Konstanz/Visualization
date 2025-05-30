@@ -151,9 +151,9 @@ export default function DataPage() {
 
           {/* Water Level Graph */}
           <TabPanel>
-          <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
-            {waterLevelLastYear ? <PlotlyChart data={waterLevelLastYear} title={t('dataPage.waterLevelLastYear')} yAxis={t('data.waterLevel')} xAxis={t('data.time')} dateFormat='day' /> : <OrbitProgress color={loadingColor} size='medium' />}
-            {waterLevelHistory ? <PlotlyChart data={waterLevelHistory} title={t('dataPage.waterLevelLastYear')} yAxis={t('data.waterLevel')} xAxis={t('data.time')} dateFormat='day' /> : <OrbitProgress color={loadingColor} size='medium' />}
+            <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
+              {waterLevelLastYear ? <PlotlyChart data={waterLevelLastYear} title={t('dataPage.waterLevelLastYear')} yAxis={t('data.waterLevel')} xAxis={t('data.time')} dateFormat='day' /> : <OrbitProgress color={loadingColor} size='medium' />}
+              {waterLevelHistory ? <PlotlyChart data={waterLevelHistory} title={t('dataPage.waterLevelLastYear')} yAxis={t('data.waterLevel')} xAxis={t('data.time')} dateFormat='day' /> : <OrbitProgress color={loadingColor} size='medium' />}
             </Flex>
           </TabPanel>
         </TabPanels>

@@ -1,5 +1,5 @@
 import { HamburgerIcon } from '@chakra-ui/icons';
-import { Box, Flex, Heading, Icon, IconButton, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, Text, UnorderedList } from '@chakra-ui/react';
+import { Box, Flex, Heading, Icon, IconButton, Image, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, Text, UnorderedList, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaDatabase } from "react-icons/fa";
 import { FaBolt, FaBook, FaChartSimple, FaCircleInfo, FaRankingStar, FaSatellite } from "react-icons/fa6";
@@ -31,14 +31,16 @@ export default function Navigation() {
     {
       title: t('navigation.info'),
       items: [
-        { name: t('navigation.lexikon'), href: '/lexikon', icon: FaBook },
         { name: t('navigation.phenomena'), href: '/phenomena', icon: FaBolt },
+        { name: t('navigation.lexikon'), href: '/lexikon', icon: FaBook },
         { name: t('impressum.title'), href: '/impressum', icon: FaCircleInfo },
       ],
     },
   ];
 
   const location = useLocation();
+  const logo = useColorModeValue('/logo-light.png', '/logo-dark.png');
+
   function isActive(href: string): boolean { return location.pathname === href; }
 
   return (
@@ -53,8 +55,9 @@ export default function Navigation() {
         bg={useColor('background')}
       >
         <div>
-          <Link href='/' _hover={{ textDecoration: "none" }}><Heading size="2xl">{t('title')}</Heading></Link>
-          <Heading size="lg">{t('subtitle')}</Heading>
+          <Link href='/' _hover={{ textDecoration: "none" }}>
+            <Image src={logo} alt={t('title')} paddingTop={layoutConfig.padding} />
+          </Link>
           <StatusBadge></StatusBadge>
         </div>
 

@@ -7,7 +7,7 @@ const en = {
 
     navigation: {
         models: "Model comparison",
-        station: "Weatherstation",
+        station: "Weather station",
         data: "Data",
         lexikon: "Lexikon",
         phenomena: "Phenomena",
@@ -106,17 +106,15 @@ const en = {
         legalInfoText: `
 ## Legal Notice
 
-The content of this website is protected by copyright.
-
-All content published on the FogCast website is protected by copyright and may only be used, distributed or publicly reproduced with the consent of the HTWG Konstanz.
-
 Freely accessible geodata from the DWD and Open Meteo may be used under the conditions of Creative Commons BY 4.0 (CC BY 4.0), geodata from Pegelonline under the conditions of the DL-DE->Zero-2.0 licence, provided the source is cited.
 `
     },
 
     cookies: {
-        text: "This website uses cookies to improve your experience. It is necessary for the functionality of the page, improves the user experience, and helps store configurations like language and color mode.",
-        accept: "Accept"
+        text: `This website uses techical cookies to improve your experience. It is necessary for the functionality of the page, improves the user experience, and helps store configurations like language and color mode. 
+
+Further information can be found in the [Impressum](\impressum).    `,
+        accept: "Understood"
     },
 
     other: {
