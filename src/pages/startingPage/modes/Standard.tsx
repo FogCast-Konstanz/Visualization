@@ -18,7 +18,7 @@ import { toUtcIsoString, toUtcPlotlyIsoString } from '../../../components/time'
 
 
 export default function StandardMode() {
-  const { t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const [requestDuration, setRequestDuration] = useState<number>(1);
 
@@ -71,11 +71,11 @@ export default function StandardMode() {
     const currentForecast = await fetchCurrentForecast('icon_global');
 
     /* Convert to Plotly format */
-    const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', 'Temperature', requestDuration)
-    const humidity = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'relative_humidity_2m', 'Humidity', requestDuration)
-    const rain = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'rain', 'Rain', requestDuration)
-    const weather_code = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'weather_code', 'Weather Code', requestDuration)
-    const is_day = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'is_day', 'isDay', requestDuration)
+    const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', t('data.temperature'), requestDuration)
+    const humidity = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'relative_humidity_2m', t('data.humidity'), requestDuration)
+    const rain = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'rain', t('data.rain'), requestDuration)
+    const weather_code = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'weather_code', t('data.weatherCode'), requestDuration)
+    const is_day = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'is_day', t('data.isDay'), requestDuration)
 
     // Set the cards
     setForecastCard(
@@ -96,7 +96,7 @@ export default function StandardMode() {
         convertToPlotlyChartFormat(rain, 'bar', 'y1'),
       ])
       setForecastSymbols(convertToPlotlyChartFormat(convertCodesAndIsDaysToAscii(weather_code, is_day, Math.max(...temperature.y) + 5), 'weatherIcon'))
-      setWeekdays(weekdayAnnotations(temperature.x))
+      setWeekdays(weekdayAnnotations(temperature.x, true, i18n.language))
       setIsDay({x: is_day.x.map(time => ( toUtcPlotlyIsoString(time))), y: is_day.y})
     }
 
@@ -119,9 +119,9 @@ export default function StandardMode() {
     const scaledLow = scaleCloud(cloud_cover_low.y, 25)
     setCloudData(
       [
-        convertToPlotlyChartFormat({ x: xTime, y: scaledHigh.up.concat(scaledHigh.down), name: 'High Cloud Cover' }, 'cloud', 'y1', 'lightblue'),
-        convertToPlotlyChartFormat({ x: xTime, y: scaledMid.up.concat(scaledMid.down), name: 'Mid Cloud Cover' }, 'cloud', 'y1', '#808080'),
-        convertToPlotlyChartFormat({ x: xTime, y: scaledLow.up.concat(scaledLow.down), name: 'Low Cloud Cover' }, 'cloud', 'y1', '#202020'),
+        convertToPlotlyChartFormat({ x: xTime, y: scaledHigh.up.concat(scaledHigh.down), name: t('data.cloudCoverHigh') }, 'cloud', 'y1', 'lightblue'),
+        convertToPlotlyChartFormat({ x: xTime, y: scaledMid.up.concat(scaledMid.down), name: t('data.cloudCoverMid') }, 'cloud', 'y1', '#808080'),
+        convertToPlotlyChartFormat({ x: xTime, y: scaledLow.up.concat(scaledLow.down), name: t('data.cloudCoverLow') }, 'cloud', 'y1', '#202020'),
         // convertToPlotlyChartFormat({ x: xTime, y: data.hourly.visibility.map((v: number) => v / 1000), name: 'Visibility' }, 'dashedLine', 'y2', 'orange')
       ]
     )
@@ -155,7 +155,7 @@ export default function StandardMode() {
   return (
     <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }} gap={layoutConfig.gap} maxWidth={'100%'}>
       <Heading size="md" padding='0px'>{t('startingPage.currentWeather')}</Heading>
-      <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }}>
+      <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }} flexWrap="wrap" justifyContent="center">
         {currentWeather ?
           <>
             <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf} click='temperatur'></MeasurementCard>
@@ -249,7 +249,7 @@ export default function StandardMode() {
       <Flex>
         {cloudData ?
           <PlotlyChart
-            title={'CloudCover'}
+            title={t('data.cloud')}
             data={cloudData}
             yAxis={t('data.cloud')}
             xAxis={t('data.time')}

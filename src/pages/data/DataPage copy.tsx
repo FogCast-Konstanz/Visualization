@@ -37,7 +37,8 @@ export default function DataPage() {
     setSearchParams({ tab: tabKeys[index] });
   };
 
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
+
 
   const loadingColor = useColor('primary');
   const graphcolors = useGraphColors();
@@ -61,7 +62,7 @@ export default function DataPage() {
         convertToPlotlyChartFormat(dailyTemp, 'scatter', null, graphcolors[0]),
         convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1])
       ])
-    setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false))
+    setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false, i18n.language))
 
     /* Get date of last year */
     const dateLastYear = new Date();

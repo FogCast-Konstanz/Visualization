@@ -29,8 +29,13 @@ const de = {
         waterLevel: "Wasserstand",
         windspeed: "Windgeschwindigkeit",
         cloud: "Bewölkung",
+        cloudCoverLow: "Wolken niedrig",
+        cloudCoverHigh: "Wolken hoch",
+        cloudCoverMid: "Wolken mittelhoch",
         visibility: "Sichtweite",
-        rain: "Regen"
+        rain: "Regen",
+        weatherCode: "Wettercode",
+        isDay: "ist Tag"
     },
 
     startingPage: {

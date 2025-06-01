@@ -28,8 +28,13 @@ const en = {
         waterLevel: "Water level",
         windspeed: "Wind speed",
         cloud: "Cloud Cover",
+        cloudCoverLow: "Cloud Cover Low",
+        cloudCoverHigh: "Cloud Cover High",
+        cloudCoverMid: "Cloud Cover Mid",
         visibility: "Visibility",
-        rain: "Rain"
+        rain: "Rain",
+        weatherCode: "Weather Code",
+        isDay: "is Day"
     },
 
     startingPage: {

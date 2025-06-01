@@ -112,7 +112,7 @@ export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasic
  * Get plotly data for the weekdays
  * Usage: Store the data inside a useState and pass this value to DefaultGraph (customLayout={{annotations: weekdays}})
  */
-export function weekdayAnnotations(randomTime: string[], ignoreOlder=true) {
+export function weekdayAnnotations(randomTime: string[], ignoreOlder=true, language="de-DE") {
 
     const uniqueDays = [...new Set(randomTime
         .filter(t => ignoreOlder ? 
@@ -129,7 +129,7 @@ export function weekdayAnnotations(randomTime: string[], ignoreOlder=true) {
             y: 1.08,                     // Y position (above first row)
             xref: "x",
             yref: "paper",
-            text: noonTime.toLocaleDateString("en-US", { weekday: "long" }), // "Monday", "Tuesday", etc.
+            text: noonTime.toLocaleDateString(language, { weekday: "long" }), // "Monday", "Tuesday", etc.
             showarrow: false,
             font: { size: 14, color: "white" },
             align: "center",

@@ -16,7 +16,7 @@ export default function TemperatureTab() {
   
     const graphcolors = useGraphColors();
     const loadingColor = useColor('primary');
-    const { t } = useTranslation()
+    const { i18n, t } = useTranslation()
 
     useEffect(() => { fetchData() }, [])
 
@@ -34,7 +34,7 @@ export default function TemperatureTab() {
         convertToPlotlyChartFormat(dailyTemp, 'scatter', null, graphcolors[0]),
         convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastWeekDaily, 'Daily Temp'), "scatter", null, graphcolors[1])
       ])
-    setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false))
+    setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false, i18n.language))
 
     /* Get date of last year */
     const dateLastYear = new Date();

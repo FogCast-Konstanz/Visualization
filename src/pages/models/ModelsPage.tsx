@@ -17,7 +17,7 @@ import { OrbitProgress } from 'react-loading-indicators';
 import { toUtcIsoString } from '../../components/time';
 
 export default function ModelsPage() {
-  const { t } = useTranslation()
+  const { i18n, t } = useTranslation()
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -66,8 +66,8 @@ export default function ModelsPage() {
       setTimeout(() => setForecastTemperatureData(convertMultipleToPlotlyChartFormat(copyTemp, 'scatter')), 0)
       setTimeout(() => setForecastHumidityData(convertMultipleToPlotlyChartFormat(copyHumidity, 'scatter')), 0)
 
-      setWeekdaysTemp(weekdayAnnotations(copyTemp[0].x, false))
-      setWeekdaysHum(weekdayAnnotations(copyHumidity[0].x, false))
+      setWeekdaysTemp(weekdayAnnotations(copyTemp[0].x, false, i18n.language))
+      setWeekdaysHum(weekdayAnnotations(copyHumidity[0].x, false, i18n.language))
     }
   }
 

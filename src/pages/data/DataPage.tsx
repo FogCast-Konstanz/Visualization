@@ -1,21 +1,16 @@
 import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { OrbitProgress } from 'react-loading-indicators';
+import { useSearchParams } from 'react-router-dom';
 import Introduction from '../../components/elements/Introduction';
-import PlotlyChart from '../../components/plotly/DefaultChart';
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, formatActualDatetime, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { layoutConfig, useColor, useGraphColors } from '../../components/style';
 import DataSource from '../impressum/DataSource';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
 const tabKeys = ['temperature', 'fog', 'waterLevel'];
 
-import { lazy, Suspense } from 'react'
 import FogTab from './tabs/fog';
-import WaterLevelTab from './tabs/waterLevel';
 import TemperatureTab from './tabs/temperature';
+import WaterLevelTab from './tabs/waterLevel';
 
 
 export default function DataPage() {

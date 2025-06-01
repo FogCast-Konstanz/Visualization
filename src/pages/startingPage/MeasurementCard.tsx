@@ -17,6 +17,9 @@ export default function MeasurementCard({ measurement, value, unit, icon, click 
             cursor={click ? 'pointer' : 'default'}
             _hover={click ? { transform: 'scale(1.02)', transition: '0.2s' } : {}}
             onClick={click ? () => navigate('/data?tab=' + click) : () => { }}
+            minW="250px" 
+            flex="1" 
+            maxW={{ lg: "400px", base: '' }}    
         >
             <CardBody >
                 <Flex alignItems={"center"} gap={layoutConfig.gap}>
