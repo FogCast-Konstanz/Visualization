@@ -24,11 +24,10 @@ export default function ModelsPage() {
   const [isDay, setIsDay] = useState<{ x: string[], y: number[] }>({ x: [], y: [] });
 
   const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
-  const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? (toUtcIsoString(new Date())).split('.')[0] + "Z")
   const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
-
+  const [selectedDatetime, setSelectedDatetime] = useState<string>((searchParams.get('time') ?? toUtcIsoString(new Date())).slice(0,16))
+  
   const [weekdays, setWeekdays] = useState<any | null>(null)
-
 
   const loadingColor = useColor('primary');
 
@@ -60,7 +59,7 @@ export default function ModelsPage() {
             setIsDay({ x: is_day.x.map(time => (toUtcPlotlyIsoString(time))), y: is_day.y })
           }
 
-          newData[measurement].push(convertToPlotlyChartFormat(data, 'scatter'));
+          newData[measurement].push(convertToPlotlyChartFormat(data, 'linear'));
           console.log('DataMiau', newData)
         }
 
@@ -143,7 +142,7 @@ export default function ModelsPage() {
             </ConfigurationForRequest>
           </Flex>
         </CardHeader>
-        <CardBody>
+        <CardBody className='markdown'>
           <ReactMarkdown children={t('models.introduction')} remarkPlugins={[remarkGfm]} />
         </CardBody>
       </Card>

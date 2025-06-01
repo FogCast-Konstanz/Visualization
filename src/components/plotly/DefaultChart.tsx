@@ -93,7 +93,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
             },
             zerolinecolor: "#888",
             showgrid: true,
-            range: [0, null]
+            // range: [0, null]
         },
         yaxis2: y2Axis ? {
             title: {

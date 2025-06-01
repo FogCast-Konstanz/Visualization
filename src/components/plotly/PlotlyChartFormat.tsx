@@ -23,7 +23,7 @@ export interface PlotlyChartDataFormat {
 }
 
 
-export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon', yAxis?: string | null, customColor?: string | null, customOpacity?: number): PlotlyChartDataFormat {
+export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon' | 'linear', yAxis?: string | null, customColor?: string | null, customOpacity?: number): PlotlyChartDataFormat {
 
     const adjustedTimes = basicFormatInput.x.map(time => ( toUtcPlotlyIsoString(time)));
 
@@ -45,6 +45,13 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
                 type: 'scatter',
                 mode: "lines+markers",
                 line: { shape: "spline" }
+            }
+        case "linear":
+            return {
+                ...basicFormat,
+                type: 'scatter',
+                mode: "lines",
+                line: { shape: "linear" }
             }
         case "line":
             return {
