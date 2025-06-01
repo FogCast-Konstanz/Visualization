@@ -93,7 +93,7 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
 };
 
 
-export async function fetchArchiveWeather(date: string, model: string): Promise<[{date: string, apparent_temperature: number, relative_humidity_2m: number}]> {
+export async function fetchArchiveWeather(date: string, model: string): Promise<any> {
     // Date Format 2025-02-01 00:00:00
 
     try {

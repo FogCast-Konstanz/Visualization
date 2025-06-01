@@ -1,39 +1,34 @@
-import { Card, CardBody, CardHeader, Flex, Heading, Text } from '@chakra-ui/react';
+import { Card, CardBody, CardHeader, Flex, Heading } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
-import { convertMultipleToPlotlyChartFormat, convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { ExtractedForecastData, extractHistoricForecastHourly, fetchForecast, reformatDataofForecastBackend } from '../../components/requests/forcastBackend';
-import { layoutConfig, useColor } from '../../components/style';
-import DataSource from '../impressum/DataSource';
-import ConfigurationForRequest from './ConfigurationForRequest';
-
-
+import { OrbitProgress } from 'react-loading-indicators';
 import ReactMarkdown from 'react-markdown';
+import { useSearchParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import PlotlyChart from '../../components/plotly/DefaultChart';
+import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
 import { fetchArchiveWeather, formatActualDatetime } from '../../components/requests/actualBackend';
-import { OrbitProgress } from 'react-loading-indicators';
-import { toUtcIsoString } from '../../components/time';
 import { extractCurrentWeatherForecastHourly, weatherDataOptions } from '../../components/requests/currentForecacstBackend';
+import { extractHistoricForecastHourly, fetchForecast } from '../../components/requests/forcastBackend';
+import { layoutConfig, useColor } from '../../components/style';
+import { toUtcIsoString, toUtcPlotlyIsoString } from '../../components/time';
+import DataSource from '../impressum/DataSource';
+import ConfigurationForRequest from './ConfigurationForRequest';
 
 export default function ModelsPage() {
   const { i18n, t } = useTranslation()
 
   const [searchParams, setSearchParams] = useSearchParams();
-
+  
   const [forecastData, setForecastData] = useState<{ [key: string]: PlotlyChartDataFormat[]; } | null>(null)
-  const [forecastTemperatureData, setForecastTemperatureData] = useState<PlotlyChartBasicFormat[]>([])
-  const [forecastHumidityData, setForecastHumidityData] = useState<PlotlyChartBasicFormat[]>([])
-  // const [forecastData, setForecastData] = useState<PlotlyChartBasicFormat[]>([])
-
+  const [isDay, setIsDay] = useState<{ x: string[], y: number[] }>({ x: [], y: [] });
 
   const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
   const [selectedDatetime, setSelectedDatetime] = useState<string>(searchParams.get('time') ?? (toUtcIsoString(new Date())).split('.')[0] + "Z")
   const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
 
-  const [weekdaysTemp, setWeekdaysTemp] = useState<any | null>(null)
-  const [weekdaysHum, setWeekdaysHum] = useState<any | null>(null)
+  const [weekdays, setWeekdays] = useState<any | null>(null)
+
 
   const loadingColor = useColor('primary');
 
@@ -43,10 +38,6 @@ export default function ModelsPage() {
 
   async function setModels() {
     setSearchParams({ models: JSON.stringify(selectedModels), time: selectedDatetime, measurements: JSON.stringify(selectedMeasurement) });
-
-    let copyTemp: any = []
-    let copyHumidity: any = []
-
     let newData: { [key: string]: PlotlyChartDataFormat[] } = {};
     let is_day = null;
 
@@ -64,42 +55,44 @@ export default function ModelsPage() {
             newData[measurement] = [];
           }
 
+          if (!is_day) {
+            is_day = extractCurrentWeatherForecastHourly(nextModelForecast, 'is_day', t('data.isDay'))
+            setIsDay({ x: is_day.x.map(time => (toUtcPlotlyIsoString(time))), y: is_day.y })
+          }
+
           newData[measurement].push(convertToPlotlyChartFormat(data, 'scatter'));
           console.log('DataMiau', newData)
-
-          // Untergliederung der einzelnen Werte in das folgende Format: {measurement: [{}]}
-
-          // console.log('DataMiau', data)
-
-          // newData = [...newData, data[measurement]];
-
-          // newData[measurement].push(convertToPlotlyChartFormat(data, 'scatter'));
         }
-        // console.log(newValues)
 
-        // copyTemp = [...copyTemp, {
-        //   x: newValues.time,
-        //   y: newValues.temperature,
-        //   name: newValues.name
-        // }]
-
-        // copyHumidity = [...copyHumidity, {
-        //   x: newValues.time,
-        //   y: newValues.humidity,
-        //   name: newValues.name
-        // }]
       }
+      const [_, randomElement] = Object.entries(newData)[0] || [];
+      console.log('RandomElement', randomElement)
+      setWeekdays(weekdayAnnotations(randomElement[0].x, false, i18n.language))
+
+      // Request actual value
+      const actualValues = await fetchActualWeather('icon_d2')
+
+      if (actualValues) {
+        for (const measurement of selectedMeasurement) {
+          const actualData: PlotlyChartDataFormat = {
+            x: [randomElement[0].x[0], randomElement[0].x[randomElement[0].x.length - 1]],
+            y: [actualValues[measurement], actualValues[measurement]],
+            type: 'scatter',
+            mode: 'lines',
+            name: 'Actual',
+            line: { color: 'red', width: 2 }
+          }
+
+          newData[measurement].push(actualData);
+          console.log('DataMiau', newData)
+        }
+      }
+
+      console.log('Actual', actualValues)
     }
     setForecastData(newData)
 
-    const actualValues = await fetchActualWeather('icon_d2')
-    // if (copyTemp.length > 0 && copyHumidity.length > 0 && !actualValues) {
-    //   // setTimeout(() => setForecastTemperatureData(convertMultipleToPlotlyChartFormat(copyTemp, 'scatter')), 0)
-    //   // setTimeout(() => setForecastHumidityData(convertMultipleToPlotlyChartFormat(copyHumidity, 'scatter')), 0)
 
-    //   // setWeekdaysTemp(weekdayAnnotations(copyTemp[0].x, false, i18n.language))
-    //   // setWeekdaysHum(weekdayAnnotations(copyHumidity[0].x, false, i18n.language))
-    // }
   }
 
   async function fetchHistoricForecastModel(model: string): Promise<any[]> {
@@ -110,8 +103,6 @@ export default function ModelsPage() {
     const forcastResponse = await fetchForecast(timeIsoString, model);
     console.log(forcastResponse)
     return forcastResponse
-    // return reformatDataofForecastBackend(forcastResponse)
-    // return [extractTemperatureAndModelOutOfForcast(forcastResponse), extractHumidityAndModelOutOfForecast(forcastResponse)]
   };
 
 
@@ -119,9 +110,14 @@ export default function ModelsPage() {
     const date = new Date(selectedDatetime);
     const weatherAtTime = await fetchArchiveWeather(formatActualDatetime(date), model);
 
-    const format = (date: Date) => toUtcIsoString(date).slice(0, 16); // "YYYY-MM-DDTHH:MM"
+    const format = (date: Date) => {
+      const rounded = new Date(date)
+      rounded.setMinutes(0, 0, 0)
+      return toUtcIsoString(rounded).slice(0, 16)
+    }
 
-    const match = weatherAtTime.find(item => {
+    const match = weatherAtTime.find((item: any) => {
+      console.log(format(date), format(new Date(item.date)))
       return format(new Date(item.date)) == format(date)
     });
 
@@ -163,19 +159,13 @@ export default function ModelsPage() {
               xAxis={t('data.time')}
               // showNow={true}
               dateFormat={'day'}
+              isDay={isDay}
+              customLayout={{ annotations: weekdays }}
             />
           )) :
-          <OrbitProgress size="medium" />
+          <OrbitProgress size="medium" color={loadingColor} />
         }
       </Flex>
-      {/* {forecastTemperatureData.length > 0 && forecastHumidityData.length > 0 ?
-        <Flex direction={'column'} gap={layoutConfig.gap} flexDirection={{ lg: "column", base: 'column' }} height={'100vh'}>
-          <PlotlyChart data={forecastTemperatureData} title={t('models.forecastTemp', { date: selectedDatetime })} yAxis={t('data.temperature')} xAxis={t('data.time')} customLayout={{ annotations: weekdaysTemp }} />
-          <PlotlyChart data={forecastHumidityData} title={t('models.forecastHumidity', { date: selectedDatetime })} yAxis={t('data.humidity')} xAxis={t('data.time')} customLayout={{ annotations: weekdaysHum }} />
-        </Flex>
-        : <OrbitProgress color={loadingColor} size="medium" />
-      } */}
-
       <DataSource></DataSource>
     </Flex>
   )
