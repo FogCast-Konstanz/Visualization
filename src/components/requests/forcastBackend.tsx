@@ -2,6 +2,8 @@
 import axios from "axios";
 import { BACKEND_API_URL } from "../constants";
 import { toUtcIsoString } from "../time";
+import { CurrentForecastResponseFormat } from "./currentForecacstBackend";
+import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 
 type ForecastData = {
     _time: string;
@@ -44,6 +46,20 @@ export function reformatDataofForecastBackend(forcastData: ForecastData[]): Extr
         temperature: forcastData.map(entry => entry.apparent_temperature),
         humidity: forcastData.map(entry => entry.relative_humidity_2m),
         name: forcastData[0].model
+    };
+}
+
+// TODO: Typisierung anpassen!
+export function extractHistoricForecastHourly(
+    data: any[],
+    key: string ,
+    name: string
+): PlotlyChartBasicFormat {
+
+    return {
+        x: data.map(entry => toUtcIsoString(new Date(entry._time))), // Use forecast_date
+        y: data.map(entry => entry[key]), // Extract and adjust values
+        name,
     };
 }
 
