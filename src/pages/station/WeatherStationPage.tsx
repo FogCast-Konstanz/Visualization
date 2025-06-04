@@ -28,13 +28,13 @@ export default function WeatherStationPage() {
   }]
 
   return (
-    <Flex direction='column' width='100%'gap={layoutConfig.gap} margin={layoutConfig.margin} overflow="auto" maxHeight={'calc(100dvh - 20px)'}>
+    <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={layoutConfig.margin} overflow="auto" maxHeight={'calc(100dvh - 20px)'}>
 
       <Introduction header={t('weatherStation.title')} text={t('weatherStation.introduction')}></Introduction>
 
       <UnderConstruction></UnderConstruction>
 
-      {/* <Flex gap={layoutConfig.gap}>
+      <Flex gap={layoutConfig.gap}>
         <CardIndividual header={t('weatherStation.details')} body={t('weatherStation.description')}></CardIndividual>
         <Map></Map>
       </Flex>
@@ -42,19 +42,25 @@ export default function WeatherStationPage() {
       <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }}>
         {currentWeather ?
           <>
-            <Flex flexDirection={{ lg: "column", base: 'column' }} flex={1}gap={layoutConfig.gap}>
+            <Flex flexDirection={{ lg: "column", base: 'column' }} flex={1} gap={layoutConfig.gap}>
               <MeasurementCard measurement={t('data.temperature')} value={'0'} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
               <MeasurementCard measurement={t('data.humidity')} value={'0'} unit='%' icon={WiHumidity}></MeasurementCard>
-              <MeasurementCard measurement={t('data.waterLevel')} value={'0'} unit='cm' icon={FaWater}></MeasurementCard>
-              <MeasurementCard measurement={t('data.windspeed')} value={'0'} unit='km/h' icon={RiWindyFill}></MeasurementCard>
+              <MeasurementCard measurement={t('data.waterTemperature')} value={'0'} unit='°C' icon={FaWater}></MeasurementCard>
+              {/*<MeasurementCard measurement={t('data.waterLevel')} value={'0'} unit='cm' icon={FaWater}></MeasurementCard>*/}
+              {/*<MeasurementCard measurement={t('data.windspeed')} value={'0'} unit='km/h' icon={RiWindyFill}></MeasurementCard>*/}
             </Flex>
-            <Flex flex={1}>
-              <PlotlyChart data={dummyData} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} dateFormat='day' />
-            </Flex>
+            {/*<Flex flex={1}>*/}
+            {/*  <PlotlyChart data={dummyData} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} dateFormat='day' />*/}
+            {/*</Flex>*/}
           </>
           : <OrbitProgress color={loadingColor} size="medium" />
         }
-      </Flex> */}
+      </Flex>
+
+      <Flex gap={layoutConfig.gap}>
+        <CardIndividual header={t('weatherStation.technicalDetailsHeader')} body={t('weatherStation.technicalDetailsText')}></CardIndividual>
+      </Flex>
+
     </Flex>
   )
 }
