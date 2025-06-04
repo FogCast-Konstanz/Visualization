@@ -175,7 +175,7 @@ export default function StandardMode() {
             key={value}
             onClick={() => setRequestDuration(value)}
             bg={requestDuration === value ? useColor('primary') : useColor('background')}
-            color={requestDuration === value ? useColor('text') : 'inherit'}
+            color={requestDuration === value ? useColor('buttonText') : 'inherit'}
             borderRadius={layoutConfig.buttonBorderRadius}
             px={layoutConfig.padding}
             py={layoutConfig.padding}
@@ -255,7 +255,7 @@ export default function StandardMode() {
             xAxis={t('data.time')}
             y2Axis={t('data.visibility')}
             // showNow={true}
-            customLayout={{ annotations: weekdays }} 
+            customLayout={{ annotations: weekdays }}
             startFromZero={false}
             movingShape={shape}
             isDay={isDay}

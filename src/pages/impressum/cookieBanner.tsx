@@ -27,7 +27,7 @@ export default function CookieBanner() {
         <Slide direction="bottom" in={isOpen} style={{ zIndex: 1000 }} id="cookieBanner" >
             <Box p={layoutConfig.padding}
                 bg={useColor('primary')}
-                color={useColor('text')}
+                color={useColor('navbarText')}
                 textAlign="center"
                 marginInline={{lg: '20%', base: '10%'}}
                 borderRadius={layoutConfig.borderRadius}

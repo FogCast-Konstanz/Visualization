@@ -15,6 +15,8 @@ const colors = {
         ternary: "#AE5656",
         warning: "#FFAA33",
         warningVariant: "#FFAA33DD"
+        navbarText: "#DDEDED",
+        buttonText: "#DDEDED",
     },
     light: {
         surface: "#DDEDED",
@@ -28,6 +30,8 @@ const colors = {
         ternary: "#F28C8C",         // Warm coral for contrast or alerts
         warning: "#FFA500",
         warningVariant: "#FFA500BA",
+        navbarText: "#DDEDED",
+        buttonText: "#DDEDED",
     }
 }
 
