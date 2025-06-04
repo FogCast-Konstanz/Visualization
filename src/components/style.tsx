@@ -52,7 +52,7 @@ export const usePrimaryVariantColor = () => useColorModeValue(colors.light.prima
 export const useWarningColor = () => useColorModeValue(colors.light.warning, colors.dark.warning);
 export const useGraphColors = () => useColorModeValue(["#F39C12", "#E74C3C", "#3498DB", "#9B59B6", "#2ECC71"], ["#A1C3D1", "#FFB6C1", "#C5E1A5", "#FFD3B6", "#D4A5A5"],)
 
-export function useColor(color: 'background' | 'surface' | 'text' | 'secondaryText' | 'primary' | 'primaryVariant' | 'warning' | 'warningVariant' | 'textVariant') {
+export function useColor(color: 'background' | 'navbarBackground' | "navbarText" | 'surface' | 'text' | 'buttonText' | 'secondaryText' | 'primary' | 'primaryVariant' | 'warning' | 'warningVariant' | 'textVariant') {
     switch (color) {
         case 'background': return useColorModeValue(colors.light.background, colors.dark.background);
         case 'navbarBackground': return useColorModeValue(colors.light.navbarBackground, colors.dark.navbarBackground);
