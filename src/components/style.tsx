@@ -15,7 +15,6 @@ const colors = {
         warning: "#FFAA33",
         warningVariant: "#FFAA33DD",
         text_variant: "#DDEDED",
-        // text_variant: "#DCDCDCBA",
         navbarBackground: "#293F3F",
         navbarText: "#DDEDED",
         buttonText: "#DDEDED",
@@ -24,7 +23,6 @@ const colors = {
         surface: "#DDEDED",
         background: "#C7DFDF",
         text: "#2F4F4F",
-        text_variant: "#2F4F4FBA",
         secondarytext: "#FFFFFF",
         primary: "#4C8C8C",
         primary_variant: "#4C8C8CBA", // 70% transparent
@@ -33,7 +31,6 @@ const colors = {
         warning: "#FFA500",
         warningVariant: "#FFA500BA",
         text_variant: "#DDEDED",
-        // text_variant: "#2F4F4FBA",
         navbarBackground: "#293F3F",
         navbarText: "#DDEDED",
         buttonText: "#DDEDED",
