@@ -39,7 +39,7 @@ export default function Navigation() {
   ];
 
   const location = useLocation();
-  const logo = useColorModeValue('/logo-light.png', '/logo-dark.png');
+  const logo = useColorModeValue('/logo-dark.png', '/logo-dark.png');
 
   function isActive(href: string): boolean { return location.pathname === href; }
 
@@ -52,7 +52,8 @@ export default function Navigation() {
         padding={layoutConfig.padding}
         direction='column'
         justify={'space-between'}
-        bg={useColor('background')}
+        bg={useColor('navbarBackground')}
+        color={useColor('navbarText')}
       >
         <div>
           <Link href='/' _hover={{ textDecoration: "none" }}>
@@ -73,8 +74,9 @@ export default function Navigation() {
                   <ListItem
                     key={index}
                     mb={layoutConfig.margin}
-                    _hover={{ bg: useColor('surface') }}
-                    bg={isActive(entry.href) ? useColor('surface') : 'transparent'}
+                    _hover={{ bg: useColor('navbarText'), color: useColor('navbarBackground') }}
+                    bg={isActive(entry.href) ? useColor('navbarText') : 'navbarBackground'}
+                    color={isActive(entry.href) ? useColor('navbarBackground') : 'navbarText'}
                     borderRadius={layoutConfig.buttonBorderRadius}
                     pl={layoutConfig.padding}
                   >
