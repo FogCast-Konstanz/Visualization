@@ -81,7 +81,12 @@ const en = {
 
     weatherStation: {
         title: "Weather station",
-        introduction: "The weather station..."
+        introduction: "Todo",
+        details: "Details",
+        description: `TODO`,
+        technicalDetailsHeader: "Technical Details",
+        technicalDetailsText: "- RaspberryPi 5\n" +
+            "- test",
     },
 
     impressum: {

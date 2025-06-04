@@ -41,7 +41,7 @@ const de = {
     startingPage: {
         title: "Wetter in Konstanz",
         forecast: "Vorhersage",
-        
+
         currentWeather: "Aktuelles Wetter",
         next2Days: "Nächste 2 Tage",
         next14Days: "Nächste 14 Tage"
@@ -83,11 +83,16 @@ const de = {
 
     weatherStation: {
         title: "Wetterstation",
-        introduction: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG. ",
         details: "Details",
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
-
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,`
+        description: `Die Wetterstation gibt uns im 10 Sekundentakt folgende Werte:\n- Lufttemperatur\n- Luftfeuchtigkeit\n- Wassertemperatur vom Rhein (ca 80cm Tiefe)`,
+        technicalDetailsHeader: "Technische Details",
+        technicalDetailsText: "Sie ist mit einem Luftfeuchtigkeitssensor, einem Lufttemperaturmesser und einem Wassertemperatursensor ausgestattet. Folgende Bauteile wurden verwendet:\n" +
+            "- RaspberryPi 5: Das ist der Controller, an dem die Sensoren befestigt sind und auf ihm Pythoncode läuft um die Daten zu messen und auch weiter zu senden\n- DS18B20: Wassertemperatursensor\n" +
+            "- FS304-SHTXX: Lufttemperatur- und feuchtigkeitssensor in einem\n" +
+            "- Eine Box\n- Sicherungen\n" +
+            "![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg \"Foto von Samantha Isted\")" +
+            "![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg \"Foto von Samantha Isted\")"
     },
 
     impressum: {
