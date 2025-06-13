@@ -8,7 +8,10 @@ import PlotlyChart from '../../../components/plotly/DefaultChart'
 import { useTranslation } from 'react-i18next'
 
 
-export default function FogTab() {
+export default function FogTab({ isActive }: { isActive: boolean }) {
+    
+    const [dataLoaded, setDataLoaded] = useState(false);
+
     const [fogHistory, setFogHistory] = useState<PlotlyChartBasicFormat[] | null>(null)
     const [fogLastYear, setFogLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
 
@@ -18,11 +21,15 @@ export default function FogTab() {
     const { t } = useTranslation()
 
     useEffect(() => {
-        fetchData()
-    }, [])
+        if (isActive && !dataLoaded) {
+            fetchData()
+        }
+    }, [isActive])
 
 
     async function fetchData() {
+        setDataLoaded(true);
+
         /* Get Fog in alltime history */
         const fogHist = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "monthly")
         setFogHistory([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(fogHist), 'bar', null, graphcolors[0])])

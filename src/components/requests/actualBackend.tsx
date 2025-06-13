@@ -116,7 +116,7 @@ export async function fetchArchiveWeather(date: string, model: string): Promise<
 };
 
 
-export function parseActualRequestToPlotlyXYFormat(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {    
+export function parseActualRequestToPlotlyXYFormat(response: ActualResponseFormat[], name?: string): PlotlyChartBasicFormat {
     return {
         x: response.map(entry => toUtcIsoString(new Date(entry.date))),
         y: response.map(entry => parseFloat(entry.value)),
@@ -175,31 +175,63 @@ export function calculateAverageTrace(datasets: PlotlyChartBasicFormat[]): Plotl
 
 
 
-export function highlightingAndAverage(basicFormatInput: PlotlyChartBasicFormat[], highlight: string[], graphcolors: string[]) {
-    let counter = 0
-
+export function highlightingAndAverage(
+    basicFormatInput: PlotlyChartBasicFormat[],
+    highlightYears: string[],
+    graphcolors: string[]
+): any[] {
     const highlighted: any[] = [];
-    const nonHighlighted: any[] = [];
+    const background: any[] = [];
 
-    basicFormatInput.map((input, index) => {
-        const formattedData = {
-            x: input.x,
+    let colorIndex = 0;
+
+    basicFormatInput.forEach((input) => {
+        const isHighlighted = highlightYears.includes(input.name);
+        const trace = {
+            x: input.x.map(d => formatToYearNeutralDate(d)), // aligns all years to same calendar axis
             y: input.y,
             name: input.name,
-            marker: { color: highlight.includes(input.name) ? graphcolors[counter % graphcolors.length] : "gray" },
-            opacity: highlight.includes(input.name) ? 1 : 0.5,
+            type: 'scatter',
+            mode: 'lines',
+            line: {
+                color: isHighlighted ? graphcolors[colorIndex % graphcolors.length] : 'lightgray',
+                width: isHighlighted ? 2.5 : 1,
+            },
+            opacity: isHighlighted ? 1 : 0.3,
+            hoverinfo: 'name+y',
         };
 
-        if (highlight.includes(input.name)) {
-            highlighted.push(formattedData);
-            counter += 1;
+        if (isHighlighted) {
+            highlighted.push(trace);
+            colorIndex += 1;
         } else {
-            nonHighlighted.push(formattedData);
+            background.push(trace);
         }
-    })
+    });
 
-    const averageHistory = calculateAverageTrace(basicFormatInput)
-    return [...nonHighlighted, ...highlighted, convertToPlotlyChartFormat(averageHistory, 'line', null, 'black')]
+    const avg = calculateAverageTrace(basicFormatInput);
+    const averageTrace = convertToPlotlyChartFormat(
+        {
+            x: avg.x.map(d => formatToYearNeutralDate(d)),
+            y: avg.y,
+            name: 'Average',
+        },
+        'scatter',
+        null,
+        'black'
+    );
+    averageTrace.line = { width: 3, dash: 'dash' };
+    averageTrace.opacity = 0.9;
+    averageTrace.hoverinfo = 'name+y';
+
+    return [...background, ...highlighted, averageTrace];
+}
+
+function formatToYearNeutralDate(dateStr: string): string {
+    const d = new Date(dateStr);
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const day = d.getDate().toString().padStart(2, '0');
+    return `2000-${month}-${day}`; // fixed pseudo-year
 }
 
 export function formatActualDatetime(dateTime?: Date, dateStr?: string) {

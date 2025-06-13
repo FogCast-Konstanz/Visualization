@@ -19,7 +19,8 @@ export interface PlotlyChartDataFormat {
     textfont?: any;
     opacity?: number
     fill?: string;
-    fillcolor?: string
+    fillcolor?: string,
+    hoverinfo?: string
 }
 
 

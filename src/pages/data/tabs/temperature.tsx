@@ -7,20 +7,28 @@ import { OrbitProgress } from 'react-loading-indicators'
 import PlotlyChart from '../../../components/plotly/DefaultChart'
 import { useTranslation } from 'react-i18next'
 
-export default function TemperatureTab() {
+export default function TemperatureTab({ isActive }: { isActive: boolean }) {
 
-    const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
-    const [temperatureHistory, setTemperatureHistory] = useState<PlotlyChartBasicFormat[] | null>(null)
-    const [temperatureLastWeek, setTemperatureLastWeek] = useState<PlotlyChartBasicFormat[] | null>(null)
-    const [weekdaysTemp, setWeekdaysTemp] = useState<any | null>(null)
-  
-    const graphcolors = useGraphColors();
-    const loadingColor = useColor('primary');
-    const { i18n, t } = useTranslation()
+  const [dataLoaded, setDataLoaded] = useState(false);
 
-    useEffect(() => { fetchData() }, [])
+  const [temperatureLastYear, setTemperatureLastYear] = useState<PlotlyChartBasicFormat[] | null>(null)
+  const [temperatureHistory, setTemperatureHistory] = useState<PlotlyChartBasicFormat[] | null>(null)
+  const [temperatureLastWeek, setTemperatureLastWeek] = useState<PlotlyChartBasicFormat[] | null>(null)
+  const [weekdaysTemp, setWeekdaysTemp] = useState<any | null>(null)
 
-    async function fetchData() {
+  const graphcolors = useGraphColors();
+  const loadingColor = useColor('primary');
+  const { i18n, t } = useTranslation()
+
+  useEffect(() => {
+    if (isActive && !dataLoaded) {
+      fetchData()
+    }
+  }, [isActive])
+
+  async function fetchData() {
+    setDataLoaded(true);
+
     /* Get date of last week */
     const dateLastWeek = new Date();
     dateLastWeek.setDate(dateLastWeek.getDate() - 7)
@@ -53,17 +61,17 @@ export default function TemperatureTab() {
 
     const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
     setTemperatureHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), ['2025', '2023', '1984'], graphcolors))
-    }
+  }
 
-    return (
+  return (
+    <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
+      {temperatureHistory && temperatureLastWeek && temperatureLastYear ? (
         <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
-            {temperatureHistory && temperatureLastWeek && temperatureLastYear ? (
-              <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
-                <PlotlyChart data={temperatureHistory} title={t('dataPage.tempYears')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' customLayout={{ showlegend: false }} />
-                <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
-                <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
-              </Flex>
-            ) : <OrbitProgress color={loadingColor} size="medium" />}
+          <PlotlyChart data={temperatureHistory} title={t('dataPage.tempYears')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' customLayout={{ showlegend: false }} />
+          <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
+          <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
         </Flex>
-    );
+      ) : <OrbitProgress color={loadingColor} size="medium" />}
+    </Flex>
+  );
 }
