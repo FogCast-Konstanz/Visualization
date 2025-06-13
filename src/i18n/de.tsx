@@ -85,14 +85,33 @@ const de = {
         title: "Wetterstation",
         introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG. ",
         details: "Details",
-        description: `Die Wetterstation gibt uns im 10 Sekundentakt folgende Werte:\n- Lufttemperatur\n- Luftfeuchtigkeit\n- Wassertemperatur vom Rhein (ca 80cm Tiefe)`,
-        technicalDetailsHeader: "Technische Details",
-        technicalDetailsText: "Sie ist mit einem Luftfeuchtigkeitssensor, einem Lufttemperaturmesser und einem Wassertemperatursensor ausgestattet. Folgende Bauteile wurden verwendet:\n" +
-            "- RaspberryPi 5: Das ist der Controller, an dem die Sensoren befestigt sind und auf ihm Pythoncode läuft um die Daten zu messen und auch weiter zu senden\n- DS18B20: Wassertemperatursensor\n" +
-            "- FS304-SHTXX: Lufttemperatur- und feuchtigkeitssensor in einem\n" +
-            "- Eine Box\n- Sicherungen\n" +
-            "![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg \"Foto von Samantha Isted\")" +
-            "![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg \"Foto von Samantha Isted\")"
+        description: `
+Das Wetter in Konstanz spielt eine zentrale Rolle für viele Menschen in der Region. Für Studierende ist es wichtig zu wissen, wie das Klima die Aufenthaltsqualität auf dem Campus beeinflusst. Segler sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchzuführen. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
+
+Um detailliertere und ortsnahe Wetterdaten zur Verfügung zu stellen, wurde am Steg der Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation installiert. Ziel ist es, über standardisierte Wetterberichte hinaus direkte Messungen zur Verfügung zu stellen, die die spezifischen Gegebenheiten am Seeufer abbilden.`,
+
+technicalDetailsHeader: "Technische Details",
+
+technicalDetailsText: `
+![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Foto von Samantha Isted")  
+![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg "Foto von Samantha Isted")
+
+Die Wetterstation ist so konzipiert, dass sie in regelmäßigen Abständen von 10 Sekunden präzise Umweltdaten erfasst und übermittelt. Erfasst werden:
+
+- **Lufttemperatur**: Gibt Aufschluss über die aktuelle Temperatur am Messort.
+- **Luftfeuchtigkeit**: Ermöglicht Rückschlüsse auf das Klimaempfinden und mögliche Niederschlagsbildung.
+- **Wassertemperatur des Rheins**: Gemessen in ca. 80 cm Tiefe, liefert wichtige Daten zur thermischen Entwicklung des Flusses.
+
+
+
+Für die technische Umsetzung wurden folgende Komponenten verbaut:
+
+- **Raspberry Pi 5**: Ein leistungsfähiger Mikrocomputer, der als zentrale Steuereinheit dient. An ihn sind sämtliche Sensoren angeschlossen. Mittels eines in Python geschriebenen Programms werden die Messwerte automatisiert erfasst, verarbeitet und zur weiteren Nutzung bereitgestellt.
+- **DS18B20**: Ein digitaler Temperatursensor, der zur Bestimmung der Wassertemperatur eingesetzt wird. Die Messung in 80 cm Tiefe gewährleistet stabile und repräsentative Temperaturwerte.
+- **FS304-SHTXX**: Kombisensor zur gleichzeitigen Erfassung von Lufttemperatur und Luftfeuchtigkeit. Der Sensor liefert kalibrierte, zuverlässige Daten in Echtzeit.
+- **Wetterschutzgehäuse**: Alle Komponenten sind in einem wetterfesten Gehäuse untergebracht, das vor Regen, Sonneneinstrahlung und mechanischen Einwirkungen schützt. Zusätzlich beherbergt es Sicherungselemente zum Schutz der Elektronik.
+`
+
     },
 
     impressum: {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { BACKEND_API_URL } from "../constants";
-import { toUtcIsoString } from "../time";
+import { formatActualDatetime, toUtcIsoString } from "../time";
 
 type ActualResponseFormat = {
     date: string,
@@ -12,10 +12,14 @@ type ActualResponseFormat = {
 };
 
 
-export async function fetchTemperatureHistoryDWD(start: string, stop: string, frequency: "daily" | "hourly" | "10-minutes"): Promise<ActualResponseFormat[]> {
+export async function fetchTemperatureHistoryDWD(start: Date, stop: Date, frequency: "daily" | "hourly" | "10-minutes"): Promise<ActualResponseFormat[]> {
+    
+    const startString = formatActualDatetime(start)
+    const stopString = formatActualDatetime(stop)
+    
     try {
         const response = await axios.get(`${BACKEND_API_URL}/actual/temperature-history`, {
-            params: { start: start, stop: stop, frequency: frequency },
+            params: { start: startString, stop: stopString, frequency: frequency },
             headers: { Accept: "application/json" },
         });
 
@@ -33,11 +37,15 @@ export async function fetchTemperatureHistoryDWD(start: string, stop: string, fr
 };
 
 
-export async function fetchFogDaysHistoryDWD(start: string, stop: string, frequency: "monthly" | "yearly"): Promise<ActualResponseFormat[]> {
+export async function fetchFogDaysHistoryDWD(start: Date, stop: Date, frequency: "monthly" | "yearly"): Promise<ActualResponseFormat[]> {
     // Date Format 2025-02-01 00:00:00
+
+    const startString = formatActualDatetime(start)
+    const stopString = formatActualDatetime(stop)
+
     try {
         const response = await axios.get(`${BACKEND_API_URL}/actual/fog-count-history`, {
-            params: { start: start, stop: stop, frequency: frequency },
+            params: { start: startString, stop: stopString, frequency: frequency },
             headers: { Accept: "application/json" },
         });
 
@@ -55,12 +63,16 @@ export async function fetchFogDaysHistoryDWD(start: string, stop: string, freque
 };
 
 
-export async function fetchWaterLevelHistory(start: string, stop: string): Promise<ActualResponseFormat[]> {
+export async function fetchWaterLevelHistory(start: Date, stop: Date): Promise<ActualResponseFormat[]> {
+    
+    const startString = formatActualDatetime(start);
+    const stopString = formatActualDatetime(stop)
+    
     try {
         const response = await axios.get(`${BACKEND_API_URL}/archive/water-level`, {
             params: {
-                start: start,
-                stop: stop,
+                start: startString,
+                stop: stopString,
                 station_id: 1
             },
             headers: { Accept: "application/json" },
@@ -93,12 +105,14 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
 };
 
 
-export async function fetchArchiveWeather(date: string, model: string): Promise<any> {
+export async function fetchArchiveWeather(date: Date, model: string): Promise<any> {
+    
+    const dateString = formatActualDatetime(date)
     // Date Format 2025-02-01 00:00:00
 
     try {
         const response = await axios.get(`${BACKEND_API_URL}/actual/archive`, {
-            params: { model_id: model, date: date },
+            params: { model_id: model, date: dateString },
             headers: { Accept: "application/json" },
         });
 
@@ -202,12 +216,3 @@ export function highlightingAndAverage(basicFormatInput: PlotlyChartBasicFormat[
     return [...nonHighlighted, ...highlighted, convertToPlotlyChartFormat(averageHistory, 'line', null, 'black')]
 }
 
-export function formatActualDatetime(dateTime?: Date, dateStr?: string) {
-    const date = dateStr ? new Date(dateStr) : dateTime ? dateTime : new Date()
-
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Ensure two digits
-    const day = String(date.getDate()).padStart(2, "0");
-
-    return `${year}-${month}-${day} 00:00:00`;
-};

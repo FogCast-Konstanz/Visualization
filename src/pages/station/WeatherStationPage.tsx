@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6";
 import { RiWindyFill } from "react-icons/ri";
@@ -7,32 +7,53 @@ import { WiHumidity } from "react-icons/wi";
 import { OrbitProgress } from 'react-loading-indicators';
 import CardIndividual from '../../components/elements/CardIndividual';
 import Introduction from '../../components/elements/Introduction';
-import PlotlyChart from '../../components/plotly/DefaultChart';
+import UnderConstruction from '../../components/elements/UnderConstruction';
+import { fetchCurrentStationData, StationResponseFormat } from '../../components/requests/stationBackend';
 import { layoutConfig, useColor } from '../../components/style';
 import MeasurementCard from '../startingPage/MeasurementCard';
 import Map from './Map';
-import UnderConstruction from '../../components/elements/UnderConstruction';
 
 
 export default function WeatherStationPage() {
   const { t } = useTranslation();
-  const [currentWeather, setCurrentWeather] = useState(true);
+  // const [currentWeather, setCurrentWeather] = useState(true);
+
+  const [currentWeather, setCurrentWeather] = useState<StationResponseFormat | null>(null)
 
   const loadingColor = useColor('primary')
 
-  const dummyData = [{
-    x: ["01.01.2025", "02.01.2025", "03.01.2025", "05.01.2025", "06.01.2025", "07.01.2025", "08.01.2025", "09.01.2025", "10.01.2025", "11.01.2025", "12.01.2025", "13.01.2025", "14.01.2025"],
-    y: [10, 15, 13, 17, 10, 15, 13, 17, 10, 15, 13, 17, 10, 23],
-    type: 'scatter',
-    mode: 'lines+markers'
-  }]
+  useEffect(() => {
+    fetchStationWeather()
+  }, [])
+
+  async function fetchStationWeather() {
+    const weather = await fetchCurrentStationData();
+    console.log(weather)
+    // const reformattedWeather = weather.reduce((acc, entry) => {
+    //   acc[entry.name] = entry.value;
+    //   return acc;
+    // }, {} as Record<string, string>);
+
+    setCurrentWeather(weather);
+  }
+
 
   return (
     <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={layoutConfig.margin} overflow="auto" maxHeight={'calc(100dvh - 20px)'}>
 
       <Introduction header={t('weatherStation.title')} text={t('weatherStation.introduction')}></Introduction>
 
-      <UnderConstruction></UnderConstruction>
+      <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }} flexWrap="wrap" justifyContent="center">
+        {currentWeather ?
+          <>
+            <MeasurementCard measurement={t('data.temperature')} value={String(currentWeather['temperature'])} unit='°C' icon={FaTemperatureHalf} click='temperatur'></MeasurementCard>
+            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((currentWeather['humidity']) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
+            <MeasurementCard measurement={t('data.waterLevel')} value={String(currentWeather['water_temperature'])} unit='cm' icon={FaWater} click='waterLevel'></MeasurementCard>
+          </>
+          : <OrbitProgress color={loadingColor} size="medium" />
+        }
+
+      </Flex>
 
       <Flex gap={layoutConfig.gap}>
         <CardIndividual header={t('weatherStation.details')} body={t('weatherStation.description')}></CardIndividual>
@@ -42,16 +63,7 @@ export default function WeatherStationPage() {
       <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }}>
         {currentWeather ?
           <>
-            <Flex flexDirection={{ lg: "column", base: 'column' }} flex={1} gap={layoutConfig.gap}>
-              <MeasurementCard measurement={t('data.temperature')} value={'0'} unit='°C' icon={FaTemperatureHalf}></MeasurementCard>
-              <MeasurementCard measurement={t('data.humidity')} value={'0'} unit='%' icon={WiHumidity}></MeasurementCard>
-              <MeasurementCard measurement={t('data.waterTemperature')} value={'0'} unit='°C' icon={FaWater}></MeasurementCard>
-              {/*<MeasurementCard measurement={t('data.waterLevel')} value={'0'} unit='cm' icon={FaWater}></MeasurementCard>*/}
-              {/*<MeasurementCard measurement={t('data.windspeed')} value={'0'} unit='km/h' icon={RiWindyFill}></MeasurementCard>*/}
-            </Flex>
-            {/*<Flex flex={1}>*/}
-            {/*  <PlotlyChart data={dummyData} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} dateFormat='day' />*/}
-            {/*</Flex>*/}
+
           </>
           : <OrbitProgress color={loadingColor} size="medium" />
         }

@@ -5,7 +5,7 @@ import { OrbitProgress } from 'react-loading-indicators';
 import Introduction from '../../components/elements/Introduction';
 import PlotlyChart from '../../components/plotly/DefaultChart';
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, formatActualDatetime, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
+import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../components/requests/actualBackend';
 import { layoutConfig, useColor, useGraphColors } from '../../components/style';
 import DataSource from '../impressum/DataSource';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
@@ -53,8 +53,8 @@ export default function DataPage() {
     const dateLastWeek = new Date();
     dateLastWeek.setDate(dateLastWeek.getDate() - 7)
 
-    const tempLastWeek = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "hourly")
-    const tempLastWeekDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "daily")
+    const tempLastWeek = await fetchTemperatureHistoryDWD(dateLastWeek, new Date(), "hourly")
+    const tempLastWeekDaily = await fetchTemperatureHistoryDWD(dateLastWeek, new Date(), "daily")
 
     const dailyTemp = parseActualRequestToPlotlyXYFormat(tempLastWeek, 'Hourly Temp')
     setTemperatureLastWeek(
@@ -70,7 +70,7 @@ export default function DataPage() {
     dateLastYear.setHours(0, 0, 0, 0); // Reset time to midnight
     dateLastYear.setFullYear(dateLastYear.getFullYear()); // Subtract 1 year
 
-    const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
+    const tempLastYearDaily = await fetchTemperatureHistoryDWD(dateLastYear, new Date(), "daily")
     setTemperatureLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
 
     /* Get date of last year */
@@ -79,27 +79,28 @@ export default function DataPage() {
     dateLastFewYear.setHours(0, 0, 0, 0); // Reset time to midnight
     dateLastFewYear.setFullYear(dateLastYear.getFullYear() - 50);
 
-    const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
+    const tempHistoryDaily = await fetchTemperatureHistoryDWD(dateLastFewYear, new Date(), "daily")
     setTemperatureHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), ['2025', '2023', '1984'], graphcolors))
 
 
     /* Get Fog of last year */
-    // const fogLastYear = await fetchFogDaysHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(dateLastWeek), "monthly")
+    // const fogLastYear = await fetchFogDaysHistoryDWD(dateLastYear, dateLastWeek, "monthly")
     // setFogLastYear([convertToPlotlyGraph(fogLastYear)])
 
     /* Get Fog in alltime history */
-    const fogHist = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "monthly")
+
+    const fogHist = await fetchFogDaysHistoryDWD(new Date("1990-01-01 00:00:00"), new Date("2025-01-01 00:00:00"), "monthly")
     setFogHistory([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(fogHist), 'bar', null, graphcolors[0])])
 
-    const fogHistyearly = await fetchFogDaysHistoryDWD("1990-01-01 00:00:00", "2025-01-01 00:00:00", "yearly")
+    const fogHistyearly = await fetchFogDaysHistoryDWD(new Date("1990-01-01 00:00:00"), new Date("2025-01-01 00:00:00"), "yearly")
     setFogLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(fogHistyearly), 'bar', null, graphcolors[0])])
 
     /* Get Water Level History */
-    const waterLevel = await fetchWaterLevelHistory(formatActualDatetime(dateLastYear), formatActualDatetime())
+    const waterLevel = await fetchWaterLevelHistory(dateLastYear, new Date())
     const waterLevelData = parseActualRequestToPlotlyXYFormat(waterLevel)
     setWaterLevelLastYear([(convertToPlotlyChartFormat(waterLevelData, 'line', null, graphcolors[0]))])
 
-    const waterLevelHistory = await fetchWaterLevelHistory("2017-01-01 00:00:00", formatActualDatetime())
+    const waterLevelHistory = await fetchWaterLevelHistory(new Date("2017-01-01 00:00:00"), new Date())
 
     // const waterLevelDataHistory = parseActualRequestToPlotlyXYFormat(waterLevelHistory)
     setWaterLevelHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(waterLevelHistory, ''), ['2025', '2023', '2000'], graphcolors))

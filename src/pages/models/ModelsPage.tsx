@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import PlotlyChart from '../../components/plotly/DefaultChart';
 import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { fetchArchiveWeather, formatActualDatetime } from '../../components/requests/actualBackend';
+import { fetchArchiveWeather } from '../../components/requests/actualBackend';
 import { extractCurrentWeatherForecastHourly, weatherDataOptions } from '../../components/requests/currentForecacstBackend';
 import { extractHistoricForecastHourly, fetchForecast } from '../../components/requests/forcastBackend';
 import { layoutConfig, useColor } from '../../components/style';
@@ -107,7 +107,7 @@ export default function ModelsPage() {
 
   async function fetchActualWeather(model: string) {
     const date = new Date(selectedDatetime);
-    const weatherAtTime = await fetchArchiveWeather(formatActualDatetime(date), model);
+    const weatherAtTime = await fetchArchiveWeather(date, model);
 
     const format = (date: Date) => {
       const rounded = new Date(date)

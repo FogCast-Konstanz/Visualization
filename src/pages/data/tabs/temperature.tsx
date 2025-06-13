@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
-import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, formatActualDatetime, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
+import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
 import { layoutConfig, useColor, useGraphColors } from '../../../components/style'
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
 import { OrbitProgress } from 'react-loading-indicators'
@@ -25,8 +25,8 @@ export default function TemperatureTab() {
     const dateLastWeek = new Date();
     dateLastWeek.setDate(dateLastWeek.getDate() - 7)
 
-    const tempLastWeek = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "hourly")
-    const tempLastWeekDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastWeek), formatActualDatetime(), "daily")
+    const tempLastWeek = await fetchTemperatureHistoryDWD(dateLastWeek, new Date(), "hourly")
+    const tempLastWeekDaily = await fetchTemperatureHistoryDWD(dateLastWeek, new Date(), "daily")
 
     const dailyTemp = parseActualRequestToPlotlyXYFormat(tempLastWeek, 'Hourly Temp')
     setTemperatureLastWeek(
@@ -42,7 +42,7 @@ export default function TemperatureTab() {
     dateLastYear.setHours(0, 0, 0, 0); // Reset time to midnight
     dateLastYear.setFullYear(dateLastYear.getFullYear()); // Subtract 1 year
 
-    const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
+    const tempLastYearDaily = await fetchTemperatureHistoryDWD(dateLastYear, new Date(), "daily")
     setTemperatureLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
 
     /* Get date of last year */
@@ -51,7 +51,7 @@ export default function TemperatureTab() {
     dateLastFewYear.setHours(0, 0, 0, 0); // Reset time to midnight
     dateLastFewYear.setFullYear(dateLastYear.getFullYear() - 50);
 
-    const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
+    const tempHistoryDaily = await fetchTemperatureHistoryDWD(dateLastFewYear, new Date(), "daily")
     setTemperatureHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), ['2025', '2023', '1984'], graphcolors))
     }
 

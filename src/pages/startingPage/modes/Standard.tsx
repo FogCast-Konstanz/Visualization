@@ -11,10 +11,10 @@ import { fetchActualWeather } from '../../../components/requests/actualBackend'
 import { extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
 import { convertCodesAndIsDaysToAscii } from '../../../components/requests/mapWeatherCodes'
 import { layoutConfig, useColor } from '../../../components/style'
+import { toUtcPlotlyIsoString } from '../../../components/time'
 import DataSource from '../../impressum/DataSource'
 import ForcastCard from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
-import { toUtcIsoString, toUtcPlotlyIsoString } from '../../../components/time'
 
 
 export default function StandardMode() {
