@@ -85,16 +85,12 @@ const de = {
         title: "Wetterstation",
         introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG. ",
         details: "Details",
-        description: `
-Das Wetter in Konstanz spielt eine zentrale Rolle für viele Menschen in der Region. Für Studierende ist es wichtig zu wissen, wie das Klima die Aufenthaltsqualität auf dem Campus beeinflusst. Segler sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchzuführen. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
-
-Um detailliertere und ortsnahe Wetterdaten zur Verfügung zu stellen, wurde am Steg der Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation installiert. Ziel ist es, über standardisierte Wetterberichte hinaus direkte Messungen zur Verfügung zu stellen, die die spezifischen Gegebenheiten am Seeufer abbilden.`,
-
+        description: `Das Wetter in Konstanz spielt für viele Menschen in der Region eine zentrale Rolle. Für Studierende ist es beispielsweise wichtig zu wissen, wie sich das Klima auf die Aufenthaltsqualität auf dem Campus auswirkt. Segler wiederum sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchführen zu können. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
+        Um detailliertere und ortsnahe Wetterdaten zur Verfügung zu stellen, wurde am Steg der Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation installiert. Das Ziel besteht darin, über standardisierte Wetterberichte hinaus direkte Messungen bereitzustellen, die die spezifischen Gegebenheiten am Seeufer abbilden.`,
 technicalDetailsHeader: "Technische Details",
 
 technicalDetailsText: `
-![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Foto von Samantha Isted")  
-![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg "Foto von Samantha Isted")
+![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Foto von Samantha Isted")
 
 Die Wetterstation ist so konzipiert, dass sie in regelmäßigen Abständen von 10 Sekunden präzise Umweltdaten erfasst und übermittelt. Erfasst werden:
 
@@ -103,7 +99,7 @@ Die Wetterstation ist so konzipiert, dass sie in regelmäßigen Abständen von 1
 - **Wassertemperatur des Rheins**: Gemessen in ca. 80 cm Tiefe, liefert wichtige Daten zur thermischen Entwicklung des Flusses.
 
 
-
+![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg "Foto von Samantha Isted")
 Für die technische Umsetzung wurden folgende Komponenten verbaut:
 
 - **Raspberry Pi 5**: Ein leistungsfähiger Mikrocomputer, der als zentrale Steuereinheit dient. An ihn sind sämtliche Sensoren angeschlossen. Mittels eines in Python geschriebenen Programms werden die Messwerte automatisiert erfasst, verarbeitet und zur weiteren Nutzung bereitgestellt.

@@ -81,12 +81,31 @@ const en = {
 
     weatherStation: {
         title: "Weather station",
-        introduction: "Todo",
+        introduction: "FogCast has its own self-built weather station at the HTWG jetty.",
         details: "Details",
-        description: `TODO`,
+        description: `The weather in Constance plays a central role for many people in the region. For students, for example, it is important to know how the climate affects the quality of life on campus. Sailors, on the other hand, depend on precise weather data in order to be able to organise safe and plannable trips on Lake Constance. Tourists also benefit from precise information in order to better organise their stay.
+In order to provide more detailed and localised weather data, a dedicated weather station has been installed at the jetty of the University of Applied Sciences Constance (HTWG). The aim is to go beyond standardised weather reports and provide direct measurements that reflect the specific conditions on the lakeshore.`,
         technicalDetailsHeader: "Technical Details",
-        technicalDetailsText: "- RaspberryPi 5\n" +
-            "- test",
+        technicalDetailsText: `
+![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Foto von Samantha Isted")
+
+
+The weather station is designed to record and transmit precise environmental data at regular intervals of 10 seconds. The following are recorded:
+
+- **Air temperature**: Provides information about the current temperature at the measurement location.
+- **Humidity**: Allows conclusions to be drawn about the climate and possible precipitation.
+- **Water temperature of the Rhine**: Measured at a depth of approx. 80 cm, provides important data on the thermal development of the river.
+
+
+![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg "Foto von Samantha Isted")
+The following components were used for the technical realisation:
+
+- **Raspberry Pi 5**: A powerful microcomputer that serves as the central control unit. All sensors are connected to it. Using a programme written in Python, the measured values are automatically recorded, processed and made available for further use.
+- **DS18B20**: A digital temperature sensor that is used to determine the water temperature. The measurement at a depth of 80 cm ensures stable and representative temperature values.
+- **FS304-SHTXX**: Combination sensor for simultaneous measurement of air temperature and humidity. The sensor provides calibrated, reliable data in real time.
+- **Weatherproof housing**: All components are housed in a weatherproof housing that protects against rain, sunlight and mechanical influences. It also houses fuse elements to protect the electronics.
+
+`
     },
 
     impressum: {
