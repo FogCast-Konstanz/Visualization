@@ -45,19 +45,19 @@ export default function TemperatureTab({ isActive }: { isActive: boolean }) {
     setWeekdaysTemp(weekdayAnnotations(dailyTemp.x, false, i18n.language))
 
     /* Get date of last year */
-    const dateLastYear = new Date();
-    dateLastYear.setFullYear(dateLastYear.getFullYear() - 1, 0, 1); // Set to Jan 1st
-    dateLastYear.setHours(0, 0, 0, 0); // Reset time to midnight
-    dateLastYear.setFullYear(dateLastYear.getFullYear()); // Subtract 1 year
+    // const dateLastYear = new Date();
+    // dateLastYear.setFullYear(dateLastYear.getFullYear() - 1, 0, 1); // Set to Jan 1st
+    // dateLastYear.setHours(0, 0, 0, 0); // Reset time to midnight
+    // dateLastYear.setFullYear(dateLastYear.getFullYear()); // Subtract 1 year
 
-    const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
-    setTemperatureLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
+    // const tempLastYearDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastYear), formatActualDatetime(), "daily")
+    // setTemperatureLastYear([convertToPlotlyChartFormat(parseActualRequestToPlotlyXYFormat(tempLastYearDaily, 'Daily Temp'), 'scatter', null, graphcolors[0])])
 
     /* Get date of last year */
     const dateLastFewYear = new Date();
     dateLastFewYear.setFullYear(dateLastFewYear.getFullYear() - 1, 0, 1); // Set to Jan 1st
     dateLastFewYear.setHours(0, 0, 0, 0); // Reset time to midnight
-    dateLastFewYear.setFullYear(dateLastYear.getFullYear() - 50);
+    dateLastFewYear.setFullYear(dateLastFewYear.getFullYear() - 50);
 
     const tempHistoryDaily = await fetchTemperatureHistoryDWD(formatActualDatetime(dateLastFewYear), formatActualDatetime(), "daily")
     setTemperatureHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(tempHistoryDaily, ''), ['2025', '2023', '1984'], graphcolors))
@@ -65,13 +65,11 @@ export default function TemperatureTab({ isActive }: { isActive: boolean }) {
 
   return (
     <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
-      {temperatureHistory && temperatureLastWeek && temperatureLastYear ? (
-        <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
-          <PlotlyChart data={temperatureHistory} title={t('dataPage.tempYears')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' customLayout={{ showlegend: false }} />
-          <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} />
-          <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' />
-        </Flex>
-      ) : <OrbitProgress color={loadingColor} size="medium" />}
+      <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
+        {temperatureHistory ? <PlotlyChart data={temperatureHistory} title={t('dataPage.tempYears')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='monthOnly' customLayout={{ showlegend: true }} /> : <OrbitProgress color={loadingColor} size="medium" />}
+        {temperatureLastWeek ? <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} /> : <OrbitProgress color={loadingColor} size="medium" />}
+        {/* <PlotlyChart data={temperatureLastYear} title={t('dataPage.tempLastYear')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='month' /> */}
+      </Flex>
     </Flex>
   );
 }
