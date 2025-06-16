@@ -17,7 +17,7 @@ interface PlotlyChartProps {
     showNow?: boolean;
 
     startFromZero?: boolean
-    dateFormat?: 'standard' | 'year' | 'month' | 'day'
+    dateFormat?: 'standard' | 'year' | 'month' | 'day' | 'monthOnly'
 
     isDay?: { x: string[]; y: number[] }
     movingShape?: { left: string, right: string }
@@ -26,7 +26,7 @@ interface PlotlyChartProps {
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, isDay, movingShape }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, isDay, movingShape, dateFormat }) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -60,6 +60,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
         month: "%b %Y",
         day: "%d.%m.%Y",
         standard: "%H:%M %d.%m.%Y",
+        monthOnly: "%b"
     };
 
 
@@ -81,7 +82,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
             tickmode: "auto", // Automatically adjust ticks
             nticks: 10, // Reduce number of ticks
             title: xAxis,
-            // tickformat: tickFormatMap[dateFormat] || "%H:%M",
+            tickformat: dateFormat ? tickFormatMap[dateFormat] || "%H:%M" : "%H:%M",
             range: range,
             type: 'date'
         },

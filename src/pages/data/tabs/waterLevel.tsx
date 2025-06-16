@@ -7,8 +7,8 @@ import { OrbitProgress } from 'react-loading-indicators'
 import PlotlyChart from '../../../components/plotly/DefaultChart'
 import { useTranslation } from 'react-i18next'
 
-export default function WaterLevelTab() {
-
+export default function WaterLevelTab({ isActive }: { isActive: boolean }) {
+    const [dataLoaded, setDataLoaded] = useState(false);
     const [waterLevelLastYear, setWaterLevelLastYear] = useState<PlotlyChartDataFormat[] | null>(null)
     const [waterLevelHistory, setWaterLevelHistory] = useState<PlotlyChartDataFormat[] | null>(null)
 
@@ -16,9 +16,14 @@ export default function WaterLevelTab() {
     const loadingColor = useColor('primary');
     const { t } = useTranslation()
 
-    useEffect(() => { fetchData() }, [])
+    useEffect(() => {
+        if (isActive && !dataLoaded) {
+            fetchData()
+        }
+    }, [isActive])
 
     async function fetchData() {
+        setDataLoaded(true);
         /* Get date of last year */
         const dateLastYear = new Date();
         dateLastYear.setFullYear(dateLastYear.getFullYear() - 1, 0, 1); // Set to Jan 1st

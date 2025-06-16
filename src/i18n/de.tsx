@@ -86,7 +86,7 @@ const de = {
         introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG. ",
         details: "Details",
         description: `
-Das Wetter in Konstanz spielt eine zentrale Rolle für viele Menschen in der Region. Für Studierende ist es wichtig zu wissen, wie das Klima die Aufenthaltsqualität auf dem Campus beeinflusst. Segler sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchzuführen. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
+Das Wetter in Konstanz spielt eine zentrale Rolle für viele Menschen in der Region. Für Studierende ist eine gute Wettervorhersage wichtig. Segler sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchzuführen. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
 
 Um detailliertere und ortsnahe Wetterdaten zur Verfügung zu stellen, wurde am Steg der Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation installiert. Ziel ist es, über standardisierte Wetterberichte hinaus direkte Messungen zur Verfügung zu stellen, die die spezifischen Gegebenheiten am Seeufer abbilden.`,
 

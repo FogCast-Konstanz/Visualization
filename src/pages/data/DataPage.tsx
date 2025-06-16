@@ -56,18 +56,13 @@ export default function DataPage() {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <TemperatureTab></TemperatureTab>
+            <TemperatureTab isActive={tabIndex === 0} />
           </TabPanel>
-
-          {/* Fog Graphs */}
           <TabPanel>
-            <FogTab></FogTab>
-
+            <FogTab isActive={tabIndex === 1} />
           </TabPanel>
-
-          {/* Water Level Graph */}
           <TabPanel>
-              <WaterLevelTab></WaterLevelTab>
+            <WaterLevelTab isActive={tabIndex === 2} />
           </TabPanel>
         </TabPanels>
       </Tabs>
