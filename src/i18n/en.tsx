@@ -2,47 +2,71 @@ import { enLexicon } from "./enLexicon"
 
 const en = {
     title: "FogCast",
-    subtitle: "in Constance",
+    subtitle: "in Konstanz",
+
     insert: "My name is {{name}}",
 
     navigation: {
-        models: "Model comparison",
-        station: "Weather station",
-        data: "Data",
-        lexikon: "Lexikon",
-        phenomena: "Phenomena",
-        home: "Home",
-        analysis: "Leaderboard",
-
-        main: "Main",
-        info: "Info"
+      models: "Model Comparison",
+      station: "Weather Station",
+      data: "Data",
+      lexikon: "Lexicon",
+      phenomena: "Phenomena",
+      home: "Homepage",
+      analysis: "Leaderboard",
+      main: "General",
+      info: "Info",
+      sailor: "Sailor's Weather"
     },
 
     data: {
-        temperature: "Temperature",
-        humidity: "Humidity",
-        fog: "Fog",
-        forecast: "Forecast",
-        time: "Time",
-        waterTemp: "Water temperature",
-        waterLevel: "Water level",
-        windspeed: "Wind speed",
-        cloud: "Cloud Cover",
-        cloudCoverLow: "Cloud Cover Low",
-        cloudCoverHigh: "Cloud Cover High",
-        cloudCoverMid: "Cloud Cover Mid",
-        visibility: "Visibility",
-        rain: "Rain",
-        weatherCode: "Weather Code",
-        isDay: "is Day"
+      temperature: "Temperature",
+      humidity: "Humidity",
+      fog: "Fog",
+      forecast: "Forecast",
+      time: "Time",
+      waterTemp: "Water Temperature",
+      waterLevel: "Water Level",
+      windspeed: "Wind Speed",
+      cloud: "Cloud Cover",
+      cloudCoverLow: "Low Cloud Cover",
+      cloudCoverHigh: "High Cloud Cover",
+      cloudCoverMid: "Mid Cloud Cover",
+      visibility: "Visibility",
+      rain: "Rain",
+      weatherCode: "Weather Code",
+      isDay: "Is Day",
+      windSpeed10m: "Wind Speed",
+      windGusts10m: "Wind Gusts",
+      windDirection10m: "Wind Direction",
+      pressureMSL: "Pressure (MSL)",
+      cape: "CAPE (Convective Energy)"
     },
 
     startingPage: {
-        title: "Weather in Constance",
-        forecast: "Forecast",
-        currentWeather: "Current Weather",
-        next2Days: "Next 2 Days",
-        next14Days: "Next 14 Days"
+      title: "Weather in Konstanz",
+      forecast: "Forecast",
+      currentWeather: "Current Weather",
+      next2Days: "Next 2 Days",
+      next14Days: "Next 14 Days"
+    },
+
+    sailorPage: {
+      currentConditions: "Current Offshore Conditions",
+      windSpeedAndGustsTitle: "Wind Speed and Gusts Forecast",
+      windDirectionTitle: "Wind Direction Forecast",
+      capeAndRainTitle: "Thunderstorm Risk (CAPE) and Rain"
+    },
+
+    direction: {
+      N: "North",
+      NE: "Northeast",
+      E: "East",
+      SE: "Southeast",
+      S: "South",
+      SW: "Southwest",
+      W: "West",
+      NW: "Northwest"
     },
 
     dataPage: {

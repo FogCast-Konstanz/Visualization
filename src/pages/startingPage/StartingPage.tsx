@@ -5,6 +5,7 @@ import CustomSelect from '../../components/elements/Select';
 import { layoutConfig } from '../../components/style';
 import AdvancedMode from './modes/Advanced';
 import StandardMode from './modes/Standard';
+import SailorMode from './modes/Sailor';
 
 
 // const userModes = ['Standard', 'Advanced', 'Segler']
@@ -41,7 +42,7 @@ export default function StartingPage() {
 
       {userMode == 1 ? <StandardMode></StandardMode>
         : userMode == 2 ? <AdvancedMode></AdvancedMode>
-          : <></>
+          : <SailorMode></SailorMode>
       }
     </Flex>
   )
