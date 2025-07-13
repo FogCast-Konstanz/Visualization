@@ -1,12 +1,9 @@
-import { Card, CardBody, ComponentWithAs, createIcon, Flex, Icon, IconProps, Text, Tooltip, useStatStyles } from "@chakra-ui/react";
-import { t } from "i18next";
-import { WiRaindrop } from "react-icons/wi";
-import { FaWind } from "react-icons/fa6";
-import { RiWindyFill, RiSpeedUpLine } from "react-icons/ri";
-import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
-import { layoutConfig, useColor } from '../../components/style';
+import { Card, CardBody, ComponentWithAs, createIcon, Flex, Icon, IconProps, Text, Tooltip } from "@chakra-ui/react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { WiRaindrop } from "react-icons/wi";
+import { getWeatherIcon } from "../../components/requests/mapWeatherCodes";
+import { layoutConfig, useColor } from '../../components/style';
 
 // Definiere einen Typ, der alle möglichen Props für beide Modi enthält
 export type ForecastCardProps = {
@@ -51,10 +48,6 @@ export default function ForcastCard({
         return '';
     };
 
-    
-    // Function to create an arrow icon based on wind direction
-    // IMPORTANT: This function MUST return a valid ComponentWithAs type or null.
-    // It's crucial for TypeScript to understand the possible return types.
     const WindArrowIconComponent = (direction: number | undefined): ComponentWithAs<"svg", IconProps> | null => {
         if (direction === undefined) {
             return null;
@@ -98,28 +91,14 @@ export default function ForcastCard({
 
                     {isSailorMode ? (
                         <>
-                            
-
-                            
-
-                            {/* <Tooltip label={t('startingPage.currentWeather')} bg={useColor('surface')} color={useColor('text')} hasArrow>
-                                <Text>
-                                    {weather !== undefined && (
-                                        <Icon as={getWeatherIcon(weather, isDay == 1).icon} color={getWeatherIcon(weather, isDay == 1).color} boxSize={12} mb={layoutConfig.margin} />
-                                    )}
-                                </Text>
-                            </Tooltip> */}
-
                             <Tooltip label={t('data.windSpeed10m')} bg={useColor('surface')} color={useColor('text')} hasArrow>
                                 <Flex direction={'row'} alignItems={"center"} mb={layoutConfig.margin}>
-                                    {/* <Icon as={RiWindyFill} boxSize={5} /> */}
                                     <Text fontSize={'lg'} fontWeight={'bold'}>{Math.round(windSpeed || 0)} km/h</Text>
                                 </Flex>
                             </Tooltip>
 
                             <Tooltip label={`${t('data.windDirection10m')}: ${getWindDirectionText(windDirection)}`} bg={useColor('surface')} color={useColor('text')} hasArrow>
                                 <Text>
-                                    {/* FIX HERE: Use the pre-evaluated currentWindIcon variable */}
                                     {currentWindIcon && ( // This check acts as a type guard for currentWindIcon
                                         <Icon as={currentWindIcon} color={useColor('secondaryText')} boxSize={12} mb={layoutConfig.margin} />
                                     )}
@@ -128,11 +107,10 @@ export default function ForcastCard({
 
                             <Tooltip label={t('data.windGusts10m')} bg={useColor('surface')} color={useColor('text')} hasArrow>
                                 <Flex direction={'row'} alignItems={"center"} mb={layoutConfig.margin}>
-                                    {/* <Icon as={RiSpeedUpLine} boxSize={6} /> */}
                                     <Text fontSize={'md'}>{Math.round(windGusts || 0)} km/h ({t('data.windGusts10m')})</Text>
                                 </Flex>
                             </Tooltip>
-                            
+
                         </>
                     ) : (
                         <>

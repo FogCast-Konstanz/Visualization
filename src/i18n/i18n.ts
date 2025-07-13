@@ -16,11 +16,11 @@ i18n.use(initReactI18next).init({
     ns: ["translation", "phenomena"], // Load multiple namespaces
     defaultNS: "translation",
     resources: {
-        en: { 
+        en: {
             translation: en,
             phenomena: enPhenomena
         },
-        de: { 
+        de: {
             translation: de,
             phenomena: dePhenomena
         }

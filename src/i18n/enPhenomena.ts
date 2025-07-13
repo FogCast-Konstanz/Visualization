@@ -47,16 +47,16 @@ Fog usually dissipates as a result of:
 * Turbulent mixing: Fog can be dispersed from below, especially by wind (cf. Bott 2023, p. 451-452). 
 * Due to its specific topography and climatic conditions, the Lake Constance region offers ideal conditions for the formation of different types of fog. Lake Constance itself plays a central role as a source of humidity and a temperature regulator.
 `
-}, {
-    title: 'Data Analysis',
-    text: `
+        }, {
+            title: 'Data Analysis',
+            text: `
 ## Historical development 
 The temporal development of fog in the Lake Constance region has changed significantly in recent decades. Since the 1980s, the annual fog hours have decreased from 400-600 hours to less than 400 and in some cases even less than 200 hours. At the same time, the number of fog days has decreased by about 10% over the last decade. 
 These changes are due to several factors. Climate change has increased average temperatures by about 2 degrees, which means that warmer air can hold more water vapour without condensing into fog. At the same time, the reduction in air pollution has reduced the number of condensation nuclei, making it more difficult for fog to form. In addition, stronger winds in low-pressure systems disperse fog more frequently and shorten its duration (see Kumbier 2023).
 
 To get further information about the fog development over the last few years, see here: [Fog](/data?tab=fog)
 `
-}
+        }
     ],
     sources: `
 * Bott, A. (2023a). Mesoskalige meteorologische Prozesse. In A. Bott, Synoptische Meteorologie (S. 431-456). Springer Berlin Heidelberg. https://doi.org/10.1007/978-3-662-67217-4_12

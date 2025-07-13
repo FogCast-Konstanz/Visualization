@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
-import { fetchFogDaysHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
-import { layoutConfig, useColor, useGraphColors } from '../../../components/style'
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { OrbitProgress } from 'react-loading-indicators'
 import PlotlyChart from '../../../components/plotly/DefaultChart'
-import { useTranslation } from 'react-i18next'
+import { convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
+import { fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
+import { layoutConfig, useColor, useGraphColors } from '../../../components/style'
 
 export default function WaterLevelTab({ isActive }: { isActive: boolean }) {
     const [dataLoaded, setDataLoaded] = useState(false);

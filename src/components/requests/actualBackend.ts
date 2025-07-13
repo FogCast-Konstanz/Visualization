@@ -1,6 +1,6 @@
 import axios from "axios";
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { BACKEND_API_URL } from "../constants";
+import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { formatActualDatetime, toUtcIsoString } from "../time";
 
 type ActualResponseFormat = {
@@ -13,10 +13,10 @@ type ActualResponseFormat = {
 
 
 export async function fetchTemperatureHistoryDWD(start: Date, stop: Date, frequency: "daily" | "hourly" | "10-minutes"): Promise<ActualResponseFormat[]> {
-    
+
     const startString = formatActualDatetime(start)
     const stopString = formatActualDatetime(stop)
-    
+
     try {
         const response = await axios.get(`${BACKEND_API_URL}/actual/temperature-history`, {
             params: { start: startString, stop: stopString, frequency: frequency },
@@ -64,10 +64,10 @@ export async function fetchFogDaysHistoryDWD(start: Date, stop: Date, frequency:
 
 
 export async function fetchWaterLevelHistory(start: Date, stop: Date): Promise<ActualResponseFormat[]> {
-    
+
     const startString = formatActualDatetime(start);
     const stopString = formatActualDatetime(stop)
-    
+
     try {
         const response = await axios.get(`${BACKEND_API_URL}/archive/water-level`, {
             params: {
@@ -106,7 +106,7 @@ export async function fetchActualWeather(): Promise<ActualResponseFormat[]> {
 
 
 export async function fetchArchiveWeather(date: Date, model: string): Promise<any> {
-    
+
     const dateString = formatActualDatetime(date)
     // Date Format 2025-02-01 00:00:00
 

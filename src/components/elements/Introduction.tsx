@@ -15,9 +15,9 @@ export default function Introduction({ header, text }: IntroductionFormat) {
                 color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
-                >
+            >
                 <CardHeader pb={'0px'}>
-                        <Heading>{header}</Heading>
+                    <Heading>{header}</Heading>
                 </CardHeader>
                 <CardBody>
                     <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} />

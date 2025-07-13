@@ -9,8 +9,8 @@ import PlotlyChart from '../../../components/plotly/DefaultChart'
 import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
 import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataOptions } from '../../../components/requests/currentForecacstBackend'
 import { layoutConfig } from '../../../components/style'
-import DataSource from '../../impressum/DataSource'
 import { toUtcPlotlyIsoString } from '../../../components/time'
+import DataSource from '../../impressum/DataSource'
 
 
 export default function AdvancedMode() {
@@ -50,7 +50,7 @@ export default function AdvancedMode() {
                         newData[measurement] = [];
                     }
 
-                    if(!is_day) {
+                    if (!is_day) {
                         is_day = extractCurrentWeatherForecastHourly(currentModelForecast, 'is_day', t('data.isDay'))
                         setIsDay({ x: is_day.x.map(time => (toUtcPlotlyIsoString(time))), y: is_day.y })
                     }

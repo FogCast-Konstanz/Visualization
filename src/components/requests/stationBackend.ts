@@ -1,7 +1,6 @@
 import axios from "axios";
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
 import { BACKEND_API_URL } from "../constants";
-import { formatStationDatetime, toUtcIsoString } from "../time";
+import { formatStationDatetime } from "../time";
 
 export type StationResponseFormat = {
     time: string,
@@ -29,11 +28,11 @@ export async function fetchStationData(startTime: Date, stopTime: Date): Promise
 };
 
 export async function fetchCurrentStationData(): Promise<StationResponseFormat | null> {
-    
+
     // TODO: Fix this!!!
     const now = new Date("2025-01-01T00:00:00")
     const future = new Date("2100-01-01T00:00:00")
-    
+
     const data = await fetchStationData(now, future)
 
     if (data.length > 0) {

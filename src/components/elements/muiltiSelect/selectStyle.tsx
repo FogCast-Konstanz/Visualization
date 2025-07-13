@@ -1,6 +1,4 @@
-import { warn } from "console";
 import { useColor } from "../../style";
-
 
 export function selectedStyle() {
     const bgColor = useColor('background');

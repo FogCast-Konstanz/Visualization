@@ -1,12 +1,9 @@
 import { Box, Card, CardBody, CardHeader, Flex, Heading, Icon, Tag } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-
-import { layoutConfig, useColor } from '../../components/style';
-
-
 import { FaMinus, FaPlus } from 'react-icons/fa';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { layoutConfig, useColor } from '../../components/style';
 
 type Input = { text: string, header: string, tags?: string[], id: string, defaultShown: boolean, searchQuery?: string }
 export default function LexikonEntry({ text, header, tags, id, defaultShown = false, searchQuery = '' }: Input) {

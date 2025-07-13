@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
-import { fetchFogDaysHistoryDWD, fetchTemperatureHistoryDWD, fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
-import { layoutConfig, useColor, useGraphColors } from '../../../components/style'
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { OrbitProgress } from 'react-loading-indicators'
 import PlotlyChart from '../../../components/plotly/DefaultChart'
-import { useTranslation } from 'react-i18next'
+import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
+import { fetchTemperatureHistoryDWD, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
+import { layoutConfig, useColor, useGraphColors } from '../../../components/style'
 
 export default function TemperatureTab({ isActive }: { isActive: boolean }) {
 

@@ -7,66 +7,66 @@ const de = {
     insert: "Mein Name ist {{name}}",
 
     navigation: {
-      models: "Modellvergleich",
-      station: "Wetterstation",
-      data: "Daten",
-      lexikon: "Lexikon",
-      phenomena: "Phänomene",
-      home: "Startseite",
-      analysis: "Leaderboard",
-      main: "Generell",
-      info: "Infos",
-      sailor: "Segler-Wetter"
+        models: "Modellvergleich",
+        station: "Wetterstation",
+        data: "Daten",
+        lexikon: "Lexikon",
+        phenomena: "Phänomene",
+        home: "Startseite",
+        analysis: "Leaderboard",
+        main: "Generell",
+        info: "Infos",
+        sailor: "Segler-Wetter"
     },
 
     data: {
-      temperature: "Temperatur",
-      humidity: "Luftfeuchtigkeit",
-      fog: "Nebel",
-      forecast: "Vorhersage",
-      time: "Zeit",
-      waterTemp: "Wassertemperatur",
-      waterLevel: "Wasserstand",
-      windspeed: "Windgeschwindigkeit",
-      cloud: "Bewölkung",
-      cloudCoverLow: "Wolken niedrig",
-      cloudCoverHigh: "Wolken hoch",
-      cloudCoverMid: "Wolken mittelhoch",
-      visibility: "Sichtweite",
-      rain: "Niederschlag",
-      weatherCode: "Wettercode",
-      isDay: "ist Tag",
-      windSpeed10m: "Windgeschwindigkeit",
-      windGusts10m: "Windböen",
-      windDirection10m: "Windrichtung",
-      pressureMSL: "Luftdruck (NN)",
-      cape: "CAPE (Konvektive Energie)"
+        temperature: "Temperatur",
+        humidity: "Luftfeuchtigkeit",
+        fog: "Nebel",
+        forecast: "Vorhersage",
+        time: "Zeit",
+        waterTemp: "Wassertemperatur",
+        waterLevel: "Wasserstand",
+        windspeed: "Windgeschwindigkeit",
+        cloud: "Bewölkung",
+        cloudCoverLow: "Wolken niedrig",
+        cloudCoverHigh: "Wolken hoch",
+        cloudCoverMid: "Wolken mittelhoch",
+        visibility: "Sichtweite",
+        rain: "Niederschlag",
+        weatherCode: "Wettercode",
+        isDay: "ist Tag",
+        windSpeed10m: "Windgeschwindigkeit",
+        windGusts10m: "Windböen",
+        windDirection10m: "Windrichtung",
+        pressureMSL: "Luftdruck (NN)",
+        cape: "CAPE (Konvektive Energie)"
     },
 
     startingPage: {
-      title: "Wetter in Konstanz",
-      forecast: "Vorhersage",
-      currentWeather: "Aktuelles Wetter",
-      next2Days: "Nächste 2 Tage",
-      next14Days: "Nächste 14 Tage"
+        title: "Wetter in Konstanz",
+        forecast: "Vorhersage",
+        currentWeather: "Aktuelles Wetter",
+        next2Days: "Nächste 2 Tage",
+        next14Days: "Nächste 14 Tage"
     },
 
     sailorPage: {
-      currentConditions: "Aktuelle Bedingungen auf See",
-      windSpeedAndGustsTitle: "Windgeschwindigkeit und Böen",
-      windDirectionTitle: "Windrichtung",
-      capeAndRainTitle: "Gewittergefahr (CAPE) und Regen"
+        currentConditions: "Aktuelle Bedingungen auf See",
+        windSpeedAndGustsTitle: "Windgeschwindigkeit und Böen",
+        windDirectionTitle: "Windrichtung",
+        capeAndRainTitle: "Gewittergefahr (CAPE) und Regen"
     },
 
     direction: {
-      N: "Norden",
-      NE: "Nordost",
-      E: "Osten",
-      SE: "Südost",
-      S: "Süden",
-      SW: "Südwest",
-      W: "Westen",
-      NW: "Nordwest"
+        N: "Norden",
+        NE: "Nordost",
+        E: "Osten",
+        SE: "Südost",
+        S: "Süden",
+        SW: "Südwest",
+        W: "Westen",
+        NW: "Nordwest"
     },
 
     dataPage: {
@@ -130,7 +130,6 @@ Für die technische Umsetzung wurden folgende Komponenten verbaut:
 - **FS304-SHTXX**: Kombisensor zur gleichzeitigen Erfassung von Lufttemperatur und Luftfeuchtigkeit. Der Sensor liefert kalibrierte, zuverlässige Daten in Echtzeit.
 - **Wetterschutzgehäuse**: Alle Komponenten sind in einem wetterfesten Gehäuse untergebracht, das vor Regen, Sonneneinstrahlung und mechanischen Einwirkungen schützt. Zusätzlich beherbergt es Sicherungselemente zum Schutz der Elektronik.
 `
-
     },
 
     impressum: {

@@ -1,9 +1,7 @@
 
-import { useColorModeValue } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { fetchModels } from '../../requests/forcastBackend';
-import { useColor, useSurfaceColor, useTextColor } from '../../style';
 import { selectedStyle } from './selectStyle';
 
 type ModelSelectionProps = {

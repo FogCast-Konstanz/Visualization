@@ -26,7 +26,7 @@ export interface PlotlyChartDataFormat {
 
 export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFormat, mode: 'scatter' | 'dashedLine' | 'basic' | 'bar' | 'text' | 'cloud' | 'line' | 'weatherIcon' | 'linear', yAxis?: string | null, customColor?: string | null, customOpacity?: number): PlotlyChartDataFormat {
 
-    const adjustedTimes = basicFormatInput.x.map(time => ( toUtcPlotlyIsoString(time)));
+    const adjustedTimes = basicFormatInput.x.map(time => (toUtcPlotlyIsoString(time)));
 
     const basicFormat = {
         x: adjustedTimes,
@@ -85,7 +85,7 @@ export function convertToPlotlyChartFormat(basicFormatInput: PlotlyChartBasicFor
                 fill: "toself",
                 type: "scatter",
                 mode: "lines",
-                line: { color: customColor, width: 1 }, 
+                line: { color: customColor, width: 1 },
                 opacity: 0.9,
             }
         case "weatherIcon":
@@ -120,11 +120,11 @@ export function convertMultipleToPlotlyChartFormat(basicFormat: PlotlyChartBasic
  * Get plotly data for the weekdays
  * Usage: Store the data inside a useState and pass this value to DefaultGraph (customLayout={{annotations: weekdays}})
  */
-export function weekdayAnnotations(randomTime: string[], ignoreOlder=true, language="de-DE") {
+export function weekdayAnnotations(randomTime: string[], ignoreOlder = true, language = "de-DE") {
 
     const uniqueDays = [...new Set(randomTime
-        .filter(t => ignoreOlder ? 
-            new Date(t.split("T")[0] + 'T12:00:00') > new Date() 
+        .filter(t => ignoreOlder ?
+            new Date(t.split("T")[0] + 'T12:00:00') > new Date()
             : new Date(t.split("T")[0] + 'T12:00:00'))
         .map(t => t.split("T")[0])
     )];

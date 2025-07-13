@@ -1,17 +1,17 @@
-import { Button, Card, Flex, Heading, Text } from '@chakra-ui/react';
+import { Button, Card, Flex, Heading } from '@chakra-ui/react';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaWater, FaWind } from "react-icons/fa6";
-import { RiSpeedUpLine, RiWindyFill } from "react-icons/ri"; // Importiere RiSpeedUpLine für Windböen
+import { RiSpeedUpLine } from "react-icons/ri"; // Importiere RiSpeedUpLine für Windböen
 import { OrbitProgress } from 'react-loading-indicators';
 import PlotlyChart from '../../../components/plotly/DefaultChart';
-import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations, PlotlyChartBasicFormat } from '../../../components/plotly/PlotlyChartFormat';
+import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat';
 import { fetchActualWeather } from '../../../components/requests/actualBackend';
 import { extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend';
 import { layoutConfig, useColor } from '../../../components/style';
 import DataSource from '../../impressum/DataSource';
-import MeasurementCard from '../MeasurementCard';
 import ForcastCard from '../ForcastCard'; // Angenommen, du hast eine angepasste ForcastCard für Segler
+import MeasurementCard from '../MeasurementCard';
 
 export default function SailorMode() {
     const { i18n, t } = useTranslation();
@@ -232,10 +232,6 @@ export default function SailorMode() {
                         }
                     }}
                 >
-                    {/* Hier müsstest du eine angepasste ForcastCard verwenden,
-                        die Windgeschwindigkeit, Windböen und Windrichtung anzeigt.
-                        Angenommen, du übergibst die relevanten Daten aus der Forecast-Antwort.
-                    */}
                     {forecastCard ? forecastCard.windSpeed.map((time: any, index: any) => (
                         <ForcastCard
                             time={new Date(forecastCard.time[index])}
@@ -245,13 +241,8 @@ export default function SailorMode() {
                             isDay={forecastCard.is_day[index]}
                             weather={forecastCard.weather_code[index]}
                             key={index}>
-                            
-                            </ForcastCard>
-                        //     time={new Date(forecastCard.time)}
-                        //     windSpeed={extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'wind_speed_10m', '', requestDuration).y[index]}
-                        //     windGusts={extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'wind_gusts_10m', '', requestDuration).y[index]}
-                        //     windDirection={extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'wind_direction_10m', '', requestDuration).y[index]}
-                        // // Weitere relevante Daten für Segler-Vorhersagekarten
+
+                        </ForcastCard>
                     )) : <OrbitProgress color={loadingColor} size="medium" />}
                 </Flex>
             </Card>
@@ -299,8 +290,6 @@ export default function SailorMode() {
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
-
-            {/* Hier könnten weitere spezifische Charts für Segler folgen, z.B. Wellenhöhe, Gezeiten (falls Daten verfügbar) */}
 
             <DataSource></DataSource>
         </Flex>

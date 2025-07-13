@@ -1,14 +1,10 @@
-import { CloseIcon } from '@chakra-ui/icons'
-import { Card, CardBody, CardHeader, Flex, Heading, IconButton, Input, InputGroup, InputRightElement, VStack } from '@chakra-ui/react'
+import { Card, CardBody, CardHeader, Flex, Heading, VStack } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import LexikonEntry from './LexikonEntry'
-
-import ReactMarkdown from 'react-markdown';
-import remarkGfm from 'remark-gfm';
-
-
+import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { layoutConfig, useColor } from '../../components/style'
+import LexikonEntry from './LexikonEntry'
 import SearchFilterBar from './SearchFilterBar'
 
 

@@ -1,10 +1,8 @@
 import { Box, Card, CardBody, CardHeader, Heading, Image, Modal, ModalBody, ModalContent, ModalOverlay } from "@chakra-ui/react";
-import ReactMarkdown from 'react-markdown';
-import remarkBreaks from 'remark-breaks';  // Import the remark-breaks plugin
-
-import { useColor } from '../style';
 import { useState } from "react";
-
+import ReactMarkdown from 'react-markdown';
+import remarkBreaks from 'remark-breaks'; // Import the remark-breaks plugin
+import { useColor } from '../style';
 
 type Input = { header: string, body: string }
 export default function CardIndividual({ header, body }: Input) {
