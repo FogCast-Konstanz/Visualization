@@ -1,9 +1,12 @@
 import { CloseIcon } from '@chakra-ui/icons';
 import {
-    Flex, Input, InputGroup, InputRightElement, IconButton, useColorModeValue
+    Flex,
+    IconButton,
+    Input, InputGroup, InputRightElement,
+    useColorModeValue
 } from '@chakra-ui/react';
 // import CustomSelect from './CustomSelect'; // adjust import if needed
-import CustomSelect, { SelectOption } from '../../components/elements/Select'
+import CustomSelect, { SelectOption } from '../../components/elements/Select';
 
 interface SearchFilterBarProps {
     searchQuery: string;

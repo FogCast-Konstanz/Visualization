@@ -63,16 +63,6 @@ Um weitere Informationen über die historische Entwicklung des Nebels herauszufi
 `
 };
 
-// const schwäbisches_meer_effekt: phenomenaType = {
-//     id: 'schwäbisches-meer',
-//     title: 'Schwäbisches Meer Effekt',
-//     description: 'Der Schwäbische Meereffekt beschreibt den klimatischen Einfluss des Bodensees, der durch seine Wärmespeicherung, Feuchtigkeitsregulierung und Windmuster ein mildes und ausgeglichenes Klima in der Region schafft. Besonders im Winter verhindert der See starke Temperaturabfälle und begünstigt ein stabileres Wetter.',
-//     content: [
-
-//     ],
-//     sources: ``
-// };
-
 const windsysteme: phenomenaType = {
     id: 'windsysteme',
     title: 'Windsysteme',

@@ -1,9 +1,8 @@
+import { ArrowLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { Flex, Icon, Link, Text } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
-import CardIndividual from '../../components/elements/CardIndividual';
-
-import { ArrowLeftIcon, ChevronRightIcon } from '@chakra-ui/icons';
 import { useNavigate } from 'react-router-dom';
+import CardIndividual from '../../components/elements/CardIndividual';
 import { layoutConfig, useColor } from '../../components/style';
 import { phenomenaType } from '../../i18n/dePhenomena';
 

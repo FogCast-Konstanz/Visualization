@@ -1,7 +1,7 @@
-import { layoutConfig } from "../../components/style";
 import { TriangleDownIcon, TriangleUpIcon } from "@chakra-ui/icons";
 import { Box, Flex, Table, Tbody, Td, Text, Th, Thead, Tr } from "@chakra-ui/react";
 import { useState } from "react";
+import { layoutConfig } from "../../components/style";
 
 interface LeaderboardEntry {
   id: number;
@@ -14,7 +14,7 @@ interface Entries {
   name: string
 }
 
-export default function Leaderboard({entries, name}: Entries){
+export default function Leaderboard({ entries, name }: Entries) {
   const [models, setModels] = useState<LeaderboardEntry[]>(entries);
   const [sortConfig, setSortConfig] = useState<{ key: keyof LeaderboardEntry; direction: "asc" | "desc" } | null>(null);
 

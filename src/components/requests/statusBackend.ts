@@ -15,6 +15,6 @@ export async function fetchServerStatus(): Promise<'running' | 'down' | 'unreach
         return 'down'
     } catch (error) {
         console.error("Error fetching forecast:", error);
-        return 'unreachable'    
+        return 'unreachable'
     }
 };

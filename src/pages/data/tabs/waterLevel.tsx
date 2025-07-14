@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
 import { Flex } from '@chakra-ui/react'
-import { fetchFogDaysHistoryDWD, fetchWaterLevelHistory, formatActualDatetime, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
-import { layoutConfig, useColor, useGraphColors } from '../../../components/style'
-import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
+import { useEffect, useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import { OrbitProgress } from 'react-loading-indicators'
 import PlotlyChart from '../../../components/plotly/DefaultChart'
-import { useTranslation } from 'react-i18next'
+import { convertToPlotlyChartFormat, PlotlyChartDataFormat } from '../../../components/plotly/PlotlyChartFormat'
+import { fetchWaterLevelHistory, highlightingAndAverage, parseActualRequestToPlotlyXYFormat, parseActualRequestToPlotlyXYFormatYearWise } from '../../../components/requests/actualBackend'
+import { layoutConfig, useColor, useGraphColors } from '../../../components/style'
 
 export default function WaterLevelTab({ isActive }: { isActive: boolean }) {
     const [dataLoaded, setDataLoaded] = useState(false);
@@ -38,11 +38,11 @@ export default function WaterLevelTab({ isActive }: { isActive: boolean }) {
 
 
         /* Get Water Level History */
-        const waterLevel = await fetchWaterLevelHistory(formatActualDatetime(dateLastYear), formatActualDatetime())
+        const waterLevel = await fetchWaterLevelHistory(dateLastYear, new Date())
         const waterLevelData = parseActualRequestToPlotlyXYFormat(waterLevel)
         setWaterLevelLastYear([(convertToPlotlyChartFormat(waterLevelData, 'line', null, graphcolors[0]))])
 
-        const waterLevelHistory = await fetchWaterLevelHistory("2017-01-01 00:00:00", formatActualDatetime())
+        const waterLevelHistory = await fetchWaterLevelHistory(new Date("2017-01-01 00:00:00"), new Date())
         // const waterLevelDataHistory = parseActualRequestToPlotlyXYFormat(waterLevelHistory)
         setWaterLevelHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(waterLevelHistory, ''), ['2025', '2023', '2000'], graphcolors))
 

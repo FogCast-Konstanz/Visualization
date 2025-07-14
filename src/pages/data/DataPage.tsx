@@ -36,6 +36,7 @@ export default function DataPage() {
 
   const bgColor = useColor('background');
   const textColor = useColor('text');
+  const textColorActive = useColor('buttonText');
   const tabBg = useColor('background');
   const tabSelectedBg = useColor('primary');
 

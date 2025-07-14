@@ -1,9 +1,9 @@
 import { Flex } from '@chakra-ui/react';
 import Introduction from '../../components/elements/Introduction';
+import UnderConstruction from '../../components/elements/UnderConstruction';
 import { layoutConfig } from '../../components/style';
 import DataSource from '../impressum/DataSource';
 import Leaderboard from './Leaderboard';
-import UnderConstruction from '../../components/elements/UnderConstruction';
 
 export default function AnalysisPage() {
 

@@ -34,19 +34,19 @@ export default function CustomSelect({ value, onChange, options, defaultValue, p
             borderColor={text}
             borderRadius="md"
             _focus={{
-              borderColor: text,
-              boxShadow: "none"
+                borderColor: text,
+                boxShadow: "none"
             }}
             sx={{
-              option: {
-                background: bg,
-                border: '0px',
-                color: text,
-                padding: "8px",
-                _hover: { 
-                    background: focusColor
-                }
-              },
+                option: {
+                    background: bg,
+                    border: '0px',
+                    color: text,
+                    padding: "8px",
+                    _hover: {
+                        background: focusColor
+                    }
+                },
             }}
         >
             {options.map(({ code, label }) => (

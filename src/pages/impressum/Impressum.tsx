@@ -1,12 +1,9 @@
-import { useTranslation } from 'react-i18next';
-
 import { Box, Card, CardBody, CardHeader, Flex, Heading, Image, Link, Text, VStack } from "@chakra-ui/react";
-import { layoutConfig, useColor } from '../../components/style';
-
-
+import { useTranslation } from 'react-i18next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import Introduction from '../../components/elements/Introduction';
+import { layoutConfig, useColor } from '../../components/style';
 
 export default function Impressum() {
     const { t } = useTranslation();
@@ -20,7 +17,7 @@ export default function Impressum() {
                 color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
-                >
+            >
                 <CardHeader paddingBottom={'0px'}>
                     <Heading size="md" padding='0px'>{t('impressum.aboutTitle')}</Heading>
                 </CardHeader>
@@ -50,7 +47,7 @@ export default function Impressum() {
                 color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
-                >
+            >
                 {/* University Details */}
                 <CardHeader pb={0}>
                     <Heading size="md">{t('impressum.contact')}</Heading>
@@ -93,7 +90,7 @@ export default function Impressum() {
                 color={useColor('text')}
                 width={'100%'}
                 borderRadius={layoutConfig.borderRadius}
-                >
+            >
                 {/* Sources and Licences */}
                 <CardHeader pb={0}>
                     <Heading size="md">{t('impressum.sourcesLicences')}</Heading>

@@ -1,7 +1,7 @@
 import axios from "axios";
+import { BACKEND_API_URL } from "../constants";
 import { ModelOption } from "../elements/muiltiSelect/SelectMeasurements";
 import { PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
-import { BACKEND_API_URL } from "../constants";
 import { toUtcIsoString } from "../time";
 
 export async function fetchCurrentForecast(modelId: string): Promise<CurrentForecastResponseFormat[]> {

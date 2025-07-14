@@ -14,9 +14,9 @@ const de = {
         phenomena: "Phänomene",
         home: "Startseite",
         analysis: "Leaderboard",
-
         main: "Generell",
-        info: "Infos"
+        info: "Infos",
+        sailor: "Segler-Wetter"
     },
 
     data: {
@@ -33,18 +33,40 @@ const de = {
         cloudCoverHigh: "Wolken hoch",
         cloudCoverMid: "Wolken mittelhoch",
         visibility: "Sichtweite",
-        rain: "Regen",
+        rain: "Niederschlag",
         weatherCode: "Wettercode",
-        isDay: "ist Tag"
+        isDay: "ist Tag",
+        windSpeed10m: "Windgeschwindigkeit",
+        windGusts10m: "Windböen",
+        windDirection10m: "Windrichtung",
+        pressureMSL: "Luftdruck (NN)",
+        cape: "CAPE (Konvektive Energie)"
     },
 
     startingPage: {
         title: "Wetter in Konstanz",
         forecast: "Vorhersage",
-        
         currentWeather: "Aktuelles Wetter",
         next2Days: "Nächste 2 Tage",
         next14Days: "Nächste 14 Tage"
+    },
+
+    sailorPage: {
+        currentConditions: "Aktuelle Bedingungen auf See",
+        windSpeedAndGustsTitle: "Windgeschwindigkeit und Böen",
+        windDirectionTitle: "Windrichtung",
+        capeAndRainTitle: "Gewittergefahr (CAPE) und Regen"
+    },
+
+    direction: {
+        N: "Norden",
+        NE: "Nordost",
+        E: "Osten",
+        SE: "Südost",
+        S: "Süden",
+        SW: "Südwest",
+        W: "Westen",
+        NW: "Nordwest"
     },
 
     dataPage: {
@@ -62,7 +84,7 @@ const de = {
         waterLevelTab: "Wasserstand"
     },
 
-    phenomena : {
+    phenomena: {
         title: "Wetterphänomene",
         introduction: "Der Bodensee ist ein einzigartiger Klimaregulator, der durch seine Größe und Lage verschiedene Wetterphänomene hervorruft. Der Schwäbische Meereffekt beeinflusst das lokale Klima, indem er Temperaturunterschiede ausgleicht und Wetterveränderungen begünstigt. Besonders im Herbst und Winter sind dichte Nebel häufig, die durch die Feuchtigkeit des Sees entstehen und die Sicht stark einschränken können. Zudem kann der Wasserstand des Sees durch Hochwasser infolge von starken Regenfällen oder Schneeschmelze erheblich schwanken. In den folgenden Abschnitten werden diese und weitere Wetterphänomene näher beschrieben.",
         explanation: "Erklärung",
@@ -83,11 +105,31 @@ const de = {
 
     weatherStation: {
         title: "Wetterstation",
-        introduction: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+        introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG. ",
         details: "Details",
-        description: `Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.   
+        description: `Das Wetter in Konstanz spielt für viele Menschen in der Region eine zentrale Rolle. Für Studierende ist es beispielsweise wichtig zu wissen, wie das Wetter wird. Segler wiederum sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchführen zu können. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
 
-Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet,`
+Um detailliertere und ortsnahe Wetterdaten zur Verfügung zu stellen, wurde am Steg der Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation installiert. Das Ziel besteht darin, über standardisierte Wetterberichte hinaus direkte Messungen bereitzustellen, die die spezifischen Gegebenheiten am Seeufer abbilden.`,
+        technicalDetailsHeader: "Technische Details",
+
+        technicalDetailsText: `
+![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Foto von Samantha Isted")
+
+Die Wetterstation ist so konzipiert, dass sie in regelmäßigen Abständen von 10 Sekunden präzise Umweltdaten erfasst und übermittelt. Erfasst werden:
+
+- **Lufttemperatur**: Gibt Aufschluss über die aktuelle Temperatur am Messort.
+- **Luftfeuchtigkeit**: Ermöglicht Rückschlüsse auf das Klimaempfinden und mögliche Niederschlagsbildung.
+- **Wassertemperatur des Rheins**: Gemessen in ca. 80 cm Tiefe, liefert wichtige Daten zur thermischen Entwicklung des Flusses.
+
+
+![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg "Foto von Samantha Isted")
+Für die technische Umsetzung wurden folgende Komponenten verbaut:
+
+- **Raspberry Pi 5**: Ein leistungsfähiger Mikrocomputer, der als zentrale Steuereinheit dient. An ihn sind sämtliche Sensoren angeschlossen. Mittels eines in Python geschriebenen Programms werden die Messwerte automatisiert erfasst, verarbeitet und zur weiteren Nutzung bereitgestellt.
+- **DS18B20**: Ein digitaler Temperatursensor, der zur Bestimmung der Wassertemperatur eingesetzt wird. Die Messung in 80 cm Tiefe gewährleistet stabile und repräsentative Temperaturwerte.
+- **FS304-SHTXX**: Kombisensor zur gleichzeitigen Erfassung von Lufttemperatur und Luftfeuchtigkeit. Der Sensor liefert kalibrierte, zuverlässige Daten in Echtzeit.
+- **Wetterschutzgehäuse**: Alle Komponenten sind in einem wetterfesten Gehäuse untergebracht, das vor Regen, Sonneneinstrahlung und mechanischen Einwirkungen schützt. Zusätzlich beherbergt es Sicherungselemente zum Schutz der Elektronik.
+`
     },
 
     impressum: {

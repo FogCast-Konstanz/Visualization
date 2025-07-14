@@ -6,7 +6,6 @@ import remarkGfm from 'remark-gfm';
 import { useColor } from '../../components/style';
 import { phenomenaType } from '../../i18n/dePhenomena';
 
-
 type Input = phenomenaType
 export default function PhenomenonCard({ title, description, id }: Input) {
     const navigate = useNavigate();

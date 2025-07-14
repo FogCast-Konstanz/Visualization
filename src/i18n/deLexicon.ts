@@ -8,7 +8,7 @@ export const deLexicon = {
     timeOfPrediction: {
         title: 'Zeitpunkt der Vorhersage',
         text: 'Zeitpunkt an dem die Vorhersage "veröffentlicht/erstellt" wurde. Beispielsweise wird am 12.02.2025 eine Vorhersage für den 24.02.2025 erstellt. "12.02.2025" ist der Zeitpunkt der Vorhersage und "24.05.2025" der [vorhergesagte Zeitpunkt](#predictedTime).'
-    }, 
+    },
     benchmarkingIdea: {
         title: 'Numerische Benchmarks für Wettermodelle',
         text: `
@@ -38,7 +38,7 @@ In der einfachsten Version können Benchmarks anhand von einer Hand voll Variabl
 ### Ergebnisinterpretation
 
 Die praktische Anwendung des Benchmark-Systems erfolgt über Skriptabläufe, die einen automatisierten Tagesabgleich der Modelleistungen ermöglichen. Diese können über die Weboberfläche eingesehen werden. Außerdem können die Benchmark Scores verwendet werden, um beispielsweise bei der Modellfusionierung die Aussagen einzelner Modelle auf Basis ihres durchschnittlichen historischen Benchmark Scores zu gewichten.`
-    }, 
+    },
     metaForecasting: {
         title: 'Meta Forecasting',
         text: `

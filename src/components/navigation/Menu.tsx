@@ -23,48 +23,15 @@ export default function Settings() {
                 margin={{ lg: '0', base: layoutConfig.margin }}
                 gap={layoutConfig.gap}
             >
-                {/* <CustomSelect
-                    value={i18n.language}
-                    onChange={(value) => onChangeLang(value)}
-                    options={LANGUAGES}
-                /> */}
-
                 <CustomSelect
                     defaultValue={i18n.language}
                     onChange={(value) => onChangeLang(value)}
                     options={LANGUAGES}
                 />
-
-                {/* <Select
-                    defaultValue={i18n.language}
-                    onChange={onChangeLang}
-                    width={'fit-content'}
-                    bg={useColor('background')}
-                    color={useColor('text')}
-                    _focus={{ borderColor: useColor('background') }}
-                    sx={{
-                        option: {
-                            background: useColor('background'),
-                            color: useColor('text'),
-                            _hover: {background: useColor('background')}
-                        },
-                    }}
-                > */}
-                {/* {LANGUAGES.map(({ code, label }) => (
-                    <option
-                        key={code}
-                        value={code}
-                        color={useColor('text')}
-                    >
-                        {label}
-                    </option>
-                ))}
-            </Select> */}
-
-            <Button onClick={toggleColorMode}>
-                {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
-            </Button>
-        </Flex >
+                <Button onClick={toggleColorMode}>
+                    {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
+                </Button>
+            </Flex >
 
         </>
     )

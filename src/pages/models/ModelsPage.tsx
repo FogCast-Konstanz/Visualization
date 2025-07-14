@@ -7,7 +7,7 @@ import { useSearchParams } from 'react-router-dom';
 import remarkGfm from 'remark-gfm';
 import PlotlyChart from '../../components/plotly/DefaultChart';
 import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../components/plotly/PlotlyChartFormat';
-import { fetchArchiveWeather, formatActualDatetime } from '../../components/requests/actualBackend';
+import { fetchArchiveWeather } from '../../components/requests/actualBackend';
 import { extractCurrentWeatherForecastHourly, weatherDataOptions } from '../../components/requests/currentForecacstBackend';
 import { extractHistoricForecastHourly, fetchForecast } from '../../components/requests/forcastBackend';
 import { layoutConfig, useColor } from '../../components/style';
@@ -16,156 +16,156 @@ import DataSource from '../impressum/DataSource';
 import ConfigurationForRequest from './ConfigurationForRequest';
 
 export default function ModelsPage() {
-  const { i18n, t } = useTranslation()
+    const { i18n, t } = useTranslation()
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  
-  const [forecastData, setForecastData] = useState<{ [key: string]: PlotlyChartDataFormat[]; } | null>(null)
-  const [isDay, setIsDay] = useState<{ x: string[], y: number[] }>({ x: [], y: [] });
+    const [searchParams, setSearchParams] = useSearchParams();
 
-  const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
-  const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
-  const [selectedDatetime, setSelectedDatetime] = useState<string>((searchParams.get('time') ?? toUtcIsoString(new Date())).slice(0,16))
-  
-  const [weekdays, setWeekdays] = useState<any | null>(null)
+    const [forecastData, setForecastData] = useState<{ [key: string]: PlotlyChartDataFormat[]; } | null>(null)
+    const [isDay, setIsDay] = useState<{ x: string[], y: number[] }>({ x: [], y: [] });
 
-  const loadingColor = useColor('primary');
+    const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
+    const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
+    const [selectedDatetime, setSelectedDatetime] = useState<string>((searchParams.get('time') ?? toUtcIsoString(new Date())).slice(0, 16))
 
-  useEffect(() => { setModels() }, [selectedModels])
-  useEffect(() => { setModels() }, [selectedDatetime])
-  useEffect(() => { setModels() }, [selectedMeasurement])
+    const [weekdays, setWeekdays] = useState<any | null>(null)
 
-  async function setModels() {
-    setSearchParams({ models: JSON.stringify(selectedModels), time: selectedDatetime, measurements: JSON.stringify(selectedMeasurement) });
-    let newData: { [key: string]: PlotlyChartDataFormat[] } = {};
-    let is_day = null;
+    const loadingColor = useColor('primary');
 
-    if (selectedModels.length > 0 && selectedDatetime != '') {
-      setForecastData(null);
+    useEffect(() => { setModels() }, [selectedModels])
+    useEffect(() => { setModels() }, [selectedDatetime])
+    useEffect(() => { setModels() }, [selectedMeasurement])
 
-      for (const model of selectedModels) {
-        const nextModelForecast = await fetchHistoricForecastModel(model)
+    async function setModels() {
+        setSearchParams({ models: JSON.stringify(selectedModels), time: selectedDatetime, measurements: JSON.stringify(selectedMeasurement) });
+        let newData: { [key: string]: PlotlyChartDataFormat[] } = {};
+        let is_day = null;
 
-        console.log(selectedMeasurement)
-        for (const measurement of selectedMeasurement) {
-          const data = extractHistoricForecastHourly(nextModelForecast, measurement, model);
+        if (selectedModels.length > 0 && selectedDatetime != '') {
+            setForecastData(null);
 
-          if (!newData[measurement]) {
-            newData[measurement] = [];
-          }
+            for (const model of selectedModels) {
+                const nextModelForecast = await fetchHistoricForecastModel(model)
 
-          if (!is_day) {
-            is_day = extractCurrentWeatherForecastHourly(nextModelForecast, 'is_day', t('data.isDay'))
-            setIsDay({ x: is_day.x.map(time => (toUtcPlotlyIsoString(time))), y: is_day.y })
-          }
+                console.log(selectedMeasurement)
+                for (const measurement of selectedMeasurement) {
+                    const data = extractHistoricForecastHourly(nextModelForecast, measurement, model);
 
-          newData[measurement].push(convertToPlotlyChartFormat(data, 'linear'));
-          console.log('DataMiau', newData)
+                    if (!newData[measurement]) {
+                        newData[measurement] = [];
+                    }
+
+                    if (!is_day) {
+                        is_day = extractCurrentWeatherForecastHourly(nextModelForecast, 'is_day', t('data.isDay'))
+                        setIsDay({ x: is_day.x.map(time => (toUtcPlotlyIsoString(time))), y: is_day.y })
+                    }
+
+                    newData[measurement].push(convertToPlotlyChartFormat(data, 'linear'));
+                    console.log('DataMiau', newData)
+                }
+
+            }
+            const [_, randomElement] = Object.entries(newData)[0] || [];
+            console.log('RandomElement', randomElement)
+            setWeekdays(weekdayAnnotations(randomElement[0].x, false, i18n.language))
+
+            // Request actual value
+            const actualValues = await fetchActualWeather('icon_d2')
+
+            if (actualValues) {
+                for (const measurement of selectedMeasurement) {
+                    const actualData: PlotlyChartDataFormat = {
+                        x: [randomElement[0].x[0], randomElement[0].x[randomElement[0].x.length - 1]],
+                        y: [actualValues[measurement], actualValues[measurement]],
+                        type: 'scatter',
+                        mode: 'lines',
+                        name: 'Actual',
+                        line: { color: 'red', width: 2 }
+                    }
+
+                    newData[measurement].push(actualData);
+                    console.log('DataMiau', newData)
+                }
+            }
+
+            console.log('Actual', actualValues)
         }
-
-      }
-      const [_, randomElement] = Object.entries(newData)[0] || [];
-      console.log('RandomElement', randomElement)
-      setWeekdays(weekdayAnnotations(randomElement[0].x, false, i18n.language))
-
-      // Request actual value
-      const actualValues = await fetchActualWeather('icon_d2')
-
-      if (actualValues) {
-        for (const measurement of selectedMeasurement) {
-          const actualData: PlotlyChartDataFormat = {
-            x: [randomElement[0].x[0], randomElement[0].x[randomElement[0].x.length - 1]],
-            y: [actualValues[measurement], actualValues[measurement]],
-            type: 'scatter',
-            mode: 'lines',
-            name: 'Actual',
-            line: { color: 'red', width: 2 }
-          }
-
-          newData[measurement].push(actualData);
-          console.log('DataMiau', newData)
-        }
-      }
-
-      console.log('Actual', actualValues)
-    }
-    setForecastData(newData)
+        setForecastData(newData)
 
 
-  }
-
-  async function fetchHistoricForecastModel(model: string): Promise<any[]> {
-    const time = new Date(selectedDatetime);
-    time.setMinutes(0, 0, 0); // Round to last full hour
-    const timeIsoString = toUtcIsoString(time).split('.')[0] + "Z"
-
-    const forcastResponse = await fetchForecast(timeIsoString, model);
-    console.log(forcastResponse)
-    return forcastResponse
-  };
-
-
-  async function fetchActualWeather(model: string) {
-    const date = new Date(selectedDatetime);
-    const weatherAtTime = await fetchArchiveWeather(formatActualDatetime(date), model);
-
-    const format = (date: Date) => {
-      const rounded = new Date(date)
-      rounded.setMinutes(0, 0, 0)
-      return toUtcIsoString(rounded).slice(0, 16)
     }
 
-    const match = weatherAtTime.find((item: any) => {
-      console.log(format(date), format(new Date(item.date)))
-      return format(new Date(item.date)) == format(date)
-    });
+    async function fetchHistoricForecastModel(model: string): Promise<any[]> {
+        const time = new Date(selectedDatetime);
+        time.setMinutes(0, 0, 0); // Round to last full hour
+        const timeIsoString = toUtcIsoString(time).split('.')[0] + "Z"
 
-    return match
-  }
+        const forcastResponse = await fetchForecast(timeIsoString, model);
+        console.log(forcastResponse)
+        return forcastResponse
+    };
 
-  return (
-    <Flex direction='column' gap={layoutConfig.gap} margin={layoutConfig.margin} width={{ lg: '100%' }} maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
-      <Card
-        bg={useColor('background')}
-        color={useColor('text')}
-        width={'100%'}>
-        <CardHeader pb={'0px'}>
-          <Flex alignItems='center' justifyContent='space-between'>
-            <Heading>{t('models.title')}</Heading>
-            <ConfigurationForRequest
-              selectedDateTime={selectedDatetime}
-              selectedModels={selectedModels}
-              selectedMeasurements={selectedMeasurement}
-              onDateTimeChange={setSelectedDatetime}
-              onModelChange={setSelectedModels}
-              onMeasurementChange={setSelectedMeasurement}>
-            </ConfigurationForRequest>
-          </Flex>
-        </CardHeader>
-        <CardBody className='markdown'>
-          <ReactMarkdown children={t('models.introduction')} remarkPlugins={[remarkGfm]} />
-        </CardBody>
-      </Card>
 
-      <Flex gap="10px" direction='column'>
-        {forecastData ?
-          Object.keys(forecastData).map(key => (
-            <PlotlyChart
-              key={key}
-              data={forecastData[key]}
-              title={weatherDataOptions.find(opt => opt.value === key)?.label}
-              yAxis={weatherDataOptions.find(opt => opt.value === key)?.label}
-              xAxis={t('data.time')}
-              // showNow={true}
-              dateFormat={'day'}
-              isDay={isDay}
-              customLayout={{ annotations: weekdays }}
-            />
-          )) :
-          <OrbitProgress size="medium" color={loadingColor} />
+    async function fetchActualWeather(model: string) {
+        const date = new Date(selectedDatetime);
+        const weatherAtTime = await fetchArchiveWeather(date, model);
+
+        const format = (date: Date) => {
+            const rounded = new Date(date)
+            rounded.setMinutes(0, 0, 0)
+            return toUtcIsoString(rounded).slice(0, 16)
         }
-      </Flex>
-      <DataSource></DataSource>
-    </Flex>
-  )
+
+        const match = weatherAtTime.find((item: any) => {
+            console.log(format(date), format(new Date(item.date)))
+            return format(new Date(item.date)) == format(date)
+        });
+
+        return match
+    }
+
+    return (
+        <Flex direction='column' gap={layoutConfig.gap} margin={layoutConfig.margin} width={{ lg: '100%' }} maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
+            <Card
+                bg={useColor('background')}
+                color={useColor('text')}
+                width={'100%'}>
+                <CardHeader pb={'0px'}>
+                    <Flex alignItems='center' justifyContent='space-between'>
+                        <Heading>{t('models.title')}</Heading>
+                        <ConfigurationForRequest
+                            selectedDateTime={selectedDatetime}
+                            selectedModels={selectedModels}
+                            selectedMeasurements={selectedMeasurement}
+                            onDateTimeChange={setSelectedDatetime}
+                            onModelChange={setSelectedModels}
+                            onMeasurementChange={setSelectedMeasurement}>
+                        </ConfigurationForRequest>
+                    </Flex>
+                </CardHeader>
+                <CardBody className='markdown'>
+                    <ReactMarkdown children={t('models.introduction')} remarkPlugins={[remarkGfm]} />
+                </CardBody>
+            </Card>
+
+            <Flex gap="10px" direction='column'>
+                {forecastData ?
+                    Object.keys(forecastData).map(key => (
+                        <PlotlyChart
+                            key={key}
+                            data={forecastData[key]}
+                            title={weatherDataOptions.find(opt => opt.value === key)?.label}
+                            yAxis={weatherDataOptions.find(opt => opt.value === key)?.label}
+                            xAxis={t('data.time')}
+                            // showNow={true}
+                            dateFormat={'day'}
+                            isDay={isDay}
+                            customLayout={{ annotations: weekdays }}
+                        />
+                    )) :
+                    <OrbitProgress size="medium" color={loadingColor} />
+                }
+            </Flex>
+            <DataSource></DataSource>
+        </Flex>
+    )
 }
