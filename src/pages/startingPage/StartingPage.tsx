@@ -7,14 +7,16 @@ import AdvancedMode from './modes/Advanced';
 import SailorMode from './modes/Sailor';
 import StandardMode from './modes/Standard';
 
-const userModes = [
-    { label: "Standard", code: "1" },
-    { label: "Advanced", code: "2" },
-    { label: "Segler", code: "3" },
-];
+
 
 export default function StartingPage() {
     const { t } = useTranslation();
+
+    const userModes = [
+        { label: t('startingPage.standard'), code: "1" },
+        { label: t('startingPage.advanced'), code: "2" },
+        { label: t('startingPage.sailor'), code: "3" },
+    ];
 
     const [userMode, setUserMode] = useState<number>(Number(localStorage.getItem('userMode') ?? 1) ?? 1)
 

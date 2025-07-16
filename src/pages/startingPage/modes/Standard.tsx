@@ -169,7 +169,7 @@ export default function StandardMode() {
             </Flex>
 
             <Heading size="md" pt={layoutConfig.padding}>{t('data.forecast')}</Heading>
-            <Flex gap={layoutConfig.smallGap}>
+            <Flex gap={layoutConfig.smallGap} flexWrap="wrap">
                 {buttons.map(({ label, value }) => (
                     <Button
                         key={value}
@@ -180,6 +180,8 @@ export default function StandardMode() {
                         px={layoutConfig.padding}
                         py={layoutConfig.padding}
                         mr={layoutConfig.margin}
+                        whiteSpace="normal"
+                        textAlign="center"
                     >
                         {label}
                     </Button>

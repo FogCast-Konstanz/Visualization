@@ -48,7 +48,10 @@ const en = {
         forecast: "Forecast",
         currentWeather: "Current Weather",
         next2Days: "Next 2 Days",
-        next14Days: "Next 14 Days"
+        next14Days: "Next 14 Days",
+        standard: "Standard",
+        advanced: "Advanced",
+        sailor: "Sailor"
     },
 
     sailorPage: {
