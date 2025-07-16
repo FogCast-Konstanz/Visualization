@@ -45,7 +45,6 @@ export default function WaterLevelTab({ isActive }: { isActive: boolean }) {
         const waterLevelHistory = await fetchWaterLevelHistory(new Date("2017-01-01 00:00:00"), new Date())
         // const waterLevelDataHistory = parseActualRequestToPlotlyXYFormat(waterLevelHistory)
         setWaterLevelHistory(highlightingAndAverage(parseActualRequestToPlotlyXYFormatYearWise(waterLevelHistory, ''), ['2025', '2023', '2000'], graphcolors))
-
     }
 
     return (

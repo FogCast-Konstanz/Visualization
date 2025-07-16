@@ -106,6 +106,8 @@ const en = {
     weatherStation: {
         title: "Weather station",
         introduction: "FogCast has its own self-built weather station at the HTWG jetty.",
+        noDataAvailable: "No current data available",
+        graph: "Measurements from the station",
         details: "Details",
         description: `The weather in Constance plays a central role for many people in the region. For students, for example, it is important to know how the climate affects the quality of life on campus. Sailors, on the other hand, depend on precise weather data in order to be able to organise safe and plannable trips on Lake Constance. Tourists also benefit from precise information in order to better organise their stay.
 In order to provide more detailed and localised weather data, a dedicated weather station has been installed at the jetty of the University of Applied Sciences Constance (HTWG). The aim is to go beyond standardised weather reports and provide direct measurements that reflect the specific conditions on the lakeshore.`,

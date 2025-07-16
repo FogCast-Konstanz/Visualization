@@ -105,7 +105,9 @@ const de = {
 
     weatherStation: {
         title: "Wetterstation",
-        introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG. ",
+        noDataAvailable: "Keine aktuellen Daten vorhanden",
+        graph: "Messwerte der Station",
+        introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG.",
         details: "Details",
         description: `Das Wetter in Konstanz spielt für viele Menschen in der Region eine zentrale Rolle. Für Studierende ist es beispielsweise wichtig zu wissen, wie das Wetter wird. Segler wiederum sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchführen zu können. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
 
