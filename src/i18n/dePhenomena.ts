@@ -270,12 +270,64 @@ Dieser Altocumulus-Typ, auch “Föhnfisch” genannt, tritt bei Föhn auf der L
   `
 }
 
+const extremwetter: phenomenaType = {
+    id: 'extremwetter',
+    title: 'Extremwetter',
+    description: 'Am Bodensee treten verschiedene Extremwetterereignisse auf, die mit Starkniederschlägen, Schneestürmen, Hoch- und Niedrigwasser, Stürmen sowie außergewöhnlichen Hitze- oder Kälteperioden verbunden sind. Diese Ereignisse haben teils gravierende Auswirkungen auf Natur, Infrastruktur und Bevölkerung.',
+    content: [
+        {
+            title: "Hochwasser- und Niedrigwasser",
+            text: `
+**Jahrhunderthochwasser 1999**  
+Im Jahr 1999 ereignete sich am Bodensee ein außergewöhnliches [Hochwasser](/phenomena/hochwasser), das nicht nur durch seine Intensität, sondern vor allem auch durch sein sehr frühes Auftreten Aufmerksamkeit erregte. 
+Der Höchststand des Bodenseehochwassers 1999 betrug 564 cm am Pegel Konstanz. Damit war es das vierthöchste [Hochwasser](/phenomena/hochwasser) seit Beginn der Messungen im Jahr 1816. Der bisher höchste registrierte Pegelstand wurde im Jahr 1817 mit 623 cm erreicht, gefolgt von 576 cm im Jahr 1890 und 568 cm im Jahr 1821 (vgl. Ostendorp & Jöhnk, 2003, S. 4).
+Das [Hochwasser](/phenomena/hochwasser) am Bodensee im Jahr 1999 lässt sich im Wesentlichen durch zwei klimatische Faktoren erklären: Zum einen traten im Mai und Anfang Juni im voralpinen und zentralalpinen Raum, dem Haupteinzugsgebiet des Bodensees, intensive Starkniederschläge auf. Zum anderen waren die Temperaturen im Mai deutlich überdurchschnittlich, was zu einer frühen und intensiven Schneeschmelze in den Alpen führte. Das Zusammenwirken dieser beiden Faktoren (Starkniederschläge und zusätzlicher Wasserzufluss durch die Schneeschmelze) führte zu einem außergewöhnlich schnellen und massiven Wasserzufluss in den See (vgl. Ostendorp & Jöhnk, 2003, S. 3).
+
+**Jahrhundertniedrigwasser 2003**  
+Im Jahr 2003 erlebte der Bodensee ein außergewöhnliches Niedrigwasser, das sowohl in seinem Ausmaß als auch in seiner Seltenheit bemerkenswert ist. Bereits im Juni 2003 zeichnete sich ein außergewöhnlich niedriger [Wasserstand](/phenomena/hochwasser) ab. Ende August erreichte der Pegel ein extrem niedriges Niveau, wie es statistisch nur etwa alle 700 Jahre zu erwarten ist. Ursache für den außergewöhnlich niedrigen Wasserstand war die anhaltende Trockenheit und das Ausbleiben von Niederschlägen im Einzugsgebiet des Bodensees. Im Gegensatz zum Hochwasser 1999, das durch Starkniederschläge und Schneeschmelze verursacht wurde, ist das Niedrigwasser 2003 also auf eine lang anhaltende Trockenperiode zurückzuführen (vgl. Ostendorp & Jöhnk, 2003, S. 7-8).`
+        }, {
+            title: "Stürme",
+            text: `**Orkan „Lothar“ (Dezember 1999)**  
+Der Orkan „Lothar“ fegte über Nordfrankreich, Süddeutschland und die Schweiz hinweg und traf auch die Bodenseeregion mit Windgeschwindigkeiten über 150 km/h. Zahlreiche Bäume wurden entwurzelt, Dächer beschädigt und der Bahnverkehr unterbrochen (vgl. Kaiko, 2021)
+
+**Starker Schneesturm (8. Februar 2013)**  
+Eine Fallstudie zu einem Schneesturm am 8. Februar 2013 zeigt, dass der Bodensee selbst zur Bildung intensiver Schneebänder beiträgt. Der See verstärkte durch wärmere Luftmassen über dem Wasser die atmosphärische Instabilität, was zu lokal extremem Schneefall von 36 mm in nur 5 Stunden führte (Vgl. Umek & Gohm, 2016, S. 4687).
+**Sturm „Burglind“ (Januar 2018)**  
+Der Sturm „Burglind“ verursachte massive Schäden an Infrastruktur und führte zu Stromausfällen in Teilen der Bodenseeregion (vgl. Scherrer et al., 2018).
+`
+        }, {
+            title: "Extreme Temperaturen",
+            text: `
+**Seegfrörne 1962/63**  
+Im Winter 1962/63 erlebte Deutschland extreme Kälte mit einer Durchschnittstemperatur von -5,5 °C, wobei der Bodensee vollständig zufror und zur größten natürlichen Eisfläche des Landes wurde. Die sogenannte Seegfrörne setzte früh im November ein, erreichte im Januar ihren Höhepunkt mit Temperaturen unter -20 °C und endete erst im März durch Föhnwetter. Die Eisbildung verlief stufenweise vom flachen Gnadensee bis zum tiefen Obersee, wobei Eisdicken bis zu einem Meter gemessen wurden (vgl. Deutscher Wetterdienst, 2013).
+
+**Hitze und Dürre 2003**  
+Der Sommer 2003 war der bislang heißeste in Deutschland und brachte extreme Temperaturen über 40 Grad, besonders in Süddeutschland. Die Hitze führte zu schwerwiegenden gesundheitlichen Folgen, mehreren Tausend Todesfällen und massiven Problemen durch anhaltende Trockenheit – Flüsse trockneten aus, Ernten verdorrten, und die Binnenschifffahrt kam vielerorts zum Erliegen. Ursache war eine stabile Omega-Wetterlage mit langanhaltendem Hochdruckeinfluss über Mitteleuropa (vgl. WetterOnline, 2013).`
+        }
+    ],
+    sources: `
+*   Deutscher Wetterdienst. (2013). _1962/1963 erlebte Deutschland den kältesten Winter seit 1881_. https://www.dwd.de/DE/presse/pressemitteilungen/DE/2013/20130125_Bodensee.pdf?__blob=publicationFile&v=4
+
+*   Kaiko. (2021, Februar 7). _Orkan Lothar – Schweizer Sturmarchiv_. https://sturmarchiv.ch/index.php?title=19991226_03_Orkan_Lothar
+
+*   Ostendorp, Wolfgang & Joehnk, Klaus. (2003). _Jahrhunderthochwasser 1999 – Jahrhundertniedrigwasser 2003: Seespiegeltrends und Extremwasserstände am Bodensee_. Natur und Mensch, 6, 6-11. https://doi.org/10.13140/2.1.1500.7680
+
+*   Scherrer, S. et al. (2018). _Der Wintersturm Burglind/Eleanor in der Schweiz—MeteoSwiss_. https://www.meteoswiss.admin.ch/services-and-publications/publications/reports-and-bulletins/2018/der-wintersturm-burglind-eleanor-in-der-schweiz.html
+
+*   Umek, L., & Gohm, A. (2016). _Lake and Orographic Effects on a Snowstorm at Lake Constance_. Monthly Weather Review, 144, 4687–4707. https://doi.org/10.1175/MWR-D-16-0032.1
+
+*   WetterOnline. (2013, August 9). _Vor zehn Jahren 40 Grad heiß—Rückblick: Hitzesommer 2003_. https://www.wetteronline.de/extremwetter/vor-zehn-jahren-40-grad-heiss-rueckblick-hitzesommer-2003-2013-08-09-ex
+`
+};
+
+
 export const dePhenomena = {
     phenomena: [
         fog,
         windsysteme,
         hochwasser,
         bergsicht,
-        wolkenbildung
+        wolkenbildung,
+        extremwetter
     ]
 }

@@ -284,6 +284,57 @@ This type of altocumulus, also known as 'Foehn fish', occurs as lenticular patch
   `
 }
 
+const extremwetter: phenomenaType = {
+    id: 'extremwetter',
+    title: 'Extreme weather',
+    description: 'Various extreme weather events occur at Lake Constance, which are associated with heavy precipitation, snowstorms, high and low water, storms and exceptional periods of heat or cold. These events sometimes have a serious impact on nature, infrastructure and the population.',
+    content: [
+        {
+            title: "Flood and low water",
+            text: `
+**Centennial Flood 1999**  
+In 1999, Lake Constance experienced an extraordinaryd [flood](/phenomena/hochwasser), not only because of its intensity, but also because of its very early onset. 
+The maximum level of the 1999 Lake Constance [flood](/phenomena/hochwasser) was 564 cm at the Constance gauge. This was the fourth highest [flood](/phenomena/hochwasser) since measurements began in 1816. The previous highest recorded level was 623 cm in 1817, followed by 576 cm in 1890 and 568 cm in 1821 (cf. Ostendorp & Jöhnk, 2003, p. 4).
+
+The [flooding](/phenomena/hochwasser) of Lake Constance in 1999 can be explained by two main climatic factors: Firstly, in May and early June, intense heavy precipitation occurred in the pre-alpine and central alpine region, the main catchment area of Lake Constance. Secondly, temperatures in May were well above average, leading to early and intensive snowmelt in the Alps. The combination of these two factors (heavy precipitation and additional water inflow due to melting snow) led to an exceptionally rapid and massive inflow of water into the lake (cf. Ostendorp & Jöhnk, 2003, p. 3).
+
+**Lowest water level of the century in 2003**  
+In 2003, Lake Constance experienced an exceptionally [low water level](/phenomena/hochwasser), which was remarkable both in its extent and in its rarity. An exceptionally [low water level](/phenomena/hochwasser) was already evident in June 2003. By the end of August, the water level had reached an extremely low level, which statistically occurs only every 700 years or so. The reason for the exceptionally low water levels was the continuing drought and lack of rainfall in the Lake Constance catchment area. In contrast to the flood of 1999, which was caused by heavy precipitation and snowmelt, the low water level in 2003 was due to a prolonged dry period (cf. Ostendorp & Jöhnk, 2003, pp. 7-8).
+`
+        }, {
+            title: "Storms",
+            text: `**Winter storm „Lothar“ (December 1999)**  
+Hurricane "Lothar" swept across northern France, southern Germany, and Switzerland, hitting the Lake Constance region with wind speeds exceeding 150 km/h. Numerous trees were uprooted, roofs damaged, and rail services disrupted (cf. Kaiko, 2021).
+
+**Heavy Snowstorm (8. February 2013)**  
+A case study of a snowstorm on 8 February 2013 shows that Lake Constance itself contributes to the formation of intense snow bands. The lake increased atmospheric instability due to warmer air masses over the water, leading to locally extreme snowfall of 36 mm in just 5 hours (cf. Umek & Gohm, 2016, p. 4687).
+
+**Storm „Burglind“ (January 2018)**  
+Storm "Burglind" caused severe damage to infrastructure and led to power outages in parts of the Lake Constance region (cf. Scherrer et al., 2018).`
+        }, {
+            title: "Extreme Temperatures",
+            text: `
+**Lake Constance Freeze, Winter 1962/63**  
+In the winter of 1962/63, Germany experienced extreme cold with an average temperature of -5.5 °C, during which Lake Constance completely froze over, forming the country’s largest natural ice surface. The so-called "Seegfrörne" began early in November, peaked in January with temperatures below -20 °C, and lasted until March due to warm Föhn winds. The ice formed progressively, starting from the shallow Gnadensee to the deep Obersee, with ice thicknesses reaching up to one meter (cf. Deutscher Wetterdienst, 2013).
+
+**Heat and Drought, Summer 2003**  
+The summer of 2003 was the hottest ever recorded in Germany, with extreme temperatures above 40°C, especially in southern regions. The heat caused serious health issues, thousands of deaths, and widespread problems due to prolonged drought—rivers dried up, crops failed, and inland shipping came to a standstill in many areas. The cause was a persistent "Omega" weather pattern with a dominant high-pressure system over central Europe (cf. WetterOnline, 2013).`        }
+    ],
+    sources: `
+*   Deutscher Wetterdienst. (2013). _1962/1963 erlebte Deutschland den kältesten Winter seit 1881_. https://www.dwd.de/DE/presse/pressemitteilungen/DE/2013/20130125_Bodensee.pdf?__blob=publicationFile&v=4
+
+*   Kaiko. (2021, Februar 7). _Orkan Lothar – Schweizer Sturmarchiv_. https://sturmarchiv.ch/index.php?title=19991226_03_Orkan_Lothar
+
+*   Ostendorp, Wolfgang & Joehnk, Klaus. (2003). _Jahrhunderthochwasser 1999 – Jahrhundertniedrigwasser 2003: Seespiegeltrends und Extremwasserstände am Bodensee_. Natur und Mensch, 6, 6-11. https://doi.org/10.13140/2.1.1500.7680
+
+*   Scherrer, S. et al. (2018). _Der Wintersturm Burglind/Eleanor in der Schweiz—MeteoSwiss_. https://www.meteoswiss.admin.ch/services-and-publications/publications/reports-and-bulletins/2018/der-wintersturm-burglind-eleanor-in-der-schweiz.html
+
+*   Umek, L., & Gohm, A. (2016). _Lake and Orographic Effects on a Snowstorm at Lake Constance_. Monthly Weather Review, 144, 4687–4707. https://doi.org/10.1175/MWR-D-16-0032.1
+
+*   WetterOnline. (2013, August 9). _Vor zehn Jahren 40 Grad heiß—Rückblick: Hitzesommer 2003_. https://www.wetteronline.de/extremwetter/vor-zehn-jahren-40-grad-heiss-rueckblick-hitzesommer-2003-2013-08-09-ex
+`
+};
+
 
 export const enPhenomena = {
     phenomena: [
@@ -291,6 +342,7 @@ export const enPhenomena = {
         windsysteme,
         hochwasser,
         bergsicht,
-        wolkenbildung
+        wolkenbildung,
+        extremwetter
     ]
 }
