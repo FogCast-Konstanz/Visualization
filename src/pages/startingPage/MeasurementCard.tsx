@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import { layoutConfig, useColor } from '../../components/style';
 
 
-type Input = { measurement: string, value: string, unit: string, icon?: IconType, click?: string }
-export default function MeasurementCard({ measurement, value, unit, icon, click }: Input) {
+type Input = { measurement: string, value: string, name?: string, name2?: string, value2?: string, unit: string, icon?: IconType, click?: string }
+export default function MeasurementCard({ measurement, value, name, name2, value2, unit, icon, click }: Input) {
 
     const navigate = useNavigate();
 
@@ -21,12 +21,13 @@ export default function MeasurementCard({ measurement, value, unit, icon, click 
             flex="1"
             maxW={{ lg: "400px", base: '' }}
         >
-            <CardBody >
+            <CardBody display={"flex"} alignItems={"center"}>
                 <Flex alignItems={"center"} gap={layoutConfig.gap}>
                     {icon && <Icon as={icon} boxSize={10} />}
                     <div>
                         <Heading size={'md'}>{measurement}</Heading>
-                        {value}{unit}
+                        <p>{name? name + ": " : ""}{value}{unit}</p>
+                        {value2 ? <p>{name2? name2 +  ": " : ""}{value2}{unit}</p> : <></>}
                     </div>
                 </Flex>
 

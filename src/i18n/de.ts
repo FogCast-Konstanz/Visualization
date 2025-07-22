@@ -7,9 +7,9 @@ const de = {
     insert: "Mein Name ist {{name}}",
 
     navigation: {
-        models: "Modellvergleich",
+        models: "Vorhersagerückblick",
         station: "Wetterstation",
-        data: "Daten",
+        data: "Historische Daten",
         lexikon: "Lexikon",
         phenomena: "Phänomene",
         home: "Startseite",
@@ -40,7 +40,8 @@ const de = {
         windGusts10m: "Windböen",
         windDirection10m: "Windrichtung",
         pressureMSL: "Luftdruck (NN)",
-        cape: "CAPE (Konvektive Energie)"
+        cape: "CAPE (Konvektive Energie)",
+        lastUpdated: "letztes Update"
     },
 
     startingPage: {
@@ -50,7 +51,7 @@ const de = {
         next2Days: "Nächste 2 Tage",
         next14Days: "Nächste 14 Tage",
         standard: "Standard",
-        advanced: "Fortgeschritten",
+        advanced: "Modelle",
         sailor: "Segler"
     },
 
@@ -73,7 +74,7 @@ const de = {
     },
 
     dataPage: {
-        title: "Daten Darstellung",
+        title: "Historische Daten",
         introduction: "Wie hat sich das Wetter in den letzten Jahren geändert? Welche Entwicklungen der Temperatur gibt es innerhalb eines Jahres? Wie schwankt die Temperatur innerhalb einer Woche? Diese und viele weitere Fragen können auf dieser Seite durch eine viele dargestellte Graphen geklärt werden! Die dargestellten Daten sind gemessene Werte, die vom DWD, OpenMeteo und PegelOnline abgerufen wurden.",
         tempLastYear: "Temperatur im letzten Jahr",
         tempYears: "Temperatur über die Jahre",
@@ -99,7 +100,7 @@ const de = {
     lexicon: deLexicon,
 
     models: {
-        title: "Modellvergleich",
+        title: "Vorhersagerückblick",
         selectValues: "Wähle ein Modell und das Datum aus (oben rechts).",
         introduction: "Analysiere und vergleiche die Vorhersagen von verschiedenen Modellen! \nHier können verschiedene Modelle ausgewählt werden und der [vorhergesagte Zeitpunkt](/lexikon#predictedTime). Infolgedessen werden die [historischen Vorhersagen](/lexikon#timeOfPrediction) für alle ausgewählten Modelle über die Zeit angezeigt.",
         forecastTemp: 'Temperaturvorhersage für {{date}}',

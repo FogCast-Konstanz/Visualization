@@ -31,7 +31,8 @@ export default function AdvancedMode() {
     useEffect(() => {
         fetchForecastsWeatherModels();
 
-        setSearchParams({ models: JSON.stringify(weatherModel), measurements: JSON.stringify(measurements) });
+        const paramUserMode = searchParams.get('userMode');
+        setSearchParams({ models: JSON.stringify(weatherModel), measurements: JSON.stringify(measurements), userMode: '2' });
     }, [weatherModel, measurements]);
 
     async function fetchForecastsWeatherModels() {

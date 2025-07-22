@@ -7,9 +7,9 @@ const en = {
     insert: "My name is {{name}}",
 
     navigation: {
-        models: "Model Comparison",
+        models: "Forecast review",
         station: "Weather Station",
-        data: "Data",
+        data: "Historic Data",
         lexikon: "Lexicon",
         phenomena: "Phenomena",
         home: "Homepage",
@@ -40,7 +40,8 @@ const en = {
         windGusts10m: "Wind Gusts",
         windDirection10m: "Wind Direction",
         pressureMSL: "Pressure (MSL)",
-        cape: "CAPE (Convective Energy)"
+        cape: "CAPE (Convective Energy)",
+        lastUpdated: "last Update"
     },
 
     startingPage: {
@@ -50,7 +51,7 @@ const en = {
         next2Days: "Next 2 Days",
         next14Days: "Next 14 Days",
         standard: "Standard",
-        advanced: "Advanced",
+        advanced: "Models",
         sailor: "Sailor"
     },
 
@@ -73,7 +74,7 @@ const en = {
     },
 
     dataPage: {
-        title: "Data Visualization",
+        title: "Historic Data",
         introduction: "How has the weather changed in recent years? What temperature trends are there within a year? How does the temperature fluctuate within a week? These and many other questions can be answered on this page with the help of many graphs! The displayed data are measured data received from DWD, OpenMeteo and PegelOnline.",
         tempLastYear: "Temperature in the last year",
         tempYears: "Temperature over the years",
@@ -99,7 +100,7 @@ const en = {
     lexicon: enLexicon,
 
     models: {
-        title: "Forecasting",
+        title: "Forecast Review",
         selectValues: "Select date and model. (top right)",
         introduction: "Analyze and compare the predictions of different models! Here, you can select different models and the [predicted time](/lexikon#predictedTime). Consequently, the [historical predictions](/lexikon#timeOfPrediction) for all selected models are displayed over time.",
         forecastTemp: 'Temperature forecast for {{date}}',
