@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Button, Flex } from '@chakra-ui/react'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { OrbitProgress } from 'react-loading-indicators'
@@ -8,9 +8,23 @@ import SelectModels from '../../../components/elements/muiltiSelect/SelectModels
 import PlotlyChart from '../../../components/plotly/DefaultChart'
 import { convertToPlotlyChartFormat, PlotlyChartDataFormat, weekdayAnnotations } from '../../../components/plotly/PlotlyChartFormat'
 import { extractCurrentWeatherForecastHourly, fetchCurrentForecast, weatherDataOptions } from '../../../components/requests/currentForecacstBackend'
-import { layoutConfig } from '../../../components/style'
+import { layoutConfig, useColor } from '../../../components/style'
 import { toUtcPlotlyIsoString } from '../../../components/time'
 import DataSource from '../../impressum/DataSource'
+
+type Preset = {
+    name: string,
+    models: string[],
+    measurements: string[]
+};
+
+const defaultPresets: Preset[] = [
+    { name: 'Standard', models: ['icon_d2'], measurements: ['apparent_temperature'] },
+    { name: 'MultiModel Temp', models: ['icon_d2', 'gfs_global'], measurements: ['apparent_temperature', 'temperature_2m'] },
+    { name: 'Full Wind View', models: ['icon_d2'], measurements: ['wind_direction_10m', 'wind_gusts_10m', 'apparent_temperature'] }
+];
+
+const LOCAL_STORAGE_KEY = 'customPresets';
 
 
 export default function AdvancedMode() {
@@ -24,14 +38,39 @@ export default function AdvancedMode() {
     const [weekdays, setWeekdays] = useState<any | null>(null)
     const [isDay, setIsDay] = useState<{ x: string[], y: number[] }>({ x: [], y: [] });
 
+    const [customPresets, setCustomPresets] = useState<Preset[]>([]);
+
+    useEffect(() => {
+        const savedPresets = localStorage.getItem(LOCAL_STORAGE_KEY);
+        if (savedPresets) {
+            try {
+                setCustomPresets(JSON.parse(savedPresets));
+            } catch { }
+        }
+    }, []);
+
+    function saveCurrentAsPreset() {
+        const name = prompt('Preset name:');
+        if (!name) return;
+
+        const newPreset: Preset = {
+            name,
+            models: weatherModel,
+            measurements
+        };
+
+        const updatedPresets = [...customPresets, newPreset];
+        setCustomPresets(updatedPresets);
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedPresets));
+    }
+
+
     useEffect(() => {
 
     }, [])
 
     useEffect(() => {
         fetchForecastsWeatherModels();
-
-        const paramUserMode = searchParams.get('userMode');
         setSearchParams({ models: JSON.stringify(weatherModel), measurements: JSON.stringify(measurements), userMode: '2' });
     }, [weatherModel, measurements]);
 
@@ -70,9 +109,25 @@ export default function AdvancedMode() {
 
     return (
         <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }} gap={layoutConfig.gap} height={'calc(100vh - 100px)'} overflow='hidden' overflowY={'scroll'}>
+
+            
+
+            {/* Select the models and parameters */}
             <Flex gap={layoutConfig.gap}>
                 <SelectModels selectModels={weatherModel} setSelectModels={setWeatherModel}></SelectModels>
                 <SelectParameter select={measurements} setSelect={setMeasurement} measurements={weatherDataOptions}></SelectParameter>
+                <Button onClick={saveCurrentAsPreset} background={useColor('primary')} _hover={{background: useColor('background')}}> + Save</Button>
+            </Flex>
+
+            <Flex gap="10px" wrap="wrap" alignItems="center">
+                {[...defaultPresets, ...customPresets].map((preset, idx) => (
+                    <Button key={idx} 
+                        onClick={() => {
+                            setWeatherModel(preset.models);
+                            setMeasurement(preset.measurements);
+                        }}
+                    >{preset.name}</Button>
+                ))}
             </Flex>
 
             <Flex gap="10px" direction='column'>
