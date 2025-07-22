@@ -1,4 +1,4 @@
-import { Card, CardBody, CardHeader, Flex, Heading } from '@chakra-ui/react';
+import { Button, Card, CardBody, CardHeader, Flex, Heading } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { OrbitProgress } from 'react-loading-indicators';
@@ -15,6 +15,27 @@ import { toUtcIsoString, toUtcPlotlyIsoString } from '../../components/time';
 import DataSource from '../impressum/DataSource';
 import ConfigurationForRequest from './ConfigurationForRequest';
 
+type ModelPreset = {
+    name: string,
+    models: string[],
+    measurements: string[]
+};
+
+const DEFAULT_PRESETS: ModelPreset[] = [
+    {
+        name: 'Temp ICON D2',
+        models: ['icon_d2'],
+        measurements: ['apparent_temperature', 'temperature_2m']
+    },
+    {
+        name: 'Wind Overview',
+        models: ['icon_d2'],
+        measurements: ['wind_speed_10m', 'wind_gusts_10m', 'wind_direction_10m'],
+    }
+];
+
+const STORAGE_KEY = 'modelPagePresets';
+
 export default function ModelsPage() {
     const { i18n, t } = useTranslation()
 
@@ -30,6 +51,33 @@ export default function ModelsPage() {
     const [weekdays, setWeekdays] = useState<any | null>(null)
 
     const loadingColor = useColor('primary');
+
+    const [customPresets, setCustomPresets] = useState<ModelPreset[]>([]);
+
+    useEffect(() => {
+        const stored = localStorage.getItem(STORAGE_KEY);
+        if (stored) {
+            try {
+                setCustomPresets(JSON.parse(stored));
+            } catch { }
+        }
+    }, []);
+
+
+    function saveCurrentPreset() {
+        const name = prompt('Preset name:');
+        if (!name) return;
+
+        const newPreset: ModelPreset = {
+            name,
+            models: selectedModels,
+            measurements: selectedMeasurement
+        };
+
+        const updated = [...customPresets, newPreset];
+        setCustomPresets(updated);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+    }
 
     useEffect(() => { setModels() }, [selectedModels])
     useEffect(() => { setModels() }, [selectedDatetime])
@@ -146,6 +194,23 @@ export default function ModelsPage() {
                     <ReactMarkdown children={t('models.introduction')} remarkPlugins={[remarkGfm]} />
                 </CardBody>
             </Card>
+
+            <Flex gap="10px" wrap="wrap" alignItems="center">
+                {[...DEFAULT_PRESETS, ...customPresets].map((preset, idx) => (
+                    <Button
+                        key={idx}
+                        onClick={() => {
+                            const now = new Date();
+                            now.setMinutes(0, 0, 0);
+                            const nowUtc = toUtcIsoString(now).slice(0, 16);
+
+                            setSelectedModels(preset.models);
+                            setSelectedMeasurement(preset.measurements);
+                            setSelectedDatetime(nowUtc);
+                        }} > {preset.name} </Button>
+                ))}
+                <Button onClick={saveCurrentPreset}> + Save </Button>
+            </Flex>
 
             <Flex gap="10px" direction='column'>
                 {forecastData ?

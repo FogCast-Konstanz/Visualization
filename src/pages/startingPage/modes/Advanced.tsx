@@ -75,7 +75,6 @@ export default function AdvancedMode() {
     }, [weatherModel, measurements]);
 
     async function fetchForecastsWeatherModels() {
-
         let newData: { [key: string]: PlotlyChartDataFormat[] } = {};
         let is_day = null;
 
