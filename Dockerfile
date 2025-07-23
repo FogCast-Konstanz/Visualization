@@ -1,21 +1,31 @@
-FROM node:22 AS build-stage
+FROM node:22-alpine AS build-stage
 
 WORKDIR /app
-COPY package.json .
 
-RUN npm install
+# Copy package files first for better caching
+COPY package.json package-lock.json* ./
+
+# Install dependencies (this layer will be cached if package.json doesn't change)
+RUN npm ci --only=production --silent && npm cache clean --force
+RUN npm install esbuild@latest
+
+# Copy source code
 COPY . .
 
-RUN npm install esbuild@latest
+# Build the application
 RUN npm run build
 
 # Start the NginX Application and docker service
-FROM nginx:latest
+FROM nginx:alpine
 
-COPY --from=build-stage /app/dist /usr/share/nginx/
-RUN chmod -R 755 /usr/share/nginx/
+# Copy built files from build stage
+COPY --from=build-stage /app/dist /usr/share/nginx/html/
+RUN chmod -R 755 /usr/share/nginx/html/
 
+# Copy nginx configuration
 RUN rm /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/conf.d
+COPY nginx.conf /etc/nginx/conf.d/
+
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
