@@ -11,6 +11,17 @@ export default defineConfig({
             usePolling: true,
         },
     },
+    define: {
+        global: 'globalThis',
+    },
+    resolve: {
+        alias: {
+            buffer: 'buffer',
+            process: 'process/browser',
+            stream: 'stream-browserify',
+            assert: 'assert',
+        },
+    },
     build: {
         outDir: 'dist',
         target: 'esnext',
@@ -34,7 +45,7 @@ export default defineConfig({
     },
     // Optimize dependency pre-bundling
     optimizeDeps: {
-        include: ['react', 'react-dom', 'plotly.js', '@chakra-ui/react'],
+        include: ['react', 'react-dom', 'plotly.js', '@chakra-ui/react', 'buffer', 'process', 'stream-browserify', 'assert'],
         exclude: ['three']
     }
 })
