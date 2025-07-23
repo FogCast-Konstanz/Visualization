@@ -182,7 +182,7 @@ export default function StandardMode() {
                         </>
                         :
                         <>
-                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf} click='temperatur' popoverText={t('infos.temperature')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf} popoverText={t('infos.temperature')}></MeasurementCard>
                             <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity} popoverText={t('infos.humidity')}></MeasurementCard>
                             <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel'  popoverText={t('infos.waterLevel')}></MeasurementCard>
                             <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}  popoverText={t('infos.windSpeed')}></MeasurementCard>

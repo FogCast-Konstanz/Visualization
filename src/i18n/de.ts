@@ -171,14 +171,14 @@ Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingung
 
     infos : {
         'temperature': 'Daten vom [DWD](/impressum#dwdSource)',
-        'temperatureStation': '',
+        'temperatureStation': 'Data',
         'temperatureBoth': 'Daten von der [Wetterstation](/weatherstation) in Konstanz und vom [DWD](/impressum#dwdSource)',
-        'humidity': '',
-        'humidityStation': '',
-        'humidityBoth': '',
-        'waterLevel': '',
-        'waterTemp': '',
-        'windSpeed': ''
+        'humidity': 'Data',
+        'humidityStation': 'Data',
+        'humidityBoth': 'Data',
+        'waterLevel': 'Data',
+        'waterTemp': 'Data',
+        'windSpeed': 'Data'
     },
 
     cookies: {

@@ -13,42 +13,48 @@ export default function MeasurementCard({ measurement, value, name, name2, value
     const { t } = useTranslation()
 
     return (
-        <Card
-            bg={useColor('background')}
-            color={useColor('text')} width='100%'
-            borderRadius={layoutConfig.borderRadius}
-            cursor={click ? 'pointer' : 'default'}
-            _hover={click ? { transform: 'scale(1.02)', transition: '0.2s' } : {}}
-            onClick={click ? () => navigate('/data?tab=' + click) : () => { }}
-            minW="250px"
-            flex="1"
-            maxW={{ lg: "400px", base: '' }}
-        >
-            <CardBody display={"flex"} alignItems={"center"}>
-                <Popover trigger="hover" openDelay={1000}>
-                    <PopoverTrigger>
+
+        <Popover trigger="click" openDelay={1000} >
+            <PopoverTrigger >
+                <Card
+                    bg={useColor('background')}
+                    color={useColor('text')} width='100%'
+                    borderRadius={layoutConfig.borderRadius}
+                    cursor={popoverText ? 'pointer' : 'default'}
+                    _hover={popoverText ? { transform: 'scale(1.02)', transition: '0.2s' } : {}}
+                    // onClick={click ? () => navigate('/data?tab=' + click) : () => { }}
+                    minW="250px"
+                    flex="1"
+                    maxW={{ lg: "400px", base: '' }}
+                >
+                    <CardBody display={"flex"} alignItems={"center"}>
                         <Flex alignItems={"center"} gap={layoutConfig.gap}>
                             {icon && <Icon as={icon} boxSize={10} />}
                             <div>
                                 <Heading size={'md'}>{measurement}</Heading>
-                                {name && <Text>{name}: {value}{unit}</Text>}
-                                {value2 && <Text>{name2 && name2 + ": "}{value2}{unit}</Text>}
+                                <Text>{name ? name + ": " : ""}{value}{unit}</Text>
+                                {value2 ? <Text>{name2 ? name2 + ": " : ""}{value2}{unit}</Text> : <></>}
                             </div>
                         </Flex>
-                    </PopoverTrigger>
+                    </CardBody>
+                </Card>
+            </PopoverTrigger >
 
-                    {popoverText ?
-                        <PopoverContent bg={useColor('surface')}
-                            color={useColor('text')}
-                            maxW="250px"
-                            p={2}>
-                            <PopoverArrow bg={useColor('surface')} />
-                            <ReactMarkdown children={popoverText} />
-                        </PopoverContent>
-                        : <></>}
-                </Popover>
+            {
+                popoverText ?
+                    <PopoverContent bg={useColor('surface')}
+                        _focus={{ outline: 'none', boxShadow: 'none' }}
+                        _focusVisible={{ outline: 'none', boxShadow: 'none' }}
+                        color={useColor('text')}
+                        maxW="250px"
+                        p={2}>
+                        <PopoverArrow bg={useColor('surface')} />
+                        <ReactMarkdown children={popoverText} />
+                    </PopoverContent>
+                    : <></>
+            }
+        </Popover >
 
-            </CardBody>
-        </Card>
+
     )
 }
