@@ -19,8 +19,8 @@ RUN npm run build
 FROM nginx:alpine
 
 # Copy built files from build stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html/
-RUN chmod -R 755 /usr/share/nginx/html/
+COPY --from=build-stage /app/dist /usr/share/nginx/
+RUN chmod -R 755 /usr/share/nginx/
 
 # Copy nginx configuration
 RUN rm /etc/nginx/conf.d/default.conf
