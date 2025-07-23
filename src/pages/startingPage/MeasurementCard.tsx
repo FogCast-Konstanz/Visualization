@@ -1,13 +1,16 @@
-import { Card, CardBody, Flex, Heading, Icon } from "@chakra-ui/react";
+import { Box, Card, CardBody, Flex, Heading, Icon, Popover, PopoverArrow, PopoverContent, PopoverTrigger, Text, Tooltip } from "@chakra-ui/react";
 import { IconType } from "react-icons/lib";
 import { useNavigate } from "react-router-dom";
 import { layoutConfig, useColor } from '../../components/style';
+import { useTranslation } from "react-i18next";
 
+import ReactMarkdown from 'react-markdown';
 
-type Input = { measurement: string, value: string, name?: string, name2?: string, value2?: string, unit: string, icon?: IconType, click?: string }
-export default function MeasurementCard({ measurement, value, name, name2, value2, unit, icon, click }: Input) {
+type Input = { measurement: string, value: string, name?: string, name2?: string, value2?: string, unit: string, icon?: IconType, click?: string, popoverText?: string }
+export default function MeasurementCard({ measurement, value, name, name2, value2, popoverText, unit, icon, click }: Input) {
 
     const navigate = useNavigate();
+    const { t } = useTranslation()
 
     return (
         <Card
@@ -22,14 +25,28 @@ export default function MeasurementCard({ measurement, value, name, name2, value
             maxW={{ lg: "400px", base: '' }}
         >
             <CardBody display={"flex"} alignItems={"center"}>
-                <Flex alignItems={"center"} gap={layoutConfig.gap}>
-                    {icon && <Icon as={icon} boxSize={10} />}
-                    <div>
-                        <Heading size={'md'}>{measurement}</Heading>
-                        <p>{name? name + ": " : ""}{value}{unit}</p>
-                        {value2 ? <p>{name2? name2 +  ": " : ""}{value2}{unit}</p> : <></>}
-                    </div>
-                </Flex>
+                <Popover trigger="hover" openDelay={1000}>
+                    <PopoverTrigger>
+                        <Flex alignItems={"center"} gap={layoutConfig.gap}>
+                            {icon && <Icon as={icon} boxSize={10} />}
+                            <div>
+                                <Heading size={'md'}>{measurement}</Heading>
+                                {name && <Text>{name}: {value}{unit}</Text>}
+                                {value2 && <Text>{name2 && name2 + ": "}{value2}{unit}</Text>}
+                            </div>
+                        </Flex>
+                    </PopoverTrigger>
+
+                    {popoverText ?
+                        <PopoverContent bg={useColor('surface')}
+                            color={useColor('text')}
+                            maxW="250px"
+                            p={2}>
+                            <PopoverArrow bg={useColor('surface')} />
+                            <ReactMarkdown children={popoverText} />
+                        </PopoverContent>
+                        : <></>}
+                </Popover>
 
             </CardBody>
         </Card>

@@ -16,14 +16,12 @@ export default function DataSource({openMeteoText, dwdText, pegelOnlineText, lub
                 transform="translateX(-50%)"
                 color={useColor('text')}
             >
-                <p>
                 {t('impressum.dataFrom')}
                 {openMeteoText ? <> <Link href='/impressum#openMeteoSource'>OpenMeteo</Link>({openMeteoText}) </> : <></>}
                 {dwdText ? <> <Link href='/impressum#dwdSource'>DWD</Link> ({dwdText}) </>: <></>}
                 {pegelOnlineText ? <> <Link href='/impressum#pegelOnlineSource'>Pegelonline</Link> ({pegelOnlineText})</>: <></>}
                 {/* {t('impressum.and')} */}
                 {lubwText ? <> <Link href='/impressum#lubwSource'>LUBW</Link> ({lubwText})</>: <></>}
-                </p>
             </Text>
         </Box>
     )

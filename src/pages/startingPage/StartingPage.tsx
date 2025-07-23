@@ -22,12 +22,12 @@ export default function StartingPage() {
     const [userMode, setUserMode] = useState<number>(initialMode);
 
     useEffect(() => {
-        if (!isNaN(paramUserMode)) {
+        if (paramUserMode != 0) {
             setUserMode(paramUserMode);
             // setSearchParams({ userMode: String(paramUserMode) });
         } else {
             setUserMode(storedUserMode);
-            // setSearchParams({ userMode: String(storedUserMode) });
+            setSearchParams({ userMode: String(storedUserMode) });
         }
     }, []);
 
@@ -60,9 +60,9 @@ export default function StartingPage() {
                 />
             </Flex>
 
-            {userMode === 1 ? <StandardMode /> :
+            {userMode === 3 ? <SailorMode /> :
                 userMode === 2 ? <AdvancedMode /> :
-                    <SailorMode />}
+                    <StandardMode />}
         </Flex>
     );
 }

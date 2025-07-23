@@ -174,18 +174,18 @@ export default function StandardMode() {
                 {currentWeather ?
                     currentStationWeather ?
                         <>
-                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} name={'DWD'} name2={'Station'} value2={String(currentStationWeather['temperature'])} unit='°C' icon={FaTemperatureHalf} click='temperatur'></MeasurementCard>
-                            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} name={'DWD'} name2={'Station'} value2={String(currentStationWeather['humidity'])} unit='%' icon={WiHumidity}></MeasurementCard>
-                            <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel'></MeasurementCard>
-                            <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
-                            <MeasurementCard measurement={t('data.waterTemp')} value={String(Math.round((currentStationWeather['water_temperature']) * 100) / 100)} unit='°C' icon={FaWater} click='waterLevel' />
+                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} name={'DWD'} name2={'Station'} value2={String(currentStationWeather['temperature'])} unit='°C' icon={FaTemperatureHalf} click='temperatur' popoverText={t('infos.temperatureBoth')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} name={'DWD'} name2={'Station'} value2={String(currentStationWeather['humidity'])} unit='%' icon={WiHumidity} popoverText={t('infos.humidity')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel' popoverText={t('infos.waterLevel')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill} popoverText={t('infos.windspeed')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.waterTemp')} value={String(Math.round((currentStationWeather['water_temperature']) * 100) / 100)} unit='°C' icon={FaWater} click='waterLevel' popoverText={t('infos.waterTemp')} />
                         </>
                         :
                         <>
-                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf} click='temperatur'></MeasurementCard>
-                            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
-                            <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel'></MeasurementCard>
-                            <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf} click='temperatur' popoverText={t('infos.temperature')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity} popoverText={t('infos.humidity')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel'  popoverText={t('infos.waterLevel')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}  popoverText={t('infos.windSpeed')}></MeasurementCard>
                         </>
                     : <OrbitProgress color={loadingColor} size="medium" />
                 }
