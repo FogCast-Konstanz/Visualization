@@ -97,6 +97,11 @@ const en = {
         sources: "Sources"
     },
 
+    lexiconPage: {
+        title: "Lexicon",
+        introduction: "This collection contains essential explanations and notes regarding weather, forecasts, and related information. The content is structured to allow targeted searches for specific entries or filtering by tags.",
+    },
+
     lexicon: enLexicon,
 
     models: {

@@ -6,19 +6,39 @@ import remarkGfm from 'remark-gfm'
 import { layoutConfig, useColor } from '../../components/style'
 import LexikonEntry from './LexikonEntry'
 import SearchFilterBar from './SearchFilterBar'
-
+import { deLexicon } from '../../i18n/deLexicon'
 
 export default function Lexikon() {
     const [hash, setHash] = useState('')
 
     const { t } = useTranslation()
 
-    const lexikonEntries = [
-        { header: t('lexicon.predictedTime.title'), text: t('lexicon.predictedTime.text'), tags: ['prediction'], id: 'predictedTime' },
-        { header: t('lexicon.timeOfPrediction.title'), text: t('lexicon.timeOfPrediction.text'), tags: ['prediction'], id: 'timeOfPrediction' },
-        { header: t('lexicon.benchmarkingIdea.title'), text: t('lexicon.benchmarkingIdea.text'), tags: ['prediction', 'benchmarking'], id: 'benchmarkingIdea' },
-        { header: t('lexicon.metaForecasting.title'), text: t('lexicon.metaForecasting.text'), tags: ['prediction', 'forecasting'], id: 'metaforecasting' },
-    ]
+    // const lexikonEntries = [
+    //     { header: t('lexicon.predictedTime.title'), text: t('lexicon.predictedTime.text'), tags: ['prediction'], id: 'predictedTime' },
+    //     { header: t('lexicon.timeOfPrediction.title'), text: t('lexicon.timeOfPrediction.text'), tags: ['prediction'], id: 'timeOfPrediction' },
+    //     { header: t('lexicon.benchmarkingIdea.title'), text: t('lexicon.benchmarkingIdea.text'), tags: ['prediction', 'benchmarking'], id: 'benchmarkingIdea' },
+    //     { header: t('lexicon.metaForecasting.title'), text: t('lexicon.metaForecasting.text'), tags: ['prediction', 'forecasting'], id: 'metaforecasting' },
+    //     { header: t('lexicon.fogDays.title'), text: t('lexicon.fogDays.text'), tags: ['weather'], id: 'fogDays' },
+    // ]
+
+    const lexiconKeys = [
+        'predictedTime',
+        'timeOfPrediction',
+        'benchmarkingIdea',
+        'metaForecasting',
+        'fogDays',
+    ] as const
+
+    const lexiconRaw = t('lexicon', { returnObjects: true }) as any
+    console.log(Object.keys(lexiconRaw))
+
+    const lexikonEntries = lexiconKeys.map((id) => ({
+        id,
+        header: t(`lexicon.${id}.title`),
+        text: t(`lexicon.${id}.text`),
+        tags: t(`lexicon.${id}.tags`, { returnObjects: true }) as string[],
+    }))
+    console.log(lexikonEntries)
 
     const [selectedTag, setSelectedTag] = useState("");
     const [searchQuery, setSearchQuery] = useState("");
@@ -47,6 +67,7 @@ export default function Lexikon() {
             setHash(window.location.hash.substring(1));
         };
 
+        console.log(lexikonEntries)
         window.addEventListener('hashchange', handleUrlChange);
 
         return () => {
@@ -69,7 +90,7 @@ export default function Lexikon() {
                     width={'100%'}>
                     <CardHeader pb={'0px'}>
                         <Flex alignItems='center' justifyContent='space-between'>
-                            <Heading flex={2}>{t('lexicon.title')}</Heading>
+                            <Heading flex={2}>{t('lexiconPage.title')}</Heading>
                             <SearchFilterBar
                                 searchQuery={searchQuery}
                                 setSearchQuery={setSearchQuery}
@@ -80,7 +101,7 @@ export default function Lexikon() {
                         </Flex>
                     </CardHeader>
                     <CardBody>
-                        <ReactMarkdown children={t('lexicon.introduction')} remarkPlugins={[remarkGfm]} />
+                        <ReactMarkdown children={t('lexiconPage.introduction')} remarkPlugins={[remarkGfm]} />
                     </CardBody>
                 </Card>
 

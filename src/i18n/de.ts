@@ -100,6 +100,11 @@ const de = {
         sources: "Quellen"
     },
 
+    lexiconPage: {
+        title: "Lexikon",
+        introduction: "Diese Sammlung enthält wesentliche Erklärungen und Hinweise zu Wetter, Vorhersagen und verwandten Themen. Der Inhalt ist strukturiert, sodass Einträge gezielt über die Suchfunktion gefunden oder anhand von Tags gefiltert werden können.",
+    },
+
     lexicon: deLexicon,
 
     models: {

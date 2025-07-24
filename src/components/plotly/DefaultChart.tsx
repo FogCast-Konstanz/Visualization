@@ -1,4 +1,4 @@
-import { useTheme } from "@chakra-ui/react";
+import { Box, Flex, Text, Tooltip, useTheme } from "@chakra-ui/react";
 import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
@@ -20,13 +20,15 @@ interface PlotlyChartProps {
     dateFormat?: 'standard' | 'year' | 'month' | 'day' | 'monthOnly'
 
     isDay?: { x: string[]; y: number[] }
-    movingShape?: { left: string, right: string }
+    movingShape?: { left: string, right: string },
+
+    tooltip?: string
 }
 
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, isDay, movingShape, dateFormat }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, isDay, movingShape, dateFormat, tooltip }) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -68,12 +70,12 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
         plot_bgcolor: plotBgColor, // Background of the plot area
         paper_bgcolor: paperBgColor, // Background of the whole chart
         font: { family: "Arial, sans-serif", color: textColor }, // Font styles
-        title: {
-            text: title,
-            font: {
-                weight: 'bold', // Make it bold
-            },
-        },
+        // title: {
+        //     text: title,
+        //     font: {
+        //         weight: 'bold', // Make it bold
+        //     },
+        // },
         xaxis: {
             gridcolor: gridColor, // Light gridlines
             zerolinecolor: "#888",
@@ -105,7 +107,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
             side: "right",
             // range: [0, null]
         } : {},
-        margin: { l: 50, r: 40, t: 60, b: 0 }, // Adjust margins
+        margin: { l: 50, r: 40, t: 0, b: 0 }, // Adjust margins
         legend: {
             x: 0,
             y: -0.2,
@@ -212,7 +214,19 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
     }, [customLayout, isDay, showNow, movingShape]);
 
     return (
-        <div style={{ borderRadius: layoutConfig.borderRadius, overflow: "hidden", width: "100%" }}>
+        <Flex direction="column" backgroundColor={paperBgColor} borderRadius={layoutConfig.borderRadius} width={'100%'} style={{ overflow: "hidden", width: "100%" }}>
+            <Tooltip label={tooltip ? tooltip : ''} bg={useColor('surface')} color={useColor('text')} hasArrow>
+                <Text
+                    fontSize="lg"
+                    fontWeight="bold"
+                    align={'center'}
+                    // _hover={{ color: 'blue.500', cursor: 'pointer' }}
+                    // title="Tooltip text here"
+                    margin={'10px'}
+                >
+                    {title}
+                </Text>
+            </Tooltip>
             <Plot
                 data={data}
                 layout={layout}
@@ -255,7 +269,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
                         },]
                 }}
             />
-        </div>
+        </Flex>
     );
 };
 
