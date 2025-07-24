@@ -87,13 +87,30 @@ export default function AdvancedMode() {
         let is_day_data: any = null;
 
         const forecasts = await Promise.all(weatherModel.map(model => fetchCurrentForecast(model)));
-        const firstForecast = forecasts[0];
+        // 1. Find the forecast array with the most entries (longest period)
+        let leadForecast = forecasts[0];
+        let leadForecastModelName = weatherModel[0];
+        let maxTimeSteps = leadForecast.length;
+        let leadIndex = 0
 
-        if (firstForecast) {
-            is_day_data = extractCurrentWeatherForecastHourly(firstForecast, 'is_day', 'is_day');
+        forecasts.forEach((currentForecast, index) => {
+            if (currentForecast.length > maxTimeSteps) {
+                maxTimeSteps = currentForecast.length;
+                leadForecast = currentForecast;
+                leadForecastModelName = weatherModel[index];
+                leadIndex = index
+            }
+        });
+
+        forecasts[leadIndex] = forecasts[0]
+        forecasts[0] = leadForecast
+
+        // 2. Use the "lead" forecast (the longest array) to set up the time-based annotations
+        if (leadForecast) {
+            is_day_data = extractCurrentWeatherForecastHourly(leadForecast, 'is_day', 'is_day');
             setIsDay({ x: is_day_data.x.map((time: any) => toUtcPlotlyIsoString(time)), y: is_day_data.y });
 
-            const timeData = extractCurrentWeatherForecastHourly(firstForecast, measurements[0], weatherModel[0]);
+            const timeData = extractCurrentWeatherForecastHourly(leadForecast, measurements[0], leadForecastModelName);
             setWeekdays(weekdayAnnotations(timeData.x, true, i18n.language));
         }
 
