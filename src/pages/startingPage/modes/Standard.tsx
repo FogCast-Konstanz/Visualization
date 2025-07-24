@@ -10,9 +10,9 @@ import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataForm
 import { fetchActualWeather } from '../../../components/requests/actualBackend'
 import { extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
 import { convertCodesAndIsDaysToAscii } from '../../../components/requests/mapWeatherCodes'
+import { fetchCurrentStationData, StationResponseFormat } from '../../../components/requests/stationBackend'
 import { layoutConfig, useColor } from '../../../components/style'
 import { toUtcPlotlyIsoString } from '../../../components/time'
-import DataSource from '../../impressum/DataSource'
 import ForcastCard from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
 
@@ -29,6 +29,7 @@ export default function StandardMode() {
 
     const [cloudData, setCloudData] = useState<PlotlyChartDataFormat[] | null>(null)
 
+    const [currentStationWeather, setCurrentStationWeather] = useState<StationResponseFormat | null>(null)
     const [currentWeather, setCurrentWeather] = useState<Record<string, string>>({})
     const [weekdays, setWeekdays] = useState<any | null>(null)
 
@@ -49,6 +50,7 @@ export default function StandardMode() {
     useEffect(() => {
         fetchCurrentForecastData();
         fetchActualWeatherData();
+        fetchStationWeatherData();
         handleScroll();
     }, [requestDuration])
 
@@ -65,6 +67,17 @@ export default function StandardMode() {
         }, {} as Record<string, string>);
 
         setCurrentWeather(reformattedWeather);
+    }
+
+    async function fetchStationWeatherData() {
+        let currentWeather = await fetchCurrentStationData();
+
+        if (currentWeather == null) {
+        } else {
+            setCurrentStationWeather(currentWeather);
+        }
+
+        console.log(currentWeather)
     }
 
     async function fetchCurrentForecastData() {
@@ -157,12 +170,21 @@ export default function StandardMode() {
             <Heading size="md" padding='0px'>{t('startingPage.currentWeather')}</Heading>
             <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }} flexWrap="wrap" justifyContent="center">
                 {currentWeather ?
-                    <>
-                        <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf} click='temperatur'></MeasurementCard>
-                        <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity}></MeasurementCard>
-                        <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel'></MeasurementCard>
-                        <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}></MeasurementCard>
-                    </>
+                    currentStationWeather ?
+                        <>
+                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} name={'DWD'} name2={'Station'} value2={String(currentStationWeather['temperature'])} unit='°C' icon={FaTemperatureHalf} click='temperatur' popoverText={t('infos.temperatureBoth')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} name={'DWD'} name2={'Station'} value2={String(currentStationWeather['humidity'])} unit='%' icon={WiHumidity} popoverText={t('infos.humidity')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel' popoverText={t('infos.waterLevel')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill} popoverText={t('infos.windspeed')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.waterTemp')} value={String(Math.round((currentStationWeather['water_temperature']) * 100) / 100)} unit='°C' icon={FaWater} click='waterLevel' popoverText={t('infos.waterTemp')} />
+                        </>
+                        :
+                        <>
+                            <MeasurementCard measurement={t('data.temperature')} value={currentWeather['temperature']} unit='°C' icon={FaTemperatureHalf} popoverText={t('infos.temperature')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.humidity')} value={String(Math.round((parseFloat(currentWeather['humidity']) * 100) * 100) / 100)} unit='%' icon={WiHumidity} popoverText={t('infos.humidity')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} click='waterLevel'  popoverText={t('infos.waterLevel')}></MeasurementCard>
+                            <MeasurementCard measurement={t('data.windspeed')} value={currentWeather['wind_speed']} unit='km/h' icon={RiWindyFill}  popoverText={t('infos.windSpeed')}></MeasurementCard>
+                        </>
                     : <OrbitProgress color={loadingColor} size="medium" />
                 }
 
@@ -264,8 +286,6 @@ export default function StandardMode() {
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
-
-            <DataSource></DataSource>
         </Flex>
     )
 }

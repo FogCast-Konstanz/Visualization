@@ -7,9 +7,9 @@ const de = {
     insert: "Mein Name ist {{name}}",
 
     navigation: {
-        models: "Modellvergleich",
+        models: "Vorhersagerückblick",
         station: "Wetterstation",
-        data: "Daten",
+        data: "Historische Daten",
         lexikon: "Lexikon",
         phenomena: "Phänomene",
         home: "Startseite",
@@ -40,7 +40,19 @@ const de = {
         windGusts10m: "Windböen",
         windDirection10m: "Windrichtung",
         pressureMSL: "Luftdruck (NN)",
-        cape: "CAPE (Konvektive Energie)"
+        cape: "CAPE (Konvektive Energie)",
+        lastUpdated: "letztes Update"
+    },
+
+    sources: {
+        forecast: "Vorhersagen",
+        waterLevel: "Pegelstände",
+        currentWeather: "aktuelles Wetter",
+        actualWeather: "tatsächliches Wetter",
+        weatherStation: "Wetterstation",
+        historicWeather: "historische Vorhersagen",
+        temperature: "Temperatur",
+        fog: "Nebel"
     },
 
     startingPage: {
@@ -50,7 +62,7 @@ const de = {
         next2Days: "Nächste 2 Tage",
         next14Days: "Nächste 14 Tage",
         standard: "Standard",
-        advanced: "Fortgeschritten",
+        advanced: "Modelle",
         sailor: "Segler"
     },
 
@@ -73,14 +85,17 @@ const de = {
     },
 
     dataPage: {
-        title: "Daten Darstellung",
+        title: "Historische Daten",
         introduction: "Wie hat sich das Wetter in den letzten Jahren geändert? Welche Entwicklungen der Temperatur gibt es innerhalb eines Jahres? Wie schwankt die Temperatur innerhalb einer Woche? Diese und viele weitere Fragen können auf dieser Seite durch eine viele dargestellte Graphen geklärt werden! Die dargestellten Daten sind gemessene Werte, die vom DWD, OpenMeteo und PegelOnline abgerufen wurden.",
-        tempLastYear: "Temperatur im letzten Jahr",
-        tempYears: "Temperatur über die Jahre",
-        tempLastWeek: "Temperatur der letzten Woche",
+        tempLastYear: "mittlere Temperatur im letzten Jahr",
+        tempYears: "mittlere Temperatur über die Jahre",
+        tempLastWeek: "gefühlte Temperatur der letzten Woche",
         fogMonth: "Nebeltage pro Monat",
         fogYear: "Nebeltage pro Jahr ",
+        fogYears: "Nebeltage über die letzten Jahre",
         waterLevelLastMonth: "Wasserstand im letzten Monat",
+        waterLevelLastYear: "Wasserstand im letzten Jahr",
+        waterLevelYears: "Wasserstand über die letzten Jahre",
 
         tempTab: "Temperatur",
         fogTab: "Nebel",
@@ -96,10 +111,15 @@ const de = {
         sources: "Quellen"
     },
 
+    lexiconPage: {
+        title: "Lexikon",
+        introduction: "Diese Sammlung enthält wesentliche Erklärungen und Hinweise zu Wetter, Vorhersagen und verwandten Themen. Der Inhalt ist strukturiert, sodass Einträge gezielt über die Suchfunktion gefunden oder anhand von Tags gefiltert werden können.",
+    },
+
     lexicon: deLexicon,
 
     models: {
-        title: "Modellvergleich",
+        title: "Vorhersagerückblick",
         selectValues: "Wähle ein Modell und das Datum aus (oben rechts).",
         introduction: "Analysiere und vergleiche die Vorhersagen von verschiedenen Modellen! \nHier können verschiedene Modelle ausgewählt werden und der [vorhergesagte Zeitpunkt](/lexikon#predictedTime). Infolgedessen werden die [historischen Vorhersagen](/lexikon#timeOfPrediction) für alle ausgewählten Modelle über die Zeit angezeigt.",
         forecastTemp: 'Temperaturvorhersage für {{date}}',
@@ -166,6 +186,20 @@ Für die technische Umsetzung wurden folgende Komponenten verbaut:
 
 Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingungen der Creative Commons BY 4.0 (CC BY 4.0), Geodaten von Pegelonline unter den Bedingungen der Lizenz DL-DE->Zero-2.0 unter Nennung der Quelle verwendet werden.
 `
+    },
+
+    infos : {
+        'temperature': 'Daten vom [DWD](/impressum#dwdSource)',
+        'temperatureStation': 'Data',
+        'temperatureBoth': 'Daten von der [Wetterstation](/weatherstation) in Konstanz und vom [DWD](/impressum#dwdSource)',
+        'humidity': 'Data',
+        'humidityStation': 'Data',
+        'humidityBoth': 'Data',
+        'waterLevel': 'Data',
+        'waterTemp': 'Data',
+        'windSpeed': 'Data',
+
+        'fogDays': 'Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).'
     },
 
     cookies: {

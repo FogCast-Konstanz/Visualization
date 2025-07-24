@@ -43,6 +43,7 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
             width={'100%'}
             marginTop={'5px'}
             id={id}
+            className='markdown'
         >
             {/* <CardHeader onClick={() => toggleCard()} borderBottomColor={useColor('background')} borderBottom={shown ? "1px solid" : ""} paddingBottom={shown ? layoutConfig.padding : ""}> */}
             <CardHeader onClick={() => toggleCard()}>

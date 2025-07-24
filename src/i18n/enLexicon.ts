@@ -1,13 +1,13 @@
 export const enLexicon = {
-    title: "Lexicon",
-    introduction: "Lorem ipsum",
     predictedTime: {
         title: 'Predicted time',
-        text: 'Time to which the prediction refers, i.e. at which the predicted value should occur. For example: On 24/02/2025 at 12:00 it should be 12°C. In this case, "24/12/2025 at 12 noon" is the predicted time.'
+        text: 'Time to which the prediction refers, i.e. at which the predicted value should occur. For example: On 24/02/2025 at 12:00 it should be 12°C. In this case, "24/12/2025 at 12 noon" is the predicted time.',
+        tags: ['prediction']
     },
     timeOfPrediction: {
         title: 'Time of the prediction',
-        text: 'Time at which the prediction was "published/created". For example, a prediction for 24/02/2025 is created on 12/02/2025. "12/02/2025" is the time of the prediction and "24/05/2025" is the [predicted time](#predictedTime).'
+        text: 'Time at which the prediction was "published/created". For example, a prediction for 24/02/2025 is created on 12/02/2025. "12/02/2025" is the time of the prediction and "24/05/2025" is the [predicted time](#predictedTime).',
+        tags: ['prediction']
     },
     benchmarkingIdea: {
         title: 'Numeric Benchmarks for Weathermodels',
@@ -38,7 +38,9 @@ In the simplest version, benchmarks can be calculated and saved using a handful 
 ### Interpretation of results
 
 The practical application of the benchmark system is carried out via script sequences that enable an automated daily comparison of model performance. These can be viewed via the web interface. The benchmark scores can also be used, for example, to weight the statements of individual models based on their average historical benchmark scores when merging models.
-`    },
+`,
+        tags: ['prediction', 'benchmarking']
+    },
     metaForecasting: {
         title: "Meta Forecasting",
         text: `
@@ -64,6 +66,12 @@ Meta-forecasts offer a wide range of extension possibilities to improve the qual
 ### Interpreting the results
 
 Interpretation of meta-forecast results requires a thorough understanding of the underlying models and data. Confidence values should not be considered in isolation, but in the context of the model's historical performance and the specific weather conditions. A high confidence value means that the model is confident that the forecast is accurate based on past data, while a low value indicates uncertainty. It is important to identify and account for sources of error, such as incomplete or erroneous data, modelling assumptions or external influences. In addition, trends and patterns in confidence levels over time should be analysed to identify systematic errors or potential for improvement. Finally, the results of meta-forecasts should always be considered in conjunction with other weather data and models to ensure a comprehensive and reliable weather forecast.
-`
-    }
+`,
+        tags: ['prediction']
+    },
+    fogDays: {
+        title: 'FogDays',
+        text: 'In climatology, a foggy day is defined as a day on which the horizontal visibility is less than 1 km in at least one 90-degree sector at some point between midnight and midnight legal time. [DWD Wetter- und Klimalexikon](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv3=101878&lv2=101812)',
+        tags: ['weather']
+    },
 }

@@ -7,9 +7,9 @@ const en = {
     insert: "My name is {{name}}",
 
     navigation: {
-        models: "Model Comparison",
+        models: "Forecast review",
         station: "Weather Station",
-        data: "Data",
+        data: "Historic Data",
         lexikon: "Lexicon",
         phenomena: "Phenomena",
         home: "Homepage",
@@ -40,7 +40,19 @@ const en = {
         windGusts10m: "Wind Gusts",
         windDirection10m: "Wind Direction",
         pressureMSL: "Pressure (MSL)",
-        cape: "CAPE (Convective Energy)"
+        cape: "CAPE (Convective Energy)",
+        lastUpdated: "last Update"
+    },
+
+    sources: {
+        forecast: "Forecasts",
+        waterLevel: "Water levels",
+        currentWeather: "Current weather",
+        actualWeather: "Observed weather",
+        weatherStation: "Weather station",
+        historicWeather: "Historical forecasts",
+        temperature: "Temperature",
+        fog: "Fog"
     },
 
     startingPage: {
@@ -50,7 +62,7 @@ const en = {
         next2Days: "Next 2 Days",
         next14Days: "Next 14 Days",
         standard: "Standard",
-        advanced: "Advanced",
+        advanced: "Models",
         sailor: "Sailor"
     },
 
@@ -73,11 +85,11 @@ const en = {
     },
 
     dataPage: {
-        title: "Data Visualization",
+        title: "Historic Data",
         introduction: "How has the weather changed in recent years? What temperature trends are there within a year? How does the temperature fluctuate within a week? These and many other questions can be answered on this page with the help of many graphs! The displayed data are measured data received from DWD, OpenMeteo and PegelOnline.",
         tempLastYear: "Temperature in the last year",
-        tempYears: "Temperature over the years",
-        tempLastWeek: "Temperature of the last week",
+        tempYears: "average Temperature over the years",
+        tempLastWeek: "apparent Temperature of the last week",
         fogMonth: "Fog days per month",
         fogYear: "Fog days per year",
         waterLevelLastMonth: "Water level in the last month",
@@ -96,10 +108,15 @@ const en = {
         sources: "Sources"
     },
 
+    lexiconPage: {
+        title: "Lexicon",
+        introduction: "This collection contains essential explanations and notes regarding weather, forecasts, and related information. The content is structured to allow targeted searches for specific entries or filtering by tags.",
+    },
+
     lexicon: enLexicon,
 
     models: {
-        title: "Forecasting",
+        title: "Forecast Review",
         selectValues: "Select date and model. (top right)",
         introduction: "Analyze and compare the predictions of different models! Here, you can select different models and the [predicted time](/lexikon#predictedTime). Consequently, the [historical predictions](/lexikon#timeOfPrediction) for all selected models are displayed over time.",
         forecastTemp: 'Temperature forecast for {{date}}',
@@ -168,6 +185,20 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
 `
     },
 
+    infos: {
+        'temperature': 'Daten vom [DWD](/impressum#dwdSource)',
+        'temperatureStation': 'Data',
+        'temperatureBoth': 'Daten von der [Wetterstation](/weatherstation) in Konstanz und vom [DWD](/impressum#dwdSource)',
+        'humidity': 'Data',
+        'humidityStation': 'Data',
+        'humidityBoth': 'Data',
+        'waterLevel': 'Data',
+        'waterTemp': 'Data',
+        'windSpeed': 'Data',
+
+        'fogDays': 'Days with a view below 1km; More Infos: [Lexikon](/lexikon#fogDays).'
+    },
+
     cookies: {
         text: `This website uses techical cookies to improve your experience. It is necessary for the functionality of the page, improves the user experience, and helps store configurations like language and color mode. 
 
@@ -178,8 +209,6 @@ Further information can be found in the [Impressum](\impressum).    `,
     other: {
         underConstruction: "This page is under construction...",
     },
-
-
 }
 
 export default en

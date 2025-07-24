@@ -1,7 +1,7 @@
 import axios from "axios";
 import { BACKEND_API_URL } from "../constants";
 import { convertToPlotlyChartFormat, PlotlyChartBasicFormat } from "../plotly/PlotlyChartFormat";
-import { formatActualDatetime, toUtcIsoString } from "../time";
+import { formatActualDatetime, formatStationDatetime, toUtcIsoString } from "../time";
 
 type ActualResponseFormat = {
     date: string,
@@ -63,17 +63,18 @@ export async function fetchFogDaysHistoryDWD(start: Date, stop: Date, frequency:
 };
 
 
-export async function fetchWaterLevelHistory(start: Date, stop: Date): Promise<ActualResponseFormat[]> {
+export async function fetchWaterLevelHistory(start: Date, stop: Date, period: 'd' | 'y' | 'm' | 'w'): Promise<ActualResponseFormat[]> {
 
-    const startString = formatActualDatetime(start);
-    const stopString = formatActualDatetime(stop)
+    const startString = start.toISOString().slice(0, 19);
+    const stopString = stop.toISOString().slice(0, 19);
 
     try {
         const response = await axios.get(`${BACKEND_API_URL}/archive/water-level`, {
             params: {
                 start: startString,
                 stop: stopString,
-                station_id: 1
+                station_id: 1,
+                period: period
             },
             headers: { Accept: "application/json" },
         });

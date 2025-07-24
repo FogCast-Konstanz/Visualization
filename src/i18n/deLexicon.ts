@@ -1,13 +1,13 @@
 export const deLexicon = {
-    title: "Lexikon",
-    introduction: "Lorem ipsum",
     predictedTime: {
         title: 'Vorhergesagter Zeitpunkt',
-        text: 'Zeitpunkt auf den sich die Vorhersage bezieht,sprich an dem der vorhergesagte Wert auftreten soll. Beispielsweise: Am 24.02.2025 um 12:00 Uhr soll es 12°C geben. In diesem Fall ist "24.12.2025 um 12 Uhr" der vorhergesagte Zeitpunkt.'
+        text: 'Zeitpunkt auf den sich die Vorhersage bezieht,sprich an dem der vorhergesagte Wert auftreten soll. Beispielsweise: Am 24.02.2025 um 12:00 Uhr soll es 12°C geben. In diesem Fall ist "24.12.2025 um 12 Uhr" der vorhergesagte Zeitpunkt.',
+        tags: ['prediction']
     },
     timeOfPrediction: {
         title: 'Zeitpunkt der Vorhersage',
-        text: 'Zeitpunkt an dem die Vorhersage "veröffentlicht/erstellt" wurde. Beispielsweise wird am 12.02.2025 eine Vorhersage für den 24.02.2025 erstellt. "12.02.2025" ist der Zeitpunkt der Vorhersage und "24.05.2025" der [vorhergesagte Zeitpunkt](#predictedTime).'
+        text: 'Zeitpunkt an dem die Vorhersage "veröffentlicht/erstellt" wurde. Beispielsweise wird am 12.02.2025 eine Vorhersage für den 24.02.2025 erstellt. "12.02.2025" ist der Zeitpunkt der Vorhersage und "24.05.2025" der [vorhergesagte Zeitpunkt](#predictedTime).',
+        tags: ['prediction']
     },
     benchmarkingIdea: {
         title: 'Numerische Benchmarks für Wettermodelle',
@@ -37,7 +37,8 @@ In der einfachsten Version können Benchmarks anhand von einer Hand voll Variabl
 
 ### Ergebnisinterpretation
 
-Die praktische Anwendung des Benchmark-Systems erfolgt über Skriptabläufe, die einen automatisierten Tagesabgleich der Modelleistungen ermöglichen. Diese können über die Weboberfläche eingesehen werden. Außerdem können die Benchmark Scores verwendet werden, um beispielsweise bei der Modellfusionierung die Aussagen einzelner Modelle auf Basis ihres durchschnittlichen historischen Benchmark Scores zu gewichten.`
+Die praktische Anwendung des Benchmark-Systems erfolgt über Skriptabläufe, die einen automatisierten Tagesabgleich der Modelleistungen ermöglichen. Diese können über die Weboberfläche eingesehen werden. Außerdem können die Benchmark Scores verwendet werden, um beispielsweise bei der Modellfusionierung die Aussagen einzelner Modelle auf Basis ihres durchschnittlichen historischen Benchmark Scores zu gewichten.`,
+        tags: ['prediction', 'benchmarking']
     },
     metaForecasting: {
         title: 'Meta Forecasting',
@@ -62,6 +63,12 @@ Meta-Forecasts bieten vielfältige Erweiterungsmöglichkeiten, um die Qualität 
 
 ### Ergebnisinterpretation
 
-Die Interpretation der Ergebnisse von Meta-Forecasts erfordert ein tiefes Verständnis der zugrunde liegenden Modelle und Daten. Konfidenzwerte sollten nicht isoliert betrachtet werden, sondern im Kontext der historischen Leistung des Modells und der spezifischen Wetterbedingungen. Ein hoher Konfidenzwert bedeutet, dass das Modell basierend auf vergangenen Daten zuversichtlich ist, dass die Vorhersage genau ist, während ein niedriger Wert auf Unsicherheit hinweist. Es ist wichtig, Fehlerquellen zu identifizieren und zu berücksichtigen, wie z.B. unvollständige oder fehlerhafte Daten, Modellannahmen oder externe Einflüsse. Zudem sollten Trends und Muster in den Konfidenzwerten über die Zeit analysiert werden, um systematische Fehler oder Verbesserungspotenziale zu erkennen. Letztlich sollten die Ergebnisse der Meta-Forecasts immer in Kombination mit anderen Wetterdaten und -modellen betrachtet werden, um eine umfassende und zuverlässige Wettervorhersage zu gewährleisten.`
-    }
+Die Interpretation der Ergebnisse von Meta-Forecasts erfordert ein tiefes Verständnis der zugrunde liegenden Modelle und Daten. Konfidenzwerte sollten nicht isoliert betrachtet werden, sondern im Kontext der historischen Leistung des Modells und der spezifischen Wetterbedingungen. Ein hoher Konfidenzwert bedeutet, dass das Modell basierend auf vergangenen Daten zuversichtlich ist, dass die Vorhersage genau ist, während ein niedriger Wert auf Unsicherheit hinweist. Es ist wichtig, Fehlerquellen zu identifizieren und zu berücksichtigen, wie z.B. unvollständige oder fehlerhafte Daten, Modellannahmen oder externe Einflüsse. Zudem sollten Trends und Muster in den Konfidenzwerten über die Zeit analysiert werden, um systematische Fehler oder Verbesserungspotenziale zu erkennen. Letztlich sollten die Ergebnisse der Meta-Forecasts immer in Kombination mit anderen Wetterdaten und -modellen betrachtet werden, um eine umfassende und zuverlässige Wettervorhersage zu gewährleisten.`,
+        tags: ['prediction', 'forecasting']
+    },
+    fogDays: {
+        title: 'Nebeltage',
+        text: 'Als Nebeltag wird in der Klimatologie ein Tag bezeichnet, an dem die horizontale Sichtweite mindestens in einem Sektor von 90 Grad irgendwann zwischen 00.00 und 24.00 Uhr gesetzlicher Zeit weniger als 1 km beträgt. [DWD Wetter- und Klimalexikon](https://www.dwd.de/DE/service/lexikon/Functions/glossar.html?lv3=101878&lv2=101812)',
+        tags: ['wetter']
+    },
 }
