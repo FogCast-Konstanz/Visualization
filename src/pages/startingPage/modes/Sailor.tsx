@@ -290,8 +290,6 @@ export default function SailorMode() {
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
-
-            <DataSource></DataSource>
         </Flex>
     );
 }

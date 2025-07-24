@@ -44,6 +44,17 @@ const de = {
         lastUpdated: "letztes Update"
     },
 
+    sources: {
+        forecast: "Vorhersagen",
+        waterLevel: "Pegelstände",
+        currentWeather: "aktuelles Wetter",
+        actualWeather: "tatsächliches Wetter",
+        weatherStation: "Wetterstation",
+        historicWeather: "historische Vorhersagen",
+        temperature: "Temperatur",
+        fog: "Nebel"
+    },
+
     startingPage: {
         title: "Wetter in Konstanz",
         forecast: "Vorhersage",

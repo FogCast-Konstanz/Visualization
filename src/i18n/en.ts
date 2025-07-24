@@ -44,6 +44,17 @@ const en = {
         lastUpdated: "last Update"
     },
 
+    sources: {
+        forecast: "Forecasts",
+        waterLevel: "Water levels",
+        currentWeather: "Current weather",
+        actualWeather: "Observed weather",
+        weatherStation: "Weather station",
+        historicWeather: "Historical forecasts",
+        temperature: "Temperature",
+        fog: "Fog"
+    },
+
     startingPage: {
         title: "Weather in Konstanz",
         forecast: "Forecast",
@@ -174,7 +185,7 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
 `
     },
 
-    infos : {
+    infos: {
         'temperature': 'Daten vom [DWD](/impressum#dwdSource)',
         'temperatureStation': 'Data',
         'temperatureBoth': 'Daten von der [Wetterstation](/weatherstation) in Konstanz und vom [DWD](/impressum#dwdSource)',
@@ -196,8 +207,6 @@ Further information can be found in the [Impressum](\impressum).    `,
     other: {
         underConstruction: "This page is under construction...",
     },
-
-
 }
 
 export default en

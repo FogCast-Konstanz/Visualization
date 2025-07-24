@@ -15,59 +15,48 @@ import WaterLevelTab from './tabs/waterLevel';
 
 export default function DataPage() {
 
+    useEffect(() => {
+    }, [])
 
-  useEffect(() => {
-    requestBackend()
-  }, [])
+    // Handle Navigation
+    const [searchParams, setSearchParams] = useSearchParams();
+    const tab = searchParams.get('tab') || 'temperature';
+    const tabIndex = tabKeys.indexOf(tab);
 
-  // Handle Navigation
-  const [searchParams, setSearchParams] = useSearchParams();
-  const tab = searchParams.get('tab') || 'temperature';
-  const tabIndex = tabKeys.indexOf(tab);
+    const handleTabChange = (index: number) => {
+        setSearchParams({ tab: tabKeys[index] });
+    };
 
-  const handleTabChange = (index: number) => {
-    setSearchParams({ tab: tabKeys[index] });
-  };
+    const { t } = useTranslation()
 
-  const { t } = useTranslation()
+    const textColor = useColor('text');
+    const tabBg = useColor('background');
+    const tabSelectedBg = useColor('primary');
 
-  const loadingColor = useColor('primary');
-  const graphcolors = useGraphColors();
+    return (
+        <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
+            <Introduction header={t('dataPage.title')} text={t('dataPage.introduction')}></Introduction>
 
-  const bgColor = useColor('background');
-  const textColor = useColor('text');
-  const textColorActive = useColor('buttonText');
-  const tabBg = useColor('background');
-  const tabSelectedBg = useColor('primary');
+            <Tabs variant="soft-rounded" colorScheme="teal" index={tabIndex} onChange={handleTabChange}>
+                <TabList>
+                    <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.tempTab')}</Tab>
+                    <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.fogTab')}</Tab>
+                    <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.waterLevelTab')}</Tab>
+                </TabList>
+                <TabPanels>
+                    <TabPanel>
+                        <TemperatureTab isActive={tabIndex === 0} />
+                    </TabPanel>
+                    <TabPanel>
+                        <FogTab isActive={tabIndex === 1} />
+                    </TabPanel>
+                    <TabPanel>
+                        <WaterLevelTab isActive={tabIndex === 2} />
+                    </TabPanel>
+                </TabPanels>
+            </Tabs>
 
-  async function requestBackend() {
-
-  }
-
-  return (
-    <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={'10px'} maxHeight={'calc(100vh - 20px)'} overflow='hidden' overflowY='auto' >
-      <Introduction header={t('dataPage.title')} text={t('dataPage.introduction')}></Introduction>
-
-      <Tabs variant="soft-rounded" colorScheme="teal" index={tabIndex} onChange={handleTabChange}>
-        <TabList>
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.tempTab')}</Tab>
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.fogTab')}</Tab>
-          <Tab _selected={{ bg: tabSelectedBg, color: textColor }} bg={tabBg} color={textColor} borderRadius={layoutConfig.buttonBorderRadius} px={layoutConfig.padding} py={layoutConfig.padding} mr={layoutConfig.margin}>{t('dataPage.waterLevelTab')}</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <TemperatureTab isActive={tabIndex === 0} />
-          </TabPanel>
-          <TabPanel>
-            <FogTab isActive={tabIndex === 1} />
-          </TabPanel>
-          <TabPanel>
-            <WaterLevelTab isActive={tabIndex === 2} />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-
-      <DataSource lubwText='Pegeldaten'></DataSource>
-    </Flex>
-  )
+            <DataSource lubwText={t('sources.waterLevel')} dwdText={t('sources.temperature') + ', ' + t('sources.fog')} openMeteoText={t('sources.temperature')}></DataSource>
+        </Flex>
+    )
 }

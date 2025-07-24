@@ -230,7 +230,7 @@ export default function ModelsPage() {
                     <OrbitProgress size="medium" color={loadingColor} />
                 }
             </Flex>
-            <DataSource></DataSource>
+            <DataSource openMeteoText={t('sources.historicWeather') + ', ' + t('sources.actualWeather')}></DataSource>
         </Flex>
     )
 }

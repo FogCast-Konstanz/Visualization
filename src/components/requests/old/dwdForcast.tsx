@@ -7,125 +7,125 @@ import { toUtcIsoString } from "../../../components/time";
 const DWD_BASE_URL = "https://dwd.api.proxy.bund.dev/v30";
 
 const weatherIcons: Record<number, string> = {
-  1: "sunny", 2: "mostlySunny", 3: "partlySunny", 4: "cloudy",
-  5: "rainy", 6: "thunder", 7: "rainy", 8: "foggy"
+    1: "sunny", 2: "mostlySunny", 3: "partlySunny", 4: "cloudy",
+    5: "rainy", 6: "thunder", 7: "rainy", 8: "foggy"
 };
 
 const weatherSymbols: Record<number, { day: string; night: string }> = {
-  1: { day: "🌞", night: "🌙" }, 2: { day: "🌤️", night: "🌖" },
-  3: { day: "⛅️", night: "🌘" }, 4: { day: "☁️", night: "☁️" },
-  5: { day: "🌧️", night: "🌧️" }, 6: { day: "⛈️", night: "⛈️" },
-  7: { day: "🌨️", night: "🌨️" }, 8: { day: "🌫️", night: "🌫️" }
+    1: { day: "🌞", night: "🌙" }, 2: { day: "🌤️", night: "🌖" },
+    3: { day: "⛅️", night: "🌘" }, 4: { day: "☁️", night: "☁️" },
+    5: { day: "🌧️", night: "🌧️" }, 6: { day: "⛈️", night: "⛈️" },
+    7: { day: "🌨️", night: "🌨️" }, 8: { day: "🌫️", night: "🌫️" }
 };
 
 class DWDForcast {
-  private static instance: DWDForcast = new DWDForcast();
-  private temperatureHourly: PlotlyChartBasicFormat | null = null;
-  private humidityHourly: PlotlyChartBasicFormat | null = null;
-  private weatherSymbolsHourly: PlotlyChartBasicFormat | null = null;
-  private hourlyForcastWithIcons: ForcastCardProps[] | null = null;
+    private static instance: DWDForcast = new DWDForcast();
+    private temperatureHourly: PlotlyChartBasicFormat | null = null;
+    private humidityHourly: PlotlyChartBasicFormat | null = null;
+    private weatherSymbolsHourly: PlotlyChartBasicFormat | null = null;
+    private hourlyForcastWithIcons: ForcastCardProps[] | null = null;
 
-  private constructor() { }
+    private constructor() { }
 
-  static getInstance(): DWDForcast {
-    return DWDForcast.instance;
-  }
-
-  async fetchData(stationId: string): Promise<void> {
-    try {
-      const { data } = await axios.get(`${BACKEND_API_URL}/dwd-proxy`, {
-        params: { url: `${DWD_BASE_URL}/stationOverviewExtended`, stationIds: stationId },
-        headers: { Accept: "application/json" },
-      });
-
-      this.temperatureHourly = this.extractHourlyData(data, "temperature", "Temperature", 10);
-      this.humidityHourly = this.extractHourlyData(data, "humidity", "Humidity", 10);
-      this.weatherSymbolsHourly = this.extractWeatherSymbolsHourly(data);
-      this.hourlyForcastWithIcons = this.extractHourlyForcast(data);
-    } catch (error) {
-      console.error("Error fetching forecast:", error);
-      throw error;
+    static getInstance(): DWDForcast {
+        return DWDForcast.instance;
     }
-  }
 
-  private extractHourlyData(data: any, key: string, name: string, divisor = 1): PlotlyChartBasicFormat {
-    const { start, timeStep } = data[Object.keys(data)[0]].forecast1;
-    return {
-      x: Array.from({ length: data[Object.keys(data)[0]].forecast1[key].length }, (_, i) => toUtcIsoString(new Date(start + i * timeStep))),
-      y: data[Object.keys(data)[0]].forecast1[key].map((v: number) => v / divisor),
-      name,
-    };
-  }
+    async fetchData(stationId: string): Promise<void> {
+        try {
+            const { data } = await axios.get(`${BACKEND_API_URL}/dwd-proxy`, {
+                params: { url: `${DWD_BASE_URL}/stationOverviewExtended`, stationIds: stationId },
+                headers: { Accept: "application/json" },
+            });
 
-  private extractWeatherSymbolsHourly(data: any): PlotlyChartBasicFormat {
-    const { start, timeStep, isDay, icon, temperature } = data[Object.keys(data)[0]].forecast1;
-    return {
-      x: temperature.map((_: any, i: number) => toUtcIsoString(new Date(start + i * timeStep))),
-      y: icon.map((v: number, i: number) => (isDay[i] ? weatherSymbols[v]?.day : weatherSymbols[v]?.night) || "❔"),
-      name: "symbol",
-    };
-  }
+            this.temperatureHourly = this.extractHourlyData(data, "temperature", "Temperature", 10);
+            this.humidityHourly = this.extractHourlyData(data, "humidity", "Humidity", 10);
+            this.weatherSymbolsHourly = this.extractWeatherSymbolsHourly(data);
+            this.hourlyForcastWithIcons = this.extractHourlyForcast(data);
+        } catch (error) {
+            console.error("Error fetching forecast:", error);
+            throw error;
+        }
+    }
 
-  private extractHourlyForcast(data: any): ForcastCardProps[] {
-    const { start, timeStep, temperature, humidity, icon1h, isDay } = data[Object.keys(data)[0]].forecast1;
-    
-    return temperature.map((temp: number, i: number) => ({
-      time: new Date(start + i * timeStep),
-      temperature: `${temp / 10}`,
-      weather: weatherIcons[icon1h[i]] || "unknown",
-      humidity: `${humidity[i] / 10}`,
-      isDay: isDay[i],
-    })).filter((entry: ForcastCardProps) => entry.temperature && entry.humidity && entry.weather);
-  }
+    private extractHourlyData(data: any, key: string, name: string, divisor = 1): PlotlyChartBasicFormat {
+        const { start, timeStep } = data[Object.keys(data)[0]].forecast1;
+        return {
+            x: Array.from({ length: data[Object.keys(data)[0]].forecast1[key].length }, (_, i) => toUtcIsoString(new Date(start + i * timeStep))),
+            y: data[Object.keys(data)[0]].forecast1[key].map((v: number) => v / divisor),
+            name,
+        };
+    }
 
-  private filterNextXDays(times: string[], values: any[], days: number): { times: string[]; values: any[] } {
-    const now = new Date();
-    const limit = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
-    const firstIndex = times.findIndex(t => new Date(t) > now);
-    const lastIndex = times.findIndex(t => new Date(t) > limit);
-    return { times: times.slice(firstIndex, lastIndex), values: values.slice(firstIndex, lastIndex) };
-  }
+    private extractWeatherSymbolsHourly(data: any): PlotlyChartBasicFormat {
+        const { start, timeStep, isDay, icon, temperature } = data[Object.keys(data)[0]].forecast1;
+        return {
+            x: temperature.map((_: any, i: number) => toUtcIsoString(new Date(start + i * timeStep))),
+            y: icon.map((v: number, i: number) => (isDay[i] ? weatherSymbols[v]?.day : weatherSymbols[v]?.night) || "❔"),
+            name: "symbol",
+        };
+    }
 
-  getHourlyValues(): PlotlyChartBasicFormat[] {
-    return [this.temperatureHourly, this.humidityHourly].filter(Boolean) as PlotlyChartBasicFormat[];
-  }
+    private extractHourlyForcast(data: any): ForcastCardProps[] {
+        const { start, timeStep, temperature, humidity, icon1h, isDay } = data[Object.keys(data)[0]].forecast1;
 
-  getNextXDaysValues(days: number): PlotlyChartBasicFormat[] {
-    return this.getHourlyValues().map(({ x, y, name }) => ({ x: this.filterNextXDays(x, y, days).times, y: this.filterNextXDays(x, y, days).values, name }));
-  }
+        return temperature.map((temp: number, i: number) => ({
+            time: new Date(start + i * timeStep),
+            temperature: `${temp / 10}`,
+            weather: weatherIcons[icon1h[i]] || "unknown",
+            humidity: `${humidity[i] / 10}`,
+            isDay: isDay[i],
+        })).filter((entry: ForcastCardProps) => entry.temperature && entry.humidity && entry.weather);
+    }
 
-  getNextXDaysTemperature(days: number): PlotlyChartBasicFormat | null {
-    return this.temperatureHourly ? this.getNextXDaysValues(days).find(d => d.name === "Temperature") || null : null;
-  }
+    private filterNextXDays(times: string[], values: any[], days: number): { times: string[]; values: any[] } {
+        const now = new Date();
+        const limit = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+        const firstIndex = times.findIndex(t => new Date(t) > now);
+        const lastIndex = times.findIndex(t => new Date(t) > limit);
+        return { times: times.slice(firstIndex, lastIndex), values: values.slice(firstIndex, lastIndex) };
+    }
 
-  getNextXDaysHumidity(days: number): PlotlyChartBasicFormat | null {
-    return this.humidityHourly ? 
-    this.getNextXDaysValues(days).find(d => d.name === "Humidity") || null : null;
-  }
+    getHourlyValues(): PlotlyChartBasicFormat[] {
+        return [this.temperatureHourly, this.humidityHourly].filter(Boolean) as PlotlyChartBasicFormat[];
+    }
 
-  getWeatherSymbolsHourlyNextXDays(days: number): PlotlyChartBasicFormat | null {
-    if (!this.weatherSymbolsHourly || !this.temperatureHourly) return null;
-    const { times, values } = this.filterNextXDays(this.weatherSymbolsHourly.x, this.weatherSymbolsHourly.y, days);
-    
-    return { 
-      x: times, 
-      y: Array(times.length).fill(Math.max(...this.temperatureHourly.y) + 5), 
-      name: this.weatherSymbolsHourly.name, text: values 
-    };
-  }
+    getNextXDaysValues(days: number): PlotlyChartBasicFormat[] {
+        return this.getHourlyValues().map(({ x, y, name }) => ({ x: this.filterNextXDays(x, y, days).times, y: this.filterNextXDays(x, y, days).values, name }));
+    }
 
-  getHourlyForcastValuesIcon(days?: number): ForcastCardProps[] {
-    if (!this.hourlyForcastWithIcons) return [];
-    if (!days) return this.hourlyForcastWithIcons;
-    
-    /** Filter the current Time */
-    const now = new Date();
-    const limit = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+    getNextXDaysTemperature(days: number): PlotlyChartBasicFormat | null {
+        return this.temperatureHourly ? this.getNextXDaysValues(days).find(d => d.name === "Temperature") || null : null;
+    }
 
-    return this.hourlyForcastWithIcons.filter(forecast => {
-      return forecast.time <= limit && forecast.time > now;
-    });
-  }
+    getNextXDaysHumidity(days: number): PlotlyChartBasicFormat | null {
+        return this.humidityHourly ?
+            this.getNextXDaysValues(days).find(d => d.name === "Humidity") || null : null;
+    }
+
+    getWeatherSymbolsHourlyNextXDays(days: number): PlotlyChartBasicFormat | null {
+        if (!this.weatherSymbolsHourly || !this.temperatureHourly) return null;
+        const { times, values } = this.filterNextXDays(this.weatherSymbolsHourly.x, this.weatherSymbolsHourly.y, days);
+
+        return {
+            x: times,
+            y: Array(times.length).fill(Math.max(...this.temperatureHourly.y) + 5),
+            name: this.weatherSymbolsHourly.name, text: values
+        };
+    }
+
+    getHourlyForcastValuesIcon(days?: number): ForcastCardProps[] {
+        if (!this.hourlyForcastWithIcons) return [];
+        if (!days) return this.hourlyForcastWithIcons;
+
+        /** Filter the current Time */
+        const now = new Date();
+        const limit = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+
+        return this.hourlyForcastWithIcons.filter(forecast => {
+            return forecast.time <= limit && forecast.time > now;
+        });
+    }
 }
 
 export default DWDForcast.getInstance();

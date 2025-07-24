@@ -10,13 +10,11 @@ import { convertToPlotlyChartFormat, PlotlyChartBasicFormat, PlotlyChartDataForm
 import { fetchActualWeather } from '../../../components/requests/actualBackend'
 import { extractCurrentWeatherForecastHourlyLastXDays, fetchCurrentForecast } from '../../../components/requests/currentForecacstBackend'
 import { convertCodesAndIsDaysToAscii } from '../../../components/requests/mapWeatherCodes'
+import { fetchCurrentStationData, StationResponseFormat } from '../../../components/requests/stationBackend'
 import { layoutConfig, useColor } from '../../../components/style'
 import { toUtcPlotlyIsoString } from '../../../components/time'
-import DataSource from '../../impressum/DataSource'
 import ForcastCard from '../ForcastCard'
 import MeasurementCard from '../MeasurementCard'
-import CurrentWeather from '../../station/currentWeather'
-import { fetchCurrentStationData, StationResponseFormat } from '../../../components/requests/stationBackend'
 
 
 export default function StandardMode() {
@@ -288,8 +286,6 @@ export default function StandardMode() {
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
-
-            <DataSource openMeteoText='Vorhersagen' dwdText='aktuelle Wetterdaten'></DataSource>
         </Flex>
     )
 }

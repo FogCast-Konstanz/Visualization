@@ -3,12 +3,12 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import CustomSelect from '../../components/elements/Select';
 import { layoutConfig } from '../../components/style';
-import AdvancedMode from './modes/Advanced';
 import SailorMode from './modes/Sailor';
 import StandardMode from './modes/Standard';
-
 import { useEffect } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
+import AdvancedMode from './modes/Advanced';
+import DataSource from '../impressum/DataSource';
 
 export default function StartingPage() {
     const { t } = useTranslation();
@@ -63,6 +63,8 @@ export default function StartingPage() {
             {userMode === 3 ? <SailorMode /> :
                 userMode === 2 ? <AdvancedMode /> :
                     <StandardMode />}
+            
+            <DataSource openMeteoText={t('sources.forecast')} dwdText={t('sources.currentWeather')} pegelOnlineText={t('sources.waterLevel')} weatherStationText={t('sources.currentWeather')}></DataSource>
         </Flex>
     );
 }

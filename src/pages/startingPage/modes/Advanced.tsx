@@ -204,8 +204,6 @@ export default function AdvancedMode() {
                     </>
                 }
             </Flex>
-
-            <DataSource></DataSource>
         </Flex>
     )
 }
