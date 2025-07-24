@@ -257,6 +257,7 @@ export default function SailorMode() {
                         customLayout={{ annotations: weekdays }}
                         movingShape={shape}
                         isDay={isDay}
+                        tooltip={t('infos.forecastWindspeed')}
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
@@ -272,7 +273,7 @@ export default function SailorMode() {
                         movingShape={shape}
                         isDay={isDay}
                         startFromZero={false} // Windrichtung geht von 0-360
-                        tooltip={t('infos.windDirection')}
+                        tooltip={t('infos.forecastWinddirection')}
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
@@ -288,7 +289,7 @@ export default function SailorMode() {
                         customLayout={{ annotations: weekdays }}
                         movingShape={shape}
                         isDay={isDay}
-                        tooltip={t('infos.CAPE')}
+                        tooltip={t('infos.forecastCape')}
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>

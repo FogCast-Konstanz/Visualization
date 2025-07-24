@@ -188,15 +188,19 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
     },
 
     infos: {
-        'dataDWD': 'Data from the [DWD](/lexicon#dwd)',
-        'dataDWDAndStation': 'Data from the [DWD](/lexicon#dwd) and from our [weather station](/station)',
+        'dataDWD': 'Data from the [DWD](/lexicon#dwdDescription)',
+        'dataDWDAndStation': 'Data from the [DWD](/lexicon#dwdDescription) and from our [weather station](/station)',
         'dataStation': 'Data from our [weather station](/weatherstation)',
         'temperature': 'historical values: [here](/data?tab=temperature)',
         'waterLevel': 'historical values: [here](/data?tab=waterLevel)',
 
         'fogDays': 'Days with a view below 1km; More Info: [Lexikon](/lexiko0n#fogDays).',
-        'CAPE': 'Energy potential for convective updrafts (thunderstorm risk); More Info: [Lexikon](/lexikon#CAPE).',
-        'windDirection': 'Indicated in degrees: 0° = N, 90° = E, 180° = S, 270° = W'
+
+        'forecastICON': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription)",
+        'forecastCloudCover': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about Cloud cover: [Lexikon](/lexikon#cloudCover)",
+        'forecastWindspeed': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about Wind Gusts: [Lexikon](/lexikon#windGusts)",
+        'forecastWinddirection': "Indicated in degrees: 0° = N, 90° = E, 180° = S, 270° = W\nForecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription)",
+        'forecastCape': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about CAPE Index: [Lexikon](/lexikon#capeIndex)"
     },
 
     cookies: {

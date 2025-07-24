@@ -191,15 +191,19 @@ Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingung
     },
 
     infos : {
-        'dataDWD': 'Daten vom [DWD](/lexikon#dwd)',
-        'dataDWDAndStation': 'Daten vom [DWD](/lexikon#dwd) und von unserer [Wetterstation](/station)',
+        'dataDWD': 'Daten vom [DWD](/lexikon#dwdDescription)',
+        'dataDWDAndStation': 'Daten vom [DWD](/lexikon#dwdDescription) und von unserer [Wetterstation](/station)',
         'dataStation': 'Daten von unserer [Wetterstation](/weatherstation)',
         'temperature': 'historische Werte: [hier](/data?tab=temperature)',
         'waterLevel': 'historische Werte: [hier](/data?tab=waterLevel)',
 
         'fogDays': 'Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).',
-        'CAPE': 'Energiepotenzial für konvektive Aufwinde (Gewittergefahr); Mehr Infos: [Lexikon](/lexikon#CAPE).',
-        'windDirection': 'Angabe in Grad: 0° = N, 90° = O, 180° = S, 270° = W'
+
+        'forecastICON': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription) ",
+        'forecastCloudCover': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Bewölkung: [Lexikon](/lexikon#cloudCover) ",
+        'forecastWindspeed': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Windböen: [Lexikon](/lexikon#windGusts) ",
+        'forecastWinddirection': "Angabe in Grad: 0° = N, 90° = O, 180° = S, 270° = W\n\nVorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription)",
+        'forecastCape': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu CAPE Index: [Lexikon](/lexikon#capeIndex) ",
     },
 
     cookies: {

@@ -268,6 +268,7 @@ export default function StandardMode() {
                         customLayout={{ annotations: weekdays }}
                         isDay={isDay}
                         movingShape={shape}
+                        tooltip={t('infos.forecastICON')}
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
@@ -285,6 +286,7 @@ export default function StandardMode() {
                         startFromZero={false}
                         movingShape={shape}
                         isDay={isDay}
+                        tooltip={t('infos.forecastCloudCover')}
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
