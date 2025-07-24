@@ -64,8 +64,8 @@ export default function ForcastCard({
             path: (
                 <path
                     fill="currentColor"
-                    d="M12 2L6 12H18L12 2Z" // Standard arrow pointing upwards
-                    transform={`rotate(${effectiveRotation} 12 12)`} // Rotate around the center
+                    d="M6.19957 20.6341L11.8683 10.2414C11.9252 10.1372 12.0748 10.1372 12.1317 10.2414L17.8004 20.6341C17.8677 20.7575 17.7436 20.8974 17.613 20.8452L13.077 19.0308C13.0291 19.0116 12.9944 18.9692 12.9852 18.9184L12.1476 14.3117C12.1177 14.1475 11.8823 14.1475 11.8524 14.3117L11.0148 18.9184C11.0056 18.9692 10.9709 19.0116 10.923 19.0308L6.38697 20.8452C6.25644 20.8974 6.13226 20.7575 6.19957 20.6341Z"
+                    transform={`rotate(${effectiveRotation}, 12, 12)`}
                 />
             ),
         });

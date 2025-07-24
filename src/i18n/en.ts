@@ -169,6 +169,18 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
 `
     },
 
+    infos : {
+        'temperature': 'Daten vom [DWD](/impressum#dwdSource)',
+        'temperatureStation': 'Data',
+        'temperatureBoth': 'Daten von der [Wetterstation](/weatherstation) in Konstanz und vom [DWD](/impressum#dwdSource)',
+        'humidity': 'Data',
+        'humidityStation': 'Data',
+        'humidityBoth': 'Data',
+        'waterLevel': 'Data',
+        'waterTemp': 'Data',
+        'windSpeed': 'Data'
+    },
+
     cookies: {
         text: `This website uses techical cookies to improve your experience. It is necessary for the functionality of the page, improves the user experience, and helps store configurations like language and color mode. 
 

@@ -81,7 +81,10 @@ const de = {
         tempLastWeek: "Temperatur der letzten Woche",
         fogMonth: "Nebeltage pro Monat",
         fogYear: "Nebeltage pro Jahr ",
+        fogYears: "Nebeltage über die letzten Jahre",
         waterLevelLastMonth: "Wasserstand im letzten Monat",
+        waterLevelLastYear: "Wasserstand im letzten Jahr",
+        waterLevelYears: "Wasserstand über die letzten Jahre",
 
         tempTab: "Temperatur",
         fogTab: "Nebel",

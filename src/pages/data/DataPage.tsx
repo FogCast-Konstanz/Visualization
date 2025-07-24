@@ -67,7 +67,7 @@ export default function DataPage() {
         </TabPanels>
       </Tabs>
 
-      <DataSource></DataSource>
+      <DataSource lubwText='Pegeldaten'></DataSource>
     </Flex>
   )
 }

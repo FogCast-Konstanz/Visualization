@@ -87,6 +87,7 @@ export default function AdvancedMode() {
         let is_day_data: any = null;
 
         const forecasts = await Promise.all(weatherModel.map(model => fetchCurrentForecast(model)));
+        
         // 1. Find the forecast array with the most entries (longest period)
         let leadForecast = forecasts[0];
         let leadForecastModelName = weatherModel[0];
