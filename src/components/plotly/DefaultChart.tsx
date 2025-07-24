@@ -1,4 +1,4 @@
-import { Box, Flex, Popover, PopoverArrow, PopoverContent, PopoverTrigger, Text, Tooltip, useTheme } from "@chakra-ui/react";
+import { Box, Flex, Link, Popover, PopoverArrow, PopoverContent, PopoverTrigger, Text, Tooltip, useTheme } from "@chakra-ui/react";
 import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
@@ -239,7 +239,15 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
                             p={2}
                         >
                             <PopoverArrow bg={useColor('surface')} />
-                            <ReactMarkdown children={tooltip} />
+                            <ReactMarkdown
+                                components={{
+                                    a: ({ href, children }) => (
+                                        <Link href={href} color="blue.500" textDecoration="underline" isExternal>
+                                            {children}
+                                        </Link>
+                                    ),
+                                }}
+                            >{tooltip}</ReactMarkdown>
                         </PopoverContent>
                         : <></>
                 }

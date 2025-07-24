@@ -1,4 +1,4 @@
-import { Card, CardBody, Flex, Heading, Icon, Popover, PopoverArrow, PopoverContent, PopoverTrigger, Text } from "@chakra-ui/react";
+import { Card, CardBody, Flex, Heading, Icon, Link, Popover, PopoverArrow, PopoverContent, PopoverTrigger, popperCSSVars, Text } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import { IconType } from "react-icons/lib";
 import ReactMarkdown from 'react-markdown';
@@ -13,7 +13,7 @@ export default function MeasurementCard({ measurement, value, name, name2, value
 
     return (
 
-        <Popover trigger="click" openDelay={1000} >
+        <Popover trigger="hover" openDelay={500} >
             <PopoverTrigger >
                 <Card
                     bg={useColor('background')}
@@ -46,9 +46,18 @@ export default function MeasurementCard({ measurement, value, name, name2, value
                         _focusVisible={{ outline: 'none', boxShadow: 'none' }}
                         color={useColor('text')}
                         maxW="250px"
-                        p={2}>
+                        p={2}
+                    >
                         <PopoverArrow bg={useColor('surface')} />
-                        <ReactMarkdown children={popoverText} />
+                        <ReactMarkdown
+                            components={{
+                                a: ({ href, children }) => (
+                                    <Link href={href} color="blue.500" textDecoration="underline" isExternal>
+                                        {children}
+                                    </Link>
+                                ),
+                            }}
+                        >{popoverText}</ReactMarkdown>
                     </PopoverContent>
                     : <></>
             }
