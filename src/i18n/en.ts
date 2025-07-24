@@ -38,7 +38,9 @@ const en = {
         isDay: "Is Day",
         windSpeed10m: "Wind Speed",
         windGusts10m: "Wind Gusts",
+        windGusts: "Wind Gusts",
         windDirection10m: "Wind Direction",
+        windDirection: "Wind Direction",
         pressureMSL: "Pressure (MSL)",
         cape: "CAPE (Convective Energy)",
         lastUpdated: "last Update"
@@ -186,17 +188,15 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
     },
 
     infos: {
-        'temperature': 'Daten vom [DWD](/impressum#dwdSource)',
-        'temperatureStation': 'Data',
-        'temperatureBoth': 'Daten von der [Wetterstation](/weatherstation) in Konstanz und vom [DWD](/impressum#dwdSource)',
-        'humidity': 'Data',
-        'humidityStation': 'Data',
-        'humidityBoth': 'Data',
-        'waterLevel': 'Data',
-        'waterTemp': 'Data',
-        'windSpeed': 'Data',
+        'dataDWD': 'Data from the [DWD](/lexicon#dwd)',
+        'dataDWDAndStation': 'Data from the [DWD](/lexicon#dwd) and from our [weather station](/station)',
+        'dataStation': 'Data from our [weather station](/weatherstation)',
+        'temperature': 'historical values: [here](/data?tab=temperature)',
+        'waterLevel': 'historical values: [here](/data?tab=waterLevel)',
 
-        'fogDays': 'Days with a view below 1km; More Infos: [Lexikon](/lexikon#fogDays).'
+        'fogDays': 'Days with a view below 1km; More Info: [Lexikon](/lexiko0n#fogDays).',
+        'CAPE': 'Energy potential for convective updrafts (thunderstorm risk); More Info: [Lexikon](/lexikon#CAPE).',
+        'windDirection': 'Indicated in degrees: 0° = N, 90° = E, 180° = S, 270° = W'
     },
 
     cookies: {

@@ -114,7 +114,7 @@ export default function SailorMode() {
             if (cape && rain) {
                 setCapeAndRainData([
                     convertToPlotlyChartFormat(cape, 'bar', 'y1', 'rgba(255, 0, 0, 0.5)'), // Rot für CAPE (Gewittergefahr)
-                    convertToPlotlyChartFormat(rain, 'bar', 'y1', 'rgba(0, 0, 255, 0.5)'), // Blau für Regen
+                    convertToPlotlyChartFormat(rain, 'bar', 'y2', 'rgba(0, 0, 255, 0.5)'), // Blau für Regen
                 ]);
             }
 
@@ -142,9 +142,9 @@ export default function SailorMode() {
             const x = windSpeedAndGustsData[0].x;
 
             // Annäherung an die sichtbaren Datenpunkte
-            // Annahme: Jede Karte hat eine feste Breite von ca. 110px (wie in StandardMode)
-            const positionLeft = Math.round(scrollLeft / 110);
-            const rightCorner = Math.round((scrollLeft + totalWidth) / 110);
+            // Annahme: Jede Karte hat eine feste Breite von ca. 130px (wie in StandardMode)
+            const positionLeft = Math.round(scrollLeft / 130);
+            const rightCorner = Math.round((scrollLeft + totalWidth) / 130);
             const positionRight = x.length > rightCorner ? rightCorner : x.length - 1;
 
             /** Setzt die Form für den aktuell sichtbaren Bereich im Plotly-Diagramm */
@@ -173,10 +173,10 @@ export default function SailorMode() {
             <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }} flexWrap="wrap" justifyContent="center">
                 {currentWeather ? // Überprüfe, ob Windgeschwindigkeit vorhanden ist
                     <>
-                        <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater}></MeasurementCard>
-                        <MeasurementCard measurement={t('data.windGusts10m')} value={currentWeather['wind_speed']} unit='km/h' icon={RiSpeedUpLine}></MeasurementCard>
-                        <MeasurementCard measurement={t('data.windDirection10m')} value={currentWeather['wind_direction']} unit='°' icon={FaWind}></MeasurementCard>
-                        <MeasurementCard measurement={t('data.pressureMSL')} value={currentWeather['air_pressure']} unit='hPa' icon={FaWater}></MeasurementCard> {/* FaWater könnte für Druck verwendet werden oder ein neues Icon */}
+                        <MeasurementCard measurement={t('data.waterLevel')} value={currentWeather['water_level']} unit='cm' icon={FaWater} popoverText={t('infos.dataDWD') + '; ' + t('infos.waterLevel')}></MeasurementCard>
+                        <MeasurementCard measurement={t('data.windGusts10m')} value={currentWeather['wind_speed']} unit='km/h' icon={RiSpeedUpLine} popoverText={t('infos.dataDWD')}></MeasurementCard>
+                        <MeasurementCard measurement={t('data.windDirection10m')} value={currentWeather['wind_direction']} unit='°' icon={FaWind} popoverText={t('infos.dataDWD')}></MeasurementCard>
+                        <MeasurementCard measurement={t('data.pressureMSL')} value={currentWeather['air_pressure']} unit='hPa' icon={FaWater} popoverText={t('infos.dataDWD')}></MeasurementCard> {/* FaWater könnte für Druck verwendet werden oder ein neues Icon */}
                         {/* Weitere wichtige Segler-Messwerte können hier hinzugefügt werden, z.B. Wassertemperatur, Wellenhöhe falls verfügbar */}
                     </>
                     : <OrbitProgress color={loadingColor} size="medium" />
@@ -272,6 +272,7 @@ export default function SailorMode() {
                         movingShape={shape}
                         isDay={isDay}
                         startFromZero={false} // Windrichtung geht von 0-360
+                        tooltip={t('infos.windDirection')}
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
@@ -287,6 +288,7 @@ export default function SailorMode() {
                         customLayout={{ annotations: weekdays }}
                         movingShape={shape}
                         isDay={isDay}
+                        tooltip={t('infos.CAPE')}
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
