@@ -20,7 +20,7 @@ export async function fetchCurrentForecast(modelId: string): Promise<CurrentFore
         return data
     } catch (error) {
         console.error("Error fetching actual data:", error);
-        throw error;
+        return [];
     }
 };
 
