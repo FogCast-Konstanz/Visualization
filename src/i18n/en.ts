@@ -88,8 +88,8 @@ const en = {
         title: "Historic Data",
         introduction: "How has the weather changed in recent years? What temperature trends are there within a year? How does the temperature fluctuate within a week? These and many other questions can be answered on this page with the help of many graphs! The displayed data are measured data received from DWD, OpenMeteo and PegelOnline.",
         tempLastYear: "Temperature in the last year",
-        tempYears: "Temperature over the years",
-        tempLastWeek: "Temperature of the last week",
+        tempYears: "average Temperature over the years",
+        tempLastWeek: "apparent Temperature of the last week",
         fogMonth: "Fog days per month",
         fogYear: "Fog days per year",
         waterLevelLastMonth: "Water level in the last month",
@@ -194,7 +194,9 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
         'humidityBoth': 'Data',
         'waterLevel': 'Data',
         'waterTemp': 'Data',
-        'windSpeed': 'Data'
+        'windSpeed': 'Data',
+
+        'fogDays': 'Days with a view below 1km; More Infos: [Lexikon](/lexikon#fogDays).'
     },
 
     cookies: {

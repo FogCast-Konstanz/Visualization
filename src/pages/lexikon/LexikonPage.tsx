@@ -20,17 +20,9 @@ export default function Lexikon() {
     //     { header: t('lexicon.metaForecasting.title'), text: t('lexicon.metaForecasting.text'), tags: ['prediction', 'forecasting'], id: 'metaforecasting' },
     //     { header: t('lexicon.fogDays.title'), text: t('lexicon.fogDays.text'), tags: ['weather'], id: 'fogDays' },
     // ]
-
-    const lexiconKeys = [
-        'predictedTime',
-        'timeOfPrediction',
-        'benchmarkingIdea',
-        'metaForecasting',
-        'fogDays',
-    ] as const
-
+    
     const lexiconRaw = t('lexicon', { returnObjects: true }) as any
-    console.log(Object.keys(lexiconRaw))
+    const lexiconKeys = Object.keys(lexiconRaw)
 
     const lexikonEntries = lexiconKeys.map((id) => ({
         id,
@@ -38,7 +30,6 @@ export default function Lexikon() {
         text: t(`lexicon.${id}.text`),
         tags: t(`lexicon.${id}.tags`, { returnObjects: true }) as string[],
     }))
-    console.log(lexikonEntries)
 
     const [selectedTag, setSelectedTag] = useState("");
     const [searchQuery, setSearchQuery] = useState("");

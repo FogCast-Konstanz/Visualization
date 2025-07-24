@@ -1,10 +1,9 @@
-import { Box, Card, CardBody, Flex, Heading, Icon, Popover, PopoverArrow, PopoverContent, PopoverTrigger, Text, Tooltip } from "@chakra-ui/react";
+import { Card, CardBody, Flex, Heading, Icon, Popover, PopoverArrow, PopoverContent, PopoverTrigger, Text } from "@chakra-ui/react";
+import { useTranslation } from "react-i18next";
 import { IconType } from "react-icons/lib";
+import ReactMarkdown from 'react-markdown';
 import { useNavigate } from "react-router-dom";
 import { layoutConfig, useColor } from '../../components/style';
-import { useTranslation } from "react-i18next";
-
-import ReactMarkdown from 'react-markdown';
 
 type Input = { measurement: string, value: string, name?: string, name2?: string, value2?: string, unit: string, icon?: IconType, click?: string, popoverText?: string }
 export default function MeasurementCard({ measurement, value, name, name2, value2, popoverText, unit, icon, click }: Input) {

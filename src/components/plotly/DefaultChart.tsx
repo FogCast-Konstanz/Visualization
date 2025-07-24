@@ -1,9 +1,10 @@
-import { Box, Flex, Text, Tooltip, useTheme } from "@chakra-ui/react";
+import { Box, Flex, Popover, PopoverArrow, PopoverContent, PopoverTrigger, Text, Tooltip, useTheme } from "@chakra-ui/react";
 import { saveAs } from 'file-saver';
 import React, { useEffect, useState } from 'react';
 import Plot from 'react-plotly.js';
 import { layoutConfig, useColor, useGraphColors } from '../style';
 import { toUtcIsoString } from "../time";
+import ReactMarkdown from 'react-markdown';
 
 interface PlotlyChartProps {
     data: any[];
@@ -215,18 +216,34 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
 
     return (
         <Flex direction="column" backgroundColor={paperBgColor} borderRadius={layoutConfig.borderRadius} width={'100%'} style={{ overflow: "hidden", width: "100%" }}>
-            <Tooltip label={tooltip ? tooltip : ''} bg={useColor('surface')} color={useColor('text')} hasArrow>
-                <Text
-                    fontSize="lg"
-                    fontWeight="bold"
-                    align={'center'}
-                    // _hover={{ color: 'blue.500', cursor: 'pointer' }}
-                    // title="Tooltip text here"
-                    margin={'10px'}
-                >
-                    {title}
-                </Text>
-            </Tooltip>
+            <Popover trigger="hover" >
+                <PopoverTrigger >
+                    <Text
+                        fontSize="lg"
+                        fontWeight="bold"
+                        align={'center'}
+                        // _hover={{ color: 'blue.500', cursor: 'pointer' }}
+                        // title="Tooltip text here"
+                        margin={'10px'}
+                    >
+                        {title}
+                    </Text>
+                </PopoverTrigger>
+                {
+                    tooltip ?
+                        <PopoverContent bg={useColor('surface')}
+                            _focus={{ outline: 'none', boxShadow: 'none' }}
+                            _focusVisible={{ outline: 'none', boxShadow: 'none' }}
+                            color={useColor('text')}
+                            maxW="400px"
+                            p={2}
+                        >
+                            <PopoverArrow bg={useColor('surface')} />
+                            <ReactMarkdown children={tooltip} />
+                        </PopoverContent>
+                        : <></>
+                }
+            </Popover>
             <Plot
                 data={data}
                 layout={layout}

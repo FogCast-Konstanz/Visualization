@@ -87,9 +87,9 @@ const de = {
     dataPage: {
         title: "Historische Daten",
         introduction: "Wie hat sich das Wetter in den letzten Jahren geändert? Welche Entwicklungen der Temperatur gibt es innerhalb eines Jahres? Wie schwankt die Temperatur innerhalb einer Woche? Diese und viele weitere Fragen können auf dieser Seite durch eine viele dargestellte Graphen geklärt werden! Die dargestellten Daten sind gemessene Werte, die vom DWD, OpenMeteo und PegelOnline abgerufen wurden.",
-        tempLastYear: "Temperatur im letzten Jahr",
-        tempYears: "Temperatur über die Jahre",
-        tempLastWeek: "Temperatur der letzten Woche",
+        tempLastYear: "mittlere Temperatur im letzten Jahr",
+        tempYears: "mittlere Temperatur über die Jahre",
+        tempLastWeek: "gefühlte Temperatur der letzten Woche",
         fogMonth: "Nebeltage pro Monat",
         fogYear: "Nebeltage pro Jahr ",
         fogYears: "Nebeltage über die letzten Jahre",
@@ -197,7 +197,9 @@ Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingung
         'humidityBoth': 'Data',
         'waterLevel': 'Data',
         'waterTemp': 'Data',
-        'windSpeed': 'Data'
+        'windSpeed': 'Data',
+
+        'fogDays': 'Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).'
     },
 
     cookies: {
