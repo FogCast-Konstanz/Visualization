@@ -68,6 +68,14 @@ const de = {
         sailor: "Segler"
     },
 
+    leaderBoard: {
+        longTerm: "longTerm",
+        midTerm: "midTerm",
+        shortTerm: "shortTerm",
+        title: "Benchmarking Leaderboard",
+        text: "Text zum Benchmarking ..."
+    },
+
     sailorPage: {
         currentConditions: "Aktuelle Bedingungen auf See",
         windSpeedAndGustsTitle: "Windgeschwindigkeit und Böen",

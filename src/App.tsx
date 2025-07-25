@@ -5,7 +5,7 @@ import { Route, BrowserRouter as Router, Routes } from 'react-router-dom';
 import Navigation from './components/navigation/Navigation';
 import { useColor } from './components/style';
 import { phenomenaType } from './i18n/dePhenomena';
-import AnalysisPage from './pages/analysis/AnalysisPage';
+import BenchmarkingLeaderboard from './pages/analysis/BenchmarkingLeaderboard';
 import DataPage from './pages/data/DataPage';
 import Impressum from './pages/impressum/Impressum';
 import CookieBanner from './pages/impressum/cookieBanner';
@@ -41,7 +41,7 @@ function App() {
                     <Route path='/data' element={<DataPage />} />
                     <Route path='/station' element={<WeatherStationPage />} />
                     <Route path='/models' element={<ModelsPage />} />
-                    <Route path='/analysis' element={<AnalysisPage />} />
+                    <Route path='/analysis' element={<BenchmarkingLeaderboard />} />
                     {phenomenaData.map((entry, index) => (
                         <Route path={'/phenomena/' + entry.id} element={<PhenomenaSite {...entry} />} key={index + 'page'} />
                     ))}

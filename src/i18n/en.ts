@@ -68,6 +68,14 @@ const en = {
         sailor: "Sailor"
     },
 
+    leaderBoard: {
+        longTerm: "longTerm",
+        midTerm: "midTerm",
+        shortTerm: "shortTerm",
+        title: "Benchmarking Leaderboard",
+        text: "Text zum Benchmarking ..."
+    },
+
     sailorPage: {
         currentConditions: "Current Offshore Conditions",
         windSpeedAndGustsTitle: "Wind Speed and Gusts Forecast",
