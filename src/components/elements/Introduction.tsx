@@ -19,7 +19,7 @@ export default function Introduction({ header, text }: IntroductionFormat) {
                 <CardHeader pb={'0px'}>
                     <Heading>{header}</Heading>
                 </CardHeader>
-                <CardBody>
+                <CardBody className='markdown'>
                     <ReactMarkdown children={text} remarkPlugins={[remarkGfm]} />
                 </CardBody>
             </Card>
