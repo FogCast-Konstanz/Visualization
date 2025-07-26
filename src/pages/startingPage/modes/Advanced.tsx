@@ -106,6 +106,9 @@ export default function AdvancedMode() {
         forecasts[leadIndex] = forecasts[0]
         forecasts[0] = leadForecast
 
+        weatherModel[leadIndex] = weatherModel[0]
+        weatherModel[0] = leadForecastModelName
+
         // 2. Use the "lead" forecast (the longest array) to set up the time-based annotations
         if (leadForecast) {
             is_day_data = extractCurrentWeatherForecastHourly(leadForecast, 'is_day', 'is_day');
@@ -171,7 +174,6 @@ export default function AdvancedMode() {
                                 data={weatherIconsData}
                                 title={weatherDataOptions.find(opt => opt.value === 'weather_code')?.label || 'Weather Icons'}
                                 xAxis={t('data.time')}
-                                dateFormat={'day'}
                                 customLayout={{
                                     annotations: weekdays,
                                     yaxis: {
@@ -196,7 +198,6 @@ export default function AdvancedMode() {
                                 title={weatherDataOptions.find(opt => opt.value === key)?.label}
                                 yAxis={weatherDataOptions.find(opt => opt.value === key)?.label}
                                 xAxis={t('data.time')}
-                                dateFormat={'day'}
                                 customLayout={{ annotations: weekdays, showlegend: true }}
                                 isDay={isDay}
                             />

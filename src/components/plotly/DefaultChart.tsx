@@ -85,7 +85,22 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
             tickmode: "auto", // Automatically adjust ticks
             nticks: 10, // Reduce number of ticks
             title: xAxis,
-            tickformat: dateFormat ? tickFormatMap[dateFormat] || "%H:%M" : "%H:%M",
+            ...(dateFormat ? { tickformat: tickFormatMap[dateFormat] || "%H:%M" } : {
+                tickformatstops: [
+                    {
+                        dtickrange: [null, 1000 * 60 * 60 * 12],
+                        value: "%H:%M %d.%m"
+                    },
+                    {
+                        dtickrange: [1000 * 60 * 60 * 12, 1000 * 60 * 60 * 24 * 7],
+                        value: "%d.%m.%Y"
+                    },
+                    {
+                        dtickrange: [1000 * 60 * 60 * 24 * 7, null],
+                        value: "%b %Y"
+                    }
+                ]
+            }),
             range: range,
             type: 'date'
         },
