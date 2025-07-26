@@ -30,7 +30,7 @@ export default function WeatherStationPage() {
         const dateLastWeek = new Date();
         dateLastWeek.setDate(dateLastWeek.getDate() - 7)
 
-        const weather = await fetchStationData(dateLastWeek, new Date("2100-01-01T00:00:00"));
+        const weather = await fetchStationData(new Date("2025-07-24T00:00:00"), new Date("2100-01-01T00:00:00"));
         if (!weather) {return}
         // const waterLevel = await fetchWaterLevelHistory(dateLastYear, new Date())
         const temperature = parseWeatherStationToXYFormat(weather, 'temperature')
