@@ -83,10 +83,12 @@ export default function StandardMode() {
     async function fetchCurrentForecastData() {
         const currentForecast = await fetchCurrentForecast('icon_global');
 
+        console.log('miau', currentForecast)
+
         /* Convert to Plotly format */
         const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', t('data.temperature'), requestDuration)
         const humidity = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'relative_humidity_2m', t('data.humidity'), requestDuration)
-        const rain = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'rain', t('data.rain'), requestDuration)
+        const rain = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'precipitation', t('data.rain'), requestDuration)
         const weather_code = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'weather_code', t('data.weatherCode'), requestDuration)
         const is_day = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'is_day', t('data.isDay'), requestDuration)
 

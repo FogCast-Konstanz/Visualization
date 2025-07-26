@@ -248,4 +248,10 @@ Interpretation of meta-forecast results requires a thorough understanding of the
         tags: ['weather']
     },
 
+    weatherCodeWW: {
+        title: 'Weather Code (WW)',
+        text: 'The "WW" code from WMO Code Table 4677 represents present or recent weather conditions as observed at a manned weather station. The two-digit codes range from 00 to 99 and cover phenomena such as fog, rain, snow, thunderstorms, dust storms, and more. The code helps classify both the type and intensity of weather events, offering a standardized way to report atmospheric conditions.\n\nFor example:\n- Codes from 00–19 represent no precipitation but may include fog, dust, or lightning.\n- 20–29 indicate recent but no longer active weather such as drizzle or thunderstorms.\n- 30–39 cover dust storms and blowing snow.\n- 40–49 are used for fog and ice fog with varying visibility.\n- 50–99 represent ongoing precipitation, with increasing intensity and complexity, including showers and thunderstorms.\n\nThis system is essential for aviation, meteorological observations, and global weather reporting.\n\nSource: WMO Code Table 4677 https://www.nodc.noaa.gov/archive/arc0021/0002199/1.1/data/0-data/HTML/WMO-CODE/WMO4677.HTM',
+        tags: ['weather']
+    }
+
 }

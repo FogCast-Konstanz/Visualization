@@ -129,7 +129,7 @@ export default function ForcastCard({
                             <Tooltip label={t('data.rain')} bg={useColor('surface')} color={useColor('text')} hasArrow>
                                 <Flex direction={'row'} alignItems={"center"} justify={"center"} gap={'0px'}>
                                     <Icon as={WiRaindrop} boxSize={6} mt={'4px'} color={useColor('secondaryText')} />
-                                    <Text fontSize={'s'}>{String(Math.round((rain || 0) * 100) / 10)}mm</Text>
+                                    <Text fontSize={'s'}>{String(Math.round((rain || 0) * 10) / 10)}mm</Text>
                                 </Flex>
                             </Tooltip>
                         </>
