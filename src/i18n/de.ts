@@ -68,6 +68,14 @@ const de = {
         sailor: "Segler"
     },
 
+    leaderBoard: {
+        longTerm: "longTerm",
+        midTerm: "midTerm",
+        shortTerm: "shortTerm",
+        title: "Benchmarking Leaderboard",
+        text: "We assess the accuracy of various weather models across three different forecast horizons: 1 day (shortTerm), 3 days (midTerm), and up to a maximum of 7 days (longTerm). Only models capable of forecasting at least as far ahead as the respective horizon are considered, and comparisons are limited to that period. Errors are calculated hourly over the entire timeframe using two metrics: MAE (Mean Absolute Error) is used for cloud cover and humidity forecasts, while RMSE (Root Mean Squared Error) is used for all other parameters. This provides a transparent comparison of the models across different time spans and measurement variables. More information can be found in the glossary under [Meta Forecasting](/lexikon#metaForecasting) and [Benchmarking](/lexikon#benchmarkingIdea)."
+    },
+
     sailorPage: {
         currentConditions: "Aktuelle Bedingungen auf See",
         windSpeedAndGustsTitle: "Windgeschwindigkeit und Böen",

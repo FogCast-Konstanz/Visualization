@@ -68,6 +68,14 @@ const en = {
         sailor: "Sailor"
     },
 
+    leaderBoard: {
+        longTerm: "longTerm",
+        midTerm: "midTerm",
+        shortTerm: "shortTerm",
+        title: "Benchmarking Leaderboard",
+        text: "Wir bewerten die Genauigkeit verschiedener Wettermodelle in drei unterschiedlichen Vorhersagehorizonten von 1 (shortTerm), 3 (midTerm) und maximal 7 Tagen (longTerm). Dabei werden nur Modelle berücksichtigt, die mindestens so weit in die Zukunft vorhersagen können, und jeweils nur bis zu diesem Zeitraum verglichen. Die Fehlerberechnung erfolgt stündlich über den gesamten Zeitraum anhand von zwei Metriken: Für die Vorhersagen von Bewölkung und Luftfeuchtigkeit wird der MAE (Mean Absolute Error) genutzt, für alle weiteren Parameter der RMSE (Root Mean Squared Error). So entsteht ein transparenter Vergleich der Modelle über verschiedene Zeiträume und Messgrößen hinweg. Mehr Informationen finden sich im Lexikon unter [Meta Forecasting](/lexikon#metaForecasting) und [Benchmarking](/lexikon#benchmarkingIdea)."
+    },
+
     sailorPage: {
         currentConditions: "Current Offshore Conditions",
         windSpeedAndGustsTitle: "Wind Speed and Gusts Forecast",

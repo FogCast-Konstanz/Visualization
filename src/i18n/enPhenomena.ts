@@ -6,7 +6,7 @@ const fog: phenomenaType = {
     description: 'Fog is formed by condensation when the air is saturated, facilitated by cooling, humidity or mixing of air. The main types are advection, radiation, evaporation, orographic and mixed fog. The Lake Constance region favours the formation of fog due to its water surface, mountains and wind systems, especially in autumn and winter. Fog is dispersed by solar radiation or wind.',
     content: [
         {
-            title: "Erklärung",
+            title: "Explanation",
             text: `
 Fog occurs when water droplets or ice crystals in the lower atmospheric layers reduce visibility to less than 1 kilometre. Depending on visibility, a distinction is made between light (500-1000 m), moderate (200-500 m) and heavy fog (< 200 m) (cf. Bott 2023, p. 450).
 
