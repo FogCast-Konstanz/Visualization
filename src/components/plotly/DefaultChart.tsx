@@ -89,7 +89,7 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
                 tickformatstops: [
                     {
                         dtickrange: [null, 1000 * 60 * 60 * 12],
-                        value: "%H:%M %d.%m"
+                        value: "%d.%m %H:%M"
                     },
                     {
                         dtickrange: [1000 * 60 * 60 * 12, 1000 * 60 * 60 * 24 * 7],

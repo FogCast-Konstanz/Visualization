@@ -174,7 +174,7 @@ export default function ModelsPage() {
                 width={'100%'}>
                 <CardHeader pb={'0px'}>
                     <Flex alignItems='center' justifyContent='space-between'>
-                        <Heading>{t('models.title')}</Heading>
+                        <Heading paddingEnd={'50px'}>{t('models.title')}</Heading>
                         <ConfigurationForRequest
                             selectedDateTime={selectedDatetime}
                             selectedModels={selectedModels}
