@@ -246,12 +246,16 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
                 </PopoverTrigger>
                 {
                     tooltip ?
-                        <PopoverContent bg={useColor('surface')}
+                        <PopoverContent
+                            bg={useColor('surface')}
+                            color={useColor('text')}
+                            boxShadow="md"
+                            borderRadius="md"
+                            px={3}
+                            py={2}
+                            maxW="400px"
                             _focus={{ outline: 'none', boxShadow: 'none' }}
                             _focusVisible={{ outline: 'none', boxShadow: 'none' }}
-                            color={useColor('text')}
-                            maxW="400px"
-                            p={2}
                         >
                             <PopoverArrow bg={useColor('surface')} />
                             <ReactMarkdown

@@ -151,9 +151,9 @@ Below are the station’s measured values: air temperature (temperature), humidi
 Our weather station measures humidity, air temperature, and water temperature every 10 seconds, forming an average value each minute to provide a minute-by-minute update.
 
 The following are recorded:  
-* **Air Temperature** – provides current temperature values at the location and serves as the basis for many weather assessments.  
-* **Humidity** – important for assessing climate perception and the formation of fog or precipitation.  
-* **Water Temperature of the Rhine** – measured at about 20 cm depth directly at the jetty. The values provide insight into the thermal development of the river and are equally interesting for research and leisure.
+* **Air Temperature** - provides current temperature values at the location and serves as the basis for many weather assessments.  
+* **Humidity** - important for assessing climate perception and the formation of fog or precipitation.  
+* **Water Temperature of the Rhine** - measured at about 20 cm depth directly at the jetty. The values provide insight into the thermal development of the river and are equally interesting for research and leisure.
 
 
 
@@ -168,7 +168,7 @@ The core of the system: a compact microcomputer to which all sensors are connect
 A digital temperature sensor used to determine the water temperature. Measurement at 20 cm depth ensures stable and representative temperature values.
 
 * **FS304-SHTXX Combo Sensor**  
-This highly precise sensor simultaneously measures air temperature and humidity – fast, reliable, and calibrated.
+This highly precise sensor simultaneously measures air temperature and humidity - fast, reliable, and calibrated.
 
 * **Weather Protection Housing**  
 All components are housed in a weatherproof enclosure. It protects against rain, sunlight, and mechanical impacts. Integrated fuses provide additional protection for the sensitive electronics.
