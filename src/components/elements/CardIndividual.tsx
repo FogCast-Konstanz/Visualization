@@ -27,7 +27,6 @@ export default function CardIndividual({ header, body }: Input) {
     );
     md = md.replace(/(?<=\n\n)(?![*-])\n/g, "&nbsp;\n ");
 
-
     return (
         <Card
             bg={useColor('background')}
@@ -46,6 +45,15 @@ export default function CardIndividual({ header, body }: Input) {
                         p: ({ node, children }) => <div>{children}</div>, // Ensures paragraphs work properly
                         img: ({ node, ...props }) => {
                             const isPreview = previewSrc === props.src && isOpen;
+                            const [width, height] = (props.title?.match(/(\d+)x(\d+)/) || []).slice(1);
+
+                            // Example: fixed width 400px, height auto to maintain aspect ratio
+                            const imgStyle = {
+                                padding: '10px 10px 0px 10px',
+                                maxWidth: '100%',
+                                width: width ? `${width}px` : '400px',
+                                height: 'auto',
+                            };
 
                             return (
                                 <figure
@@ -60,16 +68,17 @@ export default function CardIndividual({ header, body }: Input) {
                                     <img
                                         {...props}
                                         alt={props.alt}
-                                        style={{ padding: '10px 10px 0px 10px', maxWidth: '100%' }}
+                                        style={imgStyle}
                                     />
                                     {props.title && (
-                                        <figcaption style={{ padding: '10px' }}>
+                                        <figcaption style={{ padding: '0px 10px'}}>
                                             <ReactMarkdown children={props.title} />
                                         </figcaption>
                                     )}
                                 </figure>
-                            )
-                        },
+                            );
+                        }
+                        ,
                     }}
                 />
             </CardBody>

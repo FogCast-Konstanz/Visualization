@@ -44,8 +44,11 @@ export default function ModelsPage() {
     const [forecastData, setForecastData] = useState<{ [key: string]: PlotlyChartDataFormat[]; } | null>(null)
     const [isDay, setIsDay] = useState<{ x: string[], y: number[] }>({ x: [], y: [] });
 
-    const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
-    const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
+    const defaultModels: string = '["icon_seamless", "meteofrance_seamless", "ukmo_seamless", "knmi_seamless", "dmi_seamless", "ecmwf_ifs025"]'
+    const defaultMeasurements = '["precipitation", "temperature_2m"]'
+
+    const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? defaultModels))
+    const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? defaultMeasurements))
     const [selectedDatetime, setSelectedDatetime] = useState<string>((searchParams.get('time') ?? toUtcIsoString(new Date())).slice(0, 16))
 
     const [weekdays, setWeekdays] = useState<any | null>(null)
@@ -94,7 +97,6 @@ export default function ModelsPage() {
             for (const model of selectedModels) {
                 const nextModelForecast = await fetchHistoricForecastModel(model)
 
-                console.log(selectedMeasurement)
                 for (const measurement of selectedMeasurement) {
                     const data = extractHistoricForecastHourly(nextModelForecast, measurement, model);
 
@@ -108,12 +110,10 @@ export default function ModelsPage() {
                     }
 
                     newData[measurement].push(convertToPlotlyChartFormat(data, 'linear'));
-                    console.log('DataMiau', newData)
                 }
 
             }
             const [_, randomElement] = Object.entries(newData)[0] || [];
-            console.log('RandomElement', randomElement)
             setWeekdays(weekdayAnnotations(randomElement[0].x, false, i18n.language))
 
             // Request actual value
@@ -131,11 +131,8 @@ export default function ModelsPage() {
                     }
 
                     newData[measurement].push(actualData);
-                    console.log('DataMiau', newData)
                 }
             }
-
-            console.log('Actual', actualValues)
         }
         setForecastData(newData)
 
@@ -148,7 +145,6 @@ export default function ModelsPage() {
         const timeIsoString = toUtcIsoString(time).split('.')[0] + "Z"
 
         const forcastResponse = await fetchForecast(timeIsoString, model);
-        console.log(forcastResponse)
         return forcastResponse
     };
 
@@ -164,7 +160,6 @@ export default function ModelsPage() {
         }
 
         const match = weatherAtTime.find((item: any) => {
-            console.log(format(date), format(new Date(item.date)))
             return format(new Date(item.date)) == format(date)
         });
 
@@ -179,7 +174,7 @@ export default function ModelsPage() {
                 width={'100%'}>
                 <CardHeader pb={'0px'}>
                     <Flex alignItems='center' justifyContent='space-between'>
-                        <Heading>{t('models.title')}</Heading>
+                        <Heading paddingEnd={'50px'}>{t('models.title')}</Heading>
                         <ConfigurationForRequest
                             selectedDateTime={selectedDatetime}
                             selectedModels={selectedModels}

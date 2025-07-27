@@ -65,8 +65,8 @@ export default function TemperatureTab({ isActive }: { isActive: boolean }) {
     return (
         <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
             <Flex gap={layoutConfig.gap} wrap='wrap' pr={0}>
-                {temperatureHistory ? <PlotlyChart data={temperatureHistory} title={t('dataPage.tempYears')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='monthOnly' customLayout={{ showlegend: true }} /> : <OrbitProgress color={loadingColor} size="medium" />}
-                {temperatureLastWeek ? <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} /> : <OrbitProgress color={loadingColor} size="medium" />}
+                {temperatureHistory ? <PlotlyChart data={temperatureHistory} title={t('dataPage.tempYears')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='monthOnly' customLayout={{ showlegend: true }} tooltip={t('infos.dataDWD')}/> : <OrbitProgress color={loadingColor} size="medium" />}
+                {temperatureLastWeek ? <PlotlyChart data={temperatureLastWeek} title={t('dataPage.tempLastWeek')} yAxis={t('data.temperature')} xAxis={t('data.time')} dateFormat='day' customLayout={{ annotations: weekdaysTemp }} tooltip={t('infos.dataDWD')} /> : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
         </Flex>
     );

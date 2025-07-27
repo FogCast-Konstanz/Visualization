@@ -18,7 +18,7 @@ export function selectedStyle() {
                 borderColor: textColor,
             },
             width: "100%",
-            maxWidth: "500px"
+            maxWidth: "100%"
         }),
         menu: (provided: any) => ({
             ...provided,

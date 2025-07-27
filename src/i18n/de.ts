@@ -73,11 +73,11 @@ const de = {
         midTerm: "midTerm",
         shortTerm: "shortTerm",
         title: "Benchmarking Leaderboard",
-        text: "We assess the accuracy of various weather models across three different forecast horizons: 1 day (shortTerm), 3 days (midTerm), and up to a maximum of 7 days (longTerm). Only models capable of forecasting at least as far ahead as the respective horizon are considered, and comparisons are limited to that period. Errors are calculated hourly over the entire timeframe using two metrics: MAE (Mean Absolute Error) is used for cloud cover and humidity forecasts, while RMSE (Root Mean Squared Error) is used for all other parameters. This provides a transparent comparison of the models across different time spans and measurement variables. More information can be found in the glossary under [Meta Forecasting](/lexikon#metaForecasting) and [Benchmarking](/lexikon#benchmarkingIdea)."
+        text: "Wir bewerten die Genauigkeit verschiedener Wettermodelle in drei unterschiedlichen Vorhersagehorizonten von 1 (shortTerm), 3 (midTerm) und maximal 7 Tagen (longTerm). Dabei werden nur Modelle berücksichtigt, die mindestens so weit in die Zukunft vorhersagen können, und jeweils nur bis zu diesem Zeitraum verglichen. Die Fehlerberechnung erfolgt stündlich über den gesamten Zeitraum anhand von zwei Metriken: Für die Vorhersagen von Bewölkung und Luftfeuchtigkeit wird der MAE (Mean Absolute Error) genutzt, für alle weiteren Parameter der RMSE (Root Mean Squared Error). So entsteht ein transparenter Vergleich der Modelle über verschiedene Zeiträume und Messgrößen hinweg. Mehr Informationen finden sich im Lexikon unter [Meta Forecasting](/lexikon#metaForecasting) und [Benchmarking](/lexikon#benchmarkingIdea)."
     },
 
     sailorPage: {
-        currentConditions: "Aktuelle Bedingungen auf See",
+        currentConditions: "Aktuelle Bedingungen auf dem Bodensee",
         windSpeedAndGustsTitle: "Windgeschwindigkeit und Böen",
         windDirectionTitle: "Windrichtung",
         capeAndRainTitle: "Gewittergefahr (CAPE) und Regen"
@@ -142,37 +142,48 @@ const de = {
         graph: "Messwerte der Station",
         introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG.",
         details: "Details",
-        description: `Das Wetter in Konstanz spielt für viele Menschen in der Region eine zentrale Rolle. Für Studierende ist es beispielsweise wichtig zu wissen, wie das Wetter wird. Segler wiederum sind auf präzise Wetterdaten angewiesen, um sichere und planbare Törns auf dem Bodensee durchführen zu können. Auch Touristen profitieren von genauen Informationen, um ihren Aufenthalt besser gestalten zu können.
+        description: `Ob frühe Vorlesung, spontaner Segeltörn oder ein Ausflug ans Ufer - das Wetter am Bodensee beeinflusst viele Entscheidungen im Alltag. Besonders in Konstanz, wo See und Stadt eng verbunden sind, spielt präzise Wetterbeobachtung eine zentrale Rolle.
 
-Um detailliertere und ortsnahe Wetterdaten zur Verfügung zu stellen, wurde am Steg der Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation installiert. Das Ziel besteht darin, über standardisierte Wetterberichte hinaus direkte Messungen bereitzustellen, die die spezifischen Gegebenheiten am Seeufer abbilden.`,
-        technicalDetailsHeader: "Technische Details",
+Um verlässliche, standortgenaue Wetterdaten zu liefern, betreibt die Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation direkt am Steg des Campus. Sie misst laufend Lufttemperatur, Luftfeuchtigkeit und Wassertemperatur - direkt dort, wo Wetter wirklich passiert: am Wasser. Die Daten stehen allen zur Verfügung - für die, die im Rhein baden gehen möchten, die wissen möchten ob sie eine Regenjacke einpacken müssen oder für die forschenden. 
+Unsere Wetterstation liefert aktuelle Werte, die die Bedingungen am Konstanzer Rheinufer gut widerspiegeln.
+
+Unten sind die die Messwerte der Station zu sehen: Die Lufttemperatur (temperature), Luftfeuchtigkeit (humidity) und Wassertemperatur (water_temperature).
+`,
+        technicalDetailsHeader: "Wetterstation - Das steckt dahinter",
 
         technicalDetailsText: `
-![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Foto von Samantha Isted")
+![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Aufbau - Foto von Samantha Isted")
+Unsere Wetterstation misst jede 10 Sekunden die Luftfeuchtigkeit, Luft- und Wassertemperatur, die für jede Minute einen Mittelwert bilden, um ein minütiges Update liefern zu können.
 
-Die Wetterstation ist so konzipiert, dass sie in regelmäßigen Abständen von 10 Sekunden präzise Umweltdaten erfasst und übermittelt. Erfasst werden:
+Erfasst werden also:
+* **Lufttemperatur** - liefert aktuelle Temperaturwerte am Standort und dient als Basis vieler Wetterbeurteilungen.
+* **Luftfeuchtigkeit** - wichtig für die Einschätzung des Klimaempfindens und die Bildung von Nebel oder Niederschlag.
+* **Wassertemperatur des Rheins** - gemessen in ca. 20 cm Tiefe direkt am Steg. Die Werte geben Aufschluss über die thermische Entwicklung des Flusses und sind für Forschung und Freizeit gleichermaßen interessant.
 
-- **Lufttemperatur**: Gibt Aufschluss über die aktuelle Temperatur am Messort.
-- **Luftfeuchtigkeit**: Ermöglicht Rückschlüsse auf das Klimaempfinden und mögliche Niederschlagsbildung.
-- **Wassertemperatur des Rheins**: Gemessen in ca. 80 cm Tiefe, liefert wichtige Daten zur thermischen Entwicklung des Flusses.
 
 
-![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg "Foto von Samantha Isted")
-Für die technische Umsetzung wurden folgende Komponenten verbaut:
+### Das steckt drin: Hardware im Überblick
+Um diese Daten zuverlässig zu erfassen, setzt die Station auf robuste, bewährte Technik:
+![Picture](/assets/weatherstation/Sensoren.jpeg "Sensoren - Foto von Samantha Isted")
 
-- **Raspberry Pi 5**: Ein leistungsfähiger Mikrocomputer, der als zentrale Steuereinheit dient. An ihn sind sämtliche Sensoren angeschlossen. Mittels eines in Python geschriebenen Programms werden die Messwerte automatisiert erfasst, verarbeitet und zur weiteren Nutzung bereitgestellt.
-- **DS18B20**: Ein digitaler Temperatursensor, der zur Bestimmung der Wassertemperatur eingesetzt wird. Die Messung in 80 cm Tiefe gewährleistet stabile und repräsentative Temperaturwerte.
-- **FS304-SHTXX**: Kombisensor zur gleichzeitigen Erfassung von Lufttemperatur und Luftfeuchtigkeit. Der Sensor liefert kalibrierte, zuverlässige Daten in Echtzeit.
-- **Wetterschutzgehäuse**: Alle Komponenten sind in einem wetterfesten Gehäuse untergebracht, das vor Regen, Sonneneinstrahlung und mechanischen Einwirkungen schützt. Zusätzlich beherbergt es Sicherungselemente zum Schutz der Elektronik.
-`
-    },
+* **Raspberry Pi 5**
+Das Herzstück der Anlage: Ein kompakter Mikrocomputer, an den alle Sensoren angeschlossen sind. Selbstentwickelte Python-Programme steuern die Erfassungen, verarbeiten die Daten und stellen sie automatisch bereit.
+
+* **DS18B20 Wassertemperatursensor**
+Ein digitaler Temperatursensor, der zur Bestimmung der Wassertemperatur eingesetzt wird. Die Messung in 20 cm Tiefe gewährleistet stabile und repräsentative Temperaturwerte.
+
+* **FS304-SHTXX Kombisensor**
+Dieser hochpräzise Sensor erfasst gleichzeitig Lufttemperatur und Luftfeuchtigkeit - schnell, zuverlässig und kalibriert.
+
+* **Wetterschutzgehäuse**
+Alle Komponenten sind in einem wetterfesten Gehäuse untergebracht. Das schützt vor Regen, Sonneneinstrahlung und mechanischen Einwirkungen. Integrierte Sicherungen sorgen für zusätzlichen Schutz der sensiblen Elektronik.`,},
 
     impressum: {
         title: "Impressum",
         aboutTitle: "Über das Projekt",
         description: "Wettervorhersagen machen nicht nur Spaß, sondern sind auch entscheidend für die Vorhersage und Planung der Produktion von erneuerbaren Energien wie Wind- und Solarenergie. Eine präzisere Vorhersage kann dabei helfen, die Stabilität und Effizienz der Energieerzeugung durch eine bessere Anpassung an lokale Wetterbedingungen zu steigern.",
         about: "Fogcast ist ein Projekt, das im Rahmen des Teamprojekts 2024/25 im Master Informatik (MSI) an der HTWG Konstanz entwickelt wird. Dieses befasst sich mit der Analyse, Auswertung und Darstellung von Wetterdaten für Konstanz und den Bodenseebereich, mit dem Ziel Wetterphänomene (wie zum Beispiel Nebel) besser zu verstehen und die Vorhersagen zu verbessern. Hierfür sollen Techniken, wie Machine Learning angewandt, eine eigene Wetterstation zur Erfassung von Ergebnissen aufgebaut und eine Plattform, für den öffentlichen Zugang entwickelt werden.",
-        developerTeam: "Das Entwicklungsteam besteht aus 8 Entwicklern und wir geleitet von Professor Dr. Oliver Dürr. Die 8 Entwickler sind alles Master-Studenten mit einem Informatikbezug: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch und Elijah Stauss.",
+        developerTeam: "Das Entwicklungsteam wird geleitet von Professor Dr. Oliver Dürr und besteht aus 8 Master-Studierenden mit Informatik-Bezug: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch und Elijah Stauss.",
         contact: "Kontakt",
         university: "Hochschule",
         website: "Webseite",
@@ -199,13 +210,14 @@ Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingung
     },
 
     infos : {
-        'dataDWD': 'Daten vom [DWD](/lexikon#dwdDescription)',
+        'dataDWD': 'Daten vom [Deutschen Wetterdienst](/lexikon#dwdDescription)',
         'dataDWDAndStation': 'Daten vom [DWD](/lexikon#dwdDescription) und von unserer [Wetterstation](/station)',
         'dataStation': 'Daten von unserer [Wetterstation](/weatherstation)',
         'temperature': 'historische Werte: [hier](/data?tab=temperature)',
         'waterLevel': 'historische Werte: [hier](/data?tab=waterLevel)',
 
-        'fogDays': 'Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).',
+        'fogDays': 'Nebeltage = Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).',
+        'fogDataSource': "Daten vom [Deutschen Wetterdienst](/lexikon#dwdDescription); werden seit 2017 nicht mehr zur Verfügung gestellt.",
 
         'forecastICON': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription) ",
         'forecastCloudCover': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Bewölkung: [Lexikon](/lexikon#cloudCover) ",

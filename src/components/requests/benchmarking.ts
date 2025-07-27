@@ -29,9 +29,6 @@ export async function fetchBenchmarking(time_range: '1d' | '4d' | '7d' | '15d' |
             data = data.replace(/NaN/g, "null");
             data = JSON.parse(data)
         }
-
-        console.log('miau', data)
-
         return data
     } catch (error) {
         console.error("Error fetching actual data:", error);

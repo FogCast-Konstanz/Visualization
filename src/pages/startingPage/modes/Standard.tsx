@@ -76,14 +76,10 @@ export default function StandardMode() {
         } else {
             setCurrentStationWeather(currentWeather);
         }
-
-        console.log(currentWeather)
     }
 
     async function fetchCurrentForecastData() {
         const currentForecast = await fetchCurrentForecast('icon_global');
-
-        console.log('miau', currentForecast)
 
         /* Convert to Plotly format */
         const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', t('data.temperature'), requestDuration)
@@ -153,8 +149,6 @@ export default function StandardMode() {
 
             const positionLeft = Math.round(scrollLeft / 130);
             const rightCorner = Math.round((scrollLeft + totalWidth) / 130);
-
-            console.log(positionLeft, rightCorner, scrollLeft, totalWidth)
 
             const positionRight = x.length > rightCorner ? rightCorner : x.length - 1
 
