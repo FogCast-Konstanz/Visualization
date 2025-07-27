@@ -139,28 +139,39 @@ const en = {
         noDataAvailable: "No current data available",
         graph: "Measurements from the station",
         details: "Details",
-        description: `The weather in Constance plays a central role for many people in the region. For students, for example, it is important to know how the climate affects the quality of life on campus. Sailors, on the other hand, depend on precise weather data in order to be able to organise safe and plannable trips on Lake Constance. Tourists also benefit from precise information in order to better organise their stay.
-In order to provide more detailed and localised weather data, a dedicated weather station has been installed at the jetty of the University of Applied Sciences Constance (HTWG). The aim is to go beyond standardised weather reports and provide direct measurements that reflect the specific conditions on the lakeshore.`,
+        description: `Whether it’s an early lecture, a spontaneous sailing trip, or an excursion to the shore—the weather on Lake Constance influences many everyday decisions. Especially in Konstanz, where lake and city are closely connected, precise weather observation plays a central role.
+
+To provide reliable, location-specific weather data, the Konstanz University of Applied Sciences (HTWG) operates its own weather station directly on the campus pier. It continuously measures air temperature, humidity, and water temperature—right where the weather truly happens: at the water. The data is available to everyone—whether you're planning to swim in the Rhine, deciding if you need a rain jacket, or conducting research.
+Our weather station provides current readings that accurately reflect the conditions along the Rhine in Konstanz.
+
+Below are the station’s measured values: air temperature (temperature), humidity (humidity), and water temperature (water_temperature).`,
         technicalDetailsHeader: "Technical Details",
         technicalDetailsText: `
-![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Foto von Samantha Isted")
+![Picture](/assets/weatherstation/Wetterstation_aufbau.jpeg "Setup - Photo by Samantha Isted")  
+Our weather station measures humidity, air temperature, and water temperature every 10 seconds, forming an average value each minute to provide a minute-by-minute update.
+
+The following are recorded:  
+* **Air Temperature** – provides current temperature values at the location and serves as the basis for many weather assessments.  
+* **Humidity** – important for assessing climate perception and the formation of fog or precipitation.  
+* **Water Temperature of the Rhine** – measured at about 20 cm depth directly at the jetty. The values provide insight into the thermal development of the river and are equally interesting for research and leisure.
 
 
-The weather station is designed to record and transmit precise environmental data at regular intervals of 10 seconds. The following are recorded:
 
-- **Air temperature**: Provides information about the current temperature at the measurement location.
-- **Humidity**: Allows conclusions to be drawn about the climate and possible precipitation.
-- **Water temperature of the Rhine**: Measured at a depth of approx. 80 cm, provides important data on the thermal development of the river.
+### What’s inside: Hardware overview  
+To reliably capture these data, the station uses robust, proven technology:  
+![Picture](/assets/weatherstation/Sensoren.jpeg "Sensors - Photo by Samantha Isted")
 
+* **Raspberry Pi 5**  
+The core of the system: a compact microcomputer to which all sensors are connected. Self-developed Python programs control the data collection, process the data, and make it available automatically.
 
-![Picture](/assets/weatherstation/wetterstation_codeausgabe.jpeg "Foto von Samantha Isted")
-The following components were used for the technical realisation:
+* **DS18B20 Water Temperature Sensor**  
+A digital temperature sensor used to determine the water temperature. Measurement at 20 cm depth ensures stable and representative temperature values.
 
-- **Raspberry Pi 5**: A powerful microcomputer that serves as the central control unit. All sensors are connected to it. Using a programme written in Python, the measured values are automatically recorded, processed and made available for further use.
-- **DS18B20**: A digital temperature sensor that is used to determine the water temperature. The measurement at a depth of 80 cm ensures stable and representative temperature values.
-- **FS304-SHTXX**: Combination sensor for simultaneous measurement of air temperature and humidity. The sensor provides calibrated, reliable data in real time.
-- **Weatherproof housing**: All components are housed in a weatherproof housing that protects against rain, sunlight and mechanical influences. It also houses fuse elements to protect the electronics.
+* **FS304-SHTXX Combo Sensor**  
+This highly precise sensor simultaneously measures air temperature and humidity – fast, reliable, and calibrated.
 
+* **Weather Protection Housing**  
+All components are housed in a weatherproof enclosure. It protects against rain, sunlight, and mechanical impacts. Integrated fuses provide additional protection for the sensitive electronics.
 `
     },
 

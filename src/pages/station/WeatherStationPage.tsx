@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Flex, Image, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6";
@@ -31,7 +31,7 @@ export default function WeatherStationPage() {
         dateLastWeek.setDate(dateLastWeek.getDate() - 7)
 
         const weather = await fetchStationData(new Date("2025-07-24T00:00:00"), new Date("2100-01-01T00:00:00"));
-        if (!weather) {return}
+        if (!weather) { return }
         // const waterLevel = await fetchWaterLevelHistory(dateLastYear, new Date())
         const temperature = parseWeatherStationToXYFormat(weather, 'temperature')
         const water_temperature = parseWeatherStationToXYFormat(weather, 'water_temperature')
@@ -44,7 +44,7 @@ export default function WeatherStationPage() {
     return (
         <Flex direction='column' width='100%' gap={layoutConfig.gap} margin={layoutConfig.margin} overflow="auto" maxHeight={'calc(100dvh - 20px)'}>
 
-            <Introduction header={t('weatherStation.title')} text={t('weatherStation.introduction')}></Introduction>
+            <Introduction header={t('weatherStation.title')} text={t('weatherStation.description')}></Introduction>
 
             <CurrentWeather></CurrentWeather>
 
@@ -66,7 +66,14 @@ export default function WeatherStationPage() {
             </Flex>
 
             <Flex gap={layoutConfig.gap} flexDirection={{ lg: "row", base: 'column' }}>
-                <CardIndividual header={t('weatherStation.details')} body={t('weatherStation.description')}></CardIndividual>
+                <Image
+                    src="/assets/weatherstation/Steg.jpeg"
+                    alt="Weather station at the HTWG pier"
+                    width="100%"
+                    maxW={{ lg: "40%", base: "100%" }}
+                    objectFit="cover"
+                    borderRadius="md"
+                />
                 <Map></Map>
             </Flex>
 
