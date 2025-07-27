@@ -162,6 +162,17 @@ export default function AdvancedMode() {
                 <Button onClick={saveCurrentAsPreset} background={useColor('primary')} _hover={{ background: useColor('background') }}> + Save</Button>
             </Flex>
 
+            <Flex gap="10px" wrap="wrap" alignItems="center">
+                {[...defaultPresets, ...customPresets].map((preset, idx) => (
+                    <Button key={idx}
+                        onClick={() => {
+                            setWeatherModel(preset.models);
+                            setMeasurement(preset.measurements);
+                        }}
+                    >{preset.name}</Button>
+                ))}
+            </Flex>
+
             {/* Time-based restriction buttons */}
             <Flex gap={layoutConfig.smallGap} flexWrap="wrap">
                 {buttons.map(({ label, value }) => (
@@ -179,17 +190,6 @@ export default function AdvancedMode() {
                     >
                         {label}
                     </Button>
-                ))}
-            </Flex>
-
-            <Flex gap="10px" wrap="wrap" alignItems="center">
-                {[...defaultPresets, ...customPresets].map((preset, idx) => (
-                    <Button key={idx}
-                        onClick={() => {
-                            setWeatherModel(preset.models);
-                            setMeasurement(preset.measurements);
-                        }}
-                    >{preset.name}</Button>
                 ))}
             </Flex>
 
