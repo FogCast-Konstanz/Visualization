@@ -21,6 +21,13 @@ export default function LexikonEntry({ text, header, tags, id, defaultShown = fa
         }
     }, [defaultShown])
 
+    useEffect(() => {
+        if (location.hash) {
+            const el = document.getElementById(location.hash.slice(1));
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, []);;
+
     const color = useColor('warning')
 
     function highlightText(text: string, query: string) {

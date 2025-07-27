@@ -37,7 +37,7 @@ export default function WeatherStationPage() {
         const water_temperature = parseWeatherStationToXYFormat(weather, 'water_temperature')
         const humidity = parseWeatherStationToXYFormat(weather, 'humidity')
 
-        setWeather([(convertToPlotlyChartFormat(temperature, 'scatter', 'y1')), (convertToPlotlyChartFormat(water_temperature, 'scatter', 'y1')), (convertToPlotlyChartFormat(humidity, 'scatter', 'y2'))])
+        setWeather([(convertToPlotlyChartFormat(temperature, 'line', 'y1')), (convertToPlotlyChartFormat(water_temperature, 'line', 'y1')), (convertToPlotlyChartFormat(humidity, 'line', 'y2'))])
     }
 
 

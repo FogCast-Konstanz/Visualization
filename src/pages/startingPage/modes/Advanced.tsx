@@ -21,7 +21,7 @@ type Preset = {
 };
 
 const defaultPresets: Preset[] = [
-    { name: 'Standard', models: ['icon_d2'], measurements: ['apparent_temperature'] },
+    { name: 'Standard', models: [ "icon_seamless", "meteofrance_seamless", "ukmo_seamless", "knmi_seamless", "dmi_seamless", "ecmwf_ifs025" ], measurements: ['weather_code', 'temperature_2m', 'precipitation'] },
     { name: 'MultiModel Temp', models: ['icon_d2', 'gfs_global'], measurements: ['apparent_temperature', 'temperature_2m'] },
     { name: 'Full Wind View', models: ['icon_d2'], measurements: ['wind_direction_10m', 'wind_gusts_10m', 'apparent_temperature'] },
     { name: 'Weather Overview', models: ['icon_d2', 'gfs_global'], measurements: ['weather_code', 'temperature_2m', 'precipitation'] }
@@ -73,6 +73,8 @@ export default function AdvancedMode() {
         setIsLoading(true);
         fetchForecastsWeatherModels().finally(() => setIsLoading(false));
         setSearchParams({ models: JSON.stringify(weatherModel), measurements: JSON.stringify(measurements), userMode: '2' });
+
+        console.log(weatherModel, measurements)
     }, [weatherModel, measurements]);
 
     async function fetchForecastsWeatherModels() {

@@ -73,7 +73,7 @@ const en = {
         midTerm: "midTerm",
         shortTerm: "shortTerm",
         title: "Benchmarking Leaderboard",
-        text: "Wir bewerten die Genauigkeit verschiedener Wettermodelle in drei unterschiedlichen Vorhersagehorizonten von 1 (shortTerm), 3 (midTerm) und maximal 7 Tagen (longTerm). Dabei werden nur Modelle berücksichtigt, die mindestens so weit in die Zukunft vorhersagen können, und jeweils nur bis zu diesem Zeitraum verglichen. Die Fehlerberechnung erfolgt stündlich über den gesamten Zeitraum anhand von zwei Metriken: Für die Vorhersagen von Bewölkung und Luftfeuchtigkeit wird der MAE (Mean Absolute Error) genutzt, für alle weiteren Parameter der RMSE (Root Mean Squared Error). So entsteht ein transparenter Vergleich der Modelle über verschiedene Zeiträume und Messgrößen hinweg. Mehr Informationen finden sich im Lexikon unter [Meta Forecasting](/lexikon#metaForecasting) und [Benchmarking](/lexikon#benchmarkingIdea)."
+        text: "We assess the accuracy of various weather models across three different forecast horizons: 1 day (shortTerm), 3 days (midTerm), and up to a maximum of 7 days (longTerm). Only models capable of forecasting at least as far ahead as the respective horizon are considered, and comparisons are limited to that period. Errors are calculated hourly over the entire timeframe using two metrics: MAE (Mean Absolute Error) is used for cloud cover and humidity forecasts, while RMSE (Root Mean Squared Error) is used for all other parameters. This provides a transparent comparison of the models across different time spans and measurement variables. More information can be found in the glossary under [Meta Forecasting](/lexikon#metaForecasting) and [Benchmarking](/lexikon#benchmarkingIdea)."
     },
 
     sailorPage: {
@@ -196,13 +196,14 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
     },
 
     infos: {
-        'dataDWD': 'Data from the [DWD](/lexicon#dwdDescription)',
+        'dataDWD': 'Data from the [Deutschen Wetterdienst](/lexicon#dwdDescription)',
         'dataDWDAndStation': 'Data from the [DWD](/lexicon#dwdDescription) and from our [weather station](/station)',
         'dataStation': 'Data from our [weather station](/weatherstation)',
         'temperature': 'historical values: [here](/data?tab=temperature)',
         'waterLevel': 'historical values: [here](/data?tab=waterLevel)',
 
         'fogDays': 'Days with a view below 1km; More Info: [Lexikon](/lexiko0n#fogDays).',
+        'fogDataSource': "Data from the [Deutschen Wetterdienst](/lexikon#dwdDescription); no longer provided since 2017.",
 
         'forecastICON': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription)",
         'forecastCloudCover': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about Cloud cover: [Lexikon](/lexikon#cloudCover)",

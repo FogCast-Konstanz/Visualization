@@ -44,8 +44,11 @@ export default function ModelsPage() {
     const [forecastData, setForecastData] = useState<{ [key: string]: PlotlyChartDataFormat[]; } | null>(null)
     const [isDay, setIsDay] = useState<{ x: string[], y: number[] }>({ x: [], y: [] });
 
-    const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? '["icon_d2"]'))
-    const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? '["apparent_temperature"]'))
+    const defaultModels: string = '["icon_seamless", "meteofrance_seamless", "ukmo_seamless", "knmi_seamless", "dmi_seamless", "ecmwf_ifs025"]'
+    const defaultMeasurements = '["precipitation", "temperature_2m"]'
+
+    const [selectedModels, setSelectedModels] = useState<string[]>(JSON.parse(searchParams.get('models') ?? defaultModels))
+    const [selectedMeasurement, setSelectedMeasurement] = useState<string[]>(JSON.parse(searchParams.get('measurements') ?? defaultMeasurements))
     const [selectedDatetime, setSelectedDatetime] = useState<string>((searchParams.get('time') ?? toUtcIsoString(new Date())).slice(0, 16))
 
     const [weekdays, setWeekdays] = useState<any | null>(null)

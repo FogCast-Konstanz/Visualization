@@ -73,11 +73,11 @@ const de = {
         midTerm: "midTerm",
         shortTerm: "shortTerm",
         title: "Benchmarking Leaderboard",
-        text: "We assess the accuracy of various weather models across three different forecast horizons: 1 day (shortTerm), 3 days (midTerm), and up to a maximum of 7 days (longTerm). Only models capable of forecasting at least as far ahead as the respective horizon are considered, and comparisons are limited to that period. Errors are calculated hourly over the entire timeframe using two metrics: MAE (Mean Absolute Error) is used for cloud cover and humidity forecasts, while RMSE (Root Mean Squared Error) is used for all other parameters. This provides a transparent comparison of the models across different time spans and measurement variables. More information can be found in the glossary under [Meta Forecasting](/lexikon#metaForecasting) and [Benchmarking](/lexikon#benchmarkingIdea)."
+        text: "Wir bewerten die Genauigkeit verschiedener Wettermodelle in drei unterschiedlichen Vorhersagehorizonten von 1 (shortTerm), 3 (midTerm) und maximal 7 Tagen (longTerm). Dabei werden nur Modelle berücksichtigt, die mindestens so weit in die Zukunft vorhersagen können, und jeweils nur bis zu diesem Zeitraum verglichen. Die Fehlerberechnung erfolgt stündlich über den gesamten Zeitraum anhand von zwei Metriken: Für die Vorhersagen von Bewölkung und Luftfeuchtigkeit wird der MAE (Mean Absolute Error) genutzt, für alle weiteren Parameter der RMSE (Root Mean Squared Error). So entsteht ein transparenter Vergleich der Modelle über verschiedene Zeiträume und Messgrößen hinweg. Mehr Informationen finden sich im Lexikon unter [Meta Forecasting](/lexikon#metaForecasting) und [Benchmarking](/lexikon#benchmarkingIdea)."
     },
 
     sailorPage: {
-        currentConditions: "Aktuelle Bedingungen auf See",
+        currentConditions: "Aktuelle Bedingungen auf dem Bodensee",
         windSpeedAndGustsTitle: "Windgeschwindigkeit und Böen",
         windDirectionTitle: "Windrichtung",
         capeAndRainTitle: "Gewittergefahr (CAPE) und Regen"
@@ -172,7 +172,7 @@ Für die technische Umsetzung wurden folgende Komponenten verbaut:
         aboutTitle: "Über das Projekt",
         description: "Wettervorhersagen machen nicht nur Spaß, sondern sind auch entscheidend für die Vorhersage und Planung der Produktion von erneuerbaren Energien wie Wind- und Solarenergie. Eine präzisere Vorhersage kann dabei helfen, die Stabilität und Effizienz der Energieerzeugung durch eine bessere Anpassung an lokale Wetterbedingungen zu steigern.",
         about: "Fogcast ist ein Projekt, das im Rahmen des Teamprojekts 2024/25 im Master Informatik (MSI) an der HTWG Konstanz entwickelt wird. Dieses befasst sich mit der Analyse, Auswertung und Darstellung von Wetterdaten für Konstanz und den Bodenseebereich, mit dem Ziel Wetterphänomene (wie zum Beispiel Nebel) besser zu verstehen und die Vorhersagen zu verbessern. Hierfür sollen Techniken, wie Machine Learning angewandt, eine eigene Wetterstation zur Erfassung von Ergebnissen aufgebaut und eine Plattform, für den öffentlichen Zugang entwickelt werden.",
-        developerTeam: "Das Entwicklungsteam besteht aus 8 Entwicklern und wir geleitet von Professor Dr. Oliver Dürr. Die 8 Entwickler sind alles Master-Studenten mit einem Informatikbezug: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch und Elijah Stauss.",
+        developerTeam: "Das Entwicklungsteam wird geleitet von Professor Dr. Oliver Dürr und besteht aus 8 Master-Studierenden mit Informatik-Bezug: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch und Elijah Stauss.",
         contact: "Kontakt",
         university: "Hochschule",
         website: "Webseite",
@@ -199,13 +199,14 @@ Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingung
     },
 
     infos : {
-        'dataDWD': 'Daten vom [DWD](/lexikon#dwdDescription)',
+        'dataDWD': 'Daten vom [Deutschen Wetterdienst](/lexikon#dwdDescription)',
         'dataDWDAndStation': 'Daten vom [DWD](/lexikon#dwdDescription) und von unserer [Wetterstation](/station)',
         'dataStation': 'Daten von unserer [Wetterstation](/weatherstation)',
         'temperature': 'historische Werte: [hier](/data?tab=temperature)',
         'waterLevel': 'historische Werte: [hier](/data?tab=waterLevel)',
 
-        'fogDays': 'Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).',
+        'fogDays': 'Nebeltage = Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).',
+        'fogDataSource': "Daten vom [Deutschen Wetterdienst](/lexikon#dwdDescription); werden seit 2017 nicht mehr zur Verfügung gestellt.",
 
         'forecastICON': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription) ",
         'forecastCloudCover': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Bewölkung: [Lexikon](/lexikon#cloudCover) ",

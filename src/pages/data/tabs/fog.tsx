@@ -43,9 +43,9 @@ export default function FogTab({ isActive }: { isActive: boolean }) {
 
     return (
         <Flex gap={12} wrap='wrap'>
-            {fogHistory ? <PlotlyChart data={fogHistory} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} dateFormat='day' tooltip={t('infos.fogDays')}/> : <OrbitProgress color={loadingColor} size="medium" />}
-            {fogLastYear ? <PlotlyChart data={fogLastYear} title={t('dataPage.fogYear')} yAxis={t('dataPage.fogYear')} xAxis={t('data.time')} dateFormat='year' tooltip={t('infos.fogDays')} /> : <OrbitProgress color={loadingColor} size="medium" />}
-            {fogAllYears ? <PlotlyChart data={fogAllYears} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogYear')} xAxis={t('data.time')} dateFormat='monthOnly' customLayout={{ showlegend: true }} tooltip={t('infos.fogDays')}/> : <OrbitProgress color={loadingColor} size="medium" />}
+            {fogHistory ? <PlotlyChart data={fogHistory} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogMonth')} xAxis={t('data.time')} dateFormat='day' tooltip={t('infos.fogDays') + '\n\n' + t('infos.fogDataSource')}/> : <OrbitProgress color={loadingColor} size="medium" />}
+            {fogLastYear ? <PlotlyChart data={fogLastYear} title={t('dataPage.fogYear')} yAxis={t('dataPage.fogYear')} xAxis={t('data.time')} dateFormat='year' tooltip={t('infos.fogDays') + '\n\n' + t('infos.fogDataSource')} /> : <OrbitProgress color={loadingColor} size="medium" />}
+            {fogAllYears ? <PlotlyChart data={fogAllYears} title={t('dataPage.fogMonth')} yAxis={t('dataPage.fogYear')} xAxis={t('data.time')} dateFormat='monthOnly' customLayout={{ showlegend: true }} tooltip={t('infos.fogDays') + '\n\n' + t('infos.fogDataSource')}/> : <OrbitProgress color={loadingColor} size="medium" />}
         </Flex>
     )
 }
