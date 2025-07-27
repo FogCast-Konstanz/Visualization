@@ -73,8 +73,6 @@ export default function AdvancedMode() {
         setIsLoading(true);
         fetchForecastsWeatherModels().finally(() => setIsLoading(false));
         setSearchParams({ models: JSON.stringify(weatherModel), measurements: JSON.stringify(measurements), userMode: '2' });
-
-        console.log(weatherModel, measurements)
     }, [weatherModel, measurements]);
 
     async function fetchForecastsWeatherModels() {

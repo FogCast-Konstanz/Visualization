@@ -58,7 +58,6 @@ export default function Lexikon() {
             setHash(window.location.hash.substring(1));
         };
 
-        console.log(lexikonEntries)
         window.addEventListener('hashchange', handleUrlChange);
 
         return () => {

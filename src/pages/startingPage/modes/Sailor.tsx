@@ -58,7 +58,6 @@ export default function SailorMode() {
             }, {} as Record<string, string>);
 
             setCurrentWeather(reformattedWeather);
-            console.log(reformattedWeather)
         } catch (error) {
             console.error("Fehler beim Abrufen der aktuellen Wetterdaten für Segler:", error);
         }
@@ -81,7 +80,6 @@ export default function SailorMode() {
             const is_day = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'is_day', t('data.isDay'), requestDuration);
             const weather_code = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'weather_code', t('data.weatherCode'), requestDuration)
 
-            // console.log(wind_direction_10m)
             // ForecastCard
             setForecastCard(
                 {

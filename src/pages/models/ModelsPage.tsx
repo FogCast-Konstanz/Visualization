@@ -97,7 +97,6 @@ export default function ModelsPage() {
             for (const model of selectedModels) {
                 const nextModelForecast = await fetchHistoricForecastModel(model)
 
-                console.log(selectedMeasurement)
                 for (const measurement of selectedMeasurement) {
                     const data = extractHistoricForecastHourly(nextModelForecast, measurement, model);
 
@@ -111,12 +110,10 @@ export default function ModelsPage() {
                     }
 
                     newData[measurement].push(convertToPlotlyChartFormat(data, 'linear'));
-                    console.log('DataMiau', newData)
                 }
 
             }
             const [_, randomElement] = Object.entries(newData)[0] || [];
-            console.log('RandomElement', randomElement)
             setWeekdays(weekdayAnnotations(randomElement[0].x, false, i18n.language))
 
             // Request actual value
@@ -134,11 +131,8 @@ export default function ModelsPage() {
                     }
 
                     newData[measurement].push(actualData);
-                    console.log('DataMiau', newData)
                 }
             }
-
-            console.log('Actual', actualValues)
         }
         setForecastData(newData)
 
@@ -151,7 +145,6 @@ export default function ModelsPage() {
         const timeIsoString = toUtcIsoString(time).split('.')[0] + "Z"
 
         const forcastResponse = await fetchForecast(timeIsoString, model);
-        console.log(forcastResponse)
         return forcastResponse
     };
 
@@ -167,7 +160,6 @@ export default function ModelsPage() {
         }
 
         const match = weatherAtTime.find((item: any) => {
-            console.log(format(date), format(new Date(item.date)))
             return format(new Date(item.date)) == format(date)
         });
 

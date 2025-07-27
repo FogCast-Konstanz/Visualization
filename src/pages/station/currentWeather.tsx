@@ -29,8 +29,6 @@ export default function CurrentWeather() {
             setNoCurrentDataAvailable(false);
             setCurrentWeather(currentWeather);
         }
-
-        console.log(currentWeather)
     }
 
 
