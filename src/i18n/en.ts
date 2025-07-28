@@ -139,9 +139,7 @@ const en = {
         noDataAvailable: "No current data available",
         graph: "Measurements from the station",
         details: "Details",
-        description: `Whether it’s an early lecture, a spontaneous sailing trip, or an excursion to the shore—the weather on Lake Constance influences many everyday decisions. Especially in Konstanz, where lake and city are closely connected, precise weather observation plays a central role.
-
-To provide reliable, location-specific weather data, the Konstanz University of Applied Sciences (HTWG) operates its own weather station directly on the campus pier. It continuously measures air temperature, humidity, and water temperature—right where the weather truly happens: at the water. The data is available to everyone—whether you're planning to swim in the Rhine, deciding if you need a rain jacket, or conducting research.
+        description: `To provide reliable, location-specific weather data, the Konstanz University of Applied Sciences (HTWG) operates its own weather station directly on the campus pier. It continuously measures air temperature, humidity, and water temperature—right where the weather truly happens: at the water. The data is available to everyone—whether you're planning to swim in the Rhine, deciding if you need a rain jacket, or conducting research.
 Our weather station provides current readings that accurately reflect the conditions along the Rhine in Konstanz.
 
 Below are the station’s measured values: air temperature (temperature), humidity (humidity), and water temperature (water_temperature).`,
@@ -178,7 +176,7 @@ All components are housed in a weatherproof enclosure. It protects against rain,
     impressum: {
         title: "Impressum",
         aboutTitle: "About the project",
-        description: "Weather forecasting is not only fun, but also crucial for predicting and planning the production of renewable energy such as wind and solar power. More accurate forecasting can help increase the stability and efficiency of energy production by better adapting to local weather conditions.",
+        description: "Whether it’s an early lecture, a spontaneous sailing trip, or an excursion to the shore—the weather on Lake Constance influences many everyday decisions. Especially in Konstanz, where lake and city are closely connected, precise weather observation plays a central role. Weather forecasting is not only fun, but also crucial for predicting and planning the production of renewable energy such as wind and solar power. More accurate forecasting can help increase the stability and efficiency of energy production by better adapting to local weather conditions.",
         about: "Fogcast is a project that is being developed as part of the 2024/25 team project in the Master of Computer Science (MSI) at the HTWG Konstanz. It deals with the analysis, evaluation and presentation of weather data for Constance and the Lake Constance area, with the aim of better understanding weather phenomena (such as fog) and improving forecasts. To this end, techniques such as machine learning will be applied, a dedicated weather station will be set up to record results and a platform will be developed for public access.",
         developerTeam: "The development team consists of 8 developers and is led by Professor Dr. Oliver Dürr. The 8 developers are all Master's students with a computer science background: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch and Elijah Stauss.",
         contact: "Contact",
@@ -216,11 +214,11 @@ Freely accessible geodata from the DWD and Open Meteo may be used under the cond
         'fogDays': 'Days with a view below 1km; More Info: [Lexikon](/lexiko0n#fogDays).',
         'fogDataSource': "Data from the [Deutschen Wetterdienst](/lexikon#dwdDescription); no longer provided since 2017.",
 
-        'forecastICON': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription)",
-        'forecastCloudCover': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about Cloud cover: [Lexikon](/lexikon#cloudCover)",
-        'forecastWindspeed': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about Wind Gusts: [Lexikon](/lexikon#windGusts)",
-        'forecastWinddirection': "Indicated in degrees: 0° = N, 90° = E, 180° = S, 270° = W\nForecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription)",
-        'forecastCape': "Forecast from [ICON-D2](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about CAPE Index: [Lexikon](/lexikon#capeIndex)"
+        'forecastICON': "Forecast from [ICON](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription)",
+        'forecastCloudCover': "Forecast from [ICON](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about Cloud cover: [Lexikon](/lexikon#cloudCover)",
+        'forecastWindspeed': "Forecast from [ICON](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about Wind Gusts: [Lexikon](/lexikon#windGusts)",
+        'forecastWinddirection': "Indicated in degrees: 0° = N, 90° = E, 180° = S, 270° = W\nForecast from [ICON](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription)",
+        'forecastCape': "Forecast from [ICON](/lexikon#ICON_D2) model, data from [Openmeteo](/lexikon#meteoblueDescription); More details about CAPE Index: [Lexikon](/lexikon#capeIndex)"
     },
 
     cookies: {
