@@ -68,7 +68,7 @@ export default function SailorMode() {
      */
     async function fetchSailorForecastData() {
         try {
-            const currentForecast = await fetchCurrentForecast('icon_global'); // Annahme: 'icon_global' ist ein guter Standard
+            const currentForecast = await fetchCurrentForecast('icon_seamles'); // Annahme: 'icon_global' ist ein guter Standard
 
             // Extrahiere relevante Daten für Segler
             const wind_speed_10m = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'wind_speed_10m', t('data.windspeed'), requestDuration);

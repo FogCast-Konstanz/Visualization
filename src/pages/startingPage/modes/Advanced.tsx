@@ -191,7 +191,7 @@ export default function AdvancedMode() {
                         {label}
                     </Button>
                 ))}
-            </Flex>
+            </Flex> 
 
             <Flex gap="10px" direction='column'>
                 {isLoading ? <OrbitProgress size="medium" /> :

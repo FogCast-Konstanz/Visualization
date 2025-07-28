@@ -142,9 +142,7 @@ const de = {
         graph: "Messwerte der Station",
         introduction: "FogCast hat eine eigene und selbstgebaute Wetterstation am Steg der HTWG.",
         details: "Details",
-        description: `Ob frühe Vorlesung, spontaner Segeltörn oder ein Ausflug ans Ufer - das Wetter am Bodensee beeinflusst viele Entscheidungen im Alltag. Besonders in Konstanz, wo See und Stadt eng verbunden sind, spielt präzise Wetterbeobachtung eine zentrale Rolle.
-
-Um verlässliche, standortgenaue Wetterdaten zu liefern, betreibt die Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation direkt am Steg des Campus. Sie misst laufend Lufttemperatur, Luftfeuchtigkeit und Wassertemperatur - direkt dort, wo Wetter wirklich passiert: am Wasser. Die Daten stehen allen zur Verfügung - für die, die im Rhein baden gehen möchten, die wissen möchten ob sie eine Regenjacke einpacken müssen oder für die forschenden. 
+        description: `Um verlässliche, standortgenaue Wetterdaten zu liefern, betreibt die Hochschule Konstanz Technik, Wirtschaft und Gestaltung (HTWG) eine eigene Wetterstation direkt am Steg des Campus. Sie misst laufend Lufttemperatur, Luftfeuchtigkeit und Wassertemperatur - direkt dort, wo Wetter wirklich passiert: am Wasser. Die Daten stehen allen zur Verfügung - für die, die im Rhein baden gehen möchten, die wissen möchten ob sie eine Regenjacke einpacken müssen oder für die forschenden. 
 Unsere Wetterstation liefert aktuelle Werte, die die Bedingungen am Konstanzer Rheinufer gut widerspiegeln.
 
 Unten sind die die Messwerte der Station zu sehen: Die Lufttemperatur (temperature), Luftfeuchtigkeit (humidity) und Wassertemperatur (water_temperature).
@@ -181,7 +179,7 @@ Alle Komponenten sind in einem wetterfesten Gehäuse untergebracht. Das schützt
     impressum: {
         title: "Impressum",
         aboutTitle: "Über das Projekt",
-        description: "Wettervorhersagen machen nicht nur Spaß, sondern sind auch entscheidend für die Vorhersage und Planung der Produktion von erneuerbaren Energien wie Wind- und Solarenergie. Eine präzisere Vorhersage kann dabei helfen, die Stabilität und Effizienz der Energieerzeugung durch eine bessere Anpassung an lokale Wetterbedingungen zu steigern.",
+        description: "Ob frühe Vorlesung, spontaner Segeltörn oder ein Ausflug ans Ufer - das Wetter am Bodensee beeinflusst viele Entscheidungen im Alltag. Besonders in Konstanz, wo See und Stadt eng verbunden sind, spielt präzise Wetterbeobachtung eine zentrale Rolle. Wettervorhersagen machen nicht nur Spaß, sondern sind auch entscheidend für die Vorhersage und Planung der Produktion von erneuerbaren Energien wie Wind- und Solarenergie. Eine präzisere Vorhersage kann dabei helfen, die Stabilität und Effizienz der Energieerzeugung durch eine bessere Anpassung an lokale Wetterbedingungen zu steigern.",
         about: "Fogcast ist ein Projekt, das im Rahmen des Teamprojekts 2024/25 im Master Informatik (MSI) an der HTWG Konstanz entwickelt wird. Dieses befasst sich mit der Analyse, Auswertung und Darstellung von Wetterdaten für Konstanz und den Bodenseebereich, mit dem Ziel Wetterphänomene (wie zum Beispiel Nebel) besser zu verstehen und die Vorhersagen zu verbessern. Hierfür sollen Techniken, wie Machine Learning angewandt, eine eigene Wetterstation zur Erfassung von Ergebnissen aufgebaut und eine Plattform, für den öffentlichen Zugang entwickelt werden.",
         developerTeam: "Das Entwicklungsteam wird geleitet von Professor Dr. Oliver Dürr und besteht aus 8 Master-Studierenden mit Informatik-Bezug: Lukas Benner, Jonas Elsper, Lukas Epple, Maren Franke, Samantha Isted, Marta Mate, Simon Rauch und Elijah Stauss.",
         contact: "Kontakt",
@@ -219,11 +217,11 @@ Frei verfügbare Geodaten des DWD und von Open Meteo dürfen unter den Bedingung
         'fogDays': 'Nebeltage = Tage, an denen Sicht zeitweise unter 1km lag; Mehr Infos: [Lexikon](/lexikon#fogDays).',
         'fogDataSource': "Daten vom [Deutschen Wetterdienst](/lexikon#dwdDescription); werden seit 2017 nicht mehr zur Verfügung gestellt.",
 
-        'forecastICON': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription) ",
-        'forecastCloudCover': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Bewölkung: [Lexikon](/lexikon#cloudCover) ",
-        'forecastWindspeed': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Windböen: [Lexikon](/lexikon#windGusts) ",
-        'forecastWinddirection': "Angabe in Grad: 0° = N, 90° = O, 180° = S, 270° = W\n\nVorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription)",
-        'forecastCape': "Vorhersage des [ICON-D2](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu CAPE Index: [Lexikon](/lexikon#capeIndex) ",
+        'forecastICON': "Vorhersage des [ICON](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription) ",
+        'forecastCloudCover': "Vorhersage des [ICON](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Bewölkung: [Lexikon](/lexikon#cloudCover) ",
+        'forecastWindspeed': "Vorhersage des [ICON](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu Windböen: [Lexikon](/lexikon#windGusts) ",
+        'forecastWinddirection': "Angabe in Grad: 0° = N, 90° = O, 180° = S, 270° = W\n\nVorhersage des [ICON](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription)",
+        'forecastCape': "Vorhersage des [ICON](/lexikon#ICON_D2) Modells, Daten von [Openmeteo](/lexikon#meteoblueDescription); Mehr Informationen zu CAPE Index: [Lexikon](/lexikon#capeIndex) ",
     },
 
     cookies: {
