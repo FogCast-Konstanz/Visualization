@@ -79,7 +79,7 @@ export default function StandardMode() {
     }
 
     async function fetchCurrentForecastData() {
-        const currentForecast = await fetchCurrentForecast('icon_global');
+        const currentForecast = await fetchCurrentForecast('icon_seamless');
 
         /* Convert to Plotly format */
         const temperature = extractCurrentWeatherForecastHourlyLastXDays(currentForecast, 'apparent_temperature', t('data.temperature'), requestDuration)
