@@ -34,7 +34,7 @@ export default function Impressum() {
                         </Box>
 
                         <Image
-                            src="assets/placeholder_picture.jpg"
+                            src="assets/team.jpg"
                             alt="Developer Team"
                             width="400px"
                             borderRadius={layoutConfig.borderRadius}
