@@ -12,7 +12,8 @@ export type BenchmarkingResponseFormat = {
     result: "_result",
     surface_pressure: number,
     table: number,
-    temperature_2m: number
+    temperature_2m: number,
+    wind_speed_10m: number
 };
 
 

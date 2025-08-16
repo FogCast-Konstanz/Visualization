@@ -58,6 +58,7 @@ export default function LeaderboardTable({ data, timeRangeLabel }: LeaderboardTa
 		{ key: "relative_humidity_2m", label: "Humidity (2m)" },
 		{ key: "surface_pressure", label: "Surface Pressure" },
 		{ key: "temperature_2m", label: "Temperature (2m)" },
+		{ key: "wind_speed_10m", label: "Wind Speed (10m)" },
 	];
 
 	return (
@@ -86,6 +87,7 @@ export default function LeaderboardTable({ data, timeRangeLabel }: LeaderboardTa
 							<Td>{entry.relative_humidity_2m?.toFixed(2)}</Td>
 							<Td>{entry.surface_pressure?.toFixed(2)}</Td>
 							<Td>{entry.temperature_2m?.toFixed(2)}</Td>
+							<Td>{entry.wind_speed_10m?.toFixed(2)}</Td>
 						</Tr>
 					))}
 				</Tbody>
