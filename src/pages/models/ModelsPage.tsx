@@ -95,7 +95,13 @@ export default function ModelsPage() {
             setForecastData(null);
 
             for (const model of selectedModels) {
-                const nextModelForecast = await fetchHistoricForecastModel(model)
+                let nextModelForecast;
+                try {
+                    nextModelForecast = await fetchHistoricForecastModel(model)
+                } catch (error) {
+                    console.error(`Error fetching historic forecast for model "${model}":`, error);
+                    continue;
+                }
 
                 for (const measurement of selectedMeasurement) {
                     const data = extractHistoricForecastHourly(nextModelForecast, measurement, model);
@@ -113,11 +119,20 @@ export default function ModelsPage() {
                 }
 
             }
+            if (Object.keys(newData).length === 0) {
+                setForecastData({});
+                return;
+            }
             const [_, randomElement] = Object.entries(newData)[0] || [];
             setWeekdays(weekdayAnnotations(randomElement[0].x, false, i18n.language))
 
             // Request actual value
-            const actualValues = await fetchActualWeather('icon_d2')
+            let actualValues = null;
+            try {
+                actualValues = await fetchActualWeather('icon_d2')
+            } catch (error) {
+                console.error("Error fetching actual weather:", error);
+            }
 
             if (actualValues) {
                 for (const measurement of selectedMeasurement) {
