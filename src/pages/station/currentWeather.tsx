@@ -44,7 +44,9 @@ export default function CurrentWeather() {
                             {t('data.lastUpdated')}: {new Date(currentWeather['time']).toLocaleString()}
                         </Text>
                     </>
-                    : <OrbitProgress color={loadingColor} size="medium" />
+                    : <Flex width="100%" justifyContent="center" alignItems="center" minH="120px">
+                        <OrbitProgress color={loadingColor} size="medium" />
+                    </Flex>
                 :
                 <>
                     <Text fontSize="sm" color={textColor} textAlign="center" width="100%">

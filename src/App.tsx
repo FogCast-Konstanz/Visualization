@@ -32,20 +32,22 @@ function App() {
             direction={{ base: 'column', lg: 'row' }}
         >
             <Router>
-                <Navigation></Navigation>
-                <Routes>
-                    <Route path="/" element={<StartingPage />} />
-                    <Route path='/lexikon' element={<Lexikon />} />
-                    <Route path='/phenomena' element={<Phenomena />} />
-                    <Route path='/impressum' element={<Impressum />} />
-                    <Route path='/data' element={<DataPage />} />
-                    <Route path='/station' element={<WeatherStationPage />} />
-                    <Route path='/models' element={<ModelsPage />} />
-                    <Route path='/analysis' element={<BenchmarkingLeaderboard />} />
-                    {phenomenaData.map((entry, index) => (
-                        <Route path={'/phenomena/' + entry.id} element={<PhenomenaSite {...entry} />} key={index + 'page'} />
-                    ))}
-                </Routes>
+                <Navigation />
+                <Flex direction="column" flex="1" minW="0" width="100%">
+                    <Routes>
+                        <Route path="/" element={<StartingPage />} />
+                        <Route path='/lexikon' element={<Lexikon />} />
+                        <Route path='/phenomena' element={<Phenomena />} />
+                        <Route path='/impressum' element={<Impressum />} />
+                        <Route path='/data' element={<DataPage />} />
+                        <Route path='/station' element={<WeatherStationPage />} />
+                        <Route path='/models' element={<ModelsPage />} />
+                        <Route path='/analysis' element={<BenchmarkingLeaderboard />} />
+                        {phenomenaData.map((entry, index) => (
+                            <Route path={'/phenomena/' + entry.id} element={<PhenomenaSite {...entry} />} key={index + 'page'} />
+                        ))}
+                    </Routes>
+                </Flex>
             </Router>
             <CookieBanner></CookieBanner>
         </Flex>

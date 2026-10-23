@@ -74,6 +74,10 @@ export default function ForcastCard({
     // Before rendering, store the potential icon component in a variable
     const [currentWindIcon, setCurrentWeather] = useState<ComponentWithAs<"svg", IconProps> | null>(WindArrowIconComponent(windDirection));
 
+    const hourlyTimestamp = new Date();
+    hourlyTimestamp.setMinutes(0, 0, 0); // Auf die volle Stunde abrunden
+    const imageUrl = `https://www.dwd.de/DWD/forschung/luftchemie/chm15k_konstanz.png?v=${hourlyTimestamp.getTime()}`;
+
     return (
         <Card
             bg={useColor('primary')}
@@ -132,6 +136,9 @@ export default function ForcastCard({
                                     <Text fontSize={'s'}>{String(Math.round((rain || 0) * 10) / 10)}mm</Text>
                                 </Flex>
                             </Tooltip>
+
+
+
                         </>
                     )}
                 </Flex>

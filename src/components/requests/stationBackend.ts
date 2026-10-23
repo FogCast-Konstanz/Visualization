@@ -7,7 +7,24 @@ export type StationResponseFormat = {
     time: string,
     humidity: number,
     temperature: number,
-    water_temperature: number
+    water_temperature: number,
+    is_fallback?: boolean | string,
+    forecast_model?: string,
+    model_version?: string,
+    forecast_reason?: string,
+    forecast_quality?: string
+};
+
+export type FallbackDataFormat = {
+    timestamp: string,
+    temperature?: number,
+    humidity?: number,
+    water_temperature?: number,
+    is_fallback: boolean,
+    forecast_quality?: string,
+    forecast_model?: string,
+    model_version?: string,
+    forecast_reason?: string,
 };
 
 // Format of timestamps: 2024-05-22T23:59:59Z
@@ -25,6 +42,26 @@ export async function fetchStationData(startTime: Date, stopTime: Date): Promise
         return response.data
     } catch (error) {
         console.error("Error fetching actual data:", error);
+        return null
+    }
+};
+
+/**
+ * Fetch fallback forecast data (DWD-based predictions for periods when Raspberry Pi had no data)
+ */
+export async function fetchFallbackData(startTime: Date, stopTime: Date): Promise<FallbackDataFormat[] | null> {
+    const startString = formatStationDatetime(startTime);
+    const stopString = formatStationDatetime(stopTime);
+
+    try {
+        const response = await axios.get(`${BACKEND_API_URL}/weatherstation/fallback`, {
+            params: { start: startString, stop: stopString },
+            headers: { Accept: "application/json" },
+        });
+
+        return response.data
+    } catch (error) {
+        console.error("Error fetching fallback data:", error);
         return null
     }
 };
@@ -48,5 +85,20 @@ export function parseWeatherStationToXYFormat(response: StationResponseFormat[],
         x: response.map(entry => toUtcIsoString(new Date(entry.time))),
         y: response.map(entry => entry[value]),
         name: name ? name : value
+    };
+}
+
+/**
+ * Parse fallback forecast data to Plotly format (with dashed line styling)
+ */
+export function parseFallbackDataToXYFormat(response: FallbackDataFormat[], value: 'temperature' | 'water_temperature' | 'humidity', name?: string): PlotlyChartBasicFormat {
+    return {
+        x: response.map(entry => toUtcIsoString(new Date(entry.timestamp))),
+        y: response.map(entry => entry[value]),
+        name: name ? `${name} (Fallback)` : `${value} (Fallback)`,
+        line: {
+            dash: 'dash'  // Dashed line for forecast data
+        },
+        opacity: 0.7
     };
 }

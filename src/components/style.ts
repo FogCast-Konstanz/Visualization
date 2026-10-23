@@ -72,7 +72,7 @@ export const layoutConfig = {
 
     smallGap: '5px',
 
-    pageWidth: 'calc(100vw - 250px)',
+    pageWidth: '100%',
     pageHeight: '100dvh',
 
     borderRadius: '15px',

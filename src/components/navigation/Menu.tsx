@@ -20,15 +20,16 @@ export default function Settings() {
         <>
             <Flex
                 width={'fit-content'}
-                margin={{ lg: '0', base: layoutConfig.margin }}
+                margin={{ lg: '0', base: '0 10px' }}
                 gap={layoutConfig.gap}
+                flexShrink={0}
             >
                 <CustomSelect
                     defaultValue={i18n.language}
                     onChange={(value) => onChangeLang(value)}
                     options={LANGUAGES}
                 />
-                <Button onClick={toggleColorMode}>
+                <Button onClick={toggleColorMode} aria-label="Toggle color mode">
                     {colorMode === 'light' ? <SunIcon /> : <MoonIcon />}
                 </Button>
             </Flex >

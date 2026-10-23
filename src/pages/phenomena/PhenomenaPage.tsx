@@ -14,7 +14,7 @@ export default function Phenomena() {
     const phenomena2: phenomenaType[] = t('phenomena', { returnObjects: true, ns: 'phenomena' }) as phenomenaType[]
 
     return (
-        <Flex padding={layoutConfig.padding} direction={'column'} gap={layoutConfig.gap} overflow="auto" maxHeight={'100dvh'} ml={layoutConfig.margin}>
+        <Flex padding={layoutConfig.padding} direction={'column'} gap={layoutConfig.gap} overflow="auto" maxHeight={'100dvh'} ml={layoutConfig.margin} width='calc(100% - 20px)' minW="0">
             <Introduction header={t('phenomena.title')} text={t('phenomena.introduction')}></Introduction>
 
             <Flex gap={layoutConfig.gap} wrap={'wrap'}>

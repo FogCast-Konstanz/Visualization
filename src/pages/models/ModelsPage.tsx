@@ -182,7 +182,7 @@ export default function ModelsPage() {
     }
 
     return (
-        <Flex direction='column' gap={layoutConfig.gap} margin={layoutConfig.margin} width={{ lg: '100%' }} maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
+        <Flex direction='column' gap={layoutConfig.gap} margin={layoutConfig.margin} width='calc(100% - 20px)' minW="0" maxHeight={'calc(100dvh - 20px)'} overflowY={'auto'}>
             <Card
                 bg={useColor('background')}
                 color={useColor('text')}

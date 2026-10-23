@@ -47,6 +47,7 @@ export default function Navigation() {
         <>
             <Flex
                 display={{ lg: 'flex', base: 'none' }}
+                flexShrink={0}
                 height={layoutConfig.navBar.height}
                 width={layoutConfig.navBar.width}
                 padding={layoutConfig.padding}
@@ -105,8 +106,12 @@ export default function Navigation() {
             <Flex
                 display={{ lg: 'none', base: 'flex' }}
                 direction='row'
+                alignItems="center"
                 justify={'space-between'}
-                width={'100vw'}
+                width={'100%'}
+                minW={0}
+                minH="64px"
+                flexShrink={0}
                 position={'sticky'}
                 top={'0'}
                 zIndex={'1'}
@@ -145,7 +150,9 @@ export default function Navigation() {
                         ))}
                     </MenuList>
                 </Menu>
-                <Link href='/'><Heading size="2xl">{t('title')}</Heading></Link>
+                <Link href='/' minW={0} overflow="hidden" whiteSpace="nowrap">
+                    <Heading size={{ base: 'lg', sm: 'xl' }} overflow="hidden" textOverflow="ellipsis">{t('title')}</Heading>
+                </Link>
 
                 <Settings></Settings>
             </Flex>

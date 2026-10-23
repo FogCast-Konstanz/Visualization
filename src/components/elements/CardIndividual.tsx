@@ -33,7 +33,7 @@ export default function CardIndividual({ header, body }: Input) {
             color={useColor('text')}
             width={'100%'} >
             <CardHeader paddingBottom={'0'}>
-                <Heading size='lg'>{header}</Heading>
+                <Heading size='lg' overflowWrap="anywhere">{header}</Heading>
                 {/* <Text>{description}</Text> */}
             </CardHeader>
             <CardBody>

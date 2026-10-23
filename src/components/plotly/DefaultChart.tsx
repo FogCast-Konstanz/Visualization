@@ -15,6 +15,7 @@ interface PlotlyChartProps {
     yAxis?: string;
     y2Axis?: string;
     title?: string;
+    titleContent?: React.ReactNode;
     showNow?: boolean;
 
     startFromZero?: boolean
@@ -29,7 +30,7 @@ interface PlotlyChartProps {
 type orientation = "h" | "v" | undefined
 
 
-const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', showNow = false, startFromZero = true, isDay, movingShape, dateFormat, tooltip }) => {
+const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customStyle, xAxis = '', yAxis = '', y2Axis = null, title = '', titleContent, showNow = false, startFromZero = true, isDay, movingShape, dateFormat, tooltip }) => {
     const theme = useTheme();
 
     useEffect(() => {
@@ -226,7 +227,13 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
 
         const shapes = [...nowShape, ...additionalMovingShape, ...isDayShape]
 
-        setLayout({ ...defaultLayout, shapes, ...customLayout });
+        setLayout({
+            ...defaultLayout,
+            ...customLayout,
+            xaxis: { ...defaultLayout.xaxis, ...(customLayout?.xaxis ?? {}) },
+            yaxis: { ...defaultLayout.yaxis, ...(customLayout?.yaxis ?? {}) },
+            yaxis2: { ...defaultLayout.yaxis2, ...(customLayout?.yaxis2 ?? {}) },
+        });
     }, [customLayout, isDay, showNow, movingShape]);
 
     return (
@@ -241,7 +248,10 @@ const PlotlyChart: React.FC<PlotlyChartProps> = ({ data, customLayout, customSty
                         // title="Tooltip text here"
                         margin={'10px'}
                     >
-                        {title}
+                        <Flex alignItems="center" justifyContent="center" gap={2}>
+                            {title}
+                            {titleContent}
+                        </Flex>
                     </Text>
                 </PopoverTrigger>
                 {

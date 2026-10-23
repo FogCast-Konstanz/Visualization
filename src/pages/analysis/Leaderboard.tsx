@@ -62,8 +62,8 @@ export default function LeaderboardTable({ data, timeRangeLabel }: LeaderboardTa
 	];
 
 	return (
-		<Box maxW="full" p={layoutConfig.padding} borderWidth="1px" borderRadius={layoutConfig.borderRadius} boxShadow="md">
-			<Table variant="simple" size="sm">
+		<Box maxW="full" p={layoutConfig.padding} borderWidth="1px" borderRadius={layoutConfig.borderRadius} boxShadow="md" overflowX="auto">
+			<Table variant="simple" size="sm" minW="760px">
 				<Thead>
 					<Tr>
 						{columnHeaders.map((header) => (

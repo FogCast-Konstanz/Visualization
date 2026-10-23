@@ -72,7 +72,7 @@ export default function Lexikon() {
 
 
     return (
-        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={layoutConfig.margin} gap={layoutConfig.gap} width={{ lg: '100%' }} pr={layoutConfig.padding}>
+        <Flex direction='column' overflow="auto" maxHeight={'calc(100dvh - 20px)'} margin={layoutConfig.margin} gap={layoutConfig.gap} width='calc(100% - 20px)' minW="0" pr={layoutConfig.padding}>
             <Flex direction={{ lg: 'row', base: 'column' }} alignItems={{ lg: 'center', base: 'flex-start' }} justifyContent='space-between'>
                 <Card
                     bg={useColor('background')}

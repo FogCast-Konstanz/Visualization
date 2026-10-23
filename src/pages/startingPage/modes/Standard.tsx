@@ -1,4 +1,4 @@
-import { Button, Card, Flex, Heading } from '@chakra-ui/react'
+import { Button, Card, Flex, Heading, Text } from '@chakra-ui/react'
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { FaTemperatureHalf, FaWater } from "react-icons/fa6"
@@ -57,7 +57,6 @@ export default function StandardMode() {
     useEffect(() => {
         handleScroll();
     }, [forecast])
-
 
     async function fetchActualWeatherData() {
         const weather = await fetchActualWeather();
@@ -286,6 +285,7 @@ export default function StandardMode() {
                     />
                     : <OrbitProgress color={loadingColor} size="medium" />}
             </Flex>
+
         </Flex>
     )
 }

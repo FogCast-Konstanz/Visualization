@@ -49,7 +49,7 @@ export default function StartingPage() {
     ];
 
     return (
-        <Flex direction='column' width={{ lg: layoutConfig.pageWidth, base: 'calc(100vw - 20px)' }} gap={layoutConfig.gap} margin={layoutConfig.margin} maxWidth={'100%'} overflow={'hidden'} overflowY={'auto'} height={'calc(100dvh - 20px)'}>
+        <Flex direction='column' width='calc(100% - 20px)' gap={layoutConfig.gap} margin={layoutConfig.margin} maxWidth={'100%'} overflow={'hidden'} overflowY={'auto'} height={'calc(100dvh - 20px)'}>
             <Flex justifyContent={'space-between'} alignItems={'center'}>
                 <Heading>{t('startingPage.title')}</Heading>
 
@@ -68,4 +68,3 @@ export default function StartingPage() {
         </Flex>
     );
 }
-

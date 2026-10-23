@@ -9,7 +9,7 @@ export default function Impressum() {
     const { t } = useTranslation();
 
     return (
-        <VStack width={'100%'} padding={layoutConfig.padding} overflow="auto" maxHeight={layoutConfig.pageHeight} gap={layoutConfig.gap}>
+        <VStack width='calc(100% - 20px)' minW="0" padding={layoutConfig.padding} overflow="auto" maxHeight={layoutConfig.pageHeight} gap={layoutConfig.gap}>
             <Introduction header={t('impressum.title')} text=''></Introduction>
             {/* <Heading size='lg'></Heading> */}
             <Card
