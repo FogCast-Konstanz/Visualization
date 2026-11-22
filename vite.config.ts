@@ -6,11 +6,25 @@ export default defineConfig({
     plugins: [
         react()
     ],
-    server: {
-        watch: {
-            usePolling: true,
+    
+server: {
+    proxy: {
+        "/api": {
+            target: "http://127.0.0.1:8000",
+            changeOrigin: true,
+            rewrite: path => path.replace(/^\/api/, ""),
+        },
+        "/cronjob": {
+            target: "http://127.0.0.1:5001",
+            changeOrigin: true,
+            rewrite: path => path.replace(/^\/cronjob/, ""),
         },
     },
+    watch: {
+        usePolling: true,
+    },
+},
+
     define: {
         global: 'globalThis',
     },
