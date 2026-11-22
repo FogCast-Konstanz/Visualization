@@ -306,6 +306,7 @@ export default function StatusPage() {
                             spacing={3}
                         >
                             {components.map(({ key, title }) => {
+                            if (!report) return null;
                                 const value: HealthComponent =
                                     report.components[key];
 
