@@ -1,41 +1,93 @@
 
-import { Badge, Flex } from '@chakra-ui/react';
+import { Badge, Flex, Link } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
-import { fetchServerStatus } from '../requests/statusBackend';
+import {
+    fetchSystemStatus,
+    platformStatus,
+    type HealthState
+} from '../requests/statusBackend';
 import { layoutConfig } from '../style';
 
+const colors: Record<HealthState, string> = {
+    ok: 'green',
+    warning: 'yellow',
+    error: 'red',
+    unknown: 'gray'
+};
 
-export default function StatusBadge() {
+const labels: Record<HealthState, string> = {
+    ok: 'Verfügbar',
+    warning: 'Eingeschränkt',
+    error: 'Störung',
+    unknown: 'Unbekannt'
+};
 
-    const [status, setStatus] = useState<'running' | 'down' | 'unreachable'>('running');
+const compactLabels: Record<HealthState, string> = {
+    ok: 'OK',
+    warning: 'Teilw.',
+    error: 'Fehler',
+    unknown: '?'
+};
+
+export default function StatusBadge({
+    compact = false
+}: {
+    compact?: boolean
+}) {
+    // Vor der ersten erfolgreichen Prüfung niemals grün anzeigen.
+    const [status, setStatus] = useState<HealthState>('unknown');
 
     useEffect(() => {
-        checkStatus();
-        const interval = setInterval(checkStatus, 5000); // Auto-refresh
+        let active = true;
 
-        return () => clearInterval(interval);
+        async function checkStatus() {
+            const report = await fetchSystemStatus();
+
+            if (active) {
+                setStatus(platformStatus(report));
+            }
+        }
+
+        void checkStatus();
+
+        // Status alle 60 Sekunden aktualisieren.
+        const interval = window.setInterval(
+            () => void checkStatus(),
+            60000
+        );
+
+        return () => {
+            active = false;
+            window.clearInterval(interval);
+        };
     }, []);
 
-    async function checkStatus() {
-        const tempStatus = await fetchServerStatus();
-        setStatus(tempStatus);
-        return true;
-    }
-
     return (
-        <>
-            <Flex
-                p={layoutConfig.padding}
-                borderRadius={layoutConfig.borderRadius}
-                align="center"
-                justify="center"
+        <Flex
+            p={layoutConfig.padding}
+            align="center"
+            justify="center"
+        >
+            <Link
+                href="/status"
+                aria-label={
+                    `Systemstatus: ${labels[status]}. Details öffnen.`
+                }
             >
-                <Badge colorScheme={status == 'running' ? "green" : status == 'down' ? "red" : 'orange'} fontSize="md">
-                    Server {status.toUpperCase()}
+                <Badge
+                    colorScheme={colors[status]}
+                    fontSize="sm"
+                    px={3}
+                    py={1}
+                    borderRadius="full"
+                >
+                    {compact
+                        ? compactLabels[status]
+                        : `System: ${labels[status]}`}
                 </Badge>
-            </Flex>
-        </>
-    )
+            </Link>
+        </Flex>
+    );
 }
 
 
