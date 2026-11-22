@@ -3,7 +3,9 @@ export const LANGUAGES = [
     { label: "English", code: "en" },
 ];
 
-export const BACKEND_API_URL = (import.meta.env.VITE_BACKEND_BASE_URL ?? "http://localhost:80") + "/api";
-export const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL ?? "http://localhost:80";
+
+export const BACKEND_API_URL = (import.meta.env.VITE_BACKEND_BASE_URL ?? "") + "/api";
+export const BACKEND_URL = import.meta.env.VITE_BACKEND_BASE_URL ?? "";
+
 
 console.info('Backend-URL: ', BACKEND_URL);
