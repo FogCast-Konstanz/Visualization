@@ -16,6 +16,9 @@ import Phenomena from './pages/phenomena/PhenomenaPage';
 import StartingPage from './pages/startingPage/StartingPage';
 import WeatherStationPage from './pages/station/WeatherStationPage';
 
+import StatusPage from './pages/status/StatusPage';
+
+
 function App() {
     const { i18n, t } = useTranslation()
     const phenomenaData: phenomenaType[] = t('phenomena', { returnObjects: true, ns: 'phenomena' }) as phenomenaType[]
@@ -41,6 +44,9 @@ function App() {
                         <Route path='/impressum' element={<Impressum />} />
                         <Route path='/data' element={<DataPage />} />
                         <Route path='/station' element={<WeatherStationPage />} />
+                        
+                        <Route path='/status' element={<StatusPage />} />
+                        
                         <Route path='/models' element={<ModelsPage />} />
                         <Route path='/analysis' element={<BenchmarkingLeaderboard />} />
                         {phenomenaData.map((entry, index) => (

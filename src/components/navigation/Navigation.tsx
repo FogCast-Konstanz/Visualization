@@ -2,7 +2,9 @@ import { HamburgerIcon } from '@chakra-ui/icons';
 import { Box, Flex, Heading, Icon, IconButton, Image, Link, ListItem, Menu, MenuButton, MenuItem, MenuList, Text, UnorderedList, useColorModeValue } from '@chakra-ui/react';
 import { useTranslation } from 'react-i18next';
 import { FaDatabase } from "react-icons/fa";
-import { FaBolt, FaBook, FaChartSimple, FaCircleInfo, FaRankingStar, FaSatellite } from "react-icons/fa6";
+
+import { FaBolt, FaBook, FaChartSimple, FaCircleInfo, FaHeartPulse, FaRankingStar, FaSatellite } from "react-icons/fa6";
+
 import { GoHomeFill } from "react-icons/go";
 import { useLocation } from 'react-router-dom';
 import { layoutConfig, useColor } from '../style';
@@ -34,6 +36,9 @@ export default function Navigation() {
                 { name: t('navigation.phenomena'), href: '/phenomena', icon: FaBolt },
                 { name: t('navigation.lexikon'), href: '/lexikon', icon: FaBook },
                 { name: t('impressum.title'), href: '/impressum', icon: FaCircleInfo },
+                
+                { name: 'Systemstatus', href: '/status', icon: FaHeartPulse },
+
             ],
         },
     ];
@@ -153,6 +158,8 @@ export default function Navigation() {
                 <Link href='/' minW={0} overflow="hidden" whiteSpace="nowrap">
                     <Heading size={{ base: 'lg', sm: 'xl' }} overflow="hidden" textOverflow="ellipsis">{t('title')}</Heading>
                 </Link>
+
+                <StatusBadge compact />
 
                 <Settings></Settings>
             </Flex>
