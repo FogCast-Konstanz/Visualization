@@ -84,11 +84,13 @@ function StateBadge({
 
 function StatusTile({
     title,
+    description,
     state,
     message,
     latestAt
 }: {
     title: string;
+    description?: string;
     state: HealthState;
     message: string;
     latestAt?: string | null;
@@ -111,11 +113,25 @@ function StatusTile({
                 wrap="wrap"
                 mb={3}
             >
-                <Text fontWeight="bold">{title}</Text>
+                <Text fontWeight="bold">
+                    {title}
+                </Text>
+
                 <StateBadge status={state} />
             </Flex>
 
-            <Text fontSize="sm">{message}</Text>
+            {description && (
+                <Text
+                    fontSize="sm"
+                    mb={2}
+                >
+                    {description}
+                </Text>
+            )}
+
+            <Text fontSize="sm">
+                {message}
+            </Text>
 
             {latestAt && (
                 <Text fontSize="xs" mt={2}>
@@ -208,11 +224,17 @@ export default function StatusPage() {
             </Heading>
 
             <Text mb={5} fontSize="sm">
-                Verfügbarkeit und Aktualität der Wetterdaten.
-                Die Anzeige verwendet ausschließlich echte Prüfungen.
+                Hier sehen Sie, ob die FogCast-Systeme erreichbar
+                sind und ob aktuelle Wetterstationsdaten und
+                Wetterprognosen vorliegen.
             </Text>
 
-            <Flex align="center" gap={3} mb={6} wrap="wrap">
+            <Flex
+                align="center"
+                gap={3}
+                mb={6}
+                wrap="wrap"
+            >
                 <Button
                     size="sm"
                     onClick={() => void refresh()}
@@ -254,13 +276,15 @@ export default function StatusPage() {
                         mb={6}
                     >
                         <StatusTile
-                            title="Wetterplattform"
+                            title="Systemverfügbarkeit"
+                            description="Sind die technischen Dienste von FogCast erreichbar?"
                             state={summary.platform.status}
                             message={summary.platform.message}
                         />
 
                         <StatusTile
-                            title="Echte Wetterstationsdaten"
+                            title="Messdaten der Wetterstation"
+                            description="Liefert unsere Wetterstation aktuelle Messwerte?"
                             state={summary.station.status}
                             message={summary.station.message}
                             latestAt={summary.station.latest_at}
@@ -268,6 +292,7 @@ export default function StatusPage() {
 
                         <StatusTile
                             title="Wetterprognosen"
+                            description="Wie aktuell sind die verfügbaren Wettervorhersagen?"
                             state={summary.forecasts.status}
                             message={summary.forecasts.message}
                             latestAt={summary.forecasts.latest_at}
@@ -306,7 +331,8 @@ export default function StatusPage() {
                             spacing={3}
                         >
                             {components.map(({ key, title }) => {
-                            if (!report) return null;
+                                if (!report) return null;
+
                                 const value: HealthComponent =
                                     report.components[key];
 
